@@ -9,6 +9,12 @@ Resolving tunnel and routing failures across VPN or ExpressRoute.
 | Tunnel State: Down | VPN Phase 1/2 mismatch. | Align IKE/IPSec Policy. |
 | MTU Issues | Fragmentation drops. | Clamp MSS or lower MTU. |
 
+| Validation Point | View | Success Criteria |
+| --- | --- | --- |
+| Tunnel health | Gateway connection status | Tunnel status is Connected. |
+| Route learning | Effective routes and BGP tables | On-prem prefixes are present. |
+| Path continuity | Connection troubleshoot | Probe reaches on-prem target. |
+
 ```mermaid
 graph TD
     User[Cloud to On-Prem] --> Tunnel[Tunnel Status Up?]
@@ -20,6 +26,12 @@ graph TD
 
 !!! note
     Verify how far the packet travels by using `tracert` or Azure's Packet Capture tool on the Gateway.
+
+## See Also
+
+- [Hybrid Connectivity Basics](../platform/hybrid-connectivity-basics.md)
+- [VPN and ExpressRoute Basics](../operations/vpn-and-expressroute-basics.md)
+- [Hybrid Connectivity Best Practices](../best-practices/hybrid-connectivity-best-practices.md)
 
 ## Sources
 

@@ -36,6 +36,15 @@ graph LR
     Connectivity --> Hybrid[VPN / ER]
 ```
 
+!!! note
+    Terms may overlap across Azure services; always confirm exact behavior in the linked product documentation.
+
+## See Also
+
+- [Azure Networking Components](./azure-networking-components.md)
+- [Overview](../start-here/overview.md)
+- [Platform Index](../platform/index.md)
+
 ## Sources
 
 - [Azure Virtual Network terminology](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview)

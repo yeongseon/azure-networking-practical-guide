@@ -21,6 +21,20 @@ graph LR
 !!! note
     Hybrid DNS is often the most complex part of a hybrid setup. Consider using Azure DNS Private Resolvers to bridge queries between on-premises and Azure Private DNS Zones.
 
+## Connectivity Planning Matrix
+
+| Constraint | Preferred Option | Planning Focus |
+| --- | --- | --- |
+| Rapid deployment | VPN Gateway | Shared key, tunnel stability, routing |
+| Deterministic latency | ExpressRoute | Circuit provider, redundancy, failover |
+| Mixed branch and core workloads | VPN + ExpressRoute | Route preference and segmentation |
+
+## See Also
+
+- [Hybrid Connectivity Best Practices](../best-practices/hybrid-connectivity-best-practices.md)
+- [VPN and ExpressRoute Basics](../operations/vpn-and-expressroute-basics.md)
+- [Hybrid Connectivity Issues](../troubleshooting/hybrid-connectivity-issues.md)
+
 ## Sources
 
 - [About VPN Gateway](https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-about-vpngateways)

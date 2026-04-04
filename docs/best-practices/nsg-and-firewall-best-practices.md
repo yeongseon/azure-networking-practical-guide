@@ -21,6 +21,18 @@ graph TD
 !!! tip
     Always check Effective Security Rules in the Azure Portal or via CLI to see the final resulting policy applied to a NIC.
 
+## Validation Checks
+
+| Check | Expected Result |
+| :--- | :--- |
+| NSG rule review | Deny-by-default and explicit allow rules only |
+| Firewall log review | Required flows allowed and denied flows justified |
+
+## See Also
+- [Network Security Basics](../platform/network-security-basics.md)
+- [Configure NSG](../operations/configure-nsg.md)
+- [NSG vs UDR vs Firewall](../troubleshooting/nsg-vs-udr-vs-firewall.md)
+
 ## Sources
 
 - [Azure network security best practices](https://learn.microsoft.com/en-us/azure/security/fundamentals/network-best-practices)

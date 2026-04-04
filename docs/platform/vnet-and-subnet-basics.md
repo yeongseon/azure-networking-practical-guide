@@ -28,6 +28,15 @@ graph TD
     S3 --> PE[Private Endpoint]
 ```
 
+!!! note
+    Reserve subnet capacity for platform services early to avoid redesigns when adding gateways, firewall, bastion, or private endpoints.
+
+## See Also
+
+- [IP Addressing](ip-addressing.md)
+- [Subnet Design Best Practices](../best-practices/subnet-design-best-practices.md)
+- [Create VNet and Subnets](../operations/create-vnet-and-subnets.md)
+
 ## Sources
 
 - [Azure Virtual Network concepts](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview)

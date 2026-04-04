@@ -21,6 +21,18 @@ graph TD
 !!! note
     Don't confuse routing issues with NSG issues. Use Network Watcher "Next Hop" to verify the route path before checking security rules.
 
+## Validation Checks
+
+| Check | Expected Result |
+| :--- | :--- |
+| Effective routes | Expected UDR/BGP/system route selected for each prefix |
+| Return path test | No asymmetric routing for inspected traffic |
+
+## See Also
+- [Routing Basics](../platform/routing-basics.md)
+- [Configure UDR](../operations/configure-udr.md)
+- [Routing Cheatsheet](../reference/routing-cheatsheet.md)
+
 ## Sources
 
 - [Virtual network traffic routing](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview)

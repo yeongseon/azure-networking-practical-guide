@@ -24,6 +24,12 @@ graph TD
 !!! note
     Public IP Basic SKU is being retired. It's recommended to use Standard SKU for all new deployments as it provides zone-redundancy and high availability.
 
+## See Also
+
+- [VNet and Subnet Basics](vnet-and-subnet-basics.md)
+- [DNS Basics](dns-basics.md)
+- [Azure Networking Components](../reference/azure-networking-components.md)
+
 ## Sources
 
 - [Public IP address types and methods](https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/public-ip-addresses)

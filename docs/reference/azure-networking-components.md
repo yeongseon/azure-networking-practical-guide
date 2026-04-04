@@ -35,6 +35,15 @@ graph TD
     Bastion[Azure Bastion] --> Subnet
 ```
 
+!!! warning
+    Component limits vary by SKU, region, and subscription quotas; validate current limits before production rollout.
+
+## See Also
+
+- [How Azure Networking Works](../platform/how-azure-networking-works.md)
+- [VNet and Subnet Basics](../platform/vnet-and-subnet-basics.md)
+- [Glossary](./glossary.md)
+
 ## Sources
 
 - [Azure Virtual Network concepts](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview)

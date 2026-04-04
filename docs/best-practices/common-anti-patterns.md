@@ -23,6 +23,21 @@ graph TD
     F --> G
 ```
 
+!!! warning
+    Anti-patterns compound quickly. Validate DNS, routing, and security controls together before production rollout.
+
+## Quick Guardrails
+
+| Guardrail | Expected Outcome |
+| :--- | :--- |
+| Pre-change validation checklist | Fewer production regressions during network changes |
+| Post-change observability checks | Faster detection of route, DNS, and policy drift |
+
+## See Also
+- [Network Design Baseline](../best-practices/network-design-baseline.md)
+- [Subnet Design Best Practices](../best-practices/subnet-design-best-practices.md)
+- [Troubleshooting Index](../troubleshooting/index.md)
+
 ## Sources
 
 - [Common Azure deployment errors](https://learn.microsoft.com/en-us/azure/azure-resource-manager/troubleshooting/common-deployment-errors)

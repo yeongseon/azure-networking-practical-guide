@@ -9,6 +9,12 @@ Isolating performance bottlenecks in the network path.
 | Backend Saturation | Spikes during Load. | Check NIC Throttling. |
 | ISP / Provider | Random Packet Loss. | Check ExpressRoute MSEE. |
 
+| Measurement | Tool | Interpretation |
+| --- | --- | --- |
+| Round-trip time | Connection Monitor | Compare to known baseline. |
+| Hop latency | Traceroute path | Find where delay increases. |
+| Loss percentage | Continuous probe tests | Identify sustained vs burst loss. |
+
 ```mermaid
 graph TD
     User[Client] -- RTT --> LB[Load Balancer]
@@ -19,6 +25,12 @@ graph TD
 
 !!! note
     Separate network latency (ping/RTT) from application latency (HTTP response time) during triage.
+
+## See Also
+
+- [Monitor Network Paths](../operations/monitor-network-paths.md)
+- [Observability Best Practices](../best-practices/observability-best-practices.md)
+- [Intermittent Network Failures](./intermittent-network-failures.md)
 
 ## Sources
 

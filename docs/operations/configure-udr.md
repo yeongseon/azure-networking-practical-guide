@@ -25,6 +25,12 @@ graph TD
 !!! warning
     UDRs can create asymmetric routing if the return path isn't managed. Traffic might be blocked by stateful firewalls.
 
+## See Also
+
+- [Routing Basics](../platform/routing-basics.md)
+- [Routing Best Practices](../best-practices/routing-best-practices.md)
+- [Routing Cheatsheet](../reference/routing-cheatsheet.md)
+
 ## Sources
 
 - [Virtual network traffic routing](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview)

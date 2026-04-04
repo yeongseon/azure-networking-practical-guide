@@ -1,6 +1,7 @@
 # Best Practices
 
-Explore the core recommendations for designing, implementing, and maintaining Azure Networking environments. These practices align with the Microsoft Cloud Adoption Framework (CAF) and Well-Architected Framework (WAF).
+!!! note
+    Explore the core recommendations for designing, implementing, and maintaining Azure Networking environments. These practices align with the Microsoft Cloud Adoption Framework (CAF) and Well-Architected Framework (WAF).
 
 | Page | Description |
 | :--- | :--- |
@@ -30,7 +31,6 @@ graph TD
     D --> D2[Observability]
     D --> D3[Cost]
 ```
-
 ## Key Implementation Checklist
 
 Before moving a network design into production, ensure these high-level best practices are verified:
@@ -46,6 +46,9 @@ Before moving a network design into production, ensure these high-level best pra
 - [ ] Azure Bastion is deployed for secure management access.
 - [ ] Cost monitoring is configured in Microsoft Cost Management.
 
+## See Also
+- [Learning Path](../start-here/learning-path.md)
+- [Network Design Baseline](../best-practices/network-design-baseline.md)
 ## Sources
 
 - [Microsoft Azure Well-Architected Framework - Network design](https://learn.microsoft.com/en-us/azure/well-architected/service-guides/azure-virtual-network)

@@ -9,6 +9,12 @@ VNet Peering connects two virtual networks with low latency.
 | Allow Forwarded | Allows traffic from other peers. | Needed for Hub-Spoke. |
 | Gateway Transit | Allows peer to use local gateway. | Only one side can use it. |
 
+| Verification | Checkpoint | Expected Result |
+| --- | --- | --- |
+| Peering state | Both peerings show Connected | Bidirectional reachability ready. |
+| Address space | No overlap between VNets | Route propagation succeeds. |
+| Effective routes | Peer prefixes visible on NIC | Traffic can target remote CIDR. |
+
 ```mermaid
 graph LR
     VNetA[VNet A] -- Peering -- VNetB[VNet B]
@@ -18,6 +24,12 @@ graph LR
 
 !!! note
     Peering is non-transitive by default. To reach VNet C from VNet A via VNet B, you need an NVA or VPN Gateway.
+
+## See Also
+
+- [How Azure Networking Works](../platform/how-azure-networking-works.md)
+- [Peering and Routing Issues](../troubleshooting/peering-and-routing-issues.md)
+- [Configure UDR](./configure-udr.md)
 
 ## Sources
 

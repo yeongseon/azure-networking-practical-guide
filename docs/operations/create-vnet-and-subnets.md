@@ -29,6 +29,12 @@ graph LR
 !!! note
     Avoid large address spaces like /8 to prevent future IP exhaustion in peering or hybrid scenarios.
 
+## See Also
+
+- [VNet and Subnet Basics](../platform/vnet-and-subnet-basics.md)
+- [Subnet Design Best Practices](../best-practices/subnet-design-best-practices.md)
+- [Configure NSG](./configure-nsg.md)
+
 ## Sources
 
 - [Virtual network overview](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview)

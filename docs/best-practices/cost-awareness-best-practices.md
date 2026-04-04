@@ -25,7 +25,19 @@ graph LR
 !!! note
     Data transfer between regions and between availability zones (in some services) incurs costs. Always try to keep high-bandwidth workloads in the same region and zone.
 
+## Validation Checks
+
+| Check | Expected Result |
+| :--- | :--- |
+| Egress review | Cross-region and internet egress are tracked monthly |
+| SKU review | Gateway and firewall SKUs match measured throughput |
+
+## See Also
+- [Network Design Baseline](../best-practices/network-design-baseline.md)
+- [Connectivity Decision Guide](../reference/connectivity-decision-guide.md)
+- [Observability Best Practices](../best-practices/observability-best-practices.md)
+
 ## Sources
 
-- [Azure bandwidth pricing](https://azure.microsoft.com/en-us/pricing/details/bandwidth/)
+- [Azure bandwidth pricing](https://learn.microsoft.com/en-us/azure/bandwidth/bandwidth-pricing)
 - [Plan and manage costs for Azure Firewall](https://learn.microsoft.com/en-us/azure/firewall/firewall-cost-management)

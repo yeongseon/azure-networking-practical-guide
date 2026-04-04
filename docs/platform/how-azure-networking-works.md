@@ -23,6 +23,12 @@ graph LR
 !!! note
     Azure uses a massive global backbone network. Traffic between Azure regions stays on this backbone and does not traverse the public internet unless explicitly configured.
 
+## See Also
+
+- [VNet and Subnet Basics](vnet-and-subnet-basics.md)
+- [Routing Basics](routing-basics.md)
+- [Network Security Basics](network-security-basics.md)
+
 ## Sources
 
 - [Azure network security fundamentals](https://learn.microsoft.com/en-us/azure/security/fundamentals/network-best-practices)

@@ -24,6 +24,18 @@ graph TD
 !!! tip
     Start with a simple VNet but ensure the address space is large enough. A /16 or /20 is common for primary landing zones to avoid fragmentation.
 
+## Validation Checks
+
+| Check | Expected Result |
+| :--- | :--- |
+| Address overlap review | No overlap across hub, spokes, and on-premises |
+| Subnet reservation review | Reserved ranges for future platform services |
+
+## See Also
+- [How Azure Networking Works](../platform/how-azure-networking-works.md)
+- [Subnet Design Best Practices](../best-practices/subnet-design-best-practices.md)
+- [Cost Awareness Best Practices](../best-practices/cost-awareness-best-practices.md)
+
 ## Sources
 
 - [Plan for virtual networks](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-vnet-plan-design-arm)

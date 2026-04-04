@@ -24,6 +24,12 @@ graph TD
 !!! note
     Use the "Effective Routes" tool in the Azure portal for any network interface to troubleshoot why traffic is taking a specific path.
 
+## See Also
+
+- [Routing Best Practices](../best-practices/routing-best-practices.md)
+- [Configure User-Defined Routes](../operations/configure-udr.md)
+- [Routing Cheatsheet](../reference/routing-cheatsheet.md)
+
 ## Sources
 
 - [Azure virtual network traffic routing](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview)

@@ -9,6 +9,12 @@ Troubleshooting connectivity between peered virtual networks.
 | Gateway Mismatch | Transit/Remote gateway misconfigured. | Update Transit settings. |
 | CIDR Conflict | Overlapping address spaces. | Change VNet CIDR (destructive). |
 
+| Verification | Tool | Expected State |
+| --- | --- | --- |
+| Peering settings | Portal peering blade | Matching allow-forwarded and transit flags. |
+| Effective routes | NIC route table | Remote CIDRs visible and active. |
+| Reachability | Connection troubleshoot | End-to-end test succeeds. |
+
 ```mermaid
 graph TD
     P[Peering Check] --> State[Peering State: Connected?]
@@ -20,6 +26,12 @@ graph TD
 
 !!! note
     Check BOTH sides of the peering. Peering requires two independent configurations that must align to function.
+
+## See Also
+
+- [Peering Basics](../operations/peering-basics.md)
+- [Routing Basics](../platform/routing-basics.md)
+- [Routing Cheatsheet](../reference/routing-cheatsheet.md)
 
 ## Sources
 

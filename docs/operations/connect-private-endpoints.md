@@ -9,6 +9,12 @@ Private Endpoints allow secure access to Azure Services over a private IP.
 | 3 | Link DNS Zone to Virtual Network. | [ ] |
 | 4 | Verify local DNS resolution. | [ ] |
 
+| Validation | Method | Expected Result |
+| --- | --- | --- |
+| FQDN lookup | `nslookup <service-fqdn>` | Private endpoint IP returned. |
+| Route check | Effective routes on source NIC | Prefix points to VNet path. |
+| Port test | `Test-NetConnection -Port 443` | TCP connection succeeds. |
+
 ```mermaid
 graph LR
     VNet[Consumer VNet] --> PE[Private Endpoint]
@@ -18,6 +24,12 @@ graph LR
 
 !!! warning
     Test DNS resolution before disabling public access. If resolution fails, your applications will lose connectivity.
+
+## See Also
+
+- [Private Connectivity Options](../platform/private-connectivity-options.md)
+- [Private Endpoint Best Practices](../best-practices/private-endpoint-best-practices.md)
+- [Cannot Reach Private Endpoint](../troubleshooting/cannot-reach-private-endpoint.md)
 
 ## Sources
 

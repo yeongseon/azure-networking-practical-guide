@@ -20,6 +20,18 @@ graph LR
 !!! warning
     Avoid mixing public and private resolution without a clear forwarding plan. This can lead to intermittent failures if the wrong server answers first.
 
+## Validation Checks
+
+| Check | Expected Result |
+| :--- | :--- |
+| Private endpoint lookup | FQDN resolves to private IP from all required VNets |
+| Hybrid forwarding | On-prem and Azure conditional forwarders are symmetric |
+
+## See Also
+- [DNS Basics](../platform/dns-basics.md)
+- [Configure DNS](../operations/configure-dns.md)
+- [DNS Resolution Failures](../troubleshooting/dns-resolution-failures.md)
+
 ## Sources
 
 - [Azure Private DNS documentation](https://learn.microsoft.com/en-us/azure/dns/private-dns-privatednszone)

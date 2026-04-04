@@ -22,6 +22,18 @@ graph TD
 !!! note
     Hybrid connectivity choice depends on bandwidth and reliability needs. VPN uses internet tunnels, while ExpressRoute provides a dedicated circuit.
 
+## Decision Checks
+
+- Use Private Endpoint when access must stay off public internet.
+- Use ExpressRoute for predictable latency and private transport.
+- Use Global VNet Peering for Azure-to-Azure multi-region workloads.
+
+## See Also
+
+- [Load Balancing Options](../platform/load-balancing-options.md)
+- [Private Connectivity Options](../platform/private-connectivity-options.md)
+- [Hybrid Connectivity Basics](../platform/hybrid-connectivity-basics.md)
+
 ## Sources
 
 - [Azure Architecture Center: Choose a hybrid networking solution](https://learn.microsoft.com/en-us/azure/architecture/guide/networking/hybrid-networking)

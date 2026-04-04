@@ -22,6 +22,18 @@ graph TD
 !!! warning
     A Private Endpoint without correct DNS is unusable. Applications will continue attempting to connect to the public IP if they cannot resolve the private IP.
 
+## Validation Checks
+
+| Check | Expected Result |
+| :--- | :--- |
+| DNS validation | Service FQDN resolves to private endpoint IP |
+| Public access lock-down | Public network access disabled after cutover |
+
+## See Also
+- [Private Connectivity Options](../platform/private-connectivity-options.md)
+- [Connect Private Endpoints](../operations/connect-private-endpoints.md)
+- [Cannot Reach Private Endpoint](../troubleshooting/cannot-reach-private-endpoint.md)
+
 ## Sources
 
 - [What is an Azure Private Endpoint?](https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview)

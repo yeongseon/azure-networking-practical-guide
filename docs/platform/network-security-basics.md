@@ -21,6 +21,20 @@ graph LR
 !!! note
     NSG rules are processed in priority order (lowest number first). Once a match is found, no further rules are processed. Default rules are always at the end with the highest numbers.
 
+## Security Control Placement
+
+| Placement | Primary Control | Typical Outcome |
+| --- | --- | --- |
+| Edge ingress | DDoS + WAF | Reduced attack surface |
+| Network transit | Azure Firewall | Centralized policy enforcement |
+| Workload subnet | NSG | Least-privilege east-west filtering |
+
+## See Also
+
+- [NSG and Firewall Best Practices](../best-practices/nsg-and-firewall-best-practices.md)
+- [Configure Network Security Groups](../operations/configure-nsg.md)
+- [NSG vs UDR vs Firewall](../troubleshooting/nsg-vs-udr-vs-firewall.md)
+
 ## Sources
 
 - [Azure network security overview](https://learn.microsoft.com/en-us/azure/networking/fundamentals/networking-overview#network-security)

@@ -9,6 +9,12 @@ Advanced tools for deep network investigation.
 | Next Hop | Verify routing table entry. | Next Hop IP. |
 | Connection Troubleshoot | TCP handshake check. | Success/Fail. |
 
+| Triage Order | Diagnostic | Purpose |
+| --- | --- | --- |
+| 1 | IP Flow Verify | Confirm allow/deny decision. |
+| 2 | Next Hop | Confirm selected route path. |
+| 3 | Packet Capture | Inspect packets and retransmits. |
+
 ```mermaid
 graph TD
     Issue[Issue Reported] --> Flow[IP Flow Verify]
@@ -20,6 +26,12 @@ graph TD
 
 !!! tip
     Always use "IP Flow Verify" and "Next Hop" before initiating a full packet capture to save time.
+
+## See Also
+
+- [Monitor Network Paths](./monitor-network-paths.md)
+- [Observability Best Practices](../best-practices/observability-best-practices.md)
+- [Intermittent Network Failures](../troubleshooting/intermittent-network-failures.md)
 
 ## Sources
 

@@ -21,6 +21,20 @@ graph LR
 !!! warning
     Service Endpoints do NOT change DNS. Traffic is routed privately, but the client still resolves the public IP of the service. Private Endpoints change DNS resolution to the private IP assigned to the endpoint.
 
+## Selection Checklist
+
+| Requirement | Prefer | Rationale |
+| --- | --- | --- |
+| Strict private IP dependency | Private Endpoint | Private address target on client side |
+| Minimal DNS changes | Service Endpoint | Route policy without name changes |
+| App Service outbound private access | VNet Integration | Private egress path from app runtime |
+
+## See Also
+
+- [Private Endpoint Best Practices](../best-practices/private-endpoint-best-practices.md)
+- [Connect Private Endpoints](../operations/connect-private-endpoints.md)
+- [Private Connectivity Options Reference](../reference/private-connectivity-options.md)
+
 ## Sources
 
 - [What is Azure Private Link?](https://learn.microsoft.com/en-us/azure/private-link/private-link-overview)

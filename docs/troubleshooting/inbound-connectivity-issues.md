@@ -9,6 +9,12 @@ Resolving access failures for services exposed to the internet or VNet.
 | Firewall Rule | Firewall drops packet. | Add DNAT / Application Rule. |
 | Frontend IP | Resource unreachable. | Verify Public IP assignment. |
 
+| Verification | Tool | Pass Condition |
+| --- | --- | --- |
+| Frontend listener | `curl` or browser test | Expected response code returned. |
+| Probe path | Load Balancer or gateway diagnostics | Backend marked Healthy. |
+| Security policy | Effective NSG and firewall logs | Allow rule matches flow. |
+
 ```mermaid
 graph TD
     Client[Request] --> Front[Frontend IP]
@@ -21,6 +27,12 @@ graph TD
 
 !!! tip
     Verify health probe status in the Load Balancer or Application Gateway metrics before checking OS firewall.
+
+## See Also
+
+- [Network Security Basics](../platform/network-security-basics.md)
+- [Configure NSG](../operations/configure-nsg.md)
+- [NSG vs UDR vs Firewall](./nsg-vs-udr-vs-firewall.md)
 
 ## Sources
 

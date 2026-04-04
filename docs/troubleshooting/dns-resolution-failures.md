@@ -9,6 +9,12 @@ Addressing naming resolution issues in VNets.
 | Timeout | DNS Port 53 Blocked. | Check NSG / Firewall. |
 | Incorrect IP | Overlapping DNS Zones. | Review Zone precedence. |
 
+| Quick Check | Where to Inspect | Success Criteria |
+| --- | --- | --- |
+| Client DNS server | NIC or OS resolver settings | Expected DNS server is active. |
+| Zone link | Private DNS zone virtual network links | Correct VNet appears linked. |
+| Forwarders | Custom DNS conditional forwarding | Rule points to Azure resolver path. |
+
 ```mermaid
 graph TD
     Client[Query Name] --> Server[Check DNS Server IP]
@@ -20,6 +26,12 @@ graph TD
 
 !!! note
     Check which DNS server the client is using with `ipconfig /all` or `cat /etc/resolv.conf`.
+
+## See Also
+
+- [DNS Basics](../platform/dns-basics.md)
+- [Configure DNS](../operations/configure-dns.md)
+- [DNS Resolution Cheatsheet](../reference/dns-resolution-cheatsheet.md)
 
 ## Sources
 

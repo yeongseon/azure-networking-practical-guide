@@ -22,6 +22,18 @@ graph TD
 !!! tip
     Narrow down the problem to DNS, Route, Port, or Listener before initiating a complex packet capture. Most issues are found in the first three layers.
 
+## Validation Checks
+
+| Check | Expected Result |
+| :--- | :--- |
+| Connection Monitor scope | Critical paths covered with baseline latency |
+| Flow logs retention | Sufficient retention for incident investigation |
+
+## See Also
+- [Monitor Network Paths](../operations/monitor-network-paths.md)
+- [Packet Capture and Diagnostics](../operations/packet-capture-and-diagnostics.md)
+- [Latency and Packet Loss](../troubleshooting/latency-and-packet-loss.md)
+
 ## Sources
 
 - [What is Azure Network Watcher?](https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-overview)

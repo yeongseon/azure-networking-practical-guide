@@ -22,6 +22,18 @@ graph TD
 !!! note
     Migration from Service Endpoints to Private Endpoints is recommended for enhanced security, as PEs provide a private IP within your VNet and granular resource access.
 
+## Selection Checks
+
+- Choose PE for per-resource isolation and private IP-based access.
+- Choose SE when service-level restriction is acceptable and cost must stay minimal.
+- Use VNet Integration for outbound app connectivity from App Service and Functions.
+
+## See Also
+
+- [Private Connectivity Options](../platform/private-connectivity-options.md)
+- [Private Endpoint Best Practices](../best-practices/private-endpoint-best-practices.md)
+- [Connect Private Endpoints](../operations/connect-private-endpoints.md)
+
 ## Sources
 
 - [What is Azure Private Endpoint?](https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview)

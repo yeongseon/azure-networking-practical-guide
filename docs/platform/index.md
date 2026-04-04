@@ -25,6 +25,15 @@ graph TD
     E --> H[Private Connectivity]
 ```
 
+!!! tip
+    Start with VNet and subnet design first, then validate routing, security, and DNS in that order before selecting connectivity patterns.
+
+## See Also
+
+- [Start Here Overview](../start-here/overview.md)
+- [How Azure Networking Works](how-azure-networking-works.md)
+- [VNet and Subnet Basics](vnet-and-subnet-basics.md)
+
 ## Sources
 
 - [Azure Virtual Network concepts](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview)

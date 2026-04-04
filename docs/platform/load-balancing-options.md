@@ -20,6 +20,15 @@ graph TD
     Q3 -->|L4| ALB[Azure Load Balancer]
 ```
 
+!!! tip
+    Start with traffic scope (global or regional), then choose by protocol layer (L7 HTTP/S or L4 TCP/UDP) to narrow the correct load-balancing service quickly.
+
+## See Also
+
+- [How Azure Networking Works](how-azure-networking-works.md)
+- [Connectivity Decision Guide](../reference/connectivity-decision-guide.md)
+- [Private Connectivity Options](private-connectivity-options.md)
+
 ## Sources
 
 - [Load-balancing options in Azure](https://learn.microsoft.com/en-us/azure/architecture/guide/technology-choices/load-balancing-overview)

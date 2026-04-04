@@ -23,6 +23,18 @@ graph LR
 !!! note
     Verify route advertisements in both directions using the "BGP Peers" or "Route Table" view in the Azure Portal to confirm that expected ranges are present.
 
+## Validation Checks
+
+| Check | Expected Result |
+| :--- | :--- |
+| Prefix validation | Advertised prefixes match approved address plan |
+| Failover drill | Backup path restores connectivity within target RTO |
+
+## See Also
+- [Hybrid Connectivity Basics](../platform/hybrid-connectivity-basics.md)
+- [VPN and ExpressRoute Basics](../operations/vpn-and-expressroute-basics.md)
+- [Hybrid Connectivity Issues](../troubleshooting/hybrid-connectivity-issues.md)
+
 ## Sources
 
 - [Choose a solution for connecting an on-premises network to Azure](https://learn.microsoft.com/en-us/azure/architecture/reference-architectures/hybrid-networking/)

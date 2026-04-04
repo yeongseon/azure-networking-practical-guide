@@ -9,6 +9,12 @@ Visibility into traffic flow and path performance.
 | Traffic Analytics | Visualizing flow patterns. | Geo-map, Security. |
 | Network Watcher | Resource diagnostic tools. | IP Flow, Next Hop. |
 
+| Monitoring Signal | Threshold Example | Action |
+| --- | --- | --- |
+| Latency increase | RTT > baseline + 30% | Compare hop-level path changes. |
+| Packet loss | Loss > 1% sustained | Inspect provider path and NSG drops. |
+| Flow anomaly | Unexpected deny spikes | Review recent policy updates. |
+
 ```mermaid
 graph TD
     Agent[Agent/VM] -- Test --> Target[Resource/URL]
@@ -18,6 +24,12 @@ graph TD
 
 !!! tip
     Establish baseline metrics for latency and packet loss before making significant network changes.
+
+## See Also
+
+- [Observability Best Practices](../best-practices/observability-best-practices.md)
+- [Packet Capture and Diagnostics](./packet-capture-and-diagnostics.md)
+- [Latency and Packet Loss](../troubleshooting/latency-and-packet-loss.md)
 
 ## Sources
 

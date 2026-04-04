@@ -2,6 +2,9 @@
 
 Reference section for the Azure Networking Practical Guide. Use these pages for quick lookup of components, routing, and DNS behavior.
 
+!!! tip
+    Use this section for fast lookups, then jump to platform and operations pages for implementation details.
+
 | Page | Description |
 | :--- | :--- |
 | Connectivity Decision Guide | Recommended approach based on scenario requirements. |
@@ -20,6 +23,12 @@ graph TD
     Ref --> PRIV[Private Connectivity]
     Ref --> GLOS[Glossary]
 ```
+
+## See Also
+
+- [Connectivity Decision Guide](./connectivity-decision-guide.md)
+- [Glossary](./glossary.md)
+- [Learning Path](../start-here/learning-path.md)
 
 ## Sources
 

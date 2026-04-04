@@ -27,6 +27,15 @@ graph TD
     PrivZone -- No --> Public[Public DNS Result]
 ```
 
+!!! note
+    DNS changes are not immediate for every client; cached entries can delay observed results.
+
+## See Also
+
+- [DNS Basics](../platform/dns-basics.md)
+- [DNS Best Practices](../best-practices/dns-best-practices.md)
+- [Configure DNS](../operations/configure-dns.md)
+
 ## Sources
 
 - [Azure DNS Private Zones documentation](https://learn.microsoft.com/en-us/azure/dns/private-dns-overview)

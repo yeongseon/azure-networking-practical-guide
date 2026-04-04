@@ -29,6 +29,12 @@ graph TD
 !!! warning
     Rule priority ordering matters. A "Deny" rule with higher priority (lower number) will block traffic even if an "Allow" rule exists at priority 200.
 
+## See Also
+
+- [Network Security Basics](../platform/network-security-basics.md)
+- [NSG and Firewall Best Practices](../best-practices/nsg-and-firewall-best-practices.md)
+- [NSG vs UDR vs Firewall](../troubleshooting/nsg-vs-udr-vs-firewall.md)
+
 ## Sources
 
 - [Network Security Groups overview](https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview)

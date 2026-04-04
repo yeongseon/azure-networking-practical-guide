@@ -24,6 +24,18 @@ graph LR
 !!! warning
     Avoid over-fragmentation. Creating too many small subnets can lead to complex routing and management overhead. Aim for at least /24 for generic app subnets.
 
+## Validation Checks
+
+| Check | Expected Result |
+| :--- | :--- |
+| Gateway subnet size | Meets SKU minimum and growth headroom |
+| Private endpoint subnet policy | Matches intended NSG/UDR policy behavior |
+
+## See Also
+- [VNet and Subnet Basics](../platform/vnet-and-subnet-basics.md)
+- [Create VNet and Subnets](../operations/create-vnet-and-subnets.md)
+- [Network Design Baseline](../best-practices/network-design-baseline.md)
+
 ## Sources
 
 - [Azure virtual network subnet design](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-vnet-plan-design-arm#subnets)

@@ -23,6 +23,15 @@ graph TD
     Connectivity --> Monitoring[Monitor & Audit]
 ```
 
+!!! tip
+    Run changes in this order: addressing, security, routing, connectivity, then monitoring validation.
+
+## See Also
+
+- [Learning Path](../start-here/learning-path.md)
+- [Create VNet and Subnets](./create-vnet-and-subnets.md)
+- [Troubleshooting Overview](../troubleshooting/index.md)
+
 ## Sources
 
 - [Azure Virtual Network documentation](https://learn.microsoft.com/en-us/azure/virtual-network/)

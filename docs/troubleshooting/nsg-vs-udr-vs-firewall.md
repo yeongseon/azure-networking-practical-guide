@@ -9,6 +9,12 @@ Understanding the order of packet evaluation in Azure.
 | Firewall | 3/4/7 | Deep Inspection / DNAT / FQDN. |
 | Listener | 4-7 | Service socket (OS Firewall). |
 
+| Decision Point | Check | Outcome |
+| --- | --- | --- |
+| Route selection | Effective routes | Determines path target first. |
+| Security filtering | NSG and firewall policy | Determines allow or deny. |
+| Service handling | App listener and host firewall | Determines final response. |
+
 ```mermaid
 graph LR
     P[Packet Out] --> R[Route/UDR]
@@ -19,6 +25,12 @@ graph LR
 
 !!! tip
     Use "Effective Routes" and "Effective Security Rules" on the VM's NIC in the portal to see final evaluated policies.
+
+## See Also
+
+- [Network Security Basics](../platform/network-security-basics.md)
+- [Routing Basics](../platform/routing-basics.md)
+- [Configure NSG](../operations/configure-nsg.md)
 
 ## Sources
 

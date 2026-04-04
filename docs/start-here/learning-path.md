@@ -24,6 +24,12 @@ graph TD
 !!! tip
     If you're in an urgent "outage" situation, skip the learning paths and head directly to [Troubleshooting](../troubleshooting/index.md).
 
+## See Also
+
+- [Overview](overview.md)
+- [Platform Fundamentals](../platform/index.md)
+- [Best Practices](../best-practices/index.md)
+
 ## Sources
 - [Azure Networking Fundamentals](https://learn.microsoft.com/en-us/training/modules/azure-networking-fundamentals/)
 - [Microsoft Learn Training Path](https://learn.microsoft.com/en-us/training/browse/?products=azure-networking)

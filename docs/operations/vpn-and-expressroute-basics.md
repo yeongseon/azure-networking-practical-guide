@@ -9,6 +9,12 @@ Hybrid connectivity extends on-premises networks to Azure.
 | Latency | Higher / Variable | Low / Predictable |
 | SLA | 99.9% - 99.95% | 99.9% - 99.95% |
 
+| Readiness Check | VPN | ExpressRoute |
+| --- | --- | --- |
+| Routing protocol | Optional static or BGP | BGP expected for scale |
+| Edge dependency | Internet ISP stability | Provider circuit health |
+| Common validation | Tunnel or circuit state is Up | Learned routes are present |
+
 ```mermaid
 graph LR
     OnPrem[On-Premises] -- ISP/MSEE -- Gate[Azure Gateway]
@@ -18,6 +24,12 @@ graph LR
 
 !!! note
     A gateway subnet size of /27 is recommended to allow for future growth and avoid IP exhaustion.
+
+## See Also
+
+- [Hybrid Connectivity Basics](../platform/hybrid-connectivity-basics.md)
+- [Hybrid Connectivity Best Practices](../best-practices/hybrid-connectivity-best-practices.md)
+- [Hybrid Connectivity Issues](../troubleshooting/hybrid-connectivity-issues.md)
 
 ## Sources
 

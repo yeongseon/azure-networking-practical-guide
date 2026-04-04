@@ -26,6 +26,12 @@ graph TD
 !!! note
     Scenario selection depends on your compliance requirements. A simple internet-facing app may only need a public IP, whereas a highly secure enterprise app will likely use Hub-Spoke with Firewall.
 
+## See Also
+
+- [Create VNet and Subnets](../operations/create-vnet-and-subnets.md)
+- [Connect Private Endpoints](../operations/connect-private-endpoints.md)
+- [Troubleshooting Index](../troubleshooting/index.md)
+
 ## Sources
 - [Azure Networking Scenarios](https://learn.microsoft.com/en-us/azure/architecture/guide/networking/architecture-overview)
 - [Hub-Spoke Topology](https://learn.microsoft.com/en-us/azure/architecture/reference-architectures/hybrid-networking/hub-spoke)

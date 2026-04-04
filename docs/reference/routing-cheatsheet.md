@@ -28,6 +28,15 @@ graph TD
     System --> Int[Internet]
 ```
 
+!!! tip
+    Validate effective routes on NICs after UDR or BGP changes to confirm expected next hop selection.
+
+## See Also
+
+- [Routing Basics](../platform/routing-basics.md)
+- [Routing Best Practices](../best-practices/routing-best-practices.md)
+- [Configure UDR](../operations/configure-udr.md)
+
 ## Sources
 
 - [Azure Virtual Network routing overview](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview)

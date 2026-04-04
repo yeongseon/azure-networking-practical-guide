@@ -9,6 +9,12 @@ Diagnosing network issues that occur randomly.
 | Specific Protocol | Isolate TCP vs UDP vs ICMP. | Connection Monitor. |
 | Client-specific | Cross-check other clients. | Agent-based Test. |
 
+| Correlation Check | Data Source | Useful Signal |
+| --- | --- | --- |
+| Time-based spikes | Metrics timeline | Failures align with load changes. |
+| DNS behavior | Resolver logs | Name flaps or cache expiry events. |
+| Port allocation | SNAT and connection counters | Exhaustion pattern appears. |
+
 ```mermaid
 graph TD
     Issue[Intermittent Loss] --> Scope[Persistent vs Random?]
@@ -20,6 +26,12 @@ graph TD
 
 !!! note
     Distinguish DNS flapping (cache expiration) from connection pool issues (SNAT exhaustion) when debugging.
+
+## See Also
+
+- [Monitor Network Paths](../operations/monitor-network-paths.md)
+- [Packet Capture and Diagnostics](../operations/packet-capture-and-diagnostics.md)
+- [Latency and Packet Loss](./latency-and-packet-loss.md)
 
 ## Sources
 
