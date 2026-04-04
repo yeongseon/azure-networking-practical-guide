@@ -1,0 +1,27 @@
+# Packet Capture and Diagnostics
+
+Advanced tools for deep network investigation.
+
+| Tool | Primary Use Case | Outcome |
+| --- | --- | --- |
+| Packet Capture | Wireshark-compatible PCAP files. | Full Payload. |
+| IP Flow Verify | Check if NSG allows traffic. | Rule Match. |
+| Next Hop | Verify routing table entry. | Next Hop IP. |
+| Connection Troubleshoot | TCP handshake check. | Success/Fail. |
+
+```mermaid
+graph TD
+    Issue[Issue Reported] --> Flow[IP Flow Verify]
+    Flow -- Deny --> NSG[Fix Rule]
+    Flow -- Allow --> Hop[Next Hop Verify]
+    Hop -- Incorrect --> Route[Fix UDR]
+    Hop -- Correct --> PCAP[Full Packet Capture]
+```
+
+!!! tip
+    Always use "IP Flow Verify" and "Next Hop" before initiating a full packet capture to save time.
+
+## Sources
+
+- [Use Network Watcher to troubleshoot connections](https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-connectivity-portal)
+- [Variable packet capture in Azure](https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-packet-capture-overview)

@@ -1,0 +1,27 @@
+# Peering and Routing Issues
+
+Troubleshooting connectivity between peered virtual networks.
+
+| Issue | Cause | Fix |
+| --- | --- | --- |
+| State: Disconnected | Peering was deleted on one side. | Re-create peering on both sides. |
+| Non-transitive | Using a chain of VNets (A-B-C). | Use VPN/NVA in Hub (B). |
+| Gateway Mismatch | Transit/Remote gateway misconfigured. | Update Transit settings. |
+| CIDR Conflict | Overlapping address spaces. | Change VNet CIDR (destructive). |
+
+```mermaid
+graph TD
+    P[Peering Check] --> State[Peering State: Connected?]
+    State -- No --> Sync[Sync / Re-create]
+    State -- Yes --> Route[System Routes in Portal?]
+    Route -- No --> Forward[Enable Forwarded Traffic]
+    Route -- Yes --> NSG[NSG Allowing Peer CIDR?]
+```
+
+!!! note
+    Check BOTH sides of the peering. Peering requires two independent configurations that must align to function.
+
+## Sources
+
+- [Troubleshoot virtual network peering](https://learn.microsoft.com/en-us/azure/virtual-network/troubleshoot-peering)
+- [How to configure transit for peering](https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-peering-gateway-transit)

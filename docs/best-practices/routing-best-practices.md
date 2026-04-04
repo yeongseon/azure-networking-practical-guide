@@ -1,0 +1,27 @@
+# Routing Best Practices
+
+Control traffic flow within your VNets and to external destinations using User-Defined Routes (UDRs). Proper routing prevents asymmetric flows and unexpected traffic drops.
+
+| Do | Don't |
+| :--- | :--- |
+| Use UDRs for Hub-and-Spoke NVA traffic | Use UDRs for every single subnet without a reason |
+| Plan for Gateway Propagation | Forget that BGP routes override system routes |
+| Check for Asymmetric Routing | Send traffic to an NVA without a return route |
+| Monitor Next-Hop validity | Ignore the Routing Evaluation Order |
+
+```mermaid
+graph TD
+    A[Traffic Ingress] --> B{Check UDRs}
+    B -- Match --> C[Follow UDR]
+    B -- No Match --> D{Check BGP Routes}
+    D -- Match --> E[Follow BGP]
+    D -- No Match --> F[System Default Route]
+```
+
+!!! note
+    Don't confuse routing issues with NSG issues. Use Network Watcher "Next Hop" to verify the route path before checking security rules.
+
+## Sources
+
+- [Virtual network traffic routing](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview)
+- [Diagnose a virtual network routing problem](https://learn.microsoft.com/en-us/azure/virtual-network/diagnose-network-routing-problem)
