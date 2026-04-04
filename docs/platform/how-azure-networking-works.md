@@ -32,4 +32,4 @@ graph LR
 ## Sources
 
 - [Azure network security fundamentals](https://learn.microsoft.com/en-us/azure/security/fundamentals/network-best-practices)
-- [VNet architecture and design](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/virtual-network-device-configuration-and-requirements)
+- [VNet architecture and design](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/network-topology-and-connectivity)

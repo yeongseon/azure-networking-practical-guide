@@ -32,4 +32,4 @@ graph TD
 
 ## Sources
 - [Azure Networking Diagnostics](https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-connectivity-overview)
-- [Troubleshoot Virtual Network Connections](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-troubleshoot-connectivity)
+- [Troubleshoot Virtual Network Connections](https://learn.microsoft.com/en-us/azure/network-watcher/connection-troubleshoot-overview)

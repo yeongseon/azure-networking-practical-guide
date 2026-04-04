@@ -41,4 +41,4 @@ graph TD
 ## Sources
 
 - [Common Azure deployment errors](https://learn.microsoft.com/en-us/azure/azure-resource-manager/troubleshooting/common-deployment-errors)
-- [Microsoft Cloud Adoption Framework - Governance](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/govern/guides/standard/network-security)
+- [Microsoft Cloud Adoption Framework - Security design area](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/security)

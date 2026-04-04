@@ -36,4 +36,4 @@ graph TD
 ## Sources
 
 - [Troubleshoot VPN Gateway connections](https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-troubleshoot-site-to-site-cannot-connect)
-- [Troubleshoot ExpressRoute connectivity](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-troubleshooting-connectivity-problems)
+- [Troubleshoot ExpressRoute performance and connectivity](https://learn.microsoft.com/en-us/troubleshoot/azure/expressroute/expressroute-troubleshooting-network-performance)

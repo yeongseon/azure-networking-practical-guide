@@ -33,5 +33,5 @@ graph TD
 - [Troubleshooting Index](../troubleshooting/index.md)
 
 ## Sources
-- [Azure Networking Scenarios](https://learn.microsoft.com/en-us/azure/architecture/guide/networking/architecture-overview)
+- [Azure Networking Scenarios](https://learn.microsoft.com/en-us/azure/architecture/networking/)
 - [Hub-Spoke Topology](https://learn.microsoft.com/en-us/azure/architecture/reference-architectures/hybrid-networking/hub-spoke)

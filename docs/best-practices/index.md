@@ -51,5 +51,5 @@ Before moving a network design into production, ensure these high-level best pra
 - [Network Design Baseline](../best-practices/network-design-baseline.md)
 ## Sources
 
-- [Microsoft Azure Well-Architected Framework - Network design](https://learn.microsoft.com/en-us/azure/well-architected/service-guides/azure-virtual-network)
+- [Microsoft Azure Well-Architected Framework - Network design](https://learn.microsoft.com/en-us/azure/well-architected/service-guides/virtual-network)
 - [Azure landing zone design principles](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-principles)

@@ -35,4 +35,4 @@ graph TD
 ## Sources
 
 - [Test network latency between VMs](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-test-latency)
-- [Monitor ExpressRoute performance](https://learn.microsoft.com/en-us/azure/expressroute/expressroute-monitoring-metrics)
+- [Monitor ExpressRoute performance](https://learn.microsoft.com/en-us/azure/expressroute/monitor-expressroute)

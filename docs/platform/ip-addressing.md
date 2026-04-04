@@ -6,23 +6,22 @@ Azure uses a flexible IP addressing scheme for both private and public communica
 | --- | --- | --- | --- |
 | Private Dynamic | DHCP from subnet. | Freed on VM stop/deallocate. | General compute. |
 | Private Static | User-defined from subnet. | Persists until deleted. | Domain controllers, DNS servers. |
-| Public Dynamic | Assigned from Azure pool. | Changes on resource restart. | Basic web services. |
+| Public Dynamic | Assigned from Azure pool. | Changes if deallocated/reassigned. | Legacy scenarios only. |
 | Public Static | Fixed from Azure pool. | Persists across restarts. | VPN gateways, Firewalls. |
 
 ```mermaid
 graph TD
     A[New IP Request] --> B{IP Type?}
-    B -->|Public| C{SKU?}
+    B -->|Public| C[Standard SKU]
     B -->|Private| D[Assigned via DHCP]
-    C -->|Standard| E[Static Only]
-    C -->|Basic| F[Dynamic/Static]
+    C --> E[Static allocation]
     E --> G[Resource (NIC/LB)]
-    F --> G
     D --> G
 ```
 
 !!! note
-    Basic SKU public IPs were retired on 30 Sep 2025. Use Standard SKU for all new deployments as it provides zone-redundancy and high availability.
+    Basic SKU public IPs were retired on 30 Sep 2025. Use Standard SKU for all deployments.
+    Dynamic public IP behavior is tied to deallocation/reassignment events, not a simple reboot.
 
 ## See Also
 

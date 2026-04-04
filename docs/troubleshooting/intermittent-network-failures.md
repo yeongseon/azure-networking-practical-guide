@@ -35,5 +35,5 @@ graph TD
 
 ## Sources
 
-- [Identify and troubleshoot intermittent connectivity](https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-troubleshoot-intermittent-connectivity)
+- [Troubleshoot VPN Gateway configurations and connections](https://learn.microsoft.com/en-us/troubleshoot/azure/vpn-gateway/vpn-gateway-troubleshoot)
 - [Monitor with Azure Monitor Network Insights](https://learn.microsoft.com/en-us/azure/network-watcher/network-insights-overview)

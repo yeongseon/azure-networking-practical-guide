@@ -35,5 +35,5 @@ graph TD
 
 ## Sources
 
-- [Troubleshoot virtual network peering](https://learn.microsoft.com/en-us/azure/virtual-network/troubleshoot-peering)
+- [Troubleshoot virtual network peering](https://learn.microsoft.com/en-us/troubleshoot/azure/virtual-network/virtual-network-troubleshoot-peering-issues)
 - [How to configure transit for peering](https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-peering-gateway-transit)

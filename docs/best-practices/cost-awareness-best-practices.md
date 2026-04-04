@@ -39,6 +39,6 @@ graph LR
 
 ## Sources
 
-- [Azure bandwidth pricing](https://learn.microsoft.com/en-us/azure/bandwidth/bandwidth-pricing)
+- [Public IP addresses in Azure (pricing)](https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/public-ip-addresses#pricing)
 - [Azure Load Balancer overview](https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-overview)
-- [Plan and manage costs for Azure Firewall](https://learn.microsoft.com/en-us/azure/firewall/firewall-cost-management)
+- [Choose the right Azure Firewall SKU to meet your needs](https://learn.microsoft.com/en-us/azure/firewall/choose-firewall-sku)

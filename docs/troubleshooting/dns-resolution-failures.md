@@ -36,4 +36,4 @@ graph TD
 ## Sources
 
 - [Azure DNS troubleshooting guide](https://learn.microsoft.com/en-us/azure/dns/dns-troubleshoot)
-- [Troubleshoot Private DNS Zones](https://learn.microsoft.com/en-us/azure/dns/private-dns-troubleshoot-guide)
+- [Azure Private DNS overview](https://learn.microsoft.com/en-us/azure/dns/private-dns-overview)

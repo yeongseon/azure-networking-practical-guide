@@ -36,6 +36,6 @@ graph TD
 
 ## Sources
 
-- [Azure Architecture Center: Choose a hybrid networking solution](https://learn.microsoft.com/en-us/azure/architecture/guide/networking/hybrid-networking)
+- [Azure Architecture Center: Connect an on-premises network to Azure](https://learn.microsoft.com/en-us/azure/architecture/reference-architectures/hybrid-networking/)
 - [Azure Virtual Network concepts](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview)
 - [Azure Private Link documentation](https://learn.microsoft.com/en-us/azure/private-link/)

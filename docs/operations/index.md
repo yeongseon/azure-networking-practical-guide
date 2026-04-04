@@ -35,5 +35,5 @@ graph TD
 ## Sources
 
 - [Azure Virtual Network documentation](https://learn.microsoft.com/en-us/azure/virtual-network/)
-- [Azure Network Security documentation](https://learn.microsoft.com/en-us/azure/network-security/)
+- [Azure Network Security documentation](https://learn.microsoft.com/en-us/azure/networking/security/network-security)
 - [Azure Private Link documentation](https://learn.microsoft.com/en-us/azure/private-link/)
