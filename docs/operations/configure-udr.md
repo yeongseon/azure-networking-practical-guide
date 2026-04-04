@@ -16,10 +16,12 @@ User-Defined Routes (UDR) provide granular control over packet forwarding.
 
 ```mermaid
 graph TD
-    Packet[New Packet] --> Default[Check System Route]
-    Default --> UDR[Is UDR Defined?]
-    UDR -- Yes --> Overwrite[UDR Takes Precedence]
-    UDR -- No --> BGP[BGP / System Route Used]
+    Packet[New Packet] --> LPM[Longest Prefix Match]
+    LPM --> UDR{Matching UDR?}
+    UDR -- Yes --> UseUDR[Use UDR Next Hop]
+    UDR -- No --> BGP{Matching BGP Route?}
+    BGP -- Yes --> UseBGP[Use BGP Next Hop]
+    BGP -- No --> System[Use System Route]
 ```
 
 !!! warning

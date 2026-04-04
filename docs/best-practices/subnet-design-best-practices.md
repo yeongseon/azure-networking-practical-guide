@@ -22,7 +22,7 @@ graph LR
 ```
 
 !!! warning
-    Avoid over-fragmentation. Creating too many small subnets can lead to complex routing and management overhead. Aim for at least /24 for generic app subnets.
+    Avoid over-fragmentation. Creating too many small subnets can lead to complex routing and management overhead. Size subnets based on projected host count plus growth margin, and check Azure service-specific subnet requirements before sizing.
 
 ## Validation Checks
 

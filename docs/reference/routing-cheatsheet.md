@@ -2,12 +2,12 @@
 
 Quick reference for Azure Virtual Network routing precedence and next hop behavior.
 
-| Route Type | Precedence | Source | Behavior |
-| :--- | :--- | :--- | :--- |
-| System | 1 (Implicit) | Azure | Default routes for VNet, Internet, None |
-| UDR | 2 (Explicit) | Admin | User-defined overrides (highest priority) |
-| BGP | 3 (Dynamic) | ExpressRoute/VPN | Routes learned from on-premises |
-| Service | 4 (Implicit) | Private Link/SE | Routing to specific Azure PaaS |
+| Route Selection Rule | Priority | Details |
+| :--- | :--- | :--- |
+| Longest prefix match | 1 (highest) | Azure first selects the most specific matching prefix (for example, /24 over /16). |
+| UDR vs BGP vs System (equal prefixes) | 2 | If matching prefixes are identical, User-Defined Route (UDR) is preferred. |
+| BGP vs System (equal prefixes, no UDR) | 3 | If no UDR exists for that prefix, BGP-learned route is preferred over system route. |
+| System route fallback | 4 | Used when no UDR or BGP route with the same prefix is present. |
 
 | Next Hop Type | Description | Common Use Case |
 | :--- | :--- | :--- |

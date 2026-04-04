@@ -36,7 +36,7 @@ graph TD
 Before moving a network design into production, ensure these high-level best practices are verified:
 
 - [ ] IP Address ranges do not overlap with any connected on-premises or peered networks.
-- [ ] Subnets are sized correctly with room for growth (minimum /24 for app subnets).
+- [ ] Subnet sizes are planned for expected workload growth and Azure service requirements (some services need dedicated subnets with specific minimum sizes).
 - [ ] DNS resolution is tested from all VNets using Private DNS Zones.
 - [ ] NSGs are applied at the subnet level with least-privilege rules.
 - [ ] Network Watcher Flow Logs are enabled for all active subnets.

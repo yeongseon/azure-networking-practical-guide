@@ -6,7 +6,7 @@ Optimize your Azure Networking spend by choosing the right services and minimizi
 | :--- | :--- | :--- |
 | NAT Gateway | Hourly + Data | Consolidate to one per VNet. Use for outbound SNAT. |
 | Azure Firewall | Hourly + Data | Use in Hub. Avoid in every Spoke. Consider Basic tier. |
-| Load Balancer | Standard Fee + Data | Use Basic LB where allowed for free (non-HA). |
+| Load Balancer | Standard Fee + Data | Evaluate Standard LB pricing tiers; use NAT Gateway for outbound-only scenarios to reduce costs. |
 | ExpressRoute | Circuit + Port + Data | Choose Metered if data volume is low. |
 | VPN Gateway | Hourly + Data | Right-size SKU (e.g., VpnGw1 vs VpnGw2). |
 
@@ -40,4 +40,5 @@ graph LR
 ## Sources
 
 - [Azure bandwidth pricing](https://learn.microsoft.com/en-us/azure/bandwidth/bandwidth-pricing)
+- [Azure Load Balancer overview](https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-overview)
 - [Plan and manage costs for Azure Firewall](https://learn.microsoft.com/en-us/azure/firewall/firewall-cost-management)

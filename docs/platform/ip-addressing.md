@@ -22,7 +22,7 @@ graph TD
 ```
 
 !!! note
-    Public IP Basic SKU is being retired. It's recommended to use Standard SKU for all new deployments as it provides zone-redundancy and high availability.
+    Basic SKU public IPs were retired on 30 Sep 2025. Use Standard SKU for all new deployments as it provides zone-redundancy and high availability.
 
 ## See Also
 
