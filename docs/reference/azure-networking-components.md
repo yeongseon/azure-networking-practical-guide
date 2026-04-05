@@ -12,7 +12,7 @@ Comprehensive breakdown of core Azure networking resources and their primary fun
 | Public IP | Connectivity | 3 | Internet accessibility | Static or Dynamic |
 | Private Endpoint | Connectivity | 3 | Private access to PaaS | Uses IP from subnet |
 | Service Endpoint | Connectivity | 3 | Secure PaaS to VNet | No private IP assigned |
-| NAT Gateway | Connectivity | 4 | Outbound SNAT | 64k concurrent flows/IP |
+| NAT Gateway | Connectivity | 4 | Outbound SNAT | 64,512 SNAT ports per public IP |
 | Load Balancer | Delivery | 4 | Hash-based distribution | L4 only (TCP/UDP) |
 | App Gateway | Delivery | 7 | Web traffic management | WAF support |
 | Front Door | Delivery | 7 | Global CDN / App accel | Global service |
