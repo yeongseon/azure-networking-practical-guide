@@ -31,7 +31,7 @@ graph TD
     Validate effective routes on NICs after UDR or BGP changes to confirm expected next hop selection.
 
 !!! note
-    System routes for VNet, peering, and service endpoints are preferred and cannot be overridden.
+    Service endpoint system routes cannot be overridden. VNet and peering routes are preferred but can be overridden by UDRs in supported service chaining scenarios.
 
 ## See Also
 
