@@ -19,17 +19,19 @@ Quick reference for Azure Virtual Network routing precedence and next hop behavi
 
 ```mermaid
 graph TD
-    Packet[Packet Outbound] --> Eval{UDR Exists?}
-    Eval -- Yes --> Hop[Use UDR Next Hop]
-    Eval -- No --> BGP{BGP Learned?}
-    BGP -- Yes --> Hop
-    BGP -- No --> System[Use System Default]
-    System --> VNet[Local/Peered]
-    System --> Int[Internet]
+    Packet[Packet Outbound] --> Match[Find all matching routes]
+    Match --> LPM[Select longest prefix match]
+    LPM --> Equal{Multiple routes same prefix?}
+    Equal -- No --> Use[Use selected route]
+    Equal -- Yes --> Priority[Prefer UDR > BGP > system]
+    Priority --> Use
 ```
 
 !!! tip
     Validate effective routes on NICs after UDR or BGP changes to confirm expected next hop selection.
+
+!!! note
+    System routes for VNet, peering, and service endpoints are preferred and cannot be overridden.
 
 ## See Also
 

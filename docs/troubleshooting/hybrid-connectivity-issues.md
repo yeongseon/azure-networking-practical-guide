@@ -25,7 +25,7 @@ graph TD
 ```
 
 !!! note
-    Verify how far the packet travels by using `tracert` or Azure's Packet Capture tool on the Gateway.
+    Verify how far the packet travels using `tracert`. For VPN Gateway diagnostics, use TunnelDiagnosticLog, RouteDiagnosticLog, and IKEDiagnosticLog; Azure Network Watcher packet capture is for VMs only.
 
 ## See Also
 
