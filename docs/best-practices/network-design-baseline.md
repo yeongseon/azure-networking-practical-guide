@@ -7,7 +7,7 @@ Establish a robust foundation by following these core principles for Azure Virtu
 | Address Space | Plan for Growth | Use non-overlapping CIDR blocks. Allow for 100% expansion. |
 | Subnetting | Subnet by Purpose | Separate by role (Gateway, DMZ, App, Data) rather than department. |
 | Private First | Disable Public IP | Use Private Endpoints and Bastion for management traffic. |
-| DNS Strategy | Centralized DNS | Use Private DNS Zones linked to a hub VNet for resolution. |
+| DNS Strategy | Centralized DNS | Use Private DNS Zones linked to all VNets that require resolution, or use Azure DNS Private Resolver / custom DNS in the hub for centralized forwarding. |
 | Monitoring | Network Watcher | Enable VNet Flow Logs and Traffic Analytics in all active regions. |
 
 ```mermaid
