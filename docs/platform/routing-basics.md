@@ -5,7 +5,7 @@ Azure automatically creates system routes for each subnet in a VNet. User-Define
 | Next Hop Type | Description | Common Use Case |
 | --- | --- | --- |
 | Virtual Network | Traffic stays within the VNet. | Standard VNet communication. |
-| Internet | Traffic routed to the public internet. | Default outbound access. |
+| Internet | Traffic uses the Internet next hop when no more specific route matches. | Use an explicit outbound method (NAT Gateway, Standard LB outbound rules, public IP, or NVA/firewall); avoid default outbound access. |
 | Virtual Appliance | Traffic sent to a VM or Firewall. | Centralized inspection. |
 | VNet Gateway | Traffic sent to VPN/ExpressRoute. | Hybrid connectivity. |
 | None | Traffic is dropped. | Black-holing unwanted traffic. |

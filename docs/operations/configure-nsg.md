@@ -4,7 +4,7 @@ Network Security Groups provide distributed filtering for subnets and interfaces
 
 | Property | Example Value | Description |
 | --- | --- | --- |
-| Priority | 100 | Rules are processed from 100 to 65500. |
+| Priority | 100 | Custom NSG rule priorities range from 100 to 4096. Azure default rules use priorities 65000, 65001, and 65500. |
 | Source | VirtualNetwork | IP range, Service Tag, or ASG. |
 | Destination | Any | Target IP range or tag. |
 | Port | 443 | Destination port or range. |

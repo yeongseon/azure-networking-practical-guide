@@ -14,15 +14,8 @@ User-Defined Routes (UDR) provide granular control over packet forwarding.
 | NVA Routing | Send internet traffic through Firewall. |
 | Intra-VNet | Route traffic between subnets via NVA. |
 
-```mermaid
-graph TD
-    Packet[New Packet] --> LPM[Longest Prefix Match]
-    LPM --> UDR{Matching UDR?}
-    UDR -- Yes --> UseUDR[Use UDR Next Hop]
-    UDR -- No --> BGP{Matching BGP Route?}
-    BGP -- Yes --> UseBGP[Use BGP Next Hop]
-    BGP -- No --> System[Use System Route]
-```
+!!! note
+    Azure selects routes by longest prefix match across all applicable routes. If multiple routes have the same prefix, priority is UDR > BGP > system, except virtual network, peering, and service endpoint system routes are preferred.
 
 !!! warning
     UDRs can create asymmetric routing if the return path isn't managed. Traffic might be blocked by stateful firewalls.

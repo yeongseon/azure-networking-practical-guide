@@ -8,8 +8,8 @@ Separating workloads by role and applying specific policies to each subnet ensur
 | DMZ/NVA | DMZSubnet | Dedicated NSGs for external traffic. |
 | Application | AppSubnet | Apply NSG rules for tier isolation. |
 | Database | DataSubnet | No Public IPs. Restrict via Private Link. |
-| Management | AzureBastionSubnet | Min /26. No NSG on this subnet usually. |
-| Private Endpoints | PESubnet | Use /28 or /27. Disable NSG policies if not needed. |
+| Management | AzureBastionSubnet | Min /26. NSGs are supported; if applied, include all required Azure Bastion ingress and egress rules. |
+| Private Endpoints | PESubnet | Use /28 or /27. Private endpoint network policies are disabled by default; enable NSG and/or route table support on the subnet only when required. |
 
 ```mermaid
 graph LR

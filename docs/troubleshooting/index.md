@@ -36,4 +36,4 @@ graph TD
 ## Sources
 
 - [Troubleshoot network issues](https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-connectivity-overview)
-- [Microsoft Learn: Network Troubleshooting](https://learn.microsoft.com/en-us/training/modules/troubleshoot-azure-network-infrastructure/)
+- [Azure network monitoring and management documentation](https://learn.microsoft.com/en-us/azure/networking/monitoring-management/)

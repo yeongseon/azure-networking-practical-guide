@@ -5,7 +5,7 @@ Control traffic flow within your VNets and to external destinations using User-D
 | Do | Don't |
 | :--- | :--- |
 | Use UDRs for Hub-and-Spoke NVA traffic | Use UDRs for every single subnet without a reason |
-| Plan for Gateway Propagation | Forget that BGP routes override system routes |
+| Plan for Gateway Propagation | Forget that Azure first uses longest prefix match; when prefixes are equal, route priority is UDR > BGP > system. Virtual network, peering, and service endpoint system routes are preferred. |
 | Check for Asymmetric Routing | Send traffic to an NVA without a return route |
 | Monitor Next-Hop validity | Ignore the Routing Evaluation Order |
 

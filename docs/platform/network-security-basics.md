@@ -4,7 +4,7 @@ Azure network security is based on a zero-trust model, implementing multiple lay
 
 | Control | Layer | Scope | Key Feature |
 | --- | --- | --- | --- |
-| NSG | Layer 4 | Subnet/NIC | Statefull filtering. |
+| NSG | Layer 3/4 | Subnet/NIC | Stateful filtering. |
 | Azure Firewall | Layer 3/4/7 | Regional | FQDN filtering. |
 | WAF | Layer 7 | Global/Regional | OWASP protection. |
 | DDoS Protection | Layer 3/4 | Global | Traffic scrubbing. |

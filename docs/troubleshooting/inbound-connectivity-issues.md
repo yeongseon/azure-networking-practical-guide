@@ -36,5 +36,5 @@ graph TD
 
 ## Sources
 
-- [Troubleshoot Application Gateway connectivity](https://learn.microsoft.com/en-us/azure/application-gateway/troubleshoot-app-service-redirection-app-service-url)
+- [Troubleshoot common issues with Azure Application Gateway](https://learn.microsoft.com/en-us/troubleshoot/azure/application-gateway/welcome-app-gateway)
 - [Troubleshoot Load Balancer health probes](https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-troubleshoot-health-probe-status)
