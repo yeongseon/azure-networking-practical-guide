@@ -9,6 +9,11 @@ repo_url: https://github.com/yeongseon/azure-networking-practical-guide
 theme:
   name: material
   language: en
+  custom_dir: docs
+  favicon: assets/favicon.svg
+  logo: assets/logo.svg
+  icon:
+    repo: fontawesome/brands/github
   palette:
     - scheme: default
       primary: teal
@@ -34,14 +39,29 @@ theme:
     - content.code.annotate
     - content.tabs.link
 
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/mermaid-zoom.js
+
 plugins:
   - search
+  - minify:
+      minify_html: true
+
+validation:
+  nav:
+    omitted_files: warn
+  links:
+    not_found: warn
+    anchors: warn
+    absolute_links: warn
+    unrecognized_links: warn
 
 markdown_extensions:
-  - pymdownx.highlight:
-      anchor_linenums: true
-  - pymdownx.inlinehilite
-  - pymdownx.snippets
+  - admonition
+  - pymdownx.details
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
@@ -49,10 +69,14 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
-  - admonition
-  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.mark
   - attr_list
   - md_in_html
+  - pymdownx.emoji
   - tables
   - toc:
       permalink: true
