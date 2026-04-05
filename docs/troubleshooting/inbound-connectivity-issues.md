@@ -6,7 +6,7 @@ Resolving access failures for services exposed to the internet or VNet.
 | --- | --- | --- |
 | Health Probe Fail | Backends show Unhealthy. | Check Backend Service/Port. |
 | NSG Inbound Deny | Traffic dropped at NIC. | Add Inbound Allow Rule. |
-| Firewall Rule | Firewall drops packet. | Add DNAT / Application Rule. |
+| Firewall Rule | Firewall drops packet. | Add a DNAT rule for inbound publishing. Application rules don't apply to inbound; use WAF for HTTP/S filtering. |
 | Frontend IP | Resource unreachable. | Verify Public IP assignment. |
 
 | Verification | Tool | Pass Condition |

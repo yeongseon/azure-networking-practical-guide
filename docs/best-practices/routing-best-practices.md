@@ -9,14 +9,8 @@ Control traffic flow within your VNets and to external destinations using User-D
 | Check for Asymmetric Routing | Send traffic to an NVA without a return route |
 | Monitor Next-Hop validity | Ignore the Routing Evaluation Order |
 
-```mermaid
-graph TD
-    A[Traffic Ingress] --> B{Check UDRs}
-    B -- Match --> C[Follow UDR]
-    B -- No Match --> D{Check BGP Routes}
-    D -- Match --> E[Follow BGP]
-    D -- No Match --> F[System Default Route]
-```
+!!! note
+    Azure does not evaluate routes in UDR-then-BGP-then-system sequence. It first applies longest prefix match, then uses route priority when prefixes are equal: UDR > BGP > system, with VNet/peering/service endpoint system routes preferred.
 
 !!! note
     Don't confuse routing issues with NSG issues. Use Network Watcher "Next Hop" to verify the route path before checking security rules.

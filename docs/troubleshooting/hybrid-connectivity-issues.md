@@ -5,7 +5,7 @@ Resolving tunnel and routing failures across VPN or ExpressRoute.
 | Cause | Indicator | Resolution |
 | --- | --- | --- |
 | BGP State: Down | Routes not appearing in Azure. | Check BGP Peering IP / ASN. |
-| Missing Routes | On-prem CIDR not advertised. | Update Local Network Gateway. |
+| Missing Routes | On-prem prefixes not learned in Azure. | For static S2S VPN, update Local Network Gateway. For BGP/ExpressRoute, verify prefixes are advertised via BGP. |
 | Tunnel State: Down | VPN Phase 1/2 mismatch. | Align IKE/IPSec Policy. |
 | MTU Issues | Fragmentation drops. | Clamp MSS or lower MTU. |
 

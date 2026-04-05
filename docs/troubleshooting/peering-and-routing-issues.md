@@ -20,7 +20,7 @@ graph TD
     P[Peering Check] --> State[Peering State: Connected?]
     State -- No --> Sync[Sync / Re-create]
     State -- Yes --> Route[System Routes in Portal?]
-    Route -- No --> Forward[Enable Forwarded Traffic]
+    Route -- No --> Forward[Verify address spaces, peering state, gateway transit settings, and any required UDR/NVA path]
     Route -- Yes --> NSG[NSG Allowing Peer CIDR?]
 ```
 

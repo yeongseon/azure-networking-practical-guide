@@ -10,16 +10,8 @@ Azure automatically creates system routes for each subnet in a VNet. User-Define
 | VNet Gateway | Traffic sent to VPN/ExpressRoute. | Hybrid connectivity. |
 | None | Traffic is dropped. | Black-holing unwanted traffic. |
 
-```mermaid
-graph TD
-    A[Packet Outbound] --> B{Check UDRs?}
-    B -->|Match| C[Use UDR Next Hop]
-    B -->|No Match| D{Check System Routes?}
-    D -->|Match| E[Use System Next Hop]
-    D -->|No Match| F[Drop Packet]
-    C --> G[Forward Packet]
-    E --> G
-```
+!!! note
+    Azure selects routes by longest prefix match across all applicable routes. If multiple routes have the same prefix, Azure prefers UDR > BGP > system, except virtual network, peering, and service endpoint system routes are preferred.
 
 !!! note
     Use the "Effective Routes" tool in the Azure portal for any network interface to troubleshoot why traffic is taking a specific path.
