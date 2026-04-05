@@ -5,7 +5,7 @@ Hybrid connectivity extends on-premises networks to Azure.
 | Feature | VPN S2S | ExpressRoute |
 | --- | --- | --- |
 | Transport | Public Internet (Encrypted) | Private Connection (Layer 2/3) |
-| Bandwidth | Up to 10 Gbps | Up to 100 Gbps |
+| Bandwidth | Up to 10 Gbps | 50 Mbps to 10 Gbps |
 | Latency | Higher / Variable | Low / Predictable |
 | SLA | 99.9% - 99.95% | 99.9% - 99.95% |
 

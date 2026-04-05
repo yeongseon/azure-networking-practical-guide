@@ -19,7 +19,7 @@ Comprehensive breakdown of core Azure networking resources and their primary fun
 | Azure Firewall | Security | 3-7 | Managed cloud firewall | High availability built-in |
 | Azure Bastion | Security | 7 | RDP/SSH via browser | No public IP on VM |
 | VPN Gateway | Hybrid | 3 | Encrypted site-to-site | Max 10 Gbps |
-| ExpressRoute | Hybrid | 3 | Private dedicated link | Up to 100 Gbps |
+| ExpressRoute | Hybrid | 3 | Private dedicated link | 50 Mbps to 10 Gbps per circuit |
 | Private DNS | Resolution | 7 | VNet name resolution | Link to multiple VNets |
 | Network Watcher | Monitoring | - | Diagnostic tools | Regional service |
 

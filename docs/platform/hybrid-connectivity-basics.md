@@ -4,7 +4,7 @@ Hybrid connectivity allows you to extend your on-premises network into Azure, en
 
 | Feature | VPN Gateway | ExpressRoute |
 | --- | --- | --- |
-| Bandwidth | Up to 10 Gbps. | Up to 100 Gbps. |
+| Bandwidth | Up to 10 Gbps. | 50 Mbps to 10 Gbps |
 | Latency | Variable (Internet). | Low/Predictable (Private). |
 | Cost | Lower cost. | Higher (Circuit + Port). |
 | Best Use Case | Branch offices, Dev/Test. | Critical workloads, Data migrations. |
