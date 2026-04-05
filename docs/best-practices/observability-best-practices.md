@@ -8,7 +8,7 @@ Proactive monitoring and structured troubleshooting minimize downtime. Use the A
 | Route Issue | Next Hop | The actual route path traffic is taking |
 | Connection Drop | IP Flow Verify | Which NSG rule is blocking the traffic |
 | Latency | Connection Monitor | Continuous tests of latency and path health |
-| Traffic Analysis | Flow Logs | Source/Dest IP, port, and protocol breakdown |
+| Traffic Analysis | VNet Flow Logs | Source/Dest IP, port, and protocol breakdown |
 
 ```mermaid
 graph TD

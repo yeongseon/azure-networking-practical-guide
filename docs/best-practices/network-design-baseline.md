@@ -8,7 +8,7 @@ Establish a robust foundation by following these core principles for Azure Virtu
 | Subnetting | Subnet by Purpose | Separate by role (Gateway, DMZ, App, Data) rather than department. |
 | Private First | Disable Public IP | Use Private Endpoints and Bastion for management traffic. |
 | DNS Strategy | Centralized DNS | Use Private DNS Zones linked to a hub VNet for resolution. |
-| Monitoring | Network Watcher | Enable Flow Logs and Traffic Analytics in all active regions. |
+| Monitoring | Network Watcher | Enable VNet Flow Logs and Traffic Analytics in all active regions. |
 
 ```mermaid
 graph TD

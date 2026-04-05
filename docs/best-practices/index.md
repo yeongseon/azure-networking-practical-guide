@@ -39,7 +39,7 @@ Before moving a network design into production, ensure these high-level best pra
 - [ ] Subnet sizes are planned for expected workload growth and Azure service requirements (some services need dedicated subnets with specific minimum sizes).
 - [ ] DNS resolution is tested from all VNets using Private DNS Zones.
 - [ ] NSGs are applied at the subnet level with least-privilege rules.
-- [ ] Network Watcher Flow Logs are enabled for all active subnets.
+- [ ] VNet Flow Logs are enabled for all active subnets (NSG Flow Logs retire 2027-09-30).
 - [ ] Private Endpoints are used instead of service endpoints where possible.
 - [ ] Routing tables (UDRs) are documented and minimize unnecessary hops.
 - [ ] Standard Load Balancer is used instead of Basic for HA and security.

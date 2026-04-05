@@ -4,7 +4,7 @@ Azure uses a flexible IP addressing scheme for both private and public communica
 
 | IP Type | Allocation | Lifecycle | Use Case |
 | --- | --- | --- | --- |
-| Private Dynamic | DHCP from subnet. | Freed on VM stop/deallocate. | General compute. |
+| Private Dynamic | DHCP from subnet. | May change after stop/deallocate; released only when NIC deleted. | General compute. |
 | Private Static | User-defined from subnet. | Persists until deleted. | Domain controllers, DNS servers. |
 | Public Dynamic | Assigned from Azure pool. | Changes if deallocated/reassigned. | Legacy scenarios only. |
 | Public Static | Fixed from Azure pool. | Persists across restarts. | VPN gateways, Firewalls. |

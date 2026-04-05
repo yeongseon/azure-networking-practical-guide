@@ -5,7 +5,7 @@ Visibility into traffic flow and path performance.
 | Tool | Capability | Data Type |
 | --- | --- | --- |
 | Connection Monitor | End-to-end path testing. | RTT, Loss, Hop. |
-| NSG Flow Logs | Detailed traffic auditing. | Rule Match, Tuple. |
+| VNet Flow Logs | Detailed traffic auditing. | Rule Match, Tuple. |
 | Traffic Analytics | Visualizing flow patterns. | Geo-map, Security. |
 | Network Watcher | Resource diagnostic tools. | IP Flow, Next Hop. |
 
