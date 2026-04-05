@@ -23,7 +23,7 @@ graph LR
 ```
 
 !!! note
-    Peering is non-transitive by default. To reach VNet C from VNet A via VNet B, you need an NVA or VPN Gateway.
+    Peering is not transitive. For A-B-C Azure VNet chains, use direct peering between A and C, or service chaining via NVA/Azure Firewall in hub B.
 
 ## See Also
 

@@ -5,7 +5,7 @@ Troubleshooting connectivity between peered virtual networks.
 | Issue | Cause | Fix |
 | --- | --- | --- |
 | State: Disconnected | Peering was deleted on one side. | Re-create peering on both sides. |
-| Non-transitive | Using a chain of VNets (A-B-C). | Use VPN/NVA in Hub (B). |
+| Non-transitive | Using a chain of VNets (A-B-C). | Use direct peering or NVA/Azure Firewall service chaining. Gateway transit applies only for on-premises or gateway-connected networks. |
 | Gateway Mismatch | Transit/Remote gateway misconfigured. | Update Transit settings. |
 | CIDR Conflict | Overlapping address spaces. | Change VNet CIDR (destructive). |
 
