@@ -30,7 +30,7 @@ graph LR
 ## See Also
 - [DNS Basics](../platform/dns-basics.md)
 - [Configure DNS](../operations/configure-dns.md)
-- [DNS Resolution Failures](../troubleshooting/dns-resolution-failures.md)
+- [DNS Resolution Failures](../troubleshooting/playbooks/dns/dns-resolution-failures.md)
 
 ## Sources
 

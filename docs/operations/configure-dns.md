@@ -30,7 +30,7 @@ graph TD
 
 - [DNS Basics](../platform/dns-basics.md)
 - [DNS Best Practices](../best-practices/dns-best-practices.md)
-- [DNS Resolution Failures](../troubleshooting/dns-resolution-failures.md)
+- [DNS Resolution Failures](../troubleshooting/playbooks/dns/dns-resolution-failures.md)
 
 ## Sources
 

@@ -2,6 +2,20 @@
 
 Control traffic flow within your VNets and to external destinations using User-Defined Routes (UDRs). Proper routing prevents asymmetric flows and unexpected traffic drops.
 
+```mermaid
+flowchart LR
+    A[Plan route intent] --> B[Use specific prefixes where possible]
+    B --> C[Choose correct next hop<br/>NVA / Gateway / Internet / None]
+    C --> D[Design forward and return paths together]
+    D --> E[Validate effective routes and Next Hop]
+    E --> F[Monitor route changes and next-hop health]
+    F --> G[Stable, predictable routing]
+
+    A -. avoid .-> X[Blanket UDRs on every subnet]
+    D -. avoid .-> Y[Asymmetric routing through stateful firewall]
+    E -. avoid .-> Z[Troubleshooting NSG before verifying route path]
+```
+
 | Do | Don't |
 | :--- | :--- |
 | Use UDRs for Hub-and-Spoke NVA traffic | Use UDRs for every single subnet without a reason |

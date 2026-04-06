@@ -33,7 +33,7 @@ graph TD
 
 - [Network Security Basics](../platform/network-security-basics.md)
 - [NSG and Firewall Best Practices](../best-practices/nsg-and-firewall-best-practices.md)
-- [NSG vs UDR vs Firewall](../troubleshooting/nsg-vs-udr-vs-firewall.md)
+- [NSG vs UDR vs Firewall](../troubleshooting/playbooks/routing/nsg-vs-udr-vs-firewall.md)
 
 ## Sources
 

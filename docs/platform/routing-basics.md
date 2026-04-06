@@ -2,6 +2,19 @@
 
 Azure automatically creates system routes for each subnet in a VNet. User-Defined Routes (UDR) allow you to override these default system routes to steer traffic through virtual appliances or gateways.
 
+```mermaid
+flowchart TD
+    A[Packet leaves subnet] --> B{Matching routes available?}
+    B -->|Yes| C[Apply longest prefix match]
+    B -->|No| G[Use default system route]
+    C --> D{Same prefix length?}
+    D -->|No| E[Select most specific route]
+    D -->|Yes| F[Apply priority:<br/>UDR > BGP > system<br/>except preferred VNet/peering/service endpoint routes]
+    E --> H[Forward to next hop]
+    F --> H
+    G --> H
+```
+
 | Next Hop Type | Description | Common Use Case |
 | --- | --- | --- |
 | Virtual Network | Traffic stays within the VNet. | Standard VNet communication. |

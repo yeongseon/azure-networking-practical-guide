@@ -2,6 +2,23 @@
 
 User-Defined Routes (UDR) provide granular control over packet forwarding.
 
+```mermaid
+flowchart TD
+    A[Identify traffic pattern] --> B[Create or choose route table]
+    B --> C[Add route prefix and next hop]
+    C --> D{Next hop type?}
+    D -->|Virtual Appliance| E[Specify NVA private IP]
+    D -->|VNet Gateway| F[Use gateway path]
+    D -->|Internet or None| G[Use direct or drop path]
+    E --> H[Associate route table to subnet]
+    F --> H
+    G --> H
+    H --> I[Validate effective routes / Next Hop]
+    I --> J{Return path symmetric?}
+    J -->|Yes| K[UDR configuration ready]
+    J -->|No| L[Adjust reverse path or firewall design]
+```
+
 | Route Property | Example | Role |
 | --- | --- | --- |
 | Address Prefix | 0.0.0.0/0 | Target CIDR for the route. |

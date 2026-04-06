@@ -31,7 +31,7 @@ graph TD
 
 - [Monitor Network Paths](./monitor-network-paths.md)
 - [Observability Best Practices](../best-practices/observability-best-practices.md)
-- [Intermittent Network Failures](../troubleshooting/intermittent-network-failures.md)
+- [Intermittent Network Failures](../troubleshooting/playbooks/connectivity/intermittent-network-failures.md)
 
 ## Sources
 

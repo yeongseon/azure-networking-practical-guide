@@ -29,7 +29,7 @@ graph LR
 
 - [Private Connectivity Options](../platform/private-connectivity-options.md)
 - [Private Endpoint Best Practices](../best-practices/private-endpoint-best-practices.md)
-- [Cannot Reach Private Endpoint](../troubleshooting/cannot-reach-private-endpoint.md)
+- [Cannot Reach Private Endpoint](../troubleshooting/playbooks/connectivity/cannot-reach-private-endpoint.md)
 
 ## Sources
 

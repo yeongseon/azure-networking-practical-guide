@@ -29,7 +29,7 @@ graph TD
 
 - [Observability Best Practices](../best-practices/observability-best-practices.md)
 - [Packet Capture and Diagnostics](./packet-capture-and-diagnostics.md)
-- [Latency and Packet Loss](../troubleshooting/latency-and-packet-loss.md)
+- [Latency and Packet Loss](../troubleshooting/playbooks/connectivity/latency-and-packet-loss.md)
 
 ## Sources
 

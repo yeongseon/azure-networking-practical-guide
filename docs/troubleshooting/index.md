@@ -1,39 +1,77 @@
 # Troubleshooting
 
-Common issues and resolution paths for Azure Networking.
+Hypothesis-driven troubleshooting for Azure Networking incidents: start with symptom classification, collect the minimum evidence, then jump to the right playbook.
 
-| Page | Scope | Focus |
-| --- | --- | --- |
-| [Cannot Reach Private Endpoint](cannot-reach-private-endpoint.md) | Private Endpoint. | DNS and Link. |
-| [DNS Resolution Failures](dns-resolution-failures.md) | Resolution failures. | Zones and Forwarders. |
-| [Outbound Connectivity Issues](outbound-connectivity-issues.md) | Internet/External access. | NAT and Firewall. |
-| [Inbound Connectivity Issues](inbound-connectivity-issues.md) | Web/Service access. | LB and NSG. |
-| [NSG vs UDR vs Firewall](nsg-vs-udr-vs-firewall.md) | Path blockages. | Evaluation order. |
-| [Peering and Routing Issues](peering-and-routing-issues.md) | VNet-to-VNet. | State and Gateway. |
-| [Hybrid Connectivity Issues](hybrid-connectivity-issues.md) | VPN/ExpressRoute. | BGP and Tunnels. |
-| [Intermittent Network Failures](intermittent-network-failures.md) | Flapping issues. | Resources/DNS. |
-| [Latency and Packet Loss](latency-and-packet-loss.md) | Performance issues. | RTT and saturation. |
+## How this section works
 
 ```mermaid
-graph TD
-    Start[Issue] --> DNS[DNS Resolves?]
-    DNS -- No --> FixDNS[Troubleshoot DNS]
-    DNS -- Yes --> Path[Route Exists?]
-    Path -- No --> FixRoute[Troubleshoot UDR]
-    Path -- Yes --> Security[Security Allows?]
-    Security -- No --> FixNSG[Troubleshoot NSG]
+flowchart TD
+    A[Observe symptom] --> B{What fails first?}
+    B -->|Name resolution| C[DNS track]
+    B -->|Reachability or loss| D[Connectivity track]
+    B -->|Wrong path or transit| E[Routing track]
+    C --> F[First 10 Minutes: DNS]
+    D --> G[First 10 Minutes: Connectivity]
+    E --> H[First 10 Minutes: Routing]
+    F --> I[DNS playbooks]
+    G --> J[Connectivity playbooks]
+    H --> K[Routing playbooks]
 ```
 
+## Start Here
+
+| Need | Go to |
+| --- | --- |
+| Understand where Azure networking fails | [Architecture Overview](architecture-overview.md) |
+| Route a symptom to the right playbook | [Decision Tree](decision-tree.md) |
+| Know what evidence to collect first | [Evidence Map](evidence-map.md) |
+| Build a troubleshooting mindset | [Mental Model](mental-model.md) |
+| Use 60-second triage cards | [Quick Diagnosis Cards](quick-diagnosis-cards.md) |
+| Run first-response checks | [First 10 Minutes](first-10-minutes/index.md) |
+| Open a canonical troubleshooting guide | [Playbooks](playbooks/index.md) |
+
+## Quick symptom routing
+
+| Symptom pattern | First response | Likely playbooks |
+| --- | --- | --- |
+| FQDN resolves to wrong IP, NXDOMAIN, or timeout | [DNS Checklist](first-10-minutes/dns.md) | [DNS Resolution Failures](playbooks/dns/dns-resolution-failures.md), [Cannot Reach Private Endpoint](playbooks/connectivity/cannot-reach-private-endpoint.md) |
+| Service is unreachable from internet, VNet, or external target | [Connectivity Checklist](first-10-minutes/connectivity.md) | [Inbound Connectivity Issues](playbooks/connectivity/inbound-connectivity-issues.md), [Outbound Connectivity Issues](playbooks/connectivity/outbound-connectivity-issues.md) |
+| Packets take the wrong path, peering fails, or hybrid routes disappear | [Routing Checklist](first-10-minutes/routing.md) | [Peering and Routing Issues](playbooks/routing/peering-and-routing-issues.md), [Hybrid Connectivity Issues](playbooks/routing/hybrid-connectivity-issues.md) |
+| Failures are intermittent or latency-only | [Connectivity Checklist](first-10-minutes/connectivity.md) | [Intermittent Network Failures](playbooks/connectivity/intermittent-network-failures.md), [Latency and Packet Loss](playbooks/connectivity/latency-and-packet-loss.md) |
+| You suspect policy ordering confusion | [Routing Checklist](first-10-minutes/routing.md) | [NSG vs UDR vs Firewall](playbooks/routing/nsg-vs-udr-vs-firewall.md) |
+
+## Topic map
+
+### Meta documents
+- [Architecture Overview](architecture-overview.md)
+- [Decision Tree](decision-tree.md)
+- [Evidence Map](evidence-map.md)
+- [Mental Model](mental-model.md)
+- [Quick Diagnosis Cards](quick-diagnosis-cards.md)
+
+### First 10 Minutes
+- [Checklists Index](first-10-minutes/index.md)
+- [Connectivity](first-10-minutes/connectivity.md)
+- [DNS](first-10-minutes/dns.md)
+- [Routing](first-10-minutes/routing.md)
+
+### Playbooks
+- [Playbooks Index](playbooks/index.md)
+- [Connectivity playbooks](playbooks/index.md#connectivity)
+- [DNS playbooks](playbooks/index.md#dns)
+- [Routing playbooks](playbooks/index.md#routing)
+
 !!! tip
-    Always isolate DNS resolution first, as it's the root cause of most perceived network failures.
+    Separate the incident into three layers before going deep: name resolution, path selection, and policy enforcement. Most Azure networking incidents become much easier once those layers are isolated.
 
 ## See Also
 
 - [Common Scenarios](../start-here/common-scenarios.md)
-- [Cannot Reach Private Endpoint](./cannot-reach-private-endpoint.md)
-- [DNS Resolution Failures](./dns-resolution-failures.md)
+- [Monitor Network Paths](../operations/monitor-network-paths.md)
+- [Packet Capture and Diagnostics](../operations/packet-capture-and-diagnostics.md)
+- [Connectivity Decision Guide](../reference/connectivity-decision-guide.md)
 
 ## Sources
 
-- [Troubleshoot network issues](https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-connectivity-overview)
-- [Azure network monitoring and management documentation](https://learn.microsoft.com/en-us/azure/networking/monitoring-management/)
+- [Troubleshoot connectivity problems using Azure Network Watcher](https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-connectivity-overview)
+- [Azure networking monitoring and management](https://learn.microsoft.com/en-us/azure/networking/fundamentals/monitoring-management-overview)

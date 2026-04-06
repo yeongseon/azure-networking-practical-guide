@@ -28,7 +28,7 @@ graph LR
 ## See Also
 
 - [How Azure Networking Works](../platform/how-azure-networking-works.md)
-- [Peering and Routing Issues](../troubleshooting/peering-and-routing-issues.md)
+- [Peering and Routing Issues](../troubleshooting/playbooks/routing/peering-and-routing-issues.md)
 - [Configure UDR](./configure-udr.md)
 
 ## Sources

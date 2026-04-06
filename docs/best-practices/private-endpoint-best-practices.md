@@ -32,7 +32,7 @@ graph TD
 ## See Also
 - [Private Connectivity Options](../platform/private-connectivity-options.md)
 - [Connect Private Endpoints](../operations/connect-private-endpoints.md)
-- [Cannot Reach Private Endpoint](../troubleshooting/cannot-reach-private-endpoint.md)
+- [Cannot Reach Private Endpoint](../troubleshooting/playbooks/connectivity/cannot-reach-private-endpoint.md)
 
 ## Sources
 

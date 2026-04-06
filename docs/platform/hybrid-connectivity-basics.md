@@ -33,7 +33,7 @@ graph LR
 
 - [Hybrid Connectivity Best Practices](../best-practices/hybrid-connectivity-best-practices.md)
 - [VPN and ExpressRoute Basics](../operations/vpn-and-expressroute-basics.md)
-- [Hybrid Connectivity Issues](../troubleshooting/hybrid-connectivity-issues.md)
+- [Hybrid Connectivity Issues](../troubleshooting/playbooks/routing/hybrid-connectivity-issues.md)
 
 ## Sources
 

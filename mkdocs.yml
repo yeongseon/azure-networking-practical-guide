@@ -126,15 +126,30 @@ nav:
     - Packet Capture and Diagnostics: operations/packet-capture-and-diagnostics.md
   - Troubleshooting:
     - troubleshooting/index.md
-    - Cannot Reach Private Endpoint: troubleshooting/cannot-reach-private-endpoint.md
-    - DNS Resolution Failures: troubleshooting/dns-resolution-failures.md
-    - Outbound Connectivity Issues: troubleshooting/outbound-connectivity-issues.md
-    - Inbound Connectivity Issues: troubleshooting/inbound-connectivity-issues.md
-    - NSG vs UDR vs Firewall: troubleshooting/nsg-vs-udr-vs-firewall.md
-    - Peering and Routing Issues: troubleshooting/peering-and-routing-issues.md
-    - Hybrid Connectivity Issues: troubleshooting/hybrid-connectivity-issues.md
-    - Intermittent Network Failures: troubleshooting/intermittent-network-failures.md
-    - Latency and Packet Loss: troubleshooting/latency-and-packet-loss.md
+    - Architecture Overview: troubleshooting/architecture-overview.md
+    - Decision Tree: troubleshooting/decision-tree.md
+    - Evidence Map: troubleshooting/evidence-map.md
+    - Mental Model: troubleshooting/mental-model.md
+    - Quick Diagnosis Cards: troubleshooting/quick-diagnosis-cards.md
+    - First 10 Minutes:
+      - troubleshooting/first-10-minutes/index.md
+      - Connectivity: troubleshooting/first-10-minutes/connectivity.md
+      - DNS: troubleshooting/first-10-minutes/dns.md
+      - Routing: troubleshooting/first-10-minutes/routing.md
+    - Playbooks:
+      - troubleshooting/playbooks/index.md
+      - Connectivity:
+        - Cannot Reach Private Endpoint: troubleshooting/playbooks/connectivity/cannot-reach-private-endpoint.md
+        - Inbound Connectivity Issues: troubleshooting/playbooks/connectivity/inbound-connectivity-issues.md
+        - Outbound Connectivity Issues: troubleshooting/playbooks/connectivity/outbound-connectivity-issues.md
+        - Intermittent Network Failures: troubleshooting/playbooks/connectivity/intermittent-network-failures.md
+        - Latency and Packet Loss: troubleshooting/playbooks/connectivity/latency-and-packet-loss.md
+      - DNS:
+        - DNS Resolution Failures: troubleshooting/playbooks/dns/dns-resolution-failures.md
+      - Routing:
+        - NSG vs UDR vs Firewall: troubleshooting/playbooks/routing/nsg-vs-udr-vs-firewall.md
+        - Peering and Routing Issues: troubleshooting/playbooks/routing/peering-and-routing-issues.md
+        - Hybrid Connectivity Issues: troubleshooting/playbooks/routing/hybrid-connectivity-issues.md
   - Reference:
     - reference/index.md
     - Connectivity Decision Guide: reference/connectivity-decision-guide.md

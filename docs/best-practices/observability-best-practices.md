@@ -32,7 +32,7 @@ graph TD
 ## See Also
 - [Monitor Network Paths](../operations/monitor-network-paths.md)
 - [Packet Capture and Diagnostics](../operations/packet-capture-and-diagnostics.md)
-- [Latency and Packet Loss](../troubleshooting/latency-and-packet-loss.md)
+- [Latency and Packet Loss](../troubleshooting/playbooks/connectivity/latency-and-packet-loss.md)
 
 ## Sources
 

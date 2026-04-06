@@ -33,7 +33,7 @@ graph LR
 ## See Also
 - [Hybrid Connectivity Basics](../platform/hybrid-connectivity-basics.md)
 - [VPN and ExpressRoute Basics](../operations/vpn-and-expressroute-basics.md)
-- [Hybrid Connectivity Issues](../troubleshooting/hybrid-connectivity-issues.md)
+- [Hybrid Connectivity Issues](../troubleshooting/playbooks/routing/hybrid-connectivity-issues.md)
 
 ## Sources
 

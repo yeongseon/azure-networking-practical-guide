@@ -33,7 +33,7 @@ graph LR
 
 - [NSG and Firewall Best Practices](../best-practices/nsg-and-firewall-best-practices.md)
 - [Configure Network Security Groups](../operations/configure-nsg.md)
-- [NSG vs UDR vs Firewall](../troubleshooting/nsg-vs-udr-vs-firewall.md)
+- [NSG vs UDR vs Firewall](../troubleshooting/playbooks/routing/nsg-vs-udr-vs-firewall.md)
 
 ## Sources
 

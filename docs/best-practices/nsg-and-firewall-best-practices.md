@@ -31,7 +31,7 @@ graph TD
 ## See Also
 - [Network Security Basics](../platform/network-security-basics.md)
 - [Configure NSG](../operations/configure-nsg.md)
-- [NSG vs UDR vs Firewall](../troubleshooting/nsg-vs-udr-vs-firewall.md)
+- [NSG vs UDR vs Firewall](../troubleshooting/playbooks/routing/nsg-vs-udr-vs-firewall.md)
 
 ## Sources
 
