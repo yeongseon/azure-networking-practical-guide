@@ -71,14 +71,24 @@ az network vnet create -g $RG -n $VNET_NAME  # ❌ Don't do this
 
 **CRITICAL**: All CLI output examples MUST have PII removed.
 
-Patterns to mask:
+**Must mask (real Azure identifiers):**
 
-- UUIDs: `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`
 - Subscription IDs: `<subscription-id>`
 - Tenant IDs: `<tenant-id>`
 - Object IDs: `<object-id>`
+- Resource IDs containing real subscription/tenant
+- Emails: Remove or mask as `user@example.com`
 - IP addresses: Use RFC 5737 ranges (192.0.2.0/24, 198.51.100.0/24, 203.0.113.0/24)
 - Secrets/Tokens: NEVER include
+
+**OK to keep (synthetic example values):**
+
+- Demo correlation IDs: `a1b2c3d4-e5f6-7890-abcd-ef1234567890`
+- Example request IDs in logs
+- Placeholder domains: `example.com`, `contoso.com`
+- Sample resource names used consistently in docs
+
+The goal is to prevent leaking **real Azure account information**, not to mask obviously-fake example values that aid readability.
 
 ### Admonition Indentation Rule
 
