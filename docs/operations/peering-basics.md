@@ -17,9 +17,9 @@ VNet Peering connects two virtual networks with low latency.
 
 ```mermaid
 graph LR
-    VNetA[VNet A] -- Peering -- VNetB[VNet B]
-    VNetB -- Peering -- VNetC[VNet C]
-    VNetA -. No Direct Access .- VNetC
+    VNetA[VNet A] -->|Peering| VNetB[VNet B]
+    VNetB -->|Peering| VNetC[VNet C]
+    VNetA -.->|No Direct Access| VNetC
 ```
 
 !!! note

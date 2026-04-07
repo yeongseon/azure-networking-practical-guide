@@ -15,7 +15,7 @@ graph TD
     B -->|Public| C[Standard SKU]
     B -->|Private| D[Assigned via DHCP]
     C --> E[Static allocation]
-    E --> G[Resource (NIC/LB)]
+    E --> G["Resource (NIC/LB)"]
     D --> G
 ```
 
