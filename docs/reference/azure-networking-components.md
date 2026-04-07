@@ -14,7 +14,7 @@ Comprehensive breakdown of core Azure networking resources and their primary fun
 | Service Endpoint | Connectivity | 3 | Secure PaaS to VNet | No private IP assigned |
 | NAT Gateway | Connectivity | 4 | Outbound SNAT | 64,512 SNAT ports per public IP |
 | Load Balancer | Delivery | 4 | Hash-based distribution | L4 only (TCP/UDP) |
-| App Gateway | Delivery | 7 | Web traffic management | WAF support |
+| Application Gateway v2 (recommended) | Delivery | 7 | Web traffic management | WAF support; v1 retires April 28, 2026 |
 | Front Door | Delivery | 7 | Global CDN / App accel | Global service |
 | Azure Firewall | Security | 3-7 | Managed cloud firewall | High availability built-in |
 | Azure Bastion | Security | 7 | RDP/SSH via browser | No public IP on VM |
@@ -31,7 +31,7 @@ graph TD
     Subnet --> NSG[Network Security Group]
     Subnet --> UDR[Route Table / UDR]
     Subnet --> NAT[NAT Gateway]
-    AppGW[App Gateway] --> Subnet
+    AppGW[Application Gateway v2] --> Subnet
     Bastion[Azure Bastion] --> Subnet
 ```
 

@@ -124,6 +124,15 @@ nav:
     - VPN and ExpressRoute Basics: operations/vpn-and-expressroute-basics.md
     - Monitor Network Paths: operations/monitor-network-paths.md
     - Packet Capture and Diagnostics: operations/packet-capture-and-diagnostics.md
+  - Tutorials:
+    - tutorials/index.md
+    - Lab Guides:
+      - tutorials/lab-guides/index.md
+      - "Lab 01: Hub-Spoke Topology": tutorials/lab-guides/lab-01-hub-spoke-topology.md
+      - "Lab 02: Private Endpoints": tutorials/lab-guides/lab-02-private-endpoints.md
+      - "Lab 03: Application Gateway WAF": tutorials/lab-guides/lab-03-application-gateway-waf.md
+      - "Lab 04: Azure Firewall": tutorials/lab-guides/lab-04-azure-firewall.md
+      - "Lab 05: ExpressRoute Simulation": tutorials/lab-guides/lab-05-expressroute-simulation.md
   - Troubleshooting:
     - troubleshooting/index.md
     - Architecture Overview: troubleshooting/architecture-overview.md
@@ -138,6 +147,11 @@ nav:
       - Routing: troubleshooting/first-10-minutes/routing.md
     - Playbooks:
       - troubleshooting/playbooks/index.md
+      - Core Playbooks:
+        - Connectivity Failures: troubleshooting/playbooks/connectivity-failures.md
+        - DNS Resolution Issues: troubleshooting/playbooks/dns-resolution-issues.md
+        - VPN Gateway Troubleshooting: troubleshooting/playbooks/vpn-gateway-troubleshooting.md
+        - Load Balancer Health Probe Failures: troubleshooting/playbooks/load-balancer-health-probe-failures.md
       - Connectivity:
         - Cannot Reach Private Endpoint: troubleshooting/playbooks/connectivity/cannot-reach-private-endpoint.md
         - Inbound Connectivity Issues: troubleshooting/playbooks/connectivity/inbound-connectivity-issues.md

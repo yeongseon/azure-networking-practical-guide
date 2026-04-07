@@ -5,7 +5,7 @@ Azure offers several services to distribute traffic across your applications. Ch
 | Service | OSI Layer | Scope | Key Feature |
 | --- | --- | --- | --- |
 | Azure Load Balancer | Layer 4 | Regional | High throughput, low latency. |
-| Application Gateway | Layer 7 | Regional | URL-based routing, WAF. |
+| Application Gateway v2 (recommended) | Layer 7 | Regional | URL-based routing, WAF, autoscaling, zone redundancy, static VIPs. |
 | Azure Front Door | Layer 7 | Global | CDN, WAF, SSL offload. |
 | Traffic Manager | DNS | Global | Performance, Priority routing. |
 
@@ -16,12 +16,15 @@ graph TD
     Q -->|Regional| Q3{HTTP/S or L4?}
     Q2 -->|HTTP/S| FD[Azure Front Door]
     Q2 -->|DNS| TM[Traffic Manager]
-    Q3 -->|HTTP/S| AGW[Application Gateway]
+    Q3 -->|HTTP/S| AGW[Application Gateway v2]
     Q3 -->|L4| ALB[Azure Load Balancer]
 ```
 
 !!! tip
     Start with traffic scope (global or regional), then choose by protocol layer (L7 HTTP/S or L4 TCP/UDP) to narrow the correct load-balancing service quickly.
+
+!!! warning
+    Application Gateway v1 retires on April 28, 2026. Prefer v2 for autoscaling, zone redundancy, and static VIP support.
 
 ## See Also
 

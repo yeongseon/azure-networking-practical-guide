@@ -23,6 +23,11 @@ graph TD
 !!! warning
     Private Endpoint (PE) deployments without a properly linked Private DNS Zone are the most common source of networking issues. Clients will resolve the public IP but fail to connect privately.
 
+!!! warning
+    Do not override a public DNS zone that is actively in use unless you also provide DNS forwarding or a fallback path to public resolution.
+
+    Do not reuse one Private DNS zone for multiple private endpoints of the same Azure service; it can break A records and resolution for existing endpoints.
+
 ## See Also
 
 - [DNS Best Practices](../best-practices/dns-best-practices.md)
