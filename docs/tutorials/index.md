@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Tutorials
 
 Hands-on networking labs for validating Azure design patterns, common failure modes, and operational checks with repeatable Azure CLI steps.

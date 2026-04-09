@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Lab Guides
 
 These labs turn architecture guidance into repeatable exercises. Run them in order if you want a progressive path from hub-spoke fundamentals to hybrid simulation.

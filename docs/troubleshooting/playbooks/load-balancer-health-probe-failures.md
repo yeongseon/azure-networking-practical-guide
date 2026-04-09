@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Load Balancer Health Probe Failures
 
 ## 1. Summary

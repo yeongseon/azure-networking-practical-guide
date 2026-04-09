@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Connectivity Decision Guide
 
 Recommended connectivity approaches based on scenario requirements.

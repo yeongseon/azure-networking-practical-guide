@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Lab 04: Azure Firewall
 
 Deploy Azure Firewall with a simple spoke subnet, force egress through the firewall using a route table, and validate both allowed and denied traffic so teams can learn how routing and firewall policy interact in practice.

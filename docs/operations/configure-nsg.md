@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Configure NSG
 
 Network Security Groups provide distributed filtering for subnets and interfaces.

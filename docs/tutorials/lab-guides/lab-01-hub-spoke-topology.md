@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Lab 01: Hub-Spoke Topology
 
 Build a small hub-spoke landing zone with shared services, peering, route validation, and basic connectivity testing so teams can understand how central transit works before adding private endpoints or hybrid links.

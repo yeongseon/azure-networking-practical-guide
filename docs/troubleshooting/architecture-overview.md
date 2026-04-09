@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Troubleshooting Architecture Overview
 
 Use this page to answer one question quickly: **where in the Azure networking path can this break?**

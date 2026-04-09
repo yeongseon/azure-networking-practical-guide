@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Connect Private Endpoints
 
 Private Endpoints allow secure access to Azure Services over a private IP.

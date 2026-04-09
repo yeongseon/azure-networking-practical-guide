@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # DNS Best Practices
 
 Azure DNS design needs to make private, public, and hybrid name resolution predictable for operators and transparent for workloads.

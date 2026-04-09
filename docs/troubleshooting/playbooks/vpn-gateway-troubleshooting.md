@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # VPN Gateway Troubleshooting
 
 ## 1. Summary

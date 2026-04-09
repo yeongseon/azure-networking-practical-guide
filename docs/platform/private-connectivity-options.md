@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Private Connectivity Options
 
 Azure provides several ways to connect to PaaS services privately, without exposing traffic to the public internet. Understanding the nuances between these options is key to a secure network design.

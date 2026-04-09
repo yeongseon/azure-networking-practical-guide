@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Observability Best Practices
 
 Network observability shortens incidents by giving teams the same facts about DNS, routes, probes, flows, and policy changes.

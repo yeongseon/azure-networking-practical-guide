@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Networking vs Connectivity
 
 Understanding how to solve a connectivity problem is different from knowing how to configure a network.

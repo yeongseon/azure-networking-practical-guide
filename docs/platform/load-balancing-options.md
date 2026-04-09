@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Load Balancing Options
 
 Azure offers several services to distribute traffic across your applications. Choosing the right one depends on the layer of the OSI model you need to operate at and the scope of your application.

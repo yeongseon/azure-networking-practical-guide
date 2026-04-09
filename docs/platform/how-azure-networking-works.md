@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # How Azure Networking Works
 
 Azure Networking provides the infrastructure to connect cloud services and on-premises environments. It's built on a global fiber-optic network that uses Software Defined Networking (SDN) to manage traffic flows.

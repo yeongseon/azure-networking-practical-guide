@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # VNet and Subnet Basics
 
 Virtual Networks (VNets) are the fundamental building block for your private network in Azure. They provide isolation, segmentation, and communication for your cloud resources.

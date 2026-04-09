@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Platform Fundamentals
 
 This section provides a deep dive into the core components of Azure networking. Understanding these fundamentals is necessary for designing secure, scalable, and resilient cloud architectures.

@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Playbooks
 
 Symptom-oriented Azure Networking playbooks organized by connectivity, DNS, and routing.

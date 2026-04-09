@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Intermittent Network Failures
 
 ## 1. Summary

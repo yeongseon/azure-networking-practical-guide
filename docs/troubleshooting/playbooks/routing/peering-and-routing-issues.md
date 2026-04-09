@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Peering and Routing Issues
 
 ## 1. Summary

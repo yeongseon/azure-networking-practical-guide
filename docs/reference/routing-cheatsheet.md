@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Routing Cheatsheet
 
 Quick reference for Azure Virtual Network routing precedence and next hop behavior.

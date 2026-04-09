@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Operations
 
 The Operations section provides actionable guides for deploying and managing Azure Networking resources.

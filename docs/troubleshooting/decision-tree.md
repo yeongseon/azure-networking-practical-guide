@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Troubleshooting Decision Tree
 
 Use this page to route from observed symptom to the correct Azure Networking playbook in the first few minutes of an incident.

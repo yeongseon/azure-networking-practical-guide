@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # NSG and Firewall Best Practices
 
 Layered filtering in Azure works best when NSGs provide local segmentation and Azure Firewall or an approved appliance provides centralized inspection where needed.

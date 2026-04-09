@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Start Here
 
 Kickstart your Azure networking journey with core mental models and pathfinders.

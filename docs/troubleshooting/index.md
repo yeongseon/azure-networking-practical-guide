@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Troubleshooting
 
 Hypothesis-driven troubleshooting for Azure Networking incidents: start with symptom classification, collect the minimum evidence, then jump to the right playbook.

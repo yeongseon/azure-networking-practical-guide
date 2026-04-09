@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Routing Best Practices
 
 Routing is where intent becomes packet movement. Clear route ownership prevents black holes, asymmetric paths, and hidden transit assumptions.

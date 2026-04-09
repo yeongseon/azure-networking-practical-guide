@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Routing Basics
 
 Azure automatically creates system routes for each subnet in a VNet. User-Defined Routes (UDR) allow you to override these default system routes to steer traffic through virtual appliances or gateways.

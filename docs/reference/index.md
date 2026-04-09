@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Reference
 
 Reference section for the Azure Networking Practical Guide. Use these pages for quick lookup of components, routing, and DNS behavior.

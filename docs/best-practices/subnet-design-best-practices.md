@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Subnet Design Best Practices
 
 Subnet design in Azure is where architecture intent turns into enforceable boundaries for routing, policy, delegated services, and private connectivity.

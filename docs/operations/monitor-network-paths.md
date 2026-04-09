@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Monitor Network Paths
 
 Visibility into traffic flow and path performance.

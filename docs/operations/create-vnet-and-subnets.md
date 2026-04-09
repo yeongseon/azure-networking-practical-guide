@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Create VNet and Subnets
 
 Standardized deployment of Virtual Networks ensures consistent addressing and security.

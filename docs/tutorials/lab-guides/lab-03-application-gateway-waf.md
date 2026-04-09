@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Lab 03: Application Gateway WAF
 
 Deploy a small WAF v2 Application Gateway in front of a test backend so you can understand subnet requirements, listener and probe behavior, and the validation steps used when applications are reachable internally but not through the gateway.

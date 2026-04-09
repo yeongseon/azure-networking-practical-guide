@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # DNS Basics
 
 DNS provides name resolution for Azure services, both within a VNet and across hybrid environments. Proper configuration is critical for service connectivity, especially when using Private Endpoints.

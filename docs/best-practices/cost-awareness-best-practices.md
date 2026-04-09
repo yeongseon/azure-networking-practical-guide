@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Cost Awareness Best Practices
 
 Azure networking costs come from architecture choices as much as from raw traffic volume, especially around gateways, firewalls, peering, and logs.

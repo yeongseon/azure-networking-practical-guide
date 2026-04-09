@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Common Anti-Patterns
 
 Most Azure networking failures repeat a small number of anti-patterns: implicit DNS, overlapping IP plans, flat trust zones, and emergency policy exceptions that become permanent.

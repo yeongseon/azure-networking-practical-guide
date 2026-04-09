@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Network Security Basics
 
 Azure network security is based on a zero-trust model, implementing multiple layers of defense to protect resources from unauthorized access.

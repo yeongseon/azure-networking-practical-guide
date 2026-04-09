@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Inbound Connectivity Issues
 
 ## 1. Summary

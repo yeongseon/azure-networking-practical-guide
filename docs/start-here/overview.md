@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Overview
 
 Azure Networking is the foundation of almost every cloud solution. Most configuration errors manifest as connectivity issues.

@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Hybrid Connectivity Best Practices
 
 Hybrid networking requires consistent route exchange, resilient tunnels or circuits, and DNS behavior that works across trust boundaries.

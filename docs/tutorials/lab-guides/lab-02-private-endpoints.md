@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Lab 02: Private Endpoints
 
 Create a private endpoint for a storage account, wire up Private DNS, validate private access from a client subnet, and practice the exact checks used when private link deployments look healthy but application traffic still fails.

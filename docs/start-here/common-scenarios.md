@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Common Scenarios
 
 Understanding standard Azure networking patterns and their component requirements.

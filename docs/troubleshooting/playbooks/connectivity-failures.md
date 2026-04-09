@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Connectivity Failures
 
 ## 1. Summary

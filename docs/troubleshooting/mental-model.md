@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Troubleshooting Mental Model
 
 The goal is not to guess the fix first. The goal is to identify the first broken layer and then prove or disprove competing hypotheses quickly.

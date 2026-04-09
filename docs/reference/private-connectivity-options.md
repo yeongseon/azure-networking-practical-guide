@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Private Connectivity Options
 
 Comparison of methods to connect Azure services privately within a Virtual Network.

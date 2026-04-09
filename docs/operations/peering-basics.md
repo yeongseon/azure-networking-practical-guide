@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Peering Basics
 
 VNet Peering connects two virtual networks with low latency.

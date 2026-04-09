@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Azure Networking Components
 
 Comprehensive breakdown of core Azure networking resources and their primary functions.

@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Hybrid Connectivity Basics
 
 Hybrid connectivity allows you to extend your on-premises network into Azure, enabling seamless communication between local resources and cloud services.

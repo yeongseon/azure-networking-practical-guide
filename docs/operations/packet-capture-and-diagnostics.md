@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Packet Capture and Diagnostics
 
 Advanced tools for deep network investigation.

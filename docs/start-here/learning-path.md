@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Learning Path
 
 Follow a tailored journey based on your professional role and needs.

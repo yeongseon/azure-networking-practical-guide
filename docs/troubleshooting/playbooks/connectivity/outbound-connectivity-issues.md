@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Outbound Connectivity Issues
 
 ## 1. Summary

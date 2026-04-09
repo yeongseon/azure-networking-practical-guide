@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Glossary
 
 Definitions of core Azure networking terms for quick lookup.

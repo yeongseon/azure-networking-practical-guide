@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # VPN and ExpressRoute Basics
 
 Hybrid connectivity extends on-premises networks to Azure.

@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # DNS Resolution Cheatsheet
 
 Reference for DNS behavior within Azure Virtual Networks and hybrid environments.

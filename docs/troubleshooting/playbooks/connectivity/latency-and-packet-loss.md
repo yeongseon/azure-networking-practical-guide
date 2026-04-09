@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Latency and Packet Loss
 
 ## 1. Summary

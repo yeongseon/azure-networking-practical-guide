@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Azure Networking Practical Guide
 
 A concise resource for Azure networking fundamentals, design, and operations.

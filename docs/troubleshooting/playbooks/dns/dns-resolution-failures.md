@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # DNS Resolution Failures
 
 ## 1. Summary

@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # NSG vs UDR vs Firewall
 
 ## 1. Summary

@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Configure DNS
 
 Resolution configuration for workloads in Azure.

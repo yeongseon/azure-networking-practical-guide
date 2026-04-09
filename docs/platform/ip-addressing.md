@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # IP Addressing
 
 Azure uses a flexible IP addressing scheme for both private and public communications. Public IPs enable external access, while private IPs handle internal resource connectivity.

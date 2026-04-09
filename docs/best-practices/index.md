@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Best Practices
 
 This section collects production-ready Azure networking guidance for design, governance, security, observability, and cost management. Use it as the operating baseline before introducing platform scale, private endpoints, or hybrid connectivity.

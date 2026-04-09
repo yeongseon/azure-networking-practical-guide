@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Private Endpoint Best Practices
 
 Private Endpoint design succeeds when DNS, subnet placement, approval workflows, and egress expectations are handled together.

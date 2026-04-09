@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Quick Diagnosis Cards
 
 Use these cards when you need a fast symptom-to-playbook route in under 60 seconds.

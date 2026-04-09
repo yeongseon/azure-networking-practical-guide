@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Configure UDR
 
 User-Defined Routes (UDR) provide granular control over packet forwarding.

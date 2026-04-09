@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Network Design Baseline
 
 A strong Azure networking baseline reduces redesign work later by making address allocation, segmentation, egress control, DNS ownership, and observability explicit before the first workload arrives.

@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Hybrid Connectivity Issues
 
 ## 1. Summary
