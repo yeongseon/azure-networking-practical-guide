@@ -166,6 +166,7 @@ nav:
         - Hybrid Connectivity Issues: troubleshooting/playbooks/routing/hybrid-connectivity-issues.md
   - Reference:
     - reference/index.md
+    - Validation Status: reference/validation-status.md
     - Connectivity Decision Guide: reference/connectivity-decision-guide.md
     - Azure Networking Components: reference/azure-networking-components.md
     - DNS Resolution Cheatsheet: reference/dns-resolution-cheatsheet.md
