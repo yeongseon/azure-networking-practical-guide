@@ -1,6 +1,16 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: azure-networking-components
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized quick-reference diagram for this guide from Microsoft Learn networking documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
+        - https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits
+        - https://learn.microsoft.com/en-us/azure/architecture/guide/networking/networking-start-here
 ---
 
 # Azure Networking Components
@@ -28,6 +38,7 @@ Comprehensive breakdown of core Azure networking resources and their primary fun
 | Private DNS | Resolution | 7 | VNet name resolution | Link to multiple VNets |
 | Network Watcher | Monitoring | - | Diagnostic tools | Regional service |
 
+<!-- diagram-id: azure-networking-components -->
 ```mermaid
 graph TD
     VNet[Virtual Network] --> Subnet[Subnet]

@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: quick-context
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
+        - https://learn.microsoft.com/en-us/troubleshoot/azure/virtual-network/virtual-network-troubleshoot-peering-issues
 ---
 
 # First 10 Minutes: Routing
@@ -8,6 +17,7 @@ hide:
 ## Quick Context
 Use this checklist when traffic resolves correctly but takes the wrong path, never reaches a peered or hybrid network, or appears blocked by route and policy interaction.
 
+<!-- diagram-id: quick-context -->
 ```mermaid
 flowchart TD
     A[Routing symptom] --> B{Expected next hop present?}

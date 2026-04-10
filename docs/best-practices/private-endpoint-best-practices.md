@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: why-this-matters
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
+        - https://learn.microsoft.com/en-us/azure/storage/common/storage-private-endpoints
 ---
 
 # Private Endpoint Best Practices
@@ -17,6 +26,7 @@ Real-world incidents usually mix more than one factor: DNS, routes, NSGs, firewa
 
 Create private endpoints with matching DNS zone groups and approval workflows. Separate endpoint lifecycle from application runtime changes. Validate from every required client network, not only from the endpoint subnet.
 
+<!-- diagram-id: why-this-matters -->
 ```mermaid
 flowchart LR
                 Source[Client or Workload] --> Control[Private Control Point]

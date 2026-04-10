@@ -1,6 +1,14 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: how-azure-networking-works
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/security/fundamentals/network-best-practices
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/network-topology-and-connectivity
 ---
 
 # How Azure Networking Works
@@ -16,13 +24,18 @@ Azure Networking provides the infrastructure to connect cloud services and on-pr
 | NSG Rules | Access control lists | User |
 | Route Table | Custom traffic steering | User |
 
+<!-- diagram-id: how-azure-networking-works -->
 ```mermaid
-graph LR
-    VM[Virtual Machine] --> NIC[Network Interface]
-    NIC --> NSG[Subnet NSG]
-    NSG --> RT[Route Table]
-    RT --> GW[Virtual Gateway]
-    RT --> Internet[Internet]
+graph TD
+    VNet[Azure Virtual Network] --> Subnet[Subnet]
+    Subnet --> VM[Virtual Machine]
+    VM --> NIC[Network Interface]
+    Subnet -. association .-> NSG[Network Security Group]
+    Subnet -. association .-> RT[Route Table]
+    RT --> Dest{Traffic destination}
+    Dest --> Internet[Internet]
+    Dest --> Peering[Peered VNet]
+    Dest --> Hybrid[VPN or ExpressRoute]
 ```
 
 !!! note

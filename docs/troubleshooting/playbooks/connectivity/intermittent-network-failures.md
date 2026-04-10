@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: summary
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/network-watcher/network-insights-overview
+        - https://learn.microsoft.com/en-us/troubleshoot/azure/vpn-gateway/vpn-gateway-troubleshoot
 ---
 
 # Intermittent Network Failures
@@ -8,6 +17,7 @@ hide:
 ## 1. Summary
 Intermittent network failures require time-correlated evidence because the control plane may look healthy between failure windows.
 
+<!-- diagram-id: summary -->
 ```mermaid
 graph TD
     A[Intermittent loss] --> B{Random or periodic?}

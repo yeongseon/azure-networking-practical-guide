@@ -1,6 +1,14 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: why-this-matters
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/well-architected/service-guides/virtual-network
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/network-topology-and-connectivity
 ---
 
 # Common Anti-Patterns
@@ -17,6 +25,7 @@ Real-world incidents usually mix more than one factor: DNS, routes, NSGs, firewa
 
 Show teams how small shortcuts accumulate into large operational debt. Use anti-pattern reviews after incidents and before major platform expansions. Translate every anti-pattern into a concrete safer pattern with validation steps.
 
+<!-- diagram-id: why-this-matters -->
 ```mermaid
 flowchart LR
                 Source[Client or Workload] --> Control[Common Control Point]

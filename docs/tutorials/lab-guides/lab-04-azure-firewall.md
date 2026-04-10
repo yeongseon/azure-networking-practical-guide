@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: lab-04-azure-firewall
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/firewall/overview
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/firewall/deploy-cli
+        - https://learn.microsoft.com/en-us/azure/firewall/firewall-diagnostics
 ---
 
 # Lab 04: Azure Firewall
@@ -25,6 +34,7 @@ Deploy Azure Firewall with a simple spoke subnet, force egress through the firew
 
 ## Architecture Diagram
 
+<!-- diagram-id: lab-04-azure-firewall -->
 ```mermaid
 flowchart LR
     Workload[Spoke VM] --> UDR[Route Table 0.0.0.0/0]

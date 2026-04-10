@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: why-this-matters
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/cost-analysis-common-uses
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/firewall/firewall-faq
+        - https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-monitoring-overview
 ---
 
 # Cost Awareness Best Practices
@@ -17,6 +26,7 @@ Real-world incidents usually mix more than one factor: DNS, routes, NSGs, firewa
 
 Understand the difference between fixed hourly deployment costs and data processing costs. Review peering, firewall, gateway, and log retention as one system instead of separate budget lines. Use architecture reviews to decide where shared services really add value.
 
+<!-- diagram-id: why-this-matters -->
 ```mermaid
 flowchart LR
                 Source[Client or Workload] --> Control[Cost Control Point]

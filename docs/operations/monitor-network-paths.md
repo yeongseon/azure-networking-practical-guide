@@ -1,6 +1,14 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: monitor-network-paths
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-overview
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/network-watcher/connection-monitor-overview
 ---
 
 # Monitor Network Paths
@@ -20,6 +28,7 @@ Visibility into traffic flow and path performance.
 | Packet loss | Loss > 1% sustained | Inspect provider path and NSG drops. |
 | Flow anomaly | Unexpected deny spikes | Review recent policy updates. |
 
+<!-- diagram-id: monitor-network-paths -->
 ```mermaid
 graph TD
     Agent[Agent/VM] -- Test --> Target[Resource/URL]

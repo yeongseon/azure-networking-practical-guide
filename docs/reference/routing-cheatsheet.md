@@ -1,6 +1,16 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: routing-cheatsheet
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized quick-reference diagram for this guide from Microsoft Learn networking documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
+        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview#how-azure-selects-a-route
+        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview#border-gateway-protocol-bgp
 ---
 
 # Routing Cheatsheet
@@ -22,6 +32,7 @@ Quick reference for Azure Virtual Network routing precedence and next hop behavi
 | Internet | Direct to public internet | Default outbound (if not overridden) |
 | None | Drops the packet | Security "blackhole" routing |
 
+<!-- diagram-id: routing-cheatsheet -->
 ```mermaid
 graph TD
     Packet[Packet Outbound] --> Match[Find all matching routes]

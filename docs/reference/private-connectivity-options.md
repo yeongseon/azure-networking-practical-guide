@@ -1,6 +1,16 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: private-connectivity-options
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized quick-reference diagram for this guide from Microsoft Learn networking documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview
+        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-service-endpoints-overview
+        - https://learn.microsoft.com/en-us/azure/app-service/overview-vnet-integration
 ---
 
 # Private Connectivity Options
@@ -15,6 +25,7 @@ Comparison of methods to connect Azure services privately within a Virtual Netwo
 | Cost | Hourly rate + data transfer | Free | Free (Plan dependent) |
 | Services | Most PaaS & Link Services | Key PaaS (Storage, SQL) | App Service, Functions |
 
+<!-- diagram-id: private-connectivity-options -->
 ```mermaid
 graph TD
     User[Private Access Need] --> Target{Target Type?}

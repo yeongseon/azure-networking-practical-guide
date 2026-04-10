@@ -1,6 +1,16 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: dns-resolution-cheatsheet
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized quick-reference diagram for this guide from Microsoft Learn networking documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/dns/private-dns-overview
+        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-name-resolution-for-vms-and-role-instances
+        - https://learn.microsoft.com/en-us/azure/dns/dns-private-resolver-overview
 ---
 
 # DNS Resolution Cheatsheet
@@ -22,6 +32,7 @@ Reference for DNS behavior within Azure Virtual Networks and hybrid environments
 | Timeout | No response | Network blockage (NSG/FW) or invalid DNS IP |
 | Correct IP | Successful resolution | Record and VNet Link properly configured |
 
+<!-- diagram-id: dns-resolution-cheatsheet -->
 ```mermaid
 graph TD
     Client[VM Client] --> DNS_Check{Custom DNS?}

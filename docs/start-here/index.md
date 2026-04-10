@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: reading-path
+      type: flowchart
+      source: self-generated
+      justification: "Guide navigation diagram created for this repository and grounded in Microsoft Learn networking overview content."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/virtual-network/
+        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
 ---
 
 # Start Here
@@ -18,6 +27,7 @@ Kickstart your Azure networking journey with core mental models and pathfinders.
 
 ## Reading Path
 
+<!-- diagram-id: reading-path -->
 ```mermaid
 graph TD
     IN[Start Here Index] --> OV[Overview]

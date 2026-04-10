@@ -1,6 +1,17 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: index
+      type: flowchart
+      source: self-generated
+      justification: "Guide navigation diagram created for this repository and grounded in Microsoft Learn networking overview content."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/virtual-network/
+        - https://learn.microsoft.com/en-us/azure/architecture/browse/?expanded=azure&products=azure-networking
+        - https://learn.microsoft.com/en-us/azure/networking/networking-overview
+        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
 ---
 
 # Azure Networking Practical Guide
@@ -20,6 +31,7 @@ A concise resource for Azure networking fundamentals, design, and operations.
 
 ## Guide Structure
 
+<!-- diagram-id: index -->
 ```mermaid
 graph LR
     SH[Start Here] --> PL[Platform]

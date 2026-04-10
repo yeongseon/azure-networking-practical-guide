@@ -1,6 +1,29 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: main-triage-tree
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/network-watcher/connection-troubleshoot-overview
+        - https://learn.microsoft.com/en-us/azure/network-watcher/diagnose-vm-network-routing-problem
+    - id: dns-branch
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/network-watcher/connection-troubleshoot-overview
+        - https://learn.microsoft.com/en-us/azure/network-watcher/diagnose-vm-network-routing-problem
+    - id: routing-branch
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/network-watcher/connection-troubleshoot-overview
+        - https://learn.microsoft.com/en-us/azure/network-watcher/diagnose-vm-network-routing-problem
 ---
 
 # Troubleshooting Decision Tree
@@ -9,6 +32,7 @@ Use this page to route from observed symptom to the correct Azure Networking pla
 
 ## Main triage tree
 
+<!-- diagram-id: main-triage-tree -->
 ```mermaid
 flowchart TD
     A[Incident starts] --> B{Does name resolution fail?}
@@ -49,6 +73,7 @@ flowchart TD
 
 ## DNS branch
 
+<!-- diagram-id: dns-branch -->
 ```mermaid
 flowchart LR
     A[DNS symptom] --> B{Private Endpoint involved?}
@@ -58,6 +83,7 @@ flowchart LR
 
 ## Routing branch
 
+<!-- diagram-id: routing-branch -->
 ```mermaid
 flowchart LR
     A[Route or policy symptom] --> B{Transit or gateway involved?}

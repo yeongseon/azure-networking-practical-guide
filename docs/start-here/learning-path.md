@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: progression-flow
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized quick-reference diagram for this guide from Microsoft Learn networking documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/training/modules/azure-networking-fundamentals/
+        - https://learn.microsoft.com/en-us/training/browse/?products=azure-networking
 ---
 
 # Learning Path
@@ -18,6 +27,7 @@ Follow a tailored journey based on your professional role and needs.
 
 ## Progression Flow
 
+<!-- diagram-id: progression-flow -->
 ```mermaid
 graph TD
     B[Beginner] --> F[Foundations]

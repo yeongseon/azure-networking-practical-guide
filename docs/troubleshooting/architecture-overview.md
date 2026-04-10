@@ -1,6 +1,35 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: network-failure-plane-overview
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized quick-reference diagram for this guide from Microsoft Learn networking documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
+        - https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
+        - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
+        - https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-monitoring-overview
+    - id: path-selection-plane
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized quick-reference diagram for this guide from Microsoft Learn networking documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
+        - https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
+        - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
+        - https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-monitoring-overview
+    - id: target-and-performance-plane
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized quick-reference diagram for this guide from Microsoft Learn networking documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
+        - https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
+        - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
+        - https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-monitoring-overview
 ---
 
 # Troubleshooting Architecture Overview
@@ -9,6 +38,7 @@ Use this page to answer one question quickly: **where in the Azure networking pa
 
 ## Network failure-plane overview
 
+<!-- diagram-id: network-failure-plane-overview -->
 ```mermaid
 flowchart LR
     A[Client or workload] --> B[DNS resolution]
@@ -38,6 +68,7 @@ DNS failures often look like generic connectivity failures because the packet ne
 
 After resolution is correct, Azure must choose the intended path through system routes, user-defined routes, peering, or gateways.
 
+<!-- diagram-id: path-selection-plane -->
 ```mermaid
 flowchart TD
     A[Resolved destination IP] --> B{Route source}
@@ -69,6 +100,7 @@ Security and service-chain controls decide whether the chosen path is allowed.
 
 Sometimes networking is healthy and the real failure sits at the target listener, backend probe, or a time-sensitive path issue.
 
+<!-- diagram-id: target-and-performance-plane -->
 ```mermaid
 flowchart LR
     A[Path allowed] --> B[Listener reachable]

@@ -1,12 +1,21 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: index
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-monitoring-overview
 ---
 
 # Checklists
 
 Fast triage guides for the first 10 minutes of an Azure Networking incident.
 
+<!-- diagram-id: index -->
 ```mermaid
 graph TD
     A[Initial incident signal] --> B{Primary symptom area}

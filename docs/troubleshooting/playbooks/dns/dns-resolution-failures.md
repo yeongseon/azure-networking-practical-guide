@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: summary
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/dns/dns-troubleshoot
+        - https://learn.microsoft.com/en-us/azure/dns/private-dns-overview
 ---
 
 # DNS Resolution Failures
@@ -8,6 +17,7 @@ hide:
 ## 1. Summary
 DNS failures in Azure usually originate from the wrong resolver, missing private DNS linkage, broken forwarders, or overlapping zone design.
 
+<!-- diagram-id: summary -->
 ```mermaid
 graph TD
     A[Query name] --> B{Which DNS server answers?}

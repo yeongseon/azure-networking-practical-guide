@@ -1,6 +1,16 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: why-this-section-matters
+      type: flowchart
+      source: self-generated
+      justification: "Guide navigation diagram created for this repository and grounded in Microsoft Learn networking overview content."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/well-architected/service-guides/virtual-network
+        - https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/network-topology-and-connectivity
+        - https://learn.microsoft.com/en-us/azure/networking/
 ---
 
 # Best Practices
@@ -15,6 +25,7 @@ A strong Azure networking estate is predictable in five ways: address space does
 
 The practical risk is not a missing feature. It is unmanaged interaction between features: a private endpoint rollout without DNS links, a hub-spoke topology without route validation, or a firewall deployment without an egress catalog.
 
+<!-- diagram-id: why-this-section-matters -->
 ```mermaid
 flowchart TD
     A[Best Practices] --> B[Design and Segmentation]

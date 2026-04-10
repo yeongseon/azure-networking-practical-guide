@@ -1,6 +1,16 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: symptoms
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-about-vpn-gateway-settings
+        - https://learn.microsoft.com/en-us/azure/vpn-gateway/bgp-howto
+        - https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction
 ---
 
 # VPN Gateway Troubleshooting
@@ -18,6 +28,7 @@ Hybrid incidents often involve more than tunnel status. The real issue may be BG
 - A private endpoint or hybrid path behaves differently after a recent change.
 - Operators have a healthy-looking control plane but an unhealthy application path.
 
+<!-- diagram-id: symptoms -->
 ```mermaid
 flowchart TD
     A[Hybrid path fails] --> B{Is the tunnel or circuit connected?}

@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: how-this-section-works
+      type: flowchart
+      source: self-generated
+      justification: "Guide navigation diagram created for this repository and grounded in Microsoft Learn networking overview content."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-connectivity-overview
+        - https://learn.microsoft.com/en-us/azure/networking/fundamentals/monitoring-management-overview
 ---
 
 # Troubleshooting
@@ -9,6 +18,7 @@ Hypothesis-driven troubleshooting for Azure Networking incidents: start with sym
 
 ## How this section works
 
+<!-- diagram-id: how-this-section-works -->
 ```mermaid
 flowchart TD
     A[Observe symptom] --> B{What fails first?}

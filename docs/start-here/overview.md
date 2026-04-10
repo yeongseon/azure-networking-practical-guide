@@ -1,6 +1,12 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: big-picture
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
 ---
 
 # Overview
@@ -20,6 +26,7 @@ Azure Networking is the foundation of almost every cloud solution. Most configur
 
 ## Big Picture
 
+<!-- diagram-id: big-picture -->
 ```mermaid
 graph TD
     VN[VNet] --> SN[Subnet]

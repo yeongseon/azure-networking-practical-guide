@@ -1,6 +1,14 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: peering-basics
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-peering-overview
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-manage-peering
 ---
 
 # Peering Basics
@@ -20,6 +28,7 @@ VNet Peering connects two virtual networks with low latency.
 | Address space | No overlap between VNets | Route propagation succeeds. |
 | Effective routes | Peer prefixes visible on NIC | Traffic can target remote CIDR. |
 
+<!-- diagram-id: peering-basics -->
 ```mermaid
 graph LR
     VNetA[VNet A] -->|Peering| VNetB[VNet B]

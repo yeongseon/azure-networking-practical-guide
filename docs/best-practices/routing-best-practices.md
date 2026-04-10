@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: why-this-matters
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/virtual-network/diagnose-network-routing-problem
+        - https://learn.microsoft.com/en-us/azure/well-architected/service-guides/virtual-network
 ---
 
 # Routing Best Practices
@@ -17,6 +26,7 @@ Real-world incidents usually mix more than one factor: DNS, routes, NSGs, firewa
 
 Document route precedence between system routes, BGP, and UDRs. Validate effective routes on real NICs after peering, gateway, or UDR changes. Use route tables to express intent clearly and avoid undocumented transit assumptions.
 
+<!-- diagram-id: why-this-matters -->
 ```mermaid
 flowchart LR
                 Source[Client or Workload] --> Control[Routing Control Point]

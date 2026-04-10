@@ -1,6 +1,14 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: why-this-matters
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/dns/dns-overview
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/well-architected/service-guides/virtual-network
 ---
 
 # DNS Best Practices
@@ -15,6 +23,7 @@ In Azure, networking changes often look correct in the control plane while faili
 
 Real-world incidents usually mix more than one factor: DNS, routes, NSGs, firewall policy, health probes, or hybrid dependencies. A strong practice guide makes those dependencies visible before the outage.
 
+<!-- diagram-id: why-this-matters -->
 ```mermaid
 flowchart LR
                 Source[Client or Workload] --> Control[DNS Control Point]

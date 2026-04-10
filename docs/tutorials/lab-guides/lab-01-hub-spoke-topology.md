@@ -1,6 +1,14 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: lab-01-hub-spoke-topology
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-peering-overview
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/network-topology-and-connectivity
 ---
 
 # Lab 01: Hub-Spoke Topology
@@ -25,6 +33,7 @@ Build a small hub-spoke landing zone with shared services, peering, route valida
 
 ## Architecture Diagram
 
+<!-- diagram-id: lab-01-hub-spoke-topology -->
 ```mermaid
 flowchart LR
                 Admin[Operator VM] --> Hub[Hub VNet]

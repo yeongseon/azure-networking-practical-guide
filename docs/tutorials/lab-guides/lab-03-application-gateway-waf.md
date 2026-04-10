@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: lab-03-application-gateway-waf
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/application-gateway/overview-v2
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/application-gateway/application-gateway-probe-overview
+        - https://learn.microsoft.com/en-us/azure/web-application-firewall/ag/ag-overview
 ---
 
 # Lab 03: Application Gateway WAF
@@ -25,6 +34,7 @@ Deploy a small WAF v2 Application Gateway in front of a test backend so you can 
 
 ## Architecture Diagram
 
+<!-- diagram-id: lab-03-application-gateway-waf -->
 ```mermaid
 flowchart LR
     Internet[Client] --> PublicIP[Public IP]

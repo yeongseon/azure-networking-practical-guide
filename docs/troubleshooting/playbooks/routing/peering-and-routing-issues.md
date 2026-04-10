@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: summary
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/troubleshoot/azure/virtual-network/virtual-network-troubleshoot-peering-issues
+        - https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-peering-gateway-transit
 ---
 
 # Peering and Routing Issues
@@ -8,6 +17,7 @@ hide:
 ## 1. Summary
 Peering failures usually come from bilateral configuration mismatch, overlapping address space, missing transit assumptions, or route overrides after peering is healthy.
 
+<!-- diagram-id: summary -->
 ```mermaid
 graph TD
     A[Peering check] --> B{Both sides connected?}

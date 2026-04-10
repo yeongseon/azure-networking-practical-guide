@@ -1,6 +1,14 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: configure-dns
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-name-resolution-for-vms-and-role-instances
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/dns/private-dns-overview
 ---
 
 # Configure DNS
@@ -19,6 +27,7 @@ Resolution configuration for workloads in Azure.
 | Private endpoint name test | `nslookup <resource-fqdn>` | Private IP returned. |
 | Zone link verification | Portal or CLI | Correct VNets linked to zone. |
 
+<!-- diagram-id: configure-dns -->
 ```mermaid
 graph TD
     Query[DNS Query] --> Custom[Custom DNS Set?]

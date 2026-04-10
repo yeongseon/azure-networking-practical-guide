@@ -1,6 +1,14 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: private-connectivity-options
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/private-link/private-link-overview
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-service-endpoints-overview
 ---
 
 # Private Connectivity Options
@@ -13,6 +21,7 @@ Azure provides several ways to connect to PaaS services privately, without expos
 | Private Endpoint | Changes resolution. | NIC-level. | Private IP-based. |
 | VNet Integration | Outbound only. | Regional. | Subnet-delegated. |
 
+<!-- diagram-id: private-connectivity-options -->
 ```mermaid
 graph LR
     VNet[Subnet] --> SE[Service Endpoint]

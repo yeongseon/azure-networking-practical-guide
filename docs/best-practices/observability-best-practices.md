@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: why-this-matters
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/network-watcher/network-insights-overview
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/network-watcher/connection-monitor-overview
+        - https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/diagnostic-settings
 ---
 
 # Observability Best Practices
@@ -17,6 +26,7 @@ Real-world incidents usually mix more than one factor: DNS, routes, NSGs, firewa
 
 Collect AzureActivity, diagnostics, metrics, and probe results into one investigation path. Use synthetic tests for private endpoints, hub services, and hybrid dependencies. Retain enough history to compare normal vs abnormal periods.
 
+<!-- diagram-id: why-this-matters -->
 ```mermaid
 flowchart LR
                 Source[Client or Workload] --> Control[Observability Control Point]

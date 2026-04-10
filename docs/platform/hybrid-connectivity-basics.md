@@ -1,6 +1,14 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: hybrid-connectivity-basics
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-about-vpngateways
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction
 ---
 
 # Hybrid Connectivity Basics
@@ -14,6 +22,7 @@ Hybrid connectivity allows you to extend your on-premises network into Azure, en
 | Cost | Lower cost. | Higher (Circuit + Port). |
 | Best Use Case | Branch offices, Dev/Test. | Critical workloads, Data migrations. |
 
+<!-- diagram-id: hybrid-connectivity-basics -->
 ```mermaid
 graph LR
     OnPrem[On-Premises Network] --- VPN[S2S VPN Tunnel]

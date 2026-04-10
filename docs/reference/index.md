@@ -1,6 +1,16 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: index
+      type: flowchart
+      source: self-generated
+      justification: "Guide navigation diagram created for this repository and grounded in Microsoft Learn networking overview content."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/architecture/guide/networking/networking-start-here
+        - https://learn.microsoft.com/en-us/azure/virtual-network/
+        - https://learn.microsoft.com/en-us/azure/dns/
 ---
 
 # Reference
@@ -19,6 +29,7 @@ Reference section for the Azure Networking Practical Guide. Use these pages for 
 | Private Connectivity Options | Comparison of Private Endpoints and Service Endpoints. |
 | Glossary | Definitions of 20+ core networking terms. |
 
+<!-- diagram-id: index -->
 ```mermaid
 graph TD
     Ref[Reference] --> CDG[Connectivity Decision Guide]

@@ -1,6 +1,16 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: connectivity-decision-guide
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized quick-reference diagram for this guide from Microsoft Learn networking documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/architecture/reference-architectures/hybrid-networking/
+        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
+        - https://learn.microsoft.com/en-us/azure/private-link/
 ---
 
 # Connectivity Decision Guide
@@ -15,6 +25,7 @@ Recommended connectivity approaches based on scenario requirements.
 | Multi-region | Global VNet Peering | Low latency backbone. |
 | SaaS Access | Private Link | Private access to PaaS/SaaS. |
 
+<!-- diagram-id: connectivity-decision-guide -->
 ```mermaid
 graph TD
     Start[Connectivity Need] --> Int[Internet?]

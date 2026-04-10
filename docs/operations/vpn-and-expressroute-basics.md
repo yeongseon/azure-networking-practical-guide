@@ -1,6 +1,14 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: vpn-and-expressroute-basics
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-about-vpngateways
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction
 ---
 
 # VPN and ExpressRoute Basics
@@ -20,6 +28,7 @@ Hybrid connectivity extends on-premises networks to Azure.
 | Edge dependency | Internet ISP stability | Provider circuit health |
 | Common validation | Tunnel or circuit state is Up | Learned routes are present |
 
+<!-- diagram-id: vpn-and-expressroute-basics -->
 ```mermaid
 graph LR
     OnPrem[On-Premises] -->|ISP/MSEE| Gate[Azure Gateway]

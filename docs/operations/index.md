@@ -1,6 +1,16 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: index
+      type: flowchart
+      source: self-generated
+      justification: "Guide navigation diagram created for this repository and grounded in Microsoft Learn networking overview content."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/virtual-network/
+        - https://learn.microsoft.com/en-us/azure/networking/security/network-security
+        - https://learn.microsoft.com/en-us/azure/private-link/
 ---
 
 # Operations
@@ -19,6 +29,7 @@ The Operations section provides actionable guides for deploying and managing Azu
 | [Monitor Network Paths](monitor-network-paths.md) | Tools for visibility into network traffic flow. |
 | [Packet Capture](packet-capture-and-diagnostics.md) | Deep diagnostic procedures for complex issues. |
 
+<!-- diagram-id: index -->
 ```mermaid
 graph TD
     Start[Planning] --> VNet[Create VNet/Subnets]

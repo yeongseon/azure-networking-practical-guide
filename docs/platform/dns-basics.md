@@ -1,6 +1,14 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: dns-basics
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/dns/dns-overview
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
 ---
 
 # DNS Basics
@@ -14,6 +22,7 @@ DNS provides name resolution for Azure services, both within a VNet and across h
 | Private DNS Zones | Managed resolution for VNets. | High control. |
 | Azure DNS Private Resolver| Hybrid DNS queries. | Managed service. |
 
+<!-- diagram-id: dns-basics -->
 ```mermaid
 graph TD
     User[App Service] --> Q{Query DNS?}

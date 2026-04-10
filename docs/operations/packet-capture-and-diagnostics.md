@@ -1,6 +1,14 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: packet-capture-and-diagnostics
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-connectivity-portal
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-packet-capture-overview
 ---
 
 # Packet Capture and Diagnostics
@@ -20,6 +28,7 @@ Advanced tools for deep network investigation.
 | 2 | Next Hop | Confirm selected route path. |
 | 3 | Packet Capture | Inspect packets and retransmits. |
 
+<!-- diagram-id: packet-capture-and-diagnostics -->
 ```mermaid
 graph TD
     Issue[Issue Reported] --> Flow[IP Flow Verify]

@@ -1,6 +1,14 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: configure-nsg
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/virtual-network/manage-network-security-group#create-a-security-rule
 ---
 
 # Configure NSG
@@ -22,6 +30,7 @@ Network Security Groups provide distributed filtering for subnets and interfaces
 | AllowAzureLoadBalancerInBound | 65001 | Allow | Health probe traffic. |
 | DenyAllInBound | 65500 | Deny | Standard "Deny All" rule. |
 
+<!-- diagram-id: configure-nsg -->
 ```mermaid
 graph TD
     Rule[New Packet] --> P100[Rule 100 Match?]

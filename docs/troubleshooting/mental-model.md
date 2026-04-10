@@ -1,6 +1,22 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: core-model
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/virtual-network/
+        - https://learn.microsoft.com/en-us/azure/network-watcher/
+    - id: practical-classification-flow
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/virtual-network/
+        - https://learn.microsoft.com/en-us/azure/network-watcher/
 ---
 
 # Troubleshooting Mental Model
@@ -9,6 +25,7 @@ The goal is not to guess the fix first. The goal is to identify the first broken
 
 ## Core model
 
+<!-- diagram-id: core-model -->
 ```mermaid
 flowchart TD
     A[Observed symptom] --> B[Classify the layer]
@@ -44,6 +61,7 @@ flowchart TD
 3. Collect only the first decisive artifact for that category.
 4. Reclassify immediately if the artifact contradicts your initial category.
 
+<!-- diagram-id: practical-classification-flow -->
 ```mermaid
 flowchart LR
     A[One failing source] --> B[One failing destination]

@@ -1,6 +1,14 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: network-security-basics
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/networking/fundamentals/networking-overview#network-security
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
 ---
 
 # Network Security Basics
@@ -14,13 +22,16 @@ Azure network security is based on a zero-trust model, implementing multiple lay
 | WAF | Layer 7 | Global/Regional | OWASP protection. |
 | DDoS Protection | Layer 3/4 | VNet / Public IP | Mitigates attacks for protected resources. |
 
+<!-- diagram-id: network-security-basics -->
 ```mermaid
-graph LR
-    Internet[Internet] --> DDoS[DDoS Protection]
-    DDoS --> AFW[Azure Firewall]
-    AFW --> NSG[Subnet NSG]
-    NSG --> VM[Target Resource]
-    WAF[WAF / App Gateway] -.-> AFW
+graph TD
+    Internet[Internet] --> Edge{Published entry point}
+    Edge -->|HTTP/S| WAF[Application Gateway or WAF]
+    Edge -->|TCP/UDP| LB[Public IP or Load Balancer]
+    WAF --> Workload[Target resource]
+    LB --> Workload
+    NSG[Network Security Group] -. subnet or NIC filtering .-> Workload
+    Workload --> Firewall[Azure Firewall for centralized egress and transit]
 ```
 
 !!! note

@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: summary
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-troubleshoot-site-to-site-cannot-connect
+        - https://learn.microsoft.com/en-us/troubleshoot/azure/expressroute/expressroute-troubleshooting-network-performance
 ---
 
 # Hybrid Connectivity Issues
@@ -8,6 +17,7 @@ hide:
 ## 1. Summary
 Hybrid failures across VPN or ExpressRoute usually come from tunnel health, BGP route learning, prefix advertisement, or MTU and provider-path issues.
 
+<!-- diagram-id: summary -->
 ```mermaid
 graph TD
     A[Cloud to on-prem path] --> B{Tunnel up?}

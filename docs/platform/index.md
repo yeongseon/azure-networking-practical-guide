@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: index
+      type: flowchart
+      source: self-generated
+      justification: "Guide navigation diagram created for this repository and grounded in Microsoft Learn networking overview content."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
+        - https://learn.microsoft.com/en-us/azure/networking/fundamentals/networking-overview
 ---
 
 # Platform Fundamentals
@@ -19,6 +28,7 @@ This section provides a deep dive into the core components of Azure networking. 
 | [Private Connectivity Options](private-connectivity-options.md) | Secure access to Azure PaaS via Private Link. |
 | [Hybrid Connectivity Basics](hybrid-connectivity-basics.md) | Connecting on-premises sites to Azure VNets. |
 
+<!-- diagram-id: index -->
 ```mermaid
 graph TD
     A[VNet & Subnets] --> B[IP Addressing]

@@ -1,6 +1,14 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: connect-private-endpoints
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
 ---
 
 # Connect Private Endpoints
@@ -20,6 +28,7 @@ Private Endpoints allow secure access to Azure Services over a private IP.
 | Route check | Effective routes on source NIC | Prefix points to VNet path. |
 | Port test | `Test-NetConnection -Port 443` | TCP connection succeeds. |
 
+<!-- diagram-id: connect-private-endpoints -->
 ```mermaid
 graph LR
     VNet[Consumer VNet] --> PE[Private Endpoint]

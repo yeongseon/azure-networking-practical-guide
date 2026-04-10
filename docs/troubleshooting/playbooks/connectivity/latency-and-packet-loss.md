@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: summary
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-test-latency
+        - https://learn.microsoft.com/en-us/azure/expressroute/monitor-expressroute
 ---
 
 # Latency and Packet Loss
@@ -8,6 +17,7 @@ hide:
 ## 1. Summary
 Latency and loss troubleshooting starts by separating real network-path delay from application-side processing delay.
 
+<!-- diagram-id: summary -->
 ```mermaid
 graph TD
     A[Slow or lossy path] --> B{RTT high?}

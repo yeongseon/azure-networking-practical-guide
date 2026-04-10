@@ -1,3 +1,15 @@
+---
+content_sources:
+  diagrams:
+    - id: summary
+      type: pie
+      source: self-generated
+      justification: "Status visualization generated for this guide and grounded in the Microsoft Learn service references listed below."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/networking/networking-overview
+        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
+---
+
 # Tutorial Validation Status
 
 This page tracks which lab guides have been validated against real Azure deployments. Each guide can be tested via **az-cli** (manual CLI commands) or **Bicep** (infrastructure as code). Guides not tested within 90 days are marked as stale.
@@ -14,6 +26,7 @@ This page tracks which lab guides have been validated against real Azure deploym
 | ❌ Failed | 0 |
 | ➖ Not tested | 5 |
 
+<!-- diagram-id: summary -->
 ```mermaid
 pie title Tutorial Validation Status
     "Not Tested" : 5

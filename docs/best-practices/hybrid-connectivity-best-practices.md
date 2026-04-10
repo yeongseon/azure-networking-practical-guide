@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: why-this-matters
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/vpn-gateway/tutorial-site-to-site-portal
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction
+        - https://learn.microsoft.com/en-us/azure/architecture/reference-architectures/hybrid-networking/
 ---
 
 # Hybrid Connectivity Best Practices
@@ -17,6 +26,7 @@ Real-world incidents usually mix more than one factor: DNS, routes, NSGs, firewa
 
 Keep BGP advertisements, local network gateway prefixes, and failover expectations aligned. Test tunnel health and route preference during quiet periods, not for the first time in production. Define who owns Azure-side vs provider-side diagnostics.
 
+<!-- diagram-id: why-this-matters -->
 ```mermaid
 flowchart LR
                 Source[Client or Workload] --> Control[Hybrid Control Point]

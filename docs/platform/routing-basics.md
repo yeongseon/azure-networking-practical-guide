@@ -1,12 +1,21 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: routing-basics
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/virtual-network/tutorial-create-route-table-portal
 ---
 
 # Routing Basics
 
 Azure automatically creates system routes for each subnet in a VNet. User-Defined Routes (UDR) allow you to override these default system routes to steer traffic through virtual appliances or gateways.
 
+<!-- diagram-id: routing-basics -->
 ```mermaid
 flowchart TD
     A[Packet leaves subnet] --> B{Matching routes available?}

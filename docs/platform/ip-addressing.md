@@ -1,6 +1,14 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: ip-addressing
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/public-ip-addresses
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/private-ip-addresses
 ---
 
 # IP Addressing
@@ -14,6 +22,7 @@ Azure uses a flexible IP addressing scheme for both private and public communica
 | Public Dynamic | Assigned from Azure pool. | Changes if deallocated/reassigned. | Legacy scenarios only. |
 | Public Static | Fixed from Azure pool. | Persists across restarts. | VPN gateways, Firewalls. |
 
+<!-- diagram-id: ip-addressing -->
 ```mermaid
 graph TD
     A[New IP Request] --> B{IP Type?}

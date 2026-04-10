@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: card-1-private-endpoint-unreachable
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-connectivity-overview
+        - https://learn.microsoft.com/en-us/azure/private-link/troubleshoot-private-endpoint-connectivity
 ---
 
 # Quick Diagnosis Cards
@@ -9,6 +18,7 @@ Use these cards when you need a fast symptom-to-playbook route in under 60 secon
 
 ## Card 1: Private Endpoint unreachable
 
+<!-- diagram-id: card-1-private-endpoint-unreachable -->
 ```mermaid
 graph LR
     A[Private Endpoint failure] --> B[Resolve FQDN]

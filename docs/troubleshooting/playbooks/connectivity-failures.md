@@ -1,6 +1,16 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: symptoms
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/network-watcher/connection-monitor-overview
+        - https://learn.microsoft.com/en-us/azure/virtual-network/diagnose-network-routing-problem
+        - https://learn.microsoft.com/en-us/azure/virtual-network/network-security-group-how-it-works
 ---
 
 # Connectivity Failures
@@ -18,6 +28,7 @@ The fastest diagnosis comes from splitting the path into five checks: name resol
 - A private endpoint or hybrid path behaves differently after a recent change.
 - Operators have a healthy-looking control plane but an unhealthy application path.
 
+<!-- diagram-id: symptoms -->
 ```mermaid
 flowchart TD
     A[Connection fails] --> B{Does DNS return the expected private target?}

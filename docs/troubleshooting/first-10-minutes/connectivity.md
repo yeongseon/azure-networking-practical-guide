@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: quick-context
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/network-watcher/connection-troubleshoot-overview
+        - https://learn.microsoft.com/en-us/azure/network-watcher/diagnose-vm-network-routing-problem
 ---
 
 # First 10 Minutes: Connectivity
@@ -8,6 +17,7 @@ hide:
 ## Quick Context
 Use this checklist when the symptom is reachability, packet loss, intermittent failure, or latency. The first goal is to separate DNS, path, policy, and target health.
 
+<!-- diagram-id: quick-context -->
 ```mermaid
 flowchart TD
     A[Reachability symptom] --> B{Name resolves correctly?}

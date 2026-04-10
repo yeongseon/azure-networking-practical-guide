@@ -1,6 +1,14 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: create-vnet-and-subnets
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/virtual-network/quick-create-portal
 ---
 
 # Create VNet and Subnets
@@ -22,6 +30,7 @@ Standardized deployment of Virtual Networks ensures consistent addressing and se
 | Post-deployment | Verify subnet connectivity to peering/gateways. | [ ] |
 | Post-deployment | Confirm NSG association to all subnets. | [ ] |
 
+<!-- diagram-id: create-vnet-and-subnets -->
 ```mermaid
 graph LR
     P[Planning] --> V[VNet Create]

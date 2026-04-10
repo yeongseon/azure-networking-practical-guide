@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: summary
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/load-balancer/troubleshoot-outbound-connection
+        - https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-outbound-connections
 ---
 
 # Outbound Connectivity Issues
@@ -8,6 +17,7 @@ hide:
 ## 1. Summary
 Outbound failures happen when workloads cannot reach internet or external targets because DNS, default routing, SNAT design, or egress policy is wrong.
 
+<!-- diagram-id: summary -->
 ```mermaid
 graph TD
     A[Source workload] --> B{IP-only test works?}

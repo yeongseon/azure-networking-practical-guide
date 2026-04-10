@@ -1,6 +1,16 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: symptoms
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/dns/private-dns-overview
+        - https://learn.microsoft.com/en-us/azure/dns/dns-private-resolver-overview
+        - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
 ---
 
 # DNS Resolution Issues
@@ -18,6 +28,7 @@ The key is to identify which resolver answered, which zone should have been auth
 - A private endpoint or hybrid path behaves differently after a recent change.
 - Operators have a healthy-looking control plane but an unhealthy application path.
 
+<!-- diagram-id: symptoms -->
 ```mermaid
 flowchart TD
     A[DNS issue reported] --> B{Which resolver answers first?}

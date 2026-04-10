@@ -1,6 +1,14 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: vnet-and-subnet-basics
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-vnet-plan-design-arm
 ---
 
 # VNet and Subnet Basics
@@ -22,6 +30,7 @@ Virtual Networks (VNets) are the fundamental building block for your private net
 | Firewall | Centralized network security. | AzureFirewallSubnet |
 | Private Endpoint | Private access to PaaS services. | N/A |
 
+<!-- diagram-id: vnet-and-subnet-basics -->
 ```mermaid
 graph TD
     VNet[Virtual Network /16] --> S1[Web Subnet /24]

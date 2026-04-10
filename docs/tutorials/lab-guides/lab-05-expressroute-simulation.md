@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: lab-05-expressroute-simulation
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/vpn-gateway/tutorial-site-to-site-portal
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/vpn-gateway/bgp-howto
+        - https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction
 ---
 
 # Lab 05: ExpressRoute Simulation
@@ -25,6 +34,7 @@ Simulate ExpressRoute-style failover thinking without provisioning a real circui
 
 ## Architecture Diagram
 
+<!-- diagram-id: lab-05-expressroute-simulation -->
 ```mermaid
 flowchart LR
     OnPrem[Simulated on-premises prefixes] --> LNG[Local Network Gateway]

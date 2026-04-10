@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: summary
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/troubleshoot/azure/application-gateway/welcome-app-gateway
+        - https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-troubleshoot-health-probe-status
 ---
 
 # Inbound Connectivity Issues
@@ -8,6 +17,7 @@ hide:
 ## 1. Summary
 Inbound failures usually occur because the published frontend, backend probe, policy layer, or target listener is unhealthy or misaligned.
 
+<!-- diagram-id: summary -->
 ```mermaid
 graph TD
     A[Client request] --> B[Frontend IP]

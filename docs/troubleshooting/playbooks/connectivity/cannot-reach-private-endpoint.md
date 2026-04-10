@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: summary
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/private-link/troubleshoot-private-endpoint-connectivity
+        - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns#validation
 ---
 
 # Cannot Reach Private Endpoint
@@ -8,6 +17,7 @@ hide:
 ## 1. Summary
 Private Endpoint failures usually come from a mismatch between DNS resolution, private DNS zone linkage, route choice, and effective allow rules.
 
+<!-- diagram-id: summary -->
 ```mermaid
 graph TD
     A[Connect to Private Endpoint] --> B{FQDN resolves to private IP?}

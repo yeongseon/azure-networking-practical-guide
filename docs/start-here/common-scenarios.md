@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: hub-spoke-topology
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized quick-reference diagram for this guide from Microsoft Learn networking documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/architecture/networking/
+        - https://learn.microsoft.com/en-us/azure/architecture/reference-architectures/hybrid-networking/hub-spoke
 ---
 
 # Common Scenarios
@@ -20,6 +29,7 @@ Understanding standard Azure networking patterns and their component requirement
 
 ## Hub-Spoke Topology
 
+<!-- diagram-id: hub-spoke-topology -->
 ```mermaid
 graph TD
     HB[Hub VNet] <--> S1[Spoke 1]

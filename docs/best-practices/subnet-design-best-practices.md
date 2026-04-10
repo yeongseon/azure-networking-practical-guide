@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: why-this-matters
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-manage-subnet
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-vnet-plan-design-arm
+        - https://learn.microsoft.com/en-us/azure/well-architected/service-guides/virtual-network
 ---
 
 # Subnet Design Best Practices
@@ -15,6 +24,7 @@ Azure services increasingly expect dedicated or well-sized subnets. Application 
 
 Subnet design also shapes how teams work. It determines who can deploy, who can attach policy, and how safely you can scale or troubleshoot each environment.
 
+<!-- diagram-id: why-this-matters -->
 ```mermaid
 flowchart TD
     VNet[VNet 10.30.0.0/16] --> Gateway[GatewaySubnet 10.30.0.0/24]

@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: diagnostic-framework
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized quick-reference diagram for this guide from Microsoft Learn networking documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-connectivity-overview
+        - https://learn.microsoft.com/en-us/azure/network-watcher/connection-troubleshoot-overview
 ---
 
 # Networking vs Connectivity
@@ -18,6 +27,7 @@ Understanding how to solve a connectivity problem is different from knowing how 
 
 ## Diagnostic Framework
 
+<!-- diagram-id: diagnostic-framework -->
 ```mermaid
 graph TD
     DN[DNS Check] --> RT[Route Check]

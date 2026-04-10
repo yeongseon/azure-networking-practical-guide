@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: quick-context
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/dns/dns-troubleshoot
+        - https://learn.microsoft.com/en-us/azure/dns/private-dns-overview
 ---
 
 # First 10 Minutes: DNS
@@ -8,6 +17,7 @@ hide:
 ## Quick Context
 Use this checklist when the failing signal is wrong name resolution: NXDOMAIN, timeout, public IP for a private target, or inconsistent answers across sources.
 
+<!-- diagram-id: quick-context -->
 ```mermaid
 flowchart TD
     A[DNS symptom] --> B{Which resolver is active?}

@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: why-this-matters
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/firewall/overview
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
+        - https://learn.microsoft.com/en-us/azure/firewall-manager/policy-overview
 ---
 
 # NSG and Firewall Best Practices
@@ -17,6 +26,7 @@ Real-world incidents usually mix more than one factor: DNS, routes, NSGs, firewa
 
 Use NSGs for local segmentation and Azure Firewall for centralized L3-L7 inspection where justified. Avoid rule duplication by using firewall policy hierarchy and readable rule collections. Validate probe traffic, platform dependencies, and DNS explicitly before tightening rules.
 
+<!-- diagram-id: why-this-matters -->
 ```mermaid
 flowchart LR
                 Source[Client or Workload] --> Control[NSG Control Point]

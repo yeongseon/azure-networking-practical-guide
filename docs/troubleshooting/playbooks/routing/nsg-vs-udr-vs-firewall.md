@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: summary
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview#how-security-rules-are-evaluated
+        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview#how-azure-selects-a-route
 ---
 
 # NSG vs UDR vs Firewall
@@ -8,6 +17,7 @@ hide:
 ## 1. Summary
 This playbook helps determine whether traffic is failing because Azure chose the wrong path, the correct path was denied by policy, or the target listener never handled the packet.
 
+<!-- diagram-id: summary -->
 ```mermaid
 graph LR
     A[Packet] --> B[Route / UDR]

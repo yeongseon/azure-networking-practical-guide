@@ -1,6 +1,14 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: load-balancing-options
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/architecture/guide/technology-choices/load-balancing-overview
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/architecture/guide/technology-choices/load-balancing-overview#choose-a-load-balancing-solution-for-your-scenario
 ---
 
 # Load Balancing Options
@@ -14,6 +22,7 @@ Azure offers several services to distribute traffic across your applications. Ch
 | Azure Front Door | Layer 7 | Global | CDN, WAF, SSL offload. |
 | Traffic Manager | DNS | Global | Performance, Priority routing. |
 
+<!-- diagram-id: load-balancing-options -->
 ```mermaid
 graph TD
     Start[Traffic Source] --> Q{Global or Regional?}

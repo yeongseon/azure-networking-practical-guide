@@ -1,6 +1,16 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: symptoms
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-custom-probe-overview
+        - https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-troubleshoot-health-probe-status
+        - https://learn.microsoft.com/en-us/azure/load-balancer/quickstart-load-balancer-standard-public-portal
 ---
 
 # Load Balancer Health Probe Failures
@@ -18,6 +28,7 @@ Health probe incidents are usually not load balancer defects. They are often NSG
 - A private endpoint or hybrid path behaves differently after a recent change.
 - Operators have a healthy-looking control plane but an unhealthy application path.
 
+<!-- diagram-id: symptoms -->
 ```mermaid
 flowchart TD
     A[Probe failure] --> B{Does the backend respond locally on the probe port or path?}

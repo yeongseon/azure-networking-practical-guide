@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: lab-02-private-endpoints
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
+        - https://learn.microsoft.com/en-us/azure/storage/common/storage-private-endpoints
 ---
 
 # Lab 02: Private Endpoints
@@ -25,6 +34,7 @@ Create a private endpoint for a storage account, wire up Private DNS, validate p
 
 ## Architecture Diagram
 
+<!-- diagram-id: lab-02-private-endpoints -->
 ```mermaid
 flowchart LR
     Client[Client VM] --> VNet[Spoke VNet]

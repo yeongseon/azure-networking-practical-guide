@@ -1,6 +1,16 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: glossary
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized quick-reference diagram for this guide from Microsoft Learn networking documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
+        - https://learn.microsoft.com/en-us/training/modules/azure-networking-fundamentals/
+        - https://learn.microsoft.com/en-us/azure/architecture/guide/networking/networking-start-here
 ---
 
 # Glossary
@@ -32,6 +42,7 @@ Definitions of core Azure networking terms for quick lookup.
 | BGP | Protocol for dynamic route exchange. |
 | Route Table | Collection of routes applied to subnets. |
 
+<!-- diagram-id: glossary -->
 ```mermaid
 graph LR
     VNet --> Subnet

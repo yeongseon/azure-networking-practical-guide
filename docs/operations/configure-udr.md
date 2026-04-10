@@ -1,12 +1,21 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: configure-udr
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/virtual-network/manage-route-table
 ---
 
 # Configure UDR
 
 User-Defined Routes (UDR) provide granular control over packet forwarding.
 
+<!-- diagram-id: configure-udr -->
 ```mermaid
 flowchart TD
     A[Identify traffic pattern] --> B[Create or choose route table]

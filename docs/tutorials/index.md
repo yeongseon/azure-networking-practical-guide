@@ -1,6 +1,14 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: what-you-will-find-here
+      type: flowchart
+      source: self-generated
+      justification: "Guide navigation diagram created for this repository and grounded in Microsoft Learn networking overview content."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/networking/
 ---
 
 # Tutorials
@@ -17,6 +25,7 @@ Hands-on networking labs for validating Azure design patterns, common failure mo
 | [Lab 04: Azure Firewall](lab-guides/lab-04-azure-firewall.md) | Forced tunneling, firewall rules, diagnostics |
 | [Lab 05: ExpressRoute Simulation](lab-guides/lab-05-expressroute-simulation.md) | Hybrid route thinking and failover validation |
 
+<!-- diagram-id: what-you-will-find-here -->
 ```mermaid
 flowchart LR
     A[Tutorials] --> B[Hub and Spoke]

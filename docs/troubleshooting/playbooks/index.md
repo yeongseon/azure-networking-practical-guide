@@ -1,12 +1,21 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: index
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/networking/
 ---
 
 # Playbooks
 
 Symptom-oriented Azure Networking playbooks organized by connectivity, DNS, and routing.
 
+<!-- diagram-id: index -->
 ```mermaid
 graph TD
     A[Reported symptom] --> B{Primary domain}

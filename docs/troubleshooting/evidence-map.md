@@ -1,12 +1,23 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: evidence-map
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-monitoring-overview
+        - https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-connectivity-overview
+        - https://learn.microsoft.com/en-us/azure/network-watcher/ip-flow-verify-overview
 ---
 
 # Evidence Map
 
 This page maps common Azure Networking troubleshooting questions to the evidence source that answers them fastest.
 
+<!-- diagram-id: evidence-map -->
 ```mermaid
 flowchart LR
     A[Question] --> B[Control plane evidence]

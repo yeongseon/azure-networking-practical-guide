@@ -1,6 +1,15 @@
 ---
 hide:
   - toc
+content_sources:
+  diagrams:
+    - id: why-this-matters
+      type: flowchart
+      source: mslearn-adapted
+      mslearn_url: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-vnet-plan-design-arm
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/network-topology-and-connectivity
+        - https://learn.microsoft.com/en-us/azure/well-architected/service-guides/virtual-network
 ---
 
 # Network Design Baseline
@@ -15,6 +24,7 @@ A production baseline is not a diagram alone. It is the combination of address g
 
 The most expensive networking incidents usually come from early shortcuts: overlapping CIDRs, ad hoc subnet growth, public exposure left in place during a temporary workaround, and undocumented DNS changes during private link rollouts.
 
+<!-- diagram-id: why-this-matters -->
 ```mermaid
 flowchart LR
                 Users[Users and Operators] --> Edge[Ingress Layer
