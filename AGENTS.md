@@ -105,6 +105,52 @@ For MkDocs admonitions (`!!!` / `???`), every line in the body must be indented 
 
 All architectural diagrams use Mermaid. Every documentation page should include at least one diagram. Test with `mkdocs build --strict`.
 
+## Content Source Requirements
+
+### MSLearn-First Policy
+
+All content must be traceable to official Microsoft Learn documentation.
+
+- Platform content (`docs/platform/`) must have direct Microsoft Learn source URLs.
+- Architecture diagrams must reference official Microsoft documentation.
+- Troubleshooting playbooks may synthesize Microsoft Learn content with clear attribution.
+- Self-generated content must include a justification explaining the source basis.
+
+### Source Types
+
+| Type | Description | Allowed |
+|---|---|---|
+| `mslearn` | Directly from Microsoft Learn | Required for platform content |
+| `mslearn-adapted` | Microsoft Learn content adapted for this guide | Allowed with source URL |
+| `self-generated` | Original content for this guide | Requires justification |
+| `community` | From community sources | Not for core content |
+| `unknown` | Source not documented | Must be validated |
+
+### Diagram Source Documentation
+
+Every Mermaid diagram must have source metadata in frontmatter.
+
+```yaml
+content_sources:
+  diagrams:
+    - id: architecture-overview
+      type: flowchart
+      source: mslearn
+      mslearn_url: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
+    - id: troubleshooting-flow
+      type: flowchart
+      source: self-generated
+      justification: "Synthesized from Microsoft Learn articles"
+      based_on:
+        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
+        - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview
+```
+
+### Content Validation Tracking
+
+- See [Content Validation Status](docs/reference/content-validation-status.md) for current status.
+- See [Tutorial Validation Status](docs/reference/validation-status.md) for tutorial testing.
+
 ### Nested List Indentation
 
 All nested list items MUST use **4-space indent** (Python-Markdown standard).

@@ -67,7 +67,7 @@ markdown_extensions:
       custom_fences:
         - name: mermaid
           class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
+          format: pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.highlight:
@@ -167,6 +167,7 @@ nav:
   - Reference:
     - reference/index.md
     - Validation Status: reference/validation-status.md
+    - Content Validation: reference/content-validation-status.md
     - Connectivity Decision Guide: reference/connectivity-decision-guide.md
     - Azure Networking Components: reference/azure-networking-components.md
     - DNS Resolution Cheatsheet: reference/dns-resolution-cheatsheet.md
