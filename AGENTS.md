@@ -165,8 +165,8 @@ content_validation:
   last_reviewed: 2026-04-12
   reviewer: agent  # agent | human
   core_claims:
-    - claim: "Azure VNet supports up to 65,536 IP addresses per VNet"
-      source: https://learn.microsoft.com/azure/virtual-network/virtual-networks-overview
+    - claim: "Azure VNet address space consists of one or more non-overlapping CIDR ranges"
+      source: https://learn.microsoft.com/azure/virtual-network/manage-virtual-network
       verified: true
 ---
 ```
