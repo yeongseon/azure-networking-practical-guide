@@ -151,6 +151,26 @@ content_sources:
 - See [Content Validation Status](docs/reference/content-validation-status.md) for current status.
 - See [Tutorial Validation Status](docs/reference/validation-status.md) for tutorial testing.
 
+### Text Content Validation
+
+Every non-tutorial document should include a `content_validation` block in frontmatter to track the verification status of its core claims.
+
+```yaml
+---
+content_sources:
+  - type: mslearn-adapted
+    url: https://learn.microsoft.com/azure/virtual-network/...
+content_validation:
+  status: verified  # verified | pending_review | unverified
+  last_reviewed: 2026-04-12
+  reviewer: agent  # agent | human
+  core_claims:
+    - claim: "Azure VNet supports up to 65,536 IP addresses per VNet"
+      source: https://learn.microsoft.com/azure/virtual-network/virtual-networks-overview
+      verified: true
+---
+```
+
 ### Nested List Indentation
 
 All nested list items MUST use **4-space indent** (Python-Markdown standard).
@@ -257,12 +277,14 @@ Allowed types: `feat`, `fix`, `docs`, `chore`, `refactor`
 
 | Repository | Description |
 |---|---|
+| [azure-virtual-machine-practical-guide](https://github.com/yeongseon/azure-virtual-machine-practical-guide) | Azure Virtual Machines practical guide |
+| [azure-storage-practical-guide](https://github.com/yeongseon/azure-storage-practical-guide) | Azure Storage practical guide |
 | [azure-app-service-practical-guide](https://github.com/yeongseon/azure-app-service-practical-guide) | Azure App Service practical guide |
 | [azure-functions-practical-guide](https://github.com/yeongseon/azure-functions-practical-guide) | Azure Functions practical guide |
 | [azure-container-apps-practical-guide](https://github.com/yeongseon/azure-container-apps-practical-guide) | Azure Container Apps practical guide |
+| [azure-kubernetes-service-practical-guide](https://github.com/yeongseon/azure-kubernetes-service-practical-guide) | Azure Kubernetes Service (AKS) practical guide |
+| [azure-architecture-practical-guide](https://github.com/yeongseon/azure-architecture-practical-guide) | Azure Architecture practical guide |
 | [azure-monitoring-practical-guide](https://github.com/yeongseon/azure-monitoring-practical-guide) | Azure Monitoring practical guide |
-| [azure-storage-practical-guide](https://github.com/yeongseon/azure-storage-practical-guide) | Azure Storage practical guide |
-| [azure-virtual-machine-practical-guide](https://github.com/yeongseon/azure-virtual-machine-practical-guide) | Azure Virtual Machines practical guide |
 
 ## Tutorial Validation Tracking
 
