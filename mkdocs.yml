@@ -175,6 +175,8 @@ nav:
     - Routing Cheatsheet: reference/routing-cheatsheet.md
     - Private Connectivity Options: reference/private-connectivity-options.md
     - Glossary: reference/glossary.md
+  - Contributing:
+    - contributing/index.md
 
 extra:
   social:

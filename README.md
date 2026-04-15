@@ -8,12 +8,22 @@ A practical guide covering Azure networking connectivity design, operations, and
 
 | Section | Description |
 |---------|-------------|
-| [Start Here](https://yeongseon.github.io/azure-networking-practical-guide/start-here/) | Networking overview, connectivity framing, reading paths |
-| [Platform](https://yeongseon.github.io/azure-networking-practical-guide/platform/) | How Azure networking works — VNet, DNS, routing, security, hybrid |
-| [Best Practices](https://yeongseon.github.io/azure-networking-practical-guide/best-practices/) | Production-ready network design and operational guidelines |
-| [Operations](https://yeongseon.github.io/azure-networking-practical-guide/operations/) | Step-by-step network configuration and monitoring procedures |
-| [Troubleshooting](https://yeongseon.github.io/azure-networking-practical-guide/troubleshooting/) | Symptom-based connectivity diagnosis and resolution |
-| [Reference](https://yeongseon.github.io/azure-networking-practical-guide/reference/) | Quick-lookup decision guides and cheatsheets |
+| [Start Here](https://yeongseon.github.io/azure-networking-practical-guide/start-here/) | Networking overview, connectivity framing, and common architectural scenarios |
+| [Platform](https://yeongseon.github.io/azure-networking-practical-guide/platform/) | Core services: VNet, DNS, routing, load balancing, and private connectivity |
+| [Best Practices](https://yeongseon.github.io/azure-networking-practical-guide/best-practices/) | Production-ready design for subnetting, NSG/Firewall, and hybrid connectivity |
+| [Operations](https://yeongseon.github.io/azure-networking-practical-guide/operations/) | Day-2 guide for configuring UDR, private endpoints, peering, and packet capture |
+| [Tutorials](https://yeongseon.github.io/azure-networking-practical-guide/tutorials/) | Hands-on labs for hub-spoke topology, private endpoints, and WAF configuration |
+| [Troubleshooting](https://yeongseon.github.io/azure-networking-practical-guide/troubleshooting/) | Diagnosis playbooks for DNS resolution, VPN gateways, and health probe failures |
+| [Reference](https://yeongseon.github.io/azure-networking-practical-guide/reference/) | Quick-lookup decision guides for connectivity and routing cheatsheets |
+
+## Focus Areas
+
+Explore the core pillars of Azure networking included in this guide:
+- **Virtual Network (VNet)**: Address space management, subnetting, and peering
+- **Connectivity**: Private Endpoints, Private Link, and hybrid options (VPN, ExpressRoute)
+- **Security**: Network Security Groups (NSG), Azure Firewall, and Application Gateway WAF
+- **Traffic Management**: Load balancing, routing (UDR), and DNS resolution patterns
+- **Observability**: Network path monitoring and packet diagnostics
 
 ## Quick Start
 
@@ -32,11 +42,12 @@ Visit `http://127.0.0.1:8000` to browse the documentation locally.
 
 ## Contributing
 
-Contributions welcome. Please ensure:
-- All CLI examples use long flags (`--resource-group`, not `-g`)
-- All documents include mermaid diagrams
-- All content references Microsoft Learn with source URLs
-- No PII in CLI output examples
+Contributions welcome! Please see our [Contributing Guide](https://yeongseon.github.io/azure-networking-practical-guide/contributing/) for:
+
+- Repository structure and content organization
+- Document templates and writing standards
+- Local development setup and build validation
+- Pull request process
 
 ## Related Projects
 
@@ -59,3 +70,4 @@ This is an independent community project. Not affiliated with or endorsed by Mic
 ## License
 
 [MIT](LICENSE)
+
