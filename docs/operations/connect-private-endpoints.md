@@ -28,7 +28,7 @@ Private Endpoints allow secure access to Azure Services over a private IP.
 
 <!-- diagram-id: connect-private-endpoints -->
 ```mermaid
-graph LR
+graph TD
     VNet[Consumer VNet] --> PE[Private Endpoint]
     PE -- Private Link --> Service[Azure PaaS Service]
     VNet -- Query --> DNS[Private DNS Zone]

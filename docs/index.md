@@ -31,7 +31,7 @@ A concise resource for Azure networking fundamentals, design, and operations.
 
 <!-- diagram-id: index -->
 ```mermaid
-graph LR
+graph TD
     SH[Start Here] --> PL[Platform]
     PL --> BP[Best Practices]
     BP --> OP[Operations]

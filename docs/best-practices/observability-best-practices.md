@@ -26,7 +26,7 @@ Collect AzureActivity, diagnostics, metrics, and probe results into one investig
 
 <!-- diagram-id: why-this-matters -->
 ```mermaid
-flowchart LR
+flowchart TD
                 Source[Client or Workload] --> Control[Observability Control Point]
                 Control --> Shared[Shared Services
 DNS, Monitoring, Governance]

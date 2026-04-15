@@ -17,7 +17,7 @@ This page maps common Azure Networking troubleshooting questions to the evidence
 
 <!-- diagram-id: evidence-map -->
 ```mermaid
-flowchart LR
+flowchart TD
     A[Question] --> B[Control plane evidence]
     A --> C[Data plane evidence]
     B --> D[Config / state proof]

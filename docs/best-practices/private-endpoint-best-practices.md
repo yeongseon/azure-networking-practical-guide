@@ -26,7 +26,7 @@ Create private endpoints with matching DNS zone groups and approval workflows. S
 
 <!-- diagram-id: why-this-matters -->
 ```mermaid
-flowchart LR
+flowchart TD
                 Source[Client or Workload] --> Control[Private Control Point]
                 Control --> Shared[Shared Services
 DNS, Monitoring, Governance]

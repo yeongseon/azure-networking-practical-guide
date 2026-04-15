@@ -34,7 +34,7 @@ Create a private endpoint for a storage account, wire up Private DNS, validate p
 
 <!-- diagram-id: lab-02-private-endpoints -->
 ```mermaid
-flowchart LR
+flowchart TD
     Client[Client VM] --> VNet[Spoke VNet]
     VNet --> PE[Private Endpoint Subnet]
     PE --> Storage[Storage Account]

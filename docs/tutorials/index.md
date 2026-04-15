@@ -25,7 +25,7 @@ Hands-on networking labs for validating Azure design patterns, common failure mo
 
 <!-- diagram-id: what-you-will-find-here -->
 ```mermaid
-flowchart LR
+flowchart TD
     A[Tutorials] --> B[Hub and Spoke]
     A --> C[Private Connectivity]
     A --> D[Ingress and Security]

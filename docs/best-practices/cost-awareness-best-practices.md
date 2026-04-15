@@ -26,7 +26,7 @@ Understand the difference between fixed hourly deployment costs and data process
 
 <!-- diagram-id: why-this-matters -->
 ```mermaid
-flowchart LR
+flowchart TD
                 Source[Client or Workload] --> Control[Cost Control Point]
                 Control --> Shared[Shared Services
 DNS, Monitoring, Governance]

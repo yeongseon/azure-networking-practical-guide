@@ -25,7 +25,7 @@ Show teams how small shortcuts accumulate into large operational debt. Use anti-
 
 <!-- diagram-id: why-this-matters -->
 ```mermaid
-flowchart LR
+flowchart TD
                 Source[Client or Workload] --> Control[Common Control Point]
                 Control --> Shared[Shared Services
 DNS, Monitoring, Governance]

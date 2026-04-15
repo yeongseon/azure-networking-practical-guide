@@ -33,7 +33,7 @@ Build a small hub-spoke landing zone with shared services, peering, route valida
 
 <!-- diagram-id: lab-01-hub-spoke-topology -->
 ```mermaid
-flowchart LR
+flowchart TD
                 Admin[Operator VM] --> Hub[Hub VNet]
                 Hub --> Bastion[Bastion or Jump Subnet]
                 Hub --> Shared[Shared Services

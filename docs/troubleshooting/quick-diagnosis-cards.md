@@ -18,7 +18,7 @@ Use these cards when you need a fast symptom-to-playbook route in under 60 secon
 
 <!-- diagram-id: card-1-private-endpoint-unreachable -->
 ```mermaid
-graph LR
+graph TD
     A[Private Endpoint failure] --> B[Resolve FQDN]
     B --> C[Check route/policy]
     C --> D[Open playbook]

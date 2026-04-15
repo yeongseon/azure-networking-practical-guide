@@ -38,7 +38,7 @@ Use this page to answer one question quickly: **where in the Azure networking pa
 
 <!-- diagram-id: network-failure-plane-overview -->
 ```mermaid
-flowchart LR
+flowchart TD
     A[Client or workload] --> B[DNS resolution]
     B --> C[Route selection]
     C --> D[Security enforcement]
@@ -100,7 +100,7 @@ Sometimes networking is healthy and the real failure sits at the target listener
 
 <!-- diagram-id: target-and-performance-plane -->
 ```mermaid
-flowchart LR
+flowchart TD
     A[Path allowed] --> B[Listener reachable]
     B --> C[Probe succeeds]
     C --> D[Steady latency baseline]

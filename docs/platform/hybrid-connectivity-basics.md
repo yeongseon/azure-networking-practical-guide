@@ -22,7 +22,7 @@ Hybrid connectivity allows you to extend your on-premises network into Azure, en
 
 <!-- diagram-id: hybrid-connectivity-basics -->
 ```mermaid
-graph LR
+graph TD
     OnPrem[On-Premises Network] --- VPN[S2S VPN Tunnel]
     VPN --- VNG[Virtual Network Gateway]
     OnPrem --- ER[ExpressRoute Circuit]

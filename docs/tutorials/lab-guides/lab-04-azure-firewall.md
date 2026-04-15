@@ -34,7 +34,7 @@ Deploy Azure Firewall with a simple spoke subnet, force egress through the firew
 
 <!-- diagram-id: lab-04-azure-firewall -->
 ```mermaid
-flowchart LR
+flowchart TD
     Workload[Spoke VM] --> UDR[Route Table 0.0.0.0/0]
     UDR --> Firewall[Azure Firewall]
     Firewall --> Internet[Internet]

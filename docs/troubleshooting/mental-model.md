@@ -61,7 +61,7 @@ flowchart TD
 
 <!-- diagram-id: practical-classification-flow -->
 ```mermaid
-flowchart LR
+flowchart TD
     A[One failing source] --> B[One failing destination]
     B --> C[One incident window]
     C --> D[One first hypothesis set]

@@ -23,7 +23,7 @@ Real-world incidents usually mix more than one factor: DNS, routes, NSGs, firewa
 
 <!-- diagram-id: why-this-matters -->
 ```mermaid
-flowchart LR
+flowchart TD
                 Source[Client or Workload] --> Control[DNS Control Point]
                 Control --> Shared[Shared Services
 DNS, Monitoring, Governance]

@@ -26,7 +26,7 @@ Document route precedence between system routes, BGP, and UDRs. Validate effecti
 
 <!-- diagram-id: why-this-matters -->
 ```mermaid
-flowchart LR
+flowchart TD
                 Source[Client or Workload] --> Control[Routing Control Point]
                 Control --> Shared[Shared Services
 DNS, Monitoring, Governance]

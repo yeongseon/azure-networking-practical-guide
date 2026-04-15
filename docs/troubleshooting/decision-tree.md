@@ -73,7 +73,7 @@ flowchart TD
 
 <!-- diagram-id: dns-branch -->
 ```mermaid
-flowchart LR
+flowchart TD
     A[DNS symptom] --> B{Private Endpoint involved?}
     B -->|Yes| C[Cannot Reach Private Endpoint]
     B -->|No| D[DNS Resolution Failures]
@@ -83,7 +83,7 @@ flowchart LR
 
 <!-- diagram-id: routing-branch -->
 ```mermaid
-flowchart LR
+flowchart TD
     A[Route or policy symptom] --> B{Transit or gateway involved?}
     B -->|Peering| C[Peering and Routing Issues]
     B -->|VPN / ER| D[Hybrid Connectivity Issues]

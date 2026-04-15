@@ -34,7 +34,7 @@ Simulate ExpressRoute-style failover thinking without provisioning a real circui
 
 <!-- diagram-id: lab-05-expressroute-simulation -->
 ```mermaid
-flowchart LR
+flowchart TD
     OnPrem[Simulated on-premises prefixes] --> LNG[Local Network Gateway]
     LNG --> VPN[VPN Gateway]
     VPN --> Hub[Hub VNet]

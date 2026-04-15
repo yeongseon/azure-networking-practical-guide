@@ -26,7 +26,7 @@ Keep BGP advertisements, local network gateway prefixes, and failover expectatio
 
 <!-- diagram-id: why-this-matters -->
 ```mermaid
-flowchart LR
+flowchart TD
                 Source[Client or Workload] --> Control[Hybrid Control Point]
                 Control --> Shared[Shared Services
 DNS, Monitoring, Governance]

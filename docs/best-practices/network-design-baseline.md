@@ -24,7 +24,7 @@ The most expensive networking incidents usually come from early shortcuts: overl
 
 <!-- diagram-id: why-this-matters -->
 ```mermaid
-flowchart LR
+flowchart TD
                 Users[Users and Operators] --> Edge[Ingress Layer
 Application Gateway or Load Balancer]
                 Edge --> Hub[Hub VNet

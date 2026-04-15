@@ -28,7 +28,7 @@ VNet Peering connects two virtual networks with low latency.
 
 <!-- diagram-id: peering-basics -->
 ```mermaid
-graph LR
+graph TD
     VNetA[VNet A] -->|Peering| VNetB[VNet B]
     VNetB -->|Peering| VNetC[VNet C]
     VNetA -.->|No Direct Access| VNetC

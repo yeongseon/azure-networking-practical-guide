@@ -28,7 +28,7 @@ Hybrid connectivity extends on-premises networks to Azure.
 
 <!-- diagram-id: vpn-and-expressroute-basics -->
 ```mermaid
-graph LR
+graph TD
     OnPrem[On-Premises] -->|ISP/MSEE| Gate[Azure Gateway]
     Gate -->|GatewaySubnet| VNet[Azure VNet]
     OnPrem -->|Encrypted| Public[VPN Gateway]

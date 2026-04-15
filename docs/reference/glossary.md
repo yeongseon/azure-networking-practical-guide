@@ -42,7 +42,7 @@ Definitions of core Azure networking terms for quick lookup.
 
 <!-- diagram-id: glossary -->
 ```mermaid
-graph LR
+graph TD
     VNet --> Subnet
     Subnet --> Security[NSG / ASG]
     Subnet --> Routing[UDR / BGP]

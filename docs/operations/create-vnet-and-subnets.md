@@ -30,7 +30,7 @@ Standardized deployment of Virtual Networks ensures consistent addressing and se
 
 <!-- diagram-id: create-vnet-and-subnets -->
 ```mermaid
-graph LR
+graph TD
     P[Planning] --> V[VNet Create]
     V --> S[Subnet Definition]
     S --> D[DNS Settings]

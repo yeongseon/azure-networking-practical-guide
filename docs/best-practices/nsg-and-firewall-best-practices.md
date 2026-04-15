@@ -26,7 +26,7 @@ Use NSGs for local segmentation and Azure Firewall for centralized L3-L7 inspect
 
 <!-- diagram-id: why-this-matters -->
 ```mermaid
-flowchart LR
+flowchart TD
                 Source[Client or Workload] --> Control[NSG Control Point]
                 Control --> Shared[Shared Services
 DNS, Monitoring, Governance]

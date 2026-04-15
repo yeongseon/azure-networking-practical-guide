@@ -21,7 +21,7 @@ Azure provides several ways to connect to PaaS services privately, without expos
 
 <!-- diagram-id: private-connectivity-options -->
 ```mermaid
-graph LR
+graph TD
     VNet[Subnet] --> SE[Service Endpoint]
     SE --> PaaS[Storage/SQL]
     VNet --> PE[Private Endpoint]

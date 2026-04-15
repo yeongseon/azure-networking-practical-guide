@@ -34,7 +34,7 @@ Deploy a small WAF v2 Application Gateway in front of a test backend so you can 
 
 <!-- diagram-id: lab-03-application-gateway-waf -->
 ```mermaid
-flowchart LR
+flowchart TD
     Internet[Client] --> PublicIP[Public IP]
     PublicIP --> AppGw[Application Gateway WAF v2]
     AppGw --> Probe[Health Probe]

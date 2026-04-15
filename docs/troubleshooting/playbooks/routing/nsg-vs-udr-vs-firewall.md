@@ -17,7 +17,7 @@ This playbook helps determine whether traffic is failing because Azure chose the
 
 <!-- diagram-id: summary -->
 ```mermaid
-graph LR
+graph TD
     A[Packet] --> B[Route / UDR]
     B --> C[NSG evaluation]
     C --> D[Firewall or NVA]
