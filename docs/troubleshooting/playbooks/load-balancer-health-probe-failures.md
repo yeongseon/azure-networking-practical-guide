@@ -1,14 +1,28 @@
 ---
 content_sources:
   diagrams:
-    - id: symptoms
-      type: flowchart
-      source: self-generated
-      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
-      based_on:
-        - https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-custom-probe-overview
-        - https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-troubleshoot-health-probe-status
-        - https://learn.microsoft.com/en-us/azure/load-balancer/quickstart-load-balancer-standard-public-portal
+  - id: symptoms
+    type: flowchart
+    source: self-generated
+    justification: Synthesized troubleshooting flow for this guide from Microsoft
+      Learn diagnostic and service documentation.
+    based_on:
+    - https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-custom-probe-overview
+    - https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-troubleshoot-health-probe-status
+    - https://learn.microsoft.com/en-us/azure/load-balancer/quickstart-load-balancer-standard-public-portal
+content_validation:
+  status: pending_review
+  last_reviewed: '2026-05-22'
+  reviewer: ai-agent
+  core_claims:
+  - claim: This document has source metadata and is queued for text-level Microsoft
+      Learn verification.
+    source: https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-custom-probe-overview
+    verified: false
+  - claim: Core Azure networking guidance on this page should remain traceable to
+      the listed sources before it is marked verified.
+    source: https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-custom-probe-overview
+    verified: false
 ---
 
 # Load Balancer Health Probe Failures
@@ -70,6 +84,16 @@ az network lb probe show \
     --name $PROBE_NAME
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$LB_NAME` | Operator-supplied environment variable for this command. |
+| `$PROBE_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--lb-name` | Azure CLI option used to scope or shape the network operation. |
+| `--name` | Identifies the target Azure networking resource. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 2. **Show backend pool configuration**
 
 ```bash
@@ -78,6 +102,16 @@ az network lb address-pool show \
     --lb-name $LB_NAME \
     --name $BACKEND_POOL_NAME
 ```
+
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$LB_NAME` | Operator-supplied environment variable for this command. |
+| `$BACKEND_POOL_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--lb-name` | Azure CLI option used to scope or shape the network operation. |
+| `--name` | Identifies the target Azure networking resource. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 3. **Review load balancer metrics**
 
@@ -88,6 +122,14 @@ az monitor metrics list \
     --interval PT5M
 ```
 
+| Element | Purpose |
+|---|---|
+| `$LOAD_BALANCER_ID` | Operator-supplied environment variable for this command. |
+| `--resource` | Azure CLI option used to scope or shape the network operation. |
+| `--metric` | Azure CLI option used to scope or shape the network operation. |
+| `--interval` | Azure CLI option used to scope or shape the network operation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 4. **Inspect effective NSG rules on a backend NIC**
 
 ```bash
@@ -96,6 +138,14 @@ az network nic show-effective-nsg \
     --name $BACKEND_NIC_NAME
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$BACKEND_NIC_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 5. **Inspect effective routes on the backend NIC**
 
 ```bash
@@ -103,6 +153,14 @@ az network nic show-effective-route-table \
     --resource-group $RG \
     --name $BACKEND_NIC_NAME
 ```
+
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$BACKEND_NIC_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 ## 5. Evidence to Collect
 
@@ -178,6 +236,16 @@ az network lb probe show \
     --name $PROBE_NAME
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$LB_NAME` | Operator-supplied environment variable for this command. |
+| `$PROBE_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--lb-name` | Azure CLI option used to scope or shape the network operation. |
+| `--name` | Identifies the target Azure networking resource. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 Sample output:
 
 ```json
@@ -198,6 +266,16 @@ az network lb address-pool show \
     --name $BACKEND_POOL_NAME
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$LB_NAME` | Operator-supplied environment variable for this command. |
+| `$BACKEND_POOL_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--lb-name` | Azure CLI option used to scope or shape the network operation. |
+| `--name` | Identifies the target Azure networking resource. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 Sample output:
 
 ```json
@@ -216,6 +294,14 @@ az network nic show-effective-nsg \
     --resource-group $RG \
     --name $BACKEND_NIC_NAME
 ```
+
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$BACKEND_NIC_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 Sample output:
 
@@ -243,6 +329,16 @@ az network lb probe show \
     --name $PROBE_NAME
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$LB_NAME` | Operator-supplied environment variable for this command. |
+| `$PROBE_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--lb-name` | Azure CLI option used to scope or shape the network operation. |
+| `--name` | Identifies the target Azure networking resource. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 ### Hypothesis: NSG or guest firewall block
 
 **Proves if**: Azure or guest-side firewall rules deny probe traffic.
@@ -254,6 +350,14 @@ az network nic show-effective-nsg \
     --resource-group $RG \
     --name $BACKEND_NIC_NAME
 ```
+
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$BACKEND_NIC_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 ### Hypothesis: Asymmetric route issue
 
@@ -267,6 +371,14 @@ az network nic show-effective-route-table \
     --name $BACKEND_NIC_NAME
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$BACKEND_NIC_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 ### Hypothesis: Wrong backend membership
 
 **Proves if**: The expected backend NIC or IP configuration is absent from the pool.
@@ -279,6 +391,16 @@ az network lb address-pool show \
     --lb-name $LB_NAME \
     --name $BACKEND_POOL_NAME
 ```
+
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$LB_NAME` | Operator-supplied environment variable for this command. |
+| `$BACKEND_POOL_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--lb-name` | Azure CLI option used to scope or shape the network operation. |
+| `--name` | Identifies the target Azure networking resource. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 ## 7. Likely Root Cause Patterns
 

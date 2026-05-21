@@ -1,14 +1,28 @@
 ---
 content_sources:
   diagrams:
-    - id: connectivity-decision-guide
-      type: flowchart
-      source: self-generated
-      justification: "Synthesized quick-reference diagram for this guide from Microsoft Learn networking documentation."
-      based_on:
-        - https://learn.microsoft.com/en-us/azure/architecture/reference-architectures/hybrid-networking/
-        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
-        - https://learn.microsoft.com/en-us/azure/private-link/
+  - id: connectivity-decision-guide
+    type: flowchart
+    source: self-generated
+    justification: Synthesized quick-reference diagram for this guide from Microsoft
+      Learn networking documentation.
+    based_on:
+    - https://learn.microsoft.com/en-us/azure/architecture/reference-architectures/hybrid-networking/
+    - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
+    - https://learn.microsoft.com/en-us/azure/private-link/
+content_validation:
+  status: pending_review
+  last_reviewed: '2026-05-22'
+  reviewer: ai-agent
+  core_claims:
+  - claim: This document has source metadata and is queued for text-level Microsoft
+      Learn verification.
+    source: https://learn.microsoft.com/en-us/azure/architecture/reference-architectures/hybrid-networking/
+    verified: false
+  - claim: Core Azure networking guidance on this page should remain traceable to
+      the listed sources before it is marked verified.
+    source: https://learn.microsoft.com/en-us/azure/architecture/reference-architectures/hybrid-networking/
+    verified: false
 ---
 
 # Connectivity Decision Guide

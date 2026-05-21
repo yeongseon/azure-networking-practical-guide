@@ -1,13 +1,21 @@
 ---
 content_sources:
   diagrams:
-    - id: lab-03-application-gateway-waf
-      type: flowchart
-      source: mslearn-adapted
-      mslearn_url: https://learn.microsoft.com/en-us/azure/application-gateway/overview-v2
-      based_on:
-        - https://learn.microsoft.com/en-us/azure/application-gateway/application-gateway-probe-overview
-        - https://learn.microsoft.com/en-us/azure/web-application-firewall/ag/ag-overview
+  - id: lab-03-application-gateway-waf
+    type: flowchart
+    source: mslearn-adapted
+    mslearn_url: https://learn.microsoft.com/en-us/azure/application-gateway/overview-v2
+    based_on:
+    - https://learn.microsoft.com/en-us/azure/application-gateway/application-gateway-probe-overview
+    - https://learn.microsoft.com/en-us/azure/web-application-firewall/ag/ag-overview
+validation:
+  az_cli:
+    last_tested: null
+    cli_version: null
+    result: not_tested
+  bicep:
+    last_tested: null
+    result: not_tested
 ---
 
 # Lab 03: Application Gateway WAF
@@ -66,11 +74,24 @@ az network vnet subnet create \
     --address-prefixes 10.130.2.0/24
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$LOCATION` | Azure region for regional networking resources. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--location` | Selects the Azure region for creation or lookup. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--address-prefixes` | Defines VNet address ranges. |
+| `--subnet-name` | Names the subnet created with a VNet. |
+| `--subnet-prefixes` | Defines subnet address ranges. |
+| `--vnet-name` | Selects the virtual network containing the subnet or peering. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 Keep Application Gateway isolated in its own subnet. That pattern matters in production and during troubleshooting.
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
+- Validate listener, backend health, WAF policy association, and probe results before continuing.
 - It mirrors a real production activity that often appears in troubleshooting tickets.
 - Save command output and timestamps so you can compare expected versus actual behavior later.
 
@@ -95,11 +116,25 @@ az network public-ip create \
     --allocation-method Static
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--image` | Azure CLI option used to scope or shape the network operation. |
+| `--size` | Azure CLI option used to scope or shape the network operation. |
+| `--vnet-name` | Selects the virtual network containing the subnet or peering. |
+| `--subnet` | Azure CLI option used to scope or shape the network operation. |
+| `--admin-username` | Azure CLI option used to scope or shape the network operation. |
+| `--generate-ssh-keys` | Azure CLI option used to scope or shape the network operation. |
+| `--public-ip-address` | Azure CLI option used to scope or shape the network operation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 Install a simple web server on the backend or adapt to a prebuilt image with an HTTP listener.
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
+- Validate listener, backend health, WAF policy association, and probe results before continuing.
 - It mirrors a real production activity that often appears in troubleshooting tickets.
 - Save command output and timestamps so you can compare expected versus actual behavior later.
 
@@ -127,11 +162,26 @@ az network application-gateway create \
     --priority 100
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$LOCATION` | Azure region for regional networking resources. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--location` | Selects the Azure region for creation or lookup. |
+| `--capacity` | Azure CLI option used to scope or shape the network operation. |
+| `--sku` | Azure CLI option used to scope or shape the network operation. |
+| `--public-ip-address` | Azure CLI option used to scope or shape the network operation. |
+| `--vnet-name` | Selects the virtual network containing the subnet or peering. |
+| `--subnet` | Azure CLI option used to scope or shape the network operation. |
+| `--servers` | Azure CLI option used to scope or shape the network operation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 If your backend IP differs, replace the server address with the backend NIC private IP.
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
+- Validate listener, backend health, WAF policy association, and probe results before continuing.
 - It mirrors a real production activity that often appears in troubleshooting tickets.
 - Save command output and timestamps so you can compare expected versus actual behavior later.
 
@@ -154,11 +204,25 @@ az network application-gateway show-backend-health \
     --name agw-lab03
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--gateway-name` | Azure CLI option used to scope or shape the network operation. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--protocol` | Sets the protocol matched by a rule. |
+| `--host` | Azure CLI option used to scope or shape the network operation. |
+| `--path` | Azure CLI option used to scope or shape the network operation. |
+| `--interval` | Azure CLI option used to scope or shape the network operation. |
+| `--timeout` | Azure CLI option used to scope or shape the network operation. |
+| `--threshold` | Azure CLI option used to scope or shape the network operation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 Backend health is the single most useful command during ingress incidents.
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
+- Validate listener, backend health, WAF policy association, and probe results before continuing.
 - It mirrors a real production activity that often appears in troubleshooting tickets.
 - Save command output and timestamps so you can compare expected versus actual behavior later.
 
@@ -177,11 +241,26 @@ az monitor metrics list \
     --interval PT5M
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$WORKSPACE_ID` | Operator-supplied environment variable for this command. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--resource` | Azure CLI option used to scope or shape the network operation. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--query` | Filters output to the evidence operators need. |
+| `--output` | Controls output format for review or automation. |
+| `--workspace` | Azure CLI option used to scope or shape the network operation. |
+| `--logs` | Azure CLI option used to scope or shape the network operation. |
+| `--metric` | Azure CLI option used to scope or shape the network operation. |
+| `--interval` | Azure CLI option used to scope or shape the network operation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 This step shows how to connect control-plane configuration with runtime evidence.
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
+- Validate listener, backend health, WAF policy association, and probe results before continuing.
 - It mirrors a real production activity that often appears in troubleshooting tickets.
 - Save command output and timestamps so you can compare expected versus actual behavior later.
 
@@ -205,11 +284,20 @@ az network application-gateway probe update \
     --path /
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--gateway-name` | Azure CLI option used to scope or shape the network operation. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--path` | Azure CLI option used to scope or shape the network operation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 This reproduces one of the most common Application Gateway incidents in a safe way.
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
+- Validate listener, backend health, WAF policy association, and probe results before continuing.
 - It mirrors a real production activity that often appears in troubleshooting tickets.
 - Save command output and timestamps so you can compare expected versus actual behavior later.
 
@@ -223,8 +311,19 @@ This reproduces one of the most common Application Gateway incidents in a safe w
 ## Cleanup Instructions
 
 ```bash
-az group delete --name $RG --yes --no-wait
+az group delete \
+    --name $RG \
+    --yes \
+    --no-wait
 ```
+
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--yes` | Confirms a destructive command without prompting. |
+| `--no-wait` | Starts an operation and returns before completion. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 Before cleanup, record any private IPs, route table names, or diagnostic screenshots you want to reuse in troubleshooting notes.
 

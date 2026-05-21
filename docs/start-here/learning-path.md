@@ -1,13 +1,27 @@
 ---
 content_sources:
   diagrams:
-    - id: progression-flow
-      type: flowchart
-      source: self-generated
-      justification: "Synthesized quick-reference diagram for this guide from Microsoft Learn networking documentation."
-      based_on:
-        - https://learn.microsoft.com/en-us/training/modules/azure-networking-fundamentals/
-        - https://learn.microsoft.com/en-us/training/browse/?products=azure-networking
+  - id: progression-flow
+    type: flowchart
+    source: self-generated
+    justification: Synthesized quick-reference diagram for this guide from Microsoft
+      Learn networking documentation.
+    based_on:
+    - https://learn.microsoft.com/en-us/training/modules/azure-networking-fundamentals/
+    - https://learn.microsoft.com/en-us/training/browse/?products=azure-networking
+content_validation:
+  status: pending_review
+  last_reviewed: '2026-05-22'
+  reviewer: ai-agent
+  core_claims:
+  - claim: This document has source metadata and is queued for text-level Microsoft
+      Learn verification.
+    source: https://learn.microsoft.com/en-us/training/modules/azure-networking-fundamentals/
+    verified: false
+  - claim: Core Azure networking guidance on this page should remain traceable to
+      the listed sources before it is marked verified.
+    source: https://learn.microsoft.com/en-us/training/modules/azure-networking-fundamentals/
+    verified: false
 ---
 
 # Learning Path

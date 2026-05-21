@@ -1,14 +1,28 @@
 ---
 content_sources:
   diagrams:
-    - id: symptoms
-      type: flowchart
-      source: self-generated
-      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
-      based_on:
-        - https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-about-vpn-gateway-settings
-        - https://learn.microsoft.com/en-us/azure/vpn-gateway/bgp-howto
-        - https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction
+  - id: symptoms
+    type: flowchart
+    source: self-generated
+    justification: Synthesized troubleshooting flow for this guide from Microsoft
+      Learn diagnostic and service documentation.
+    based_on:
+    - https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-about-vpn-gateway-settings
+    - https://learn.microsoft.com/en-us/azure/vpn-gateway/bgp-howto
+    - https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction
+content_validation:
+  status: pending_review
+  last_reviewed: '2026-05-22'
+  reviewer: ai-agent
+  core_claims:
+  - claim: This document has source metadata and is queued for text-level Microsoft
+      Learn verification.
+    source: https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-about-vpn-gateway-settings
+    verified: false
+  - claim: Core Azure networking guidance on this page should remain traceable to
+      the listed sources before it is marked verified.
+    source: https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-about-vpn-gateway-settings
+    verified: false
 ---
 
 # VPN Gateway Troubleshooting
@@ -67,6 +81,13 @@ az network vpn-connection list \
     --output table
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--output` | Controls output format for review or automation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 2. **Show BGP peer status**
 
 ```bash
@@ -75,6 +96,14 @@ az network vnet-gateway list-bgp-peer-status \
     --name $VPN_GATEWAY_NAME
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$VPN_GATEWAY_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 3. **Show learned routes**
 
 ```bash
@@ -82,6 +111,14 @@ az network vnet-gateway list-learned-routes \
     --resource-group $RG \
     --name $VPN_GATEWAY_NAME
 ```
+
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$VPN_GATEWAY_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 4. **Show local network gateway prefixes**
 
@@ -92,6 +129,15 @@ az network local-gateway show \
     --query "localNetworkAddressSpace.addressPrefixes"
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$LOCAL_GATEWAY_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--query` | Filters output to the evidence operators need. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 5. **Show P2S configuration**
 
 ```bash
@@ -100,6 +146,15 @@ az network vnet-gateway show \
     --name $VPN_GATEWAY_NAME \
     --query "vpnClientConfiguration"
 ```
+
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$VPN_GATEWAY_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--query` | Filters output to the evidence operators need. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 ## 5. Evidence to Collect
 
@@ -173,6 +228,13 @@ az network vpn-connection list \
     --output json
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--output` | Controls output format for review or automation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 Sample output:
 
 ```json
@@ -192,6 +254,14 @@ az network vnet-gateway list-learned-routes \
     --name $VPN_GATEWAY_NAME
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$VPN_GATEWAY_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 Sample output:
 
 ```json
@@ -210,6 +280,14 @@ az network vnet-gateway list-bgp-peer-status \
     --resource-group $RG \
     --name $VPN_GATEWAY_NAME
 ```
+
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$VPN_GATEWAY_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 Sample output:
 
@@ -236,6 +314,14 @@ az network vpn-connection show \
     --name $VPN_CONNECTION_NAME
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$VPN_CONNECTION_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 ### Hypothesis: Prefix or BGP mismatch
 
 **Proves if**: Learned routes or local gateway prefixes do not include the expected remote network.
@@ -247,6 +333,14 @@ az network vnet-gateway list-learned-routes \
     --resource-group $RG \
     --name $VPN_GATEWAY_NAME
 ```
+
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$VPN_GATEWAY_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 ### Hypothesis: Failover preference problem
 
@@ -261,6 +355,15 @@ az network vnet-gateway list-advertised-routes \
     --peer 203.0.113.10
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$VPN_GATEWAY_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--peer` | Azure CLI option used to scope or shape the network operation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 ### Hypothesis: P2S client route or DNS issue
 
 **Proves if**: P2S clients connect but cannot resolve or reach remote private networks.
@@ -273,6 +376,15 @@ az network vnet-gateway show \
     --name $VPN_GATEWAY_NAME \
     --query "vpnClientConfiguration"
 ```
+
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$VPN_GATEWAY_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--query` | Filters output to the evidence operators need. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 ## 7. Likely Root Cause Patterns
 

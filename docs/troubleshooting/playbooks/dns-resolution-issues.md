@@ -1,14 +1,28 @@
 ---
 content_sources:
   diagrams:
-    - id: symptoms
-      type: flowchart
-      source: self-generated
-      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
-      based_on:
-        - https://learn.microsoft.com/en-us/azure/dns/private-dns-overview
-        - https://learn.microsoft.com/en-us/azure/dns/dns-private-resolver-overview
-        - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
+  - id: symptoms
+    type: flowchart
+    source: self-generated
+    justification: Synthesized troubleshooting flow for this guide from Microsoft
+      Learn diagnostic and service documentation.
+    based_on:
+    - https://learn.microsoft.com/en-us/azure/dns/private-dns-overview
+    - https://learn.microsoft.com/en-us/azure/dns/dns-private-resolver-overview
+    - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
+content_validation:
+  status: pending_review
+  last_reviewed: '2026-05-22'
+  reviewer: ai-agent
+  core_claims:
+  - claim: This document has source metadata and is queued for text-level Microsoft
+      Learn verification.
+    source: https://learn.microsoft.com/en-us/azure/dns/private-dns-overview
+    verified: false
+  - claim: Core Azure networking guidance on this page should remain traceable to
+      the listed sources before it is marked verified.
+    source: https://learn.microsoft.com/en-us/azure/dns/private-dns-overview
+    verified: false
 ---
 
 # DNS Resolution Issues
@@ -70,6 +84,15 @@ az network private-dns link vnet list \
     --output table
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$ZONE_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--zone-name` | Identifies a Private DNS zone. |
+| `--output` | Controls output format for review or automation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 2. **Inspect Private Resolver forwarding rulesets**
 
 ```bash
@@ -77,6 +100,13 @@ az network dns-resolver forwarding-ruleset list \
     --resource-group $RG \
     --output table
 ```
+
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--output` | Controls output format for review or automation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 3. **Review custom DNS servers on the VNet**
 
@@ -87,6 +117,15 @@ az network vnet show \
     --query "dhcpOptions.dnsServers"
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$VNET_NAME` | Virtual network being created, linked, or inspected. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--query` | Filters output to the evidence operators need. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 4. **Inspect private endpoint DNS configuration**
 
 ```bash
@@ -95,6 +134,15 @@ az network private-endpoint show \
     --name $PE_NAME \
     --query "{customDnsConfigs:customDnsConfigs}"
 ```
+
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$PE_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--query` | Filters output to the evidence operators need. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 5. **Query a name from Azure and on-premises test points**
 
@@ -105,6 +153,17 @@ az network watcher test-connectivity \
     --dest-address $TARGET_FQDN \
     --dest-port 443
 ```
+
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$SOURCE_ID` | Operator-supplied environment variable for this command. |
+| `$TARGET_FQDN` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--source-resource` | Azure CLI option used to scope or shape the network operation. |
+| `--dest-address` | Azure CLI option used to scope or shape the network operation. |
+| `--dest-port` | Azure CLI option used to scope or shape the network operation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 ## 5. Evidence to Collect
 
@@ -179,6 +238,15 @@ az network private-dns link vnet list \
     --output table
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$ZONE_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--zone-name` | Identifies a Private DNS zone. |
+| `--output` | Controls output format for review or automation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 Sample output:
 
 ```json
@@ -197,6 +265,13 @@ az network dns-resolver forwarding-ruleset list \
     --resource-group $RG \
     --output json
 ```
+
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--output` | Controls output format for review or automation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 Sample output:
 
@@ -217,6 +292,15 @@ az network private-endpoint show \
     --name $PE_NAME \
     --query "{customDnsConfigs:customDnsConfigs,manualPrivateLinkServiceConnections:manualPrivateLinkServiceConnections}"
 ```
+
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$PE_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--query` | Filters output to the evidence operators need. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 Sample output:
 
@@ -244,6 +328,15 @@ az network vnet show \
     --query "dhcpOptions.dnsServers"
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$VNET_NAME` | Virtual network being created, linked, or inspected. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--query` | Filters output to the evidence operators need. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 ### Hypothesis: Missing private DNS linkage
 
 **Proves if**: Zone links or private endpoint zone groups are absent for the consumer network.
@@ -256,6 +349,14 @@ az network private-dns link vnet list \
     --zone-name $ZONE_NAME
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$ZONE_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--zone-name` | Identifies a Private DNS zone. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 ### Hypothesis: Hybrid forwarding gap
 
 **Proves if**: Azure resolves but on-premises does not, or the reverse, based on conditional forwarder coverage.
@@ -266,6 +367,12 @@ az network private-dns link vnet list \
 az network dns-resolver forwarding-ruleset list \
     --resource-group $RG
 ```
+
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 ### Hypothesis: Cache or TTL behavior
 
@@ -279,6 +386,16 @@ az network private-dns record-set a show \
     --zone-name $ZONE_NAME \
     --name $RECORD_NAME
 ```
+
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$ZONE_NAME` | Operator-supplied environment variable for this command. |
+| `$RECORD_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--zone-name` | Identifies a Private DNS zone. |
+| `--name` | Identifies the target Azure networking resource. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 ## 7. Likely Root Cause Patterns
 

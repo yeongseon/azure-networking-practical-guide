@@ -1,13 +1,21 @@
 ---
 content_sources:
   diagrams:
-    - id: lab-02-private-endpoints
-      type: flowchart
-      source: mslearn-adapted
-      mslearn_url: https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview
-      based_on:
-        - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
-        - https://learn.microsoft.com/en-us/azure/storage/common/storage-private-endpoints
+  - id: lab-02-private-endpoints
+    type: flowchart
+    source: mslearn-adapted
+    mslearn_url: https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview
+    based_on:
+    - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
+    - https://learn.microsoft.com/en-us/azure/storage/common/storage-private-endpoints
+validation:
+  az_cli:
+    last_tested: null
+    cli_version: null
+    result: not_tested
+  bicep:
+    last_tested: null
+    result: not_tested
 ---
 
 # Lab 02: Private Endpoints
@@ -75,11 +83,28 @@ az storage account create \
     --allow-blob-public-access false
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$LOCATION` | Azure region for regional networking resources. |
+| `$VNET_NAME` | Virtual network being created, linked, or inspected. |
+| `$STORAGE_NAME` | Operator-supplied environment variable for this command. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--location` | Selects the Azure region for creation or lookup. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--address-prefixes` | Defines VNet address ranges. |
+| `--subnet-name` | Names the subnet created with a VNet. |
+| `--subnet-prefixes` | Defines subnet address ranges. |
+| `--vnet-name` | Selects the virtual network containing the subnet or peering. |
+| `--sku` | Azure CLI option used to scope or shape the network operation. |
+| `--kind` | Azure CLI option used to scope or shape the network operation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 This keeps the storage account simple while emphasizing the networking workflow.
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
+- Validate private endpoint connection state, private DNS resolution, and client path evidence before continuing.
 - It mirrors a real production activity that often appears in troubleshooting tickets.
 - Save command output and timestamps so you can compare expected versus actual behavior later.
 
@@ -98,11 +123,26 @@ az vm create \
     --public-ip-address ""
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$VNET_NAME` | Virtual network being created, linked, or inspected. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--image` | Azure CLI option used to scope or shape the network operation. |
+| `--size` | Azure CLI option used to scope or shape the network operation. |
+| `--vnet-name` | Selects the virtual network containing the subnet or peering. |
+| `--subnet` | Azure CLI option used to scope or shape the network operation. |
+| `--admin-username` | Azure CLI option used to scope or shape the network operation. |
+| `--generate-ssh-keys` | Azure CLI option used to scope or shape the network operation. |
+| `--public-ip-address` | Azure CLI option used to scope or shape the network operation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 Use a private-only client if you already have Bastion or another jump method. Otherwise adapt for safe temporary access.
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
+- Validate private endpoint connection state, private DNS resolution, and client path evidence before continuing.
 - It mirrors a real production activity that often appears in troubleshooting tickets.
 - Save command output and timestamps so you can compare expected versus actual behavior later.
 
@@ -138,11 +178,28 @@ az network private-endpoint dns-zone-group create \
     --zone-name privatelink.blob.core.windows.net
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$STORAGE_NAME` | Operator-supplied environment variable for this command. |
+| `$VNET_NAME` | Virtual network being created, linked, or inspected. |
+| `$STORAGE_ID` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--query` | Filters output to the evidence operators need. |
+| `--output` | Controls output format for review or automation. |
+| `--vnet-name` | Selects the virtual network containing the subnet or peering. |
+| `--subnet` | Azure CLI option used to scope or shape the network operation. |
+| `--private-connection-resource-id` | Targets the PaaS resource for a private endpoint. |
+| `--group-id` | Selects the subresource exposed through private link. |
+| `--connection-name` | Names a private endpoint or gateway connection. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 Bundling endpoint, zone, and zone group together avoids the most common private link mistake.
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
+- Validate private endpoint connection state, private DNS resolution, and client path evidence before continuing.
 - It mirrors a real production activity that often appears in troubleshooting tickets.
 - Save command output and timestamps so you can compare expected versus actual behavior later.
 
@@ -160,11 +217,21 @@ az network private-dns record-set a list \
     --output table
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--query` | Filters output to the evidence operators need. |
+| `--zone-name` | Identifies a Private DNS zone. |
+| `--output` | Controls output format for review or automation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 These commands tell you which FQDNs should resolve privately and which records were actually created.
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
+- Validate private endpoint connection state, private DNS resolution, and client path evidence before continuing.
 - It mirrors a real production activity that often appears in troubleshooting tickets.
 - Save command output and timestamps so you can compare expected versus actual behavior later.
 
@@ -184,11 +251,26 @@ az vm run-command invoke \
     --scripts "nslookup $STORAGE_NAME.blob.core.windows.net"
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$STORAGE_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--source-resource` | Azure CLI option used to scope or shape the network operation. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--query` | Filters output to the evidence operators need. |
+| `--output` | Controls output format for review or automation. |
+| `--dest-address` | Azure CLI option used to scope or shape the network operation. |
+| `--dest-port` | Azure CLI option used to scope or shape the network operation. |
+| `--command-id` | Azure CLI option used to scope or shape the network operation. |
+| `--scripts` | Azure CLI option used to scope or shape the network operation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 A successful private resolution plus connectivity test proves the end-to-end path much better than portal status alone.
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
+- Validate private endpoint connection state, private DNS resolution, and client path evidence before continuing.
 - It mirrors a real production activity that often appears in troubleshooting tickets.
 - Save command output and timestamps so you can compare expected versus actual behavior later.
 
@@ -209,11 +291,23 @@ az network private-dns link vnet create \
     --registration-enabled false
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$VNET_NAME` | Virtual network being created, linked, or inspected. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--zone-name` | Identifies a Private DNS zone. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--yes` | Confirms a destructive command without prompting. |
+| `--virtual-network` | Azure CLI option used to scope or shape the network operation. |
+| `--registration-enabled` | Controls automatic DNS registration for a VNet link. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 This gives you a safe way to reproduce a missing-zone-link scenario and then fix it cleanly.
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
+- Validate private endpoint connection state, private DNS resolution, and client path evidence before continuing.
 - It mirrors a real production activity that often appears in troubleshooting tickets.
 - Save command output and timestamps so you can compare expected versus actual behavior later.
 
@@ -227,8 +321,19 @@ This gives you a safe way to reproduce a missing-zone-link scenario and then fix
 ## Cleanup Instructions
 
 ```bash
-az group delete --name $RG --yes --no-wait
+az group delete \
+    --name $RG \
+    --yes \
+    --no-wait
 ```
+
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--yes` | Confirms a destructive command without prompting. |
+| `--no-wait` | Starts an operation and returns before completion. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 Before cleanup, record any private IPs, route table names, or diagnostic screenshots you want to reuse in troubleshooting notes.
 

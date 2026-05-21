@@ -1,342 +1,124 @@
 ---
 content_sources:
   diagrams:
-    - id: why-this-matters
-      type: flowchart
-      source: mslearn-adapted
-      mslearn_url: https://learn.microsoft.com/en-us/azure/well-architected/service-guides/virtual-network
-      based_on:
-        - https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/network-topology-and-connectivity
+  - id: best-practices-common-anti-patterns-flow
+    type: flowchart
+    source: mslearn-adapted
+    description: Review blockers
+    based_on:
+    - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
+    - https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
+    - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview
+content_validation:
+  status: pending_review
+  last_reviewed: '2026-05-22'
+  reviewer: ai-agent
+  core_claims:
+  - claim: This document has source metadata and is queued for text-level Microsoft
+      Learn verification.
+    source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
+    verified: false
+  - claim: Core Azure networking guidance on this page should remain traceable to
+      the listed sources before it is marked verified.
+    source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
+    verified: false
 ---
 
 # Common Anti-Patterns
 
-Most Azure networking failures repeat a small number of anti-patterns: implicit DNS, overlapping IP plans, flat trust zones, and emergency policy exceptions that become permanent.
+These networking anti-patterns are review blockers because they make failures hard to diagnose or recover.
 
 ## Why This Matters
 
-Cataloging anti-patterns helps teams recognize bad patterns before they scale.
+A production outage review finds overlapping address spaces, broad allow rules, private endpoint DNS gaps, and undocumented UDRs.
 
-In Azure, networking changes often look correct in the control plane while failing in the data plane. That is why good practices must combine architecture, CLI validation, and operational ownership.
-
-Real-world incidents usually mix more than one factor: DNS, routes, NSGs, firewall policy, health probes, or hybrid dependencies. A strong practice guide makes those dependencies visible before the outage.
-
-Show teams how small shortcuts accumulate into large operational debt. Use anti-pattern reviews after incidents and before major platform expansions. Translate every anti-pattern into a concrete safer pattern with validation steps.
-
-<!-- diagram-id: why-this-matters -->
+<!-- diagram-id: best-practices-common-anti-patterns-flow -->
 ```mermaid
 flowchart TD
-                Source[Client or Workload] --> Control[Common Control Point]
-                Control --> Shared[Shared Services
-DNS, Monitoring, Governance]
-                Shared --> Azure[Azure Network Fabric]
-                Azure --> Target[Private Service or Workload]
-                Shared --> Logs[Logs, Metrics, Activity]
-                Logs --> Ops[Operations Team]
+    A[Classify network path] --> B[Identify owning control]
+    B --> C[Apply topic-specific guardrails]
+    C --> D[Validate DNS route and security evidence]
+    D --> E[Record owner and rollback notes]
 ```
-
-## Prerequisites
-
-- Azure CLI 2.60 or later installed locally or in Azure Cloud Shell.
-- Reader access to the current subscription and Contributor access in a lab subscription for hands-on changes.
-- A shared naming convention for VNets, subnets, DNS zones, route tables, gateways, and firewall policies.
-- A documented IP plan that includes Azure regions, on-premises ranges, partner networks, and future expansion.
-- Diagnostic settings enabled for key networking resources so validation is based on evidence instead of assumptions.
 
 ## Recommended Practices
 
-### Practice 1: Baseline common anti-patterns ownership and intent
+### 1. Do not use overlapping CIDR ranges
 
-**Why**: Common Anti-Patterns changes are safer when the team can explain who owns them, what good looks like, and how to validate results.
+**Why:** Overlap blocks peering, hybrid routing, and future region expansion.
 
-**Real-world scenario**: A production change affects common anti-patterns but no one knows whether the platform, security, or application team approves it. The delay becomes an outage multiplier.
+**How:** Reserve and approve address ranges before creating VNets.
 
-**How**
+**Validation:** Address inventory has no overlaps with connected networks.
 
-- Tag shared resources with owner and environment.
-- Write pre-change validation and rollback steps before touching production.
-- Review design assumptions with application teams that depend on the path.
+### 2. Do not use broad allow rules as a shortcut
 
-```bash
-az resource show \
-    --ids $RESOURCE_ID \
-    --query "{id:id,name:name,type:type,tags:tags}"
-```
+**Why:** Wide source or destination ranges hide application intent.
 
-**Validation**
+**How:** Use application-specific rules and central inspection where appropriate.
 
-- Resources expose clear ownership metadata.
-- Runbooks identify the validation command set.
-- Change reviewers agree on rollback criteria.
+**Validation:** Effective security rules still explain the exact intended flow.
 
-**Operator cue**: If ownership discovery takes longer than the change itself, governance is too implicit.
+### 3. Do not deploy private endpoints without DNS validation
 
-**Trade-off**: Ownership overhead is a small price for predictable operations.
+**Why:** Connectivity may silently stay public or fail by name.
 
-### Practice 2: Validate from the data plane, not only from the portal
+**How:** Create DNS zones and test from each consumer subnet before changing public access.
 
-**Why**: Azure networking issues are often obvious only when tested from a real client path.
+**Validation:** Client resolution returns the private IP before enforcement.
 
-**Real-world scenario**: The portal shows healthy common anti-patterns configuration, but workloads still fail because the packet path or resolver path differs from assumptions.
-
-**How**
-
-- Test from representative subnets, not from an operator workstation only.
-- Capture CLI evidence such as effective routes, NSGs, or connection state.
-- Store validation artifacts with the change record.
+### CLI review example
 
 ```bash
-az network watcher test-connectivity \
+az network vnet show \
     --resource-group $RG \
-    --source-resource $SOURCE_ID \
-    --dest-address $DESTINATION_FQDN \
-    --dest-port 443
-```
+    --name $VNET_NAME \
+    --query "{name:name,addressSpace:addressSpace.addressPrefixes,subnets:subnets[].name}" \
+    --output json
 
-**Validation**
-
-- Tests run from a real source workload.
-- Evidence is retained with timestamps.
-- Operators can repeat the validation later.
-
-**Operator cue**: A healthy portal state does not guarantee data-plane success.
-
-**Trade-off**: More validation steps increase release discipline but reduce outage ambiguity.
-
-### Practice 3: Standardize patterns before scale multiplies drift
-
-**Why**: Common Anti-Patterns drift is manageable in one environment and painful in twenty.
-
-**Real-world scenario**: A project invents its own pattern for common anti-patterns, then another team copies it with minor changes. Over time no one can tell which variant is authoritative.
-
-**How**
-
-- Create reusable templates and naming rules.
-- Prefer shared policy objects where multiple environments need the same baseline.
-- Review exceptions quarterly and retire temporary patterns that became permanent.
-
-```bash
-az resource list \
+az network nic show-effective-route-table \
     --resource-group $RG \
-    --query "[].{name:name,type:type,location:location}" \
+    --name $NIC_NAME \
+    --output table
+
+az network nic list-effective-nsg \
+    --resource-group $RG \
+    --name $NIC_NAME \
     --output table
 ```
 
-**Validation**
-
-- Common resources follow the same naming pattern.
-- Exceptions are documented and time-bounded.
-- New teams can self-serve without inventing a new pattern.
-
-**Operator cue**: The number of exception documents is a good signal of architectural drift.
-
-**Trade-off**: Standardization reduces local autonomy but speeds safe delivery.
-
-### Practice 4: Design for failure and rollback
-
-**Why**: Healthy production networking assumes something will fail and makes recovery explicit.
-
-**Real-world scenario**: A maintenance change to common anti-patterns appears simple, but restoring the previous state during a failed cutover becomes slow because no rollback steps were prepared.
-
-**How**
-
-- Record current state before change.
-- Keep rollback commands as first-class documentation.
-- Test failure scenarios in lower environments using the same operational pattern.
-
-```bash
-az resource show \
-    --ids $RESOURCE_ID \
-    --output json
-```
-
-**Validation**
-
-- Known-good state is captured.
-- Rollback commands are copy-paste ready.
-- Teams know the criteria for reversal.
-
-**Operator cue**: If rollback requires improvisation, incident time will expand quickly.
-
-**Trade-off**: Rollback planning adds prep time but reduces blast radius.
-
-### Practice 5: Monitor the control points that matter
-
-**Why**: Common Anti-Patterns needs logs, metrics, and change history so incidents are evidence-based.
-
-**Real-world scenario**: Operators know something broke but lack metrics or logs near the common anti-patterns control point, so they blame the nearest visible service instead.
-
-**How**
-
-- Enable diagnostic settings on the resources that enforce or influence behavior.
-- Correlate activity log writes with workload symptoms.
-- Build lightweight dashboards or query packs for the top incident types.
-
-```bash
-az monitor diagnostic-settings list \
-    --resource $RESOURCE_ID
-```
-
-**Validation**
-
-- Diagnostics exist before incident time.
-- Activity logs are searchable by resource and time window.
-- Query packs cover common failures.
-
-**Operator cue**: If every incident begins with enabling logs, observability arrived too late.
-
-**Trade-off**: Diagnostics cost money, but reactive blind spots cost more.
-
-### Practice 6: Tie architecture choices to cost decisions
-
-**Why**: Common Anti-Patterns designs often grow quietly expensive when every workload gets its own dedicated shared service equivalent.
-
-**Real-world scenario**: A single team duplicates hubs, firewalls, or policy objects per environment because it feels safer. Later, the cost profile is far higher than the risk justified.
-
-**How**
-
-- Estimate deployment, processing, and cross-network traffic costs for the selected pattern.
-- Use dedicated components only when compliance, isolation, or scale truly requires them.
-- Review whether simpler direct patterns meet the same requirement.
-
-```bash
-az consumption usage list \
-    --start-date 2026-04-01 \
-    --end-date 2026-04-30
-```
-
-**Validation**
-
-- Cost review accompanies architecture review.
-- Shared services are intentionally centralized or intentionally isolated.
-- Teams can explain major networking spend drivers.
-
-**Operator cue**: If cost shows up only after go-live, architecture review missed an essential dimension.
-
-**Trade-off**: FinOps discipline may constrain design freedom but prevents expensive sprawl.
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$VNET_NAME` | Virtual network being created, linked, or inspected. |
+| `$NIC_NAME` | Network interface used for effective rule or route checks. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--query` | Filters output to the evidence operators need. |
+| `--output` | Controls output format for review or automation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 ## Common Mistakes / Anti-Patterns
 
-### Anti-Pattern 1: Leaving behavior implicit
-
-**What happens**: Teams cannot explain how common anti-patterns is supposed to work during an incident.
-
-**Why it is wrong**: Implicit design depends on tribal knowledge and fails under pressure.
-
-**Correct approach**: Document intent, ownership, and validation steps.
-
-```bash
-az resource show \
-    --ids $RESOURCE_ID
-```
-
-### Anti-Pattern 2: Treating temporary exceptions as permanent
-
-**What happens**: The estate contains old rules or routes that nobody wants to touch.
-
-**Why it is wrong**: Temporary emergency fixes become long-term risk and cost drivers.
-
-**Correct approach**: Add expiry dates and remove exceptions after stabilization.
-
-```bash
-az resource list \
-    --tag Environment=prod \
-    --output table
-```
-
-### Anti-Pattern 3: Skipping post-change verification
-
-**What happens**: Control-plane changes to common anti-patterns complete successfully but break application behavior.
-
-**Why it is wrong**: Provisioning success is not runtime success.
-
-**Correct approach**: Always validate from a representative client path.
-
-```bash
-az network watcher test-connectivity \
-    --resource-group $RG \
-    --source-resource $SOURCE_ID \
-    --dest-address $DESTINATION_IP \
-    --dest-port 443
-```
-
-### Anti-Pattern 4: Over-centralizing without service levels
-
-**What happens**: Shared networking services become bottlenecks or single points of operational delay.
-
-**Why it is wrong**: Centralization without staffing, observability, and runbooks creates governance friction.
-
-**Correct approach**: Define support models and failure ownership for shared services.
-
-```bash
-az resource show \
-    --ids $RESOURCE_ID \
-    --query tags
-```
-
-## Performance Optimization Tips
-
-- Measure baseline latency before and after every architectural change so optimization is data driven.
-- Keep packet paths simple for critical applications and reduce unnecessary middleboxes where policy allows.
-- Use regional affinity and dedicated subnets or policies for high-throughput paths.
-- Test scaling behavior, not only steady-state connectivity.
-- Review DNS lookup time, TLS handshake time, and transport latency separately to avoid false diagnoses.
-
-## Security Considerations
-
-- Use RBAC and change control to protect shared networking resources.
-- Prefer private access patterns and least-privilege policy over broad temporary openings.
-- Alert on route, DNS, NSG, firewall, and gateway changes that affect production.
-- Separate management access from application access where practical.
-- Document exception owners and expiry dates.
-
-## Cost Optimization Strategies
-
-- Understand which architecture components charge for deployment hours, data processed, and diagnostic retention.
-- Centralize shared services where that reduces duplication without creating a dangerous bottleneck.
-- Tune diagnostic collection to preserve useful evidence without storing redundant data forever.
-- Retire stale policies, zones, and connections after decommissioning projects.
-- Review traffic patterns to avoid paying for unnecessary transit or inspection hops.
+- Reviewing a single resource without validating DNS, route, and security behavior from the actual source subnet.
+- Making broad allow or default-route changes without recording the owner and rollback path.
+- Disabling public access or changing peering and route propagation before private path validation.
 
 ## Validation Checklist
 
-- [ ] The design has a documented owner.
-- [ ] CLI validation exists for the most critical control points.
-- [ ] The data plane behavior is tested from a representative workload.
-- [ ] DNS, routing, and security assumptions are explicitly documented.
-- [ ] Observability is enabled before production cutover.
-- [ ] Rollback steps exist for major changes.
-- [ ] Cost impact is reviewed during design approval.
-- [ ] Security exceptions have owners and expiry dates.
-- [ ] Runbooks link to the relevant troubleshooting playbooks.
-- [ ] The current architecture diagram reflects the deployed environment.
-
-## Design Review Questions
-
-- What will break first if this design has to scale by 3x within one quarter?
-- Which team owns the first-response investigation when this control fails?
-- Which dependency still relies on public resolution or public ingress?
-- How is the current state validated from a representative workload?
-- What telemetry proves the healthy baseline today?
-- What rollback step is fastest if the next change window goes badly?
-- Which security exception is still waiting for retirement?
-- What is the cost driver if this pattern is copied to ten more environments?
-- Which dependency crosses a trust boundary and therefore needs explicit monitoring?
-- Where could DNS and routing assumptions drift apart?
-- Which runbook would a new operator follow during a 2 a.m. outage?
-- Does the diagram still match deployed resources and names?
-- Which validations are automated and which still depend on manual checks?
-- What would an application team misunderstand about this design?
-- Which hidden dependency would appear only during failover or maintenance?
+- [ ] Source, destination, protocol, port, DNS name, and owner are recorded.
+- [ ] Effective route and effective security rule evidence matches the intended path.
+- [ ] DNS resolution is tested from the consumer network when private connectivity is involved.
+- [ ] Rollback command or manual rollback path is documented.
 
 ## See Also
 
-- [Network Design Baseline](../best-practices/network-design-baseline.md)
-- [Dns Best Practices](../best-practices/dns-best-practices.md)
-- [Routing Best Practices](../best-practices/routing-best-practices.md)
-- [Decision Tree](../troubleshooting/decision-tree.md)
+- [Network Design Baseline](network-design-baseline.md)
+- [Operations](../operations/index.md)
+- [Troubleshooting](../troubleshooting/index.md)
 
 ## Sources
 
-- [virtual-network](https://learn.microsoft.com/en-us/azure/well-architected/service-guides/virtual-network)
-- [network-topology-and-connectivity](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/network-topology-and-connectivity)
+- [Virtual Networks Overview](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview)
+- [Network Security Groups Overview](https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview)
+- [Private Endpoint Overview](https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview)

@@ -1,12 +1,20 @@
 ---
 content_sources:
   diagrams:
-    - id: lab-01-hub-spoke-topology
-      type: flowchart
-      source: mslearn-adapted
-      mslearn_url: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-peering-overview
-      based_on:
-        - https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/network-topology-and-connectivity
+  - id: lab-01-hub-spoke-topology
+    type: flowchart
+    source: mslearn-adapted
+    mslearn_url: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-peering-overview
+    based_on:
+    - https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/network-topology-and-connectivity
+validation:
+  az_cli:
+    last_tested: null
+    cli_version: null
+    result: not_tested
+  bicep:
+    last_tested: null
+    result: not_tested
 ---
 
 # Lab 01: Hub-Spoke Topology
@@ -37,7 +45,7 @@ flowchart TD
                 Admin[Operator VM] --> Hub[Hub VNet]
                 Hub --> Bastion[Bastion or Jump Subnet]
                 Hub --> Shared[Shared Services
-DNS and Firewall Placeholder]
+Private DNS and Azure Firewall validation path]
                 Hub --> SpokeA[Spoke A
 App subnet]
                 Hub --> SpokeB[Spoke B
@@ -80,11 +88,23 @@ az network vnet create \
     --subnet-prefixes 10.112.1.0/24
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$LOCATION` | Azure region for regional networking resources. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--location` | Selects the Azure region for creation or lookup. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--address-prefixes` | Defines VNet address ranges. |
+| `--subnet-name` | Names the subnet created with a VNet. |
+| `--subnet-prefixes` | Defines subnet address ranges. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 Use non-overlapping prefixes and reserve space in the hub for future DNS, firewall, and gateway services.
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
+- Validate hub-spoke routing, peering state, DNS forwarding intent, and firewall path evidence before continuing.
 - It mirrors a real production activity that often appears in troubleshooting tickets.
 - Save command output and timestamps so you can compare expected versus actual behavior later.
 
@@ -104,11 +124,20 @@ az network vnet subnet create \
     --address-prefixes 10.110.20.0/24
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--vnet-name` | Selects the virtual network containing the subnet or peering. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--address-prefixes` | Defines VNet address ranges. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 These subnets are placeholders for later labs and make the topology closer to a real landing zone.
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
+- Validate hub-spoke routing, peering state, DNS forwarding intent, and firewall path evidence before continuing.
 - It mirrors a real production activity that often appears in troubleshooting tickets.
 - Save command output and timestamps so you can compare expected versus actual behavior later.
 
@@ -151,11 +180,28 @@ az network vnet peering create \
     --allow-vnet-access true
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$APP_ID` | Operator-supplied environment variable for this command. |
+| `$HUB_ID` | Operator-supplied environment variable for this command. |
+| `$DATA_ID` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--query` | Filters output to the evidence operators need. |
+| `--output` | Controls output format for review or automation. |
+| `--vnet-name` | Selects the virtual network containing the subnet or peering. |
+| `--remote-vnet` | Identifies the remote VNet in a peering. |
+| `--allow-vnet-access` | Allows traffic over VNet peering. |
+| `--allow-forwarded-traffic` | Allows forwarded traffic over peering when required. |
+| `--use-remote-gateways` | Azure CLI option used to scope or shape the network operation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 Keep notes about which side would use remote gateways in a real design. This lab uses simple peering first.
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
+- Validate hub-spoke routing, peering state, DNS forwarding intent, and firewall path evidence before continuing.
 - It mirrors a real production activity that often appears in troubleshooting tickets.
 - Save command output and timestamps so you can compare expected versus actual behavior later.
 
@@ -185,11 +231,25 @@ az vm create \
     --public-ip-address ""
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--image` | Azure CLI option used to scope or shape the network operation. |
+| `--size` | Azure CLI option used to scope or shape the network operation. |
+| `--vnet-name` | Selects the virtual network containing the subnet or peering. |
+| `--subnet` | Azure CLI option used to scope or shape the network operation. |
+| `--admin-username` | Azure CLI option used to scope or shape the network operation. |
+| `--generate-ssh-keys` | Azure CLI option used to scope or shape the network operation. |
+| `--public-ip-address` | Azure CLI option used to scope or shape the network operation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 Private-only VMs make validation closer to a production pattern.
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
+- Validate hub-spoke routing, peering state, DNS forwarding intent, and firewall path evidence before continuing.
 - It mirrors a real production activity that often appears in troubleshooting tickets.
 - Save command output and timestamps so you can compare expected versus actual behavior later.
 
@@ -208,11 +268,25 @@ az network watcher test-connectivity \
     --dest-port 22
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$NF` | Operator-supplied environment variable for this command. |
+| `$APP_NIC` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--query` | Filters output to the evidence operators need. |
+| `--output` | Controls output format for review or automation. |
+| `--source-resource` | Azure CLI option used to scope or shape the network operation. |
+| `--dest-address` | Azure CLI option used to scope or shape the network operation. |
+| `--dest-port` | Azure CLI option used to scope or shape the network operation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 The goal is to prove that peering plus correct routes equals a reachable path. If not, this becomes a troubleshooting baseline for later labs.
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
+- Validate hub-spoke routing, peering state, DNS forwarding intent, and firewall path evidence before continuing.
 - It mirrors a real production activity that often appears in troubleshooting tickets.
 - Save command output and timestamps so you can compare expected versus actual behavior later.
 
@@ -238,11 +312,25 @@ az network vnet subnet update \
     --route-table rt-app-lab01
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$LOCATION` | Azure region for regional networking resources. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--location` | Selects the Azure region for creation or lookup. |
+| `--route-table-name` | Azure CLI option used to scope or shape the network operation. |
+| `--address-prefix` | Defines the route prefix being overridden. |
+| `--next-hop-type` | Defines route next-hop behavior. |
+| `--vnet-name` | Selects the virtual network containing the subnet or peering. |
+| `--route-table` | Azure CLI option used to scope or shape the network operation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 Although the route is not strictly needed here, the exercise teaches how to validate effective routes and prepares you for a forced-tunneling variant.
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
+- Validate hub-spoke routing, peering state, DNS forwarding intent, and firewall path evidence before continuing.
 - It mirrors a real production activity that often appears in troubleshooting tickets.
 - Save command output and timestamps so you can compare expected versus actual behavior later.
 
@@ -256,8 +344,19 @@ Although the route is not strictly needed here, the exercise teaches how to vali
 ## Cleanup Instructions
 
 ```bash
-az group delete --name $RG --yes --no-wait
+az group delete \
+    --name $RG \
+    --yes \
+    --no-wait
 ```
+
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--yes` | Confirms a destructive command without prompting. |
+| `--no-wait` | Starts an operation and returns before completion. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 Before cleanup, record any private IPs, route table names, or diagnostic screenshots you want to reuse in troubleshooting notes.
 

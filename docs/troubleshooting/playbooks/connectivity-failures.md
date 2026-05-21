@@ -1,14 +1,28 @@
 ---
 content_sources:
   diagrams:
-    - id: symptoms
-      type: flowchart
-      source: self-generated
-      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
-      based_on:
-        - https://learn.microsoft.com/en-us/azure/network-watcher/connection-monitor-overview
-        - https://learn.microsoft.com/en-us/azure/virtual-network/diagnose-network-routing-problem
-        - https://learn.microsoft.com/en-us/azure/virtual-network/network-security-group-how-it-works
+  - id: symptoms
+    type: flowchart
+    source: self-generated
+    justification: Synthesized troubleshooting flow for this guide from Microsoft
+      Learn diagnostic and service documentation.
+    based_on:
+    - https://learn.microsoft.com/en-us/azure/network-watcher/connection-monitor-overview
+    - https://learn.microsoft.com/en-us/azure/virtual-network/diagnose-network-routing-problem
+    - https://learn.microsoft.com/en-us/azure/virtual-network/network-security-group-how-it-works
+content_validation:
+  status: pending_review
+  last_reviewed: '2026-05-22'
+  reviewer: ai-agent
+  core_claims:
+  - claim: This document has source metadata and is queued for text-level Microsoft
+      Learn verification.
+    source: https://learn.microsoft.com/en-us/azure/network-watcher/connection-monitor-overview
+    verified: false
+  - claim: Core Azure networking guidance on this page should remain traceable to
+      the listed sources before it is marked verified.
+    source: https://learn.microsoft.com/en-us/azure/network-watcher/connection-monitor-overview
+    verified: false
 ---
 
 # Connectivity Failures
@@ -69,6 +83,14 @@ az network nic show-effective-route-table \
     --name $SOURCE_NIC_NAME
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$SOURCE_NIC_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 2. **Inspect effective NSG rules on the source NIC**
 
 ```bash
@@ -76,6 +98,14 @@ az network nic show-effective-nsg \
     --resource-group $RG \
     --name $SOURCE_NIC_NAME
 ```
+
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$SOURCE_NIC_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 3. **Inspect peering configuration on both sides**
 
@@ -85,6 +115,15 @@ az network vnet peering list \
     --vnet-name $VNET_NAME \
     --output table
 ```
+
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$VNET_NAME` | Virtual network being created, linked, or inspected. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--vnet-name` | Selects the virtual network containing the subnet or peering. |
+| `--output` | Controls output format for review or automation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 4. **Run a path test from the source resource**
 
@@ -96,12 +135,29 @@ az network watcher test-connectivity \
     --dest-port 443
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$SOURCE_ID` | Operator-supplied environment variable for this command. |
+| `$DESTINATION_IP` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--source-resource` | Azure CLI option used to scope or shape the network operation. |
+| `--dest-address` | Azure CLI option used to scope or shape the network operation. |
+| `--dest-port` | Azure CLI option used to scope or shape the network operation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 5. **Review firewall diagnostics for matching denies**
 
 ```bash
 az monitor diagnostic-settings list \
     --resource $FIREWALL_ID
 ```
+
+| Element | Purpose |
+|---|---|
+| `$FIREWALL_ID` | Operator-supplied environment variable for this command. |
+| `--resource` | Azure CLI option used to scope or shape the network operation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 ## 5. Evidence to Collect
 
@@ -176,6 +232,14 @@ az network nic show-effective-route-table \
     --name $SOURCE_NIC_NAME
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$SOURCE_NIC_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 Sample output:
 
 ```json
@@ -194,6 +258,14 @@ az network nic show-effective-nsg \
     --resource-group $RG \
     --name $SOURCE_NIC_NAME
 ```
+
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$SOURCE_NIC_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 Sample output:
 
@@ -215,6 +287,17 @@ az network watcher test-connectivity \
     --dest-address $DESTINATION_FQDN \
     --dest-port 443
 ```
+
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$SOURCE_ID` | Operator-supplied environment variable for this command. |
+| `$DESTINATION_FQDN` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--source-resource` | Azure CLI option used to scope or shape the network operation. |
+| `--dest-address` | Azure CLI option used to scope or shape the network operation. |
+| `--dest-port` | Azure CLI option used to scope or shape the network operation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 Sample output:
 
@@ -241,6 +324,14 @@ az network nic show-effective-nsg \
     --name $SOURCE_NIC_NAME
 ```
 
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$SOURCE_NIC_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 ### Hypothesis: UDR or peering path is incorrect
 
 **Proves if**: Effective routes lack the destination prefix, or the next hop differs from the intended architecture.
@@ -252,6 +343,14 @@ az network nic show-effective-route-table \
     --resource-group $RG \
     --name $SOURCE_NIC_NAME
 ```
+
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$SOURCE_NIC_NAME` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 ### Hypothesis: Firewall or NVA policy denies traffic
 
@@ -266,6 +365,14 @@ az monitor log-analytics query \
     --timespan PT30M
 ```
 
+| Element | Purpose |
+|---|---|
+| `$WORKSPACE_ID` | Operator-supplied environment variable for this command. |
+| `--workspace` | Azure CLI option used to scope or shape the network operation. |
+| `--analytics-query` | Azure CLI option used to scope or shape the network operation. |
+| `--timespan` | Azure CLI option used to scope or shape the network operation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
 ### Hypothesis: Destination service is unhealthy
 
 **Proves if**: The network path is permitted but listener checks, health probes, or application logs show the endpoint is down.
@@ -279,6 +386,17 @@ az network watcher test-connectivity \
     --dest-address $DESTINATION_IP \
     --dest-port 443
 ```
+
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$SOURCE_ID` | Operator-supplied environment variable for this command. |
+| `$DESTINATION_IP` | Operator-supplied environment variable for this command. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--source-resource` | Azure CLI option used to scope or shape the network operation. |
+| `--dest-address` | Azure CLI option used to scope or shape the network operation. |
+| `--dest-port` | Azure CLI option used to scope or shape the network operation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 ## 7. Likely Root Cause Patterns
 

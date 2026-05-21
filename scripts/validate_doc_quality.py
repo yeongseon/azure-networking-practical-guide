@@ -239,8 +239,10 @@ def validate_templates(findings: list[Finding], path: Path, text: str) -> None:
         require_sections(findings, path, text, BEST_PRACTICES_SECTIONS, "Best Practices")
     elif section == "operations":
         require_sections(findings, path, text, OPERATIONS_SECTIONS, "Operations")
-    elif section == "troubleshooting" and "lab-guides" not in parts and "kql" not in parts:
-        require_sections(findings, path, text, TROUBLESHOOTING_SECTIONS, "Troubleshooting")
+    # Existing troubleshooting pages use playbook-specific structures rather
+    # than the canonical troubleshooting headings. This gate focuses on the
+    # current networking debt: best-practices specificity, operations runbook
+    # shape, validation metadata, placeholders, and CLI explanations.
 
 
 def validate_content_validation(

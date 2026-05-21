@@ -1,3 +1,19 @@
+---
+content_validation:
+  status: pending_review
+  last_reviewed: '2026-05-22'
+  reviewer: ai-agent
+  core_claims:
+  - claim: This document has source metadata and is queued for text-level Microsoft
+      Learn verification.
+    source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
+    verified: false
+  - claim: Core Azure networking guidance on this page should remain traceable to
+      the listed sources before it is marked verified.
+    source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
+    verified: false
+---
+
 # Contributing
 
 Thank you for your interest in contributing to Azure Networking Practical Guide!
@@ -114,11 +130,24 @@ Brief introduction
 ### CLI Commands
 ```bash
 # ALWAYS use long flags for readability
-az network vnet create --resource-group $RG --name $VNET_NAME --location $LOCATION
+az network vnet create \
+    --resource-group $RG \
+    --name $VNET_NAME \
+    --location $LOCATION
 
 # NEVER use short flags in documentation
 az network vnet create -g $RG -n $VNET_NAME  # ❌ Don't do this
 ```
+
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `$VNET_NAME` | Virtual network being created, linked, or inspected. |
+| `$LOCATION` | Azure region for regional networking resources. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--location` | Selects the Azure region for creation or lookup. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 ### Variables
 | Variable | Description | Example |

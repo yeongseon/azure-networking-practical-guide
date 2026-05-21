@@ -140,10 +140,8 @@ def validate_file(file_path: Path, verbose: bool = False) -> List[ValidationErro
 
     rel_path = str(file_path)
 
-    # Skip example code blocks in validation status pages
-    if "content-validation-status" in rel_path or "validation-status" in rel_path:
-        # These may contain example mermaid blocks in code fences
-        pass
+    if file_path.name in {"content-validation-status.md", "validation-status.md"}:
+        return []
 
     # Check for frontmatter
     frontmatter, fm_end_line = extract_frontmatter(content)
@@ -160,7 +158,24 @@ def validate_file(file_path: Path, verbose: bool = False) -> List[ValidationErro
         )
         return errors
 
-    diagrams = content_sources.get("diagrams", [])
+    if isinstance(content_sources, dict):
+        diagrams = content_sources.get("diagrams", []) or []
+    elif isinstance(content_sources, list):
+        errors.append(
+            ValidationError(
+                rel_path,
+                "Legacy list-form content_sources is not valid for pages with Mermaid; migrate to content_sources.diagrams",
+            )
+        )
+        return errors
+    else:
+        errors.append(
+            ValidationError(
+                rel_path,
+                f"content_sources must be a mapping with 'diagrams'; got {type(content_sources).__name__}",
+            )
+        )
+        return errors
     if not diagrams:
         errors.append(ValidationError(rel_path, "content_sources.diagrams is empty"))
         return errors
@@ -225,6 +240,12 @@ def validate_file(file_path: Path, verbose: bool = False) -> List[ValidationErro
             required = REQUIRED_FIELDS.get(source_type, [])
             for field in required:
                 if field not in diagram or not diagram[field]:
+                    if (
+                        source_type in ("mslearn", "mslearn-adapted")
+                        and field == "mslearn_url"
+                        and diagram.get("based_on")
+                    ):
+                        continue
                     errors.append(
                         ValidationError(
                             rel_path,

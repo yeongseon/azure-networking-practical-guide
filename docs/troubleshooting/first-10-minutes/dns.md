@@ -1,13 +1,27 @@
 ---
 content_sources:
   diagrams:
-    - id: quick-context
-      type: flowchart
-      source: self-generated
-      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
-      based_on:
-        - https://learn.microsoft.com/en-us/azure/dns/dns-troubleshoot
-        - https://learn.microsoft.com/en-us/azure/dns/private-dns-overview
+  - id: quick-context
+    type: flowchart
+    source: self-generated
+    justification: Synthesized troubleshooting flow for this guide from Microsoft
+      Learn diagnostic and service documentation.
+    based_on:
+    - https://learn.microsoft.com/en-us/azure/dns/dns-troubleshoot
+    - https://learn.microsoft.com/en-us/azure/dns/private-dns-overview
+content_validation:
+  status: pending_review
+  last_reviewed: '2026-05-22'
+  reviewer: ai-agent
+  core_claims:
+  - claim: This document has source metadata and is queued for text-level Microsoft
+      Learn verification.
+    source: https://learn.microsoft.com/en-us/azure/dns/dns-troubleshoot
+    verified: false
+  - claim: Core Azure networking guidance on this page should remain traceable to
+      the listed sources before it is marked verified.
+    source: https://learn.microsoft.com/en-us/azure/dns/dns-troubleshoot
+    verified: false
 ---
 
 # First 10 Minutes: DNS
@@ -58,8 +72,16 @@ flowchart TD
 ```bash
 nslookup <fqdn>
 dig <fqdn>
-az network private-dns link vnet list --resource-group <resource-group> --zone-name <private-zone-name>
+az network private-dns link vnet list \
+    --resource-group <resource-group> \
+    --zone-name <private-zone-name>
 ```
+
+| Element | Purpose |
+|---|---|
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--zone-name` | Identifies a Private DNS zone. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 ## See Also
 

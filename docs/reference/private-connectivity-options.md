@@ -1,14 +1,28 @@
 ---
 content_sources:
   diagrams:
-    - id: private-connectivity-options
-      type: flowchart
-      source: self-generated
-      justification: "Synthesized quick-reference diagram for this guide from Microsoft Learn networking documentation."
-      based_on:
-        - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview
-        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-service-endpoints-overview
-        - https://learn.microsoft.com/en-us/azure/app-service/overview-vnet-integration
+  - id: private-connectivity-options
+    type: flowchart
+    source: self-generated
+    justification: Synthesized quick-reference diagram for this guide from Microsoft
+      Learn networking documentation.
+    based_on:
+    - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview
+    - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-service-endpoints-overview
+    - https://learn.microsoft.com/en-us/azure/app-service/overview-vnet-integration
+content_validation:
+  status: pending_review
+  last_reviewed: '2026-05-22'
+  reviewer: ai-agent
+  core_claims:
+  - claim: This document has source metadata and is queued for text-level Microsoft
+      Learn verification.
+    source: https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview
+    verified: false
+  - claim: Core Azure networking guidance on this page should remain traceable to
+      the listed sources before it is marked verified.
+    source: https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview
+    verified: false
 ---
 
 # Private Connectivity Options

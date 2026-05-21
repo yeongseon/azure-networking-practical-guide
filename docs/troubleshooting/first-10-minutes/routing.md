@@ -1,13 +1,27 @@
 ---
 content_sources:
   diagrams:
-    - id: quick-context
-      type: flowchart
-      source: self-generated
-      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
-      based_on:
-        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
-        - https://learn.microsoft.com/en-us/troubleshoot/azure/virtual-network/virtual-network-troubleshoot-peering-issues
+  - id: quick-context
+    type: flowchart
+    source: self-generated
+    justification: Synthesized troubleshooting flow for this guide from Microsoft
+      Learn diagnostic and service documentation.
+    based_on:
+    - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
+    - https://learn.microsoft.com/en-us/troubleshoot/azure/virtual-network/virtual-network-troubleshoot-peering-issues
+content_validation:
+  status: pending_review
+  last_reviewed: '2026-05-22'
+  reviewer: ai-agent
+  core_claims:
+  - claim: This document has source metadata and is queued for text-level Microsoft
+      Learn verification.
+    source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
+    verified: false
+  - claim: Core Azure networking guidance on this page should remain traceable to
+      the listed sources before it is marked verified.
+    source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
+    verified: false
 ---
 
 # First 10 Minutes: Routing
@@ -56,10 +70,27 @@ flowchart TD
 - **VPN / ExpressRoute issue** -> [Hybrid Connectivity Issues](../playbooks/routing/hybrid-connectivity-issues.md)
 
 ```bash
-az network nic show-effective-route-table --resource-group <resource-group> --name <nic-name>
-az network nic list-effective-nsg --resource-group <resource-group> --name <nic-name>
-az network watcher show-next-hop --resource-group <resource-group> --vm <vm-name> --source-ip <source-ip> --dest-ip <dest-ip>
+az network nic show-effective-route-table \
+    --resource-group <resource-group> \
+    --name <nic-name>
+az network nic list-effective-nsg \
+    --resource-group <resource-group> \
+    --name <nic-name>
+az network watcher show-next-hop \
+    --resource-group <resource-group> \
+    --vm <vm-name> \
+    --source-ip <source-ip> \
+    --dest-ip <dest-ip>
 ```
+
+| Element | Purpose |
+|---|---|
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| `--vm` | Azure CLI option used to scope or shape the network operation. |
+| `--source-ip` | Azure CLI option used to scope or shape the network operation. |
+| `--dest-ip` | Azure CLI option used to scope or shape the network operation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 ## See Also
 

@@ -1,13 +1,27 @@
 ---
 content_sources:
   diagrams:
-    - id: how-this-section-works
-      type: flowchart
-      source: self-generated
-      justification: "Guide navigation diagram created for this repository and grounded in Microsoft Learn networking overview content."
-      based_on:
-        - https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-connectivity-overview
-        - https://learn.microsoft.com/en-us/azure/networking/fundamentals/monitoring-management-overview
+  - id: how-this-section-works
+    type: flowchart
+    source: self-generated
+    justification: Guide navigation diagram created for this repository and grounded
+      in Microsoft Learn networking overview content.
+    based_on:
+    - https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-connectivity-overview
+    - https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-monitoring-overview
+content_validation:
+  status: pending_review
+  last_reviewed: '2026-05-22'
+  reviewer: ai-agent
+  core_claims:
+  - claim: This document has source metadata and is queued for text-level Microsoft
+      Learn verification.
+    source: https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-connectivity-overview
+    verified: false
+  - claim: Core Azure networking guidance on this page should remain traceable to
+      the listed sources before it is marked verified.
+    source: https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-connectivity-overview
+    verified: false
 ---
 
 # Troubleshooting
@@ -87,4 +101,4 @@ flowchart TD
 ## Sources
 
 - [Troubleshoot connectivity problems using Azure Network Watcher](https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-connectivity-overview)
-- [Azure networking monitoring and management](https://learn.microsoft.com/en-us/azure/networking/fundamentals/monitoring-management-overview)
+- [Azure networking monitoring and management](https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-monitoring-overview)

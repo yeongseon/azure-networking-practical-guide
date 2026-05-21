@@ -1,53 +1,93 @@
 ---
 content_sources:
   diagrams:
-    - id: index
-      type: flowchart
-      source: self-generated
-      justification: "Guide navigation diagram created for this repository and grounded in Microsoft Learn networking overview content."
-      based_on:
-        - https://learn.microsoft.com/en-us/azure/virtual-network/
-        - https://learn.microsoft.com/en-us/azure/networking/security/network-security
-        - https://learn.microsoft.com/en-us/azure/private-link/
+  - id: operations-index-flow
+    type: flowchart
+    source: mslearn-adapted
+    description: Runbook flow
+    based_on:
+    - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
+    - https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
+    - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview
+content_validation:
+  status: pending_review
+  last_reviewed: '2026-05-22'
+  reviewer: ai-agent
+  core_claims:
+  - claim: This document has source metadata and is queued for text-level Microsoft
+      Learn verification.
+    source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
+    verified: false
+  - claim: Core Azure networking guidance on this page should remain traceable to
+      the listed sources before it is marked verified.
+    source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
+    verified: false
 ---
 
 # Operations
 
-The Operations section provides actionable guides for deploying and managing Azure Networking resources.
+Operations pages are runbooks for changing and validating Azure network paths.
 
-| Page | Description |
-| --- | --- |
-| [Create VNet and Subnets](create-vnet-and-subnets.md) | Standard procedures for virtual network deployment. |
-| [Configure NSG](configure-nsg.md) | Rules and best practices for Network Security Groups. |
-| [Configure DNS](configure-dns.md) | Setup for Private DNS Zones and custom resolution. |
-| [Configure UDR](configure-udr.md) | Routing table management and traffic steering. |
-| [Connect Private Endpoints](connect-private-endpoints.md) | Securely exposing services into a VNet. |
-| [Peering Basics](peering-basics.md) | Connecting virtual networks in the same or different regions. |
-| [VPN and ExpressRoute](vpn-and-expressroute-basics.md) | Hybrid connectivity setup and maintenance. |
-| [Monitor Network Paths](monitor-network-paths.md) | Tools for visibility into network traffic flow. |
-| [Packet Capture](packet-capture-and-diagnostics.md) | Deep diagnostic procedures for complex issues. |
+## Prerequisites
 
-<!-- diagram-id: index -->
+- Azure CLI is installed and authenticated with permission to read and change the target networking resources.
+- Required variables such as `RG`, `LOCATION`, `VNET_NAME`, and resource-specific names are set before running commands.
+- The intended source, destination, protocol, port, DNS name, and rollback owner are known.
+- A maintenance window is approved for production path changes.
+
+## When to Use
+
+Use this index when deciding which networking runbook owns the next change.
+
+<!-- diagram-id: operations-index-flow -->
 ```mermaid
-graph TD
-    Start[Planning] --> VNet[Create VNet/Subnets]
-    VNet --> Security[Configure NSG]
-    Security --> Routing[Configure UDR]
-    Routing --> Connectivity[Hybrid/Peering]
-    Connectivity --> Monitoring[Monitor & Audit]
+flowchart TD
+    A[Confirm path intent] --> B[Capture current state]
+    B --> C[Apply network change]
+    C --> D[Validate route DNS and security]
+    D --> E[Record rollback evidence]
 ```
 
-!!! tip
-    Run changes in this order: addressing, security, routing, connectivity, then monitoring validation.
+## Procedure
+
+1. Identify whether the change affects address space, NSGs, routes, DNS, peering, private endpoints, hybrid connectivity, monitoring, or packet diagnostics.
+2. Capture the current packet path before changing resources.
+3. Run the target runbook and record post-change evidence.
+4. Update the topology record and rollback notes.
+
+## Verification
+
+```bash
+az network vnet list \
+    --resource-group $RG \
+    --query "[].{name:name,location:location,addressSpace:addressSpace.addressPrefixes}" \
+    --output table
+```
+
+| Element | Purpose |
+|---|---|
+| `$RG` | Resource group containing the networking resources. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--query` | Filters output to the evidence operators need. |
+| `--output` | Controls output format for review or automation. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
+
+Confirm from the actual source network that DNS, route, security rule, and service response match the intended design.
+
+## Rollback / Troubleshooting
+
+- If validation fails, stop further changes and capture current route, NSG, DNS, and Activity Log evidence.
+- Roll back the smallest changed control first: rule, route, DNS link, peering flag, or private endpoint connection.
+- Escalate when policy, capacity, provider circuit, or private endpoint approval state blocks the documented path.
 
 ## See Also
 
-- [Learning Path](../start-here/learning-path.md)
-- [Create VNet and Subnets](./create-vnet-and-subnets.md)
-- [Troubleshooting Overview](../troubleshooting/index.md)
+- [Network Design Baseline](../best-practices/network-design-baseline.md)
+- [Monitor Network Paths](monitor-network-paths.md)
+- [Troubleshooting Playbooks](../troubleshooting/playbooks/index.md)
 
 ## Sources
 
-- [Azure Virtual Network documentation](https://learn.microsoft.com/en-us/azure/virtual-network/)
-- [Azure Network Security documentation](https://learn.microsoft.com/en-us/azure/networking/security/network-security)
-- [Azure Private Link documentation](https://learn.microsoft.com/en-us/azure/private-link/)
+- [Virtual Networks Overview](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview)
+- [Network Security Groups Overview](https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview)
+- [Private Endpoint Overview](https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview)

@@ -1,10 +1,23 @@
 ---
 content_sources:
   diagrams:
-    - id: big-picture
-      type: flowchart
-      source: mslearn-adapted
-      mslearn_url: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
+  - id: big-picture
+    type: flowchart
+    source: mslearn-adapted
+    mslearn_url: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
+content_validation:
+  status: pending_review
+  last_reviewed: '2026-05-22'
+  reviewer: ai-agent
+  core_claims:
+  - claim: This document has source metadata and is queued for text-level Microsoft
+      Learn verification.
+    source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
+    verified: false
+  - claim: Core Azure networking guidance on this page should remain traceable to
+      the listed sources before it is marked verified.
+    source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
+    verified: false
 ---
 
 # Overview

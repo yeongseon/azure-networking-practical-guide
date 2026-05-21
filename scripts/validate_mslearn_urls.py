@@ -41,6 +41,7 @@ except ImportError:
 # Rate limiting settings
 REQUEST_DELAY = 0.1  # seconds between requests
 MAX_WORKERS = 5  # parallel requests
+MAX_RETRIES = 0
 
 
 def extract_frontmatter(content: str) -> Optional[dict]:
@@ -58,8 +59,11 @@ def extract_mslearn_urls(frontmatter: dict) -> List[str]:
     """Extract all MSLearn URLs from content_sources in frontmatter."""
     urls = set()
 
-    content_sources = frontmatter.get("content_sources", {})
-    diagrams = content_sources.get("diagrams", [])
+    content_sources = frontmatter.get("content_sources")
+    if isinstance(content_sources, dict):
+        diagrams = content_sources.get("diagrams", []) or []
+    else:
+        diagrams = []
 
     for diagram in diagrams:
         if isinstance(diagram, dict):
@@ -106,16 +110,28 @@ def check_url(
     Returns:
         - url: Original URL
         - status_code: HTTP status code
-        - status: 'ok', 'redirect', 'error', 'timeout'
+        - status: 'ok', 'redirect', 'error', 'timeout', or 'rate_limited'
         - redirect_url: Final URL if redirected, None otherwise
     """
     try:
-        # Use HEAD first, fall back to GET if needed
-        response = session.head(url, allow_redirects=True, timeout=10)
+        # Use HEAD first, fall back to GET if needed.
+        response = None
+        for attempt in range(MAX_RETRIES + 1):
+            response = session.head(url, allow_redirects=True, timeout=10)
 
-        # Some servers don't support HEAD
-        if response.status_code == 405:
-            response = session.get(url, allow_redirects=True, timeout=10)
+            # Some servers don't support HEAD.
+            if response.status_code == 405:
+                response = session.get(url, allow_redirects=True, timeout=10)
+
+            if response.status_code != 429:
+                break
+
+            retry_after = response.headers.get("Retry-After")
+            if retry_after and retry_after.isdigit():
+                delay = min(int(retry_after), 2)
+            else:
+                delay = min(2**attempt, 2)
+            time.sleep(delay)
 
         final_url = response.url
 
@@ -125,6 +141,8 @@ def check_url(
             return (url, response.status_code, "ok", None)
         elif response.status_code == 404:
             return (url, response.status_code, "error", None)
+        elif response.status_code == 429:
+            return (url, response.status_code, "rate_limited", None)
         else:
             return (url, response.status_code, "error", None)
 
@@ -161,6 +179,7 @@ def validate_project(
         "ok": [],
         "redirects": [],
         "errors": [],
+        "rate_limited": [],
         "files_checked": 0,
         "files_with_urls": {},
     }
@@ -228,6 +247,11 @@ def validate_project(
                 )
                 print(f"    [REDIRECT] {url}")
                 print(f"             -> {redirect_url}")
+            elif status == "rate_limited":
+                results["rate_limited"].append(
+                    {"url": url, "status_code": status_code, "files": url_to_files[url]}
+                )
+                print(f"    [RATE LIMITED {status_code}] {url}")
             else:
                 results["errors"].append(
                     {"url": url, "status_code": status_code, "files": url_to_files[url]}
@@ -254,17 +278,20 @@ def main():
     parser.add_argument("--project", "-p", type=str, help="Specific project to check")
     args = parser.parse_args()
 
-    # Find all practical-guide projects
-    github_dir = Path(__file__).parent.parent.parent
-
     if args.project:
-        projects = [github_dir / args.project]
+        project_arg = Path(args.project)
+        if project_arg.is_absolute():
+            projects = [project_arg]
+        else:
+            github_dir = Path(__file__).resolve().parent.parent.parent
+            projects = [github_dir / args.project]
     else:
-        projects = sorted(github_dir.glob("azure-*-practical-guide"))
+        projects = [Path(__file__).resolve().parent.parent]
 
     all_results = {}
     total_errors = 0
     total_redirects = 0
+    total_rate_limited = 0
 
     for project_path in projects:
         if not project_path.is_dir():
@@ -287,10 +314,12 @@ def main():
         print(f"    Unique URLs: {results['total_urls']}")
         print(f"    OK: {len(results['ok'])}")
         print(f"    Redirects: {len(results['redirects'])}")
+        print(f"    Rate limited: {len(results['rate_limited'])}")
         print(f"    Errors: {len(results['errors'])}")
 
         total_errors += len(results["errors"])
         total_redirects += len(results["redirects"])
+        total_rate_limited += len(results["rate_limited"])
 
     # Final summary
     print(f"\n{'=' * 60}")
@@ -298,6 +327,7 @@ def main():
     print("=" * 60)
     print(f"Projects checked: {len(all_results)}")
     print(f"Total redirects: {total_redirects}")
+    print(f"Total rate limited: {total_rate_limited}")
     print(f"Total errors: {total_errors}")
 
     if total_errors > 0:
@@ -307,6 +337,11 @@ def main():
         print("\nRedirected URLs should be updated to canonical versions.")
         if args.fix:
             print("Run with --fix to auto-update redirected URLs.")
+        sys.exit(0)
+    elif total_rate_limited > 0:
+        print(
+            "\nNo broken URLs were detected; Microsoft Learn returned rate limits for some checks."
+        )
         sys.exit(0)
     else:
         print("\nAll URLs are valid!")

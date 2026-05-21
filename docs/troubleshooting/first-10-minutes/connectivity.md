@@ -1,13 +1,27 @@
 ---
 content_sources:
   diagrams:
-    - id: quick-context
-      type: flowchart
-      source: self-generated
-      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
-      based_on:
-        - https://learn.microsoft.com/en-us/azure/network-watcher/connection-troubleshoot-overview
-        - https://learn.microsoft.com/en-us/azure/network-watcher/diagnose-vm-network-routing-problem
+  - id: quick-context
+    type: flowchart
+    source: self-generated
+    justification: Synthesized troubleshooting flow for this guide from Microsoft
+      Learn diagnostic and service documentation.
+    based_on:
+    - https://learn.microsoft.com/en-us/azure/network-watcher/connection-troubleshoot-overview
+    - https://learn.microsoft.com/en-us/azure/network-watcher/diagnose-vm-network-routing-problem
+content_validation:
+  status: pending_review
+  last_reviewed: '2026-05-22'
+  reviewer: ai-agent
+  core_claims:
+  - claim: This document has source metadata and is queued for text-level Microsoft
+      Learn verification.
+    source: https://learn.microsoft.com/en-us/azure/network-watcher/connection-troubleshoot-overview
+    verified: false
+  - claim: Core Azure networking guidance on this page should remain traceable to
+      the listed sources before it is marked verified.
+    source: https://learn.microsoft.com/en-us/azure/network-watcher/connection-troubleshoot-overview
+    verified: false
 ---
 
 # First 10 Minutes: Connectivity
@@ -61,10 +75,26 @@ flowchart TD
 - **Latency or loss** -> [Latency and Packet Loss](../playbooks/connectivity/latency-and-packet-loss.md)
 
 ```bash
-az network watcher test-connectivity --source-resource <source-id> --dest-address <fqdn-or-ip> --dest-port 443
-az network nic show-effective-route-table --resource-group <resource-group> --name <nic-name>
-az network nic list-effective-nsg --resource-group <resource-group> --name <nic-name>
+az network watcher test-connectivity \
+    --source-resource <source-id> \
+    --dest-address <fqdn-or-ip> \
+    --dest-port 443
+az network nic show-effective-route-table \
+    --resource-group <resource-group> \
+    --name <nic-name>
+az network nic list-effective-nsg \
+    --resource-group <resource-group> \
+    --name <nic-name>
 ```
+
+| Element | Purpose |
+|---|---|
+| `--source-resource` | Azure CLI option used to scope or shape the network operation. |
+| `--dest-address` | Azure CLI option used to scope or shape the network operation. |
+| `--dest-port` | Azure CLI option used to scope or shape the network operation. |
+| `--resource-group` | Scopes the command to the intended resource group. |
+| `--name` | Identifies the target Azure networking resource. |
+| Expected result | Command succeeds and returns resource state, path evidence, or operation status for the change record. |
 
 ## See Also
 

@@ -1,33 +1,49 @@
 ---
 content_sources:
   diagrams:
-    - id: network-failure-plane-overview
-      type: flowchart
-      source: self-generated
-      justification: "Synthesized quick-reference diagram for this guide from Microsoft Learn networking documentation."
-      based_on:
-        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
-        - https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
-        - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
-        - https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-monitoring-overview
-    - id: path-selection-plane
-      type: flowchart
-      source: self-generated
-      justification: "Synthesized quick-reference diagram for this guide from Microsoft Learn networking documentation."
-      based_on:
-        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
-        - https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
-        - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
-        - https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-monitoring-overview
-    - id: target-and-performance-plane
-      type: flowchart
-      source: self-generated
-      justification: "Synthesized quick-reference diagram for this guide from Microsoft Learn networking documentation."
-      based_on:
-        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
-        - https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
-        - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
-        - https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-monitoring-overview
+  - id: network-failure-plane-overview
+    type: flowchart
+    source: self-generated
+    justification: Synthesized quick-reference diagram for this guide from Microsoft
+      Learn networking documentation.
+    based_on:
+    - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
+    - https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
+    - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
+    - https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-monitoring-overview
+  - id: path-selection-plane
+    type: flowchart
+    source: self-generated
+    justification: Synthesized quick-reference diagram for this guide from Microsoft
+      Learn networking documentation.
+    based_on:
+    - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
+    - https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
+    - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
+    - https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-monitoring-overview
+  - id: target-and-performance-plane
+    type: flowchart
+    source: self-generated
+    justification: Synthesized quick-reference diagram for this guide from Microsoft
+      Learn networking documentation.
+    based_on:
+    - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
+    - https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
+    - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
+    - https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-monitoring-overview
+content_validation:
+  status: pending_review
+  last_reviewed: '2026-05-22'
+  reviewer: ai-agent
+  core_claims:
+  - claim: This document has source metadata and is queued for text-level Microsoft
+      Learn verification.
+    source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
+    verified: false
+  - claim: Core Azure networking guidance on this page should remain traceable to
+      the listed sources before it is marked verified.
+    source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
+    verified: false
 ---
 
 # Troubleshooting Architecture Overview

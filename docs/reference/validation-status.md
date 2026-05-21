@@ -1,13 +1,21 @@
 ---
 content_sources:
   diagrams:
-    - id: summary
+    - id: tutorial-validation-status-pie
       type: pie
       source: self-generated
-      justification: "Status visualization generated for this guide and grounded in the Microsoft Learn service references listed below."
-      based_on:
-        - https://learn.microsoft.com/en-us/azure/networking/networking-overview
-        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
+      justification: Auto-generated dashboard from tutorial validation frontmatter.
+content_validation:
+  status: verified
+  last_reviewed: "2026-05-22"
+  reviewer: ai-agent
+  core_claims:
+    - claim: "This dashboard is generated from lab validation frontmatter."
+      source: "scripts/generate_validation_status.py"
+      verified: true
+    - claim: "Lab validation results are only marked pass when frontmatter records a tested method."
+      source: "AGENTS.md"
+      verified: true
 ---
 
 # Tutorial Validation Status
@@ -16,7 +24,7 @@ This page tracks which lab guides have been validated against real Azure deploym
 
 ## Summary
 
-*Generated: 2026-04-09*
+*Generated: 2026-05-22*
 
 | Metric | Count |
 |---|---:|
@@ -26,7 +34,7 @@ This page tracks which lab guides have been validated against real Azure deploym
 | ❌ Failed | 0 |
 | ➖ Not tested | 5 |
 
-<!-- diagram-id: summary -->
+<!-- diagram-id: tutorial-validation-status-pie -->
 ```mermaid
 pie title Tutorial Validation Status
     "Not Tested" : 5
@@ -36,11 +44,11 @@ pie title Tutorial Validation Status
 
 | Lab Guide | az-cli | Bicep | Last Tested | Status |
 |---|---|---|---|---|
-| [Lab 01 Hub Spoke Topology](../tutorials/lab-guides/lab-01-hub-spoke-topology.md) | ➖ No Data | ➖ No Data | — | ➖ Not Tested |
-| [Lab 02 Private Endpoints](../tutorials/lab-guides/lab-02-private-endpoints.md) | ➖ No Data | ➖ No Data | — | ➖ Not Tested |
-| [Lab 03 Application Gateway Waf](../tutorials/lab-guides/lab-03-application-gateway-waf.md) | ➖ No Data | ➖ No Data | — | ➖ Not Tested |
-| [Lab 04 Azure Firewall](../tutorials/lab-guides/lab-04-azure-firewall.md) | ➖ No Data | ➖ No Data | — | ➖ Not Tested |
-| [Lab 05 Expressroute Simulation](../tutorials/lab-guides/lab-05-expressroute-simulation.md) | ➖ No Data | ➖ No Data | — | ➖ Not Tested |
+| [Lab 01 Hub Spoke Topology](../tutorials/lab-guides/lab-01-hub-spoke-topology.md) | ➖ Not Tested | ➖ Not Tested | — | ➖ Not Tested |
+| [Lab 02 Private Endpoints](../tutorials/lab-guides/lab-02-private-endpoints.md) | ➖ Not Tested | ➖ Not Tested | — | ➖ Not Tested |
+| [Lab 03 Application Gateway Waf](../tutorials/lab-guides/lab-03-application-gateway-waf.md) | ➖ Not Tested | ➖ Not Tested | — | ➖ Not Tested |
+| [Lab 04 Azure Firewall](../tutorials/lab-guides/lab-04-azure-firewall.md) | ➖ Not Tested | ➖ Not Tested | — | ➖ Not Tested |
+| [Lab 05 Expressroute Simulation](../tutorials/lab-guides/lab-05-expressroute-simulation.md) | ➖ Not Tested | ➖ Not Tested | — | ➖ Not Tested |
 
 ## How to Update
 
@@ -48,6 +56,8 @@ To mark a lab guide as validated, add a `validation` block to its YAML frontmatt
 
 ```yaml
 ---
+hide:
+  - toc
 validation:
   az_cli:
     last_tested: 2026-04-09
