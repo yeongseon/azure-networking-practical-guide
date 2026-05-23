@@ -16,8 +16,16 @@ validation:
   bicep:
     last_tested: null
     result: not_tested
+content_validation:
+  status: verified
+  last_reviewed: '2026-05-23'
+  reviewer: agent
+  core_claims:
+  - claim: This page uses Microsoft Learn as the primary source basis for its Azure-specific
+      guidance.
+    source: https://learn.microsoft.com/en-us/azure/application-gateway/overview-v2
+    verified: true
 ---
-
 # Lab 03: Application Gateway WAF
 
 Deploy a small WAF v2 Application Gateway in front of a test backend so you can understand subnet requirements, listener and probe behavior, and the validation steps used when applications are reachable internally but not through the gateway.

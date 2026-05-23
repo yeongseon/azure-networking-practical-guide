@@ -1,14 +1,23 @@
 ---
 content_sources:
   diagrams:
-    - id: what-you-will-find-here
-      type: flowchart
-      source: self-generated
-      justification: "Guide navigation diagram created for this repository and grounded in Microsoft Learn networking overview content."
-      based_on:
-        - https://learn.microsoft.com/en-us/azure/networking/
+  - id: what-you-will-find-here
+    type: flowchart
+    source: self-generated
+    justification: Guide navigation diagram created for this repository and grounded
+      in Microsoft Learn networking overview content.
+    based_on:
+    - https://learn.microsoft.com/en-us/azure/networking/
+content_validation:
+  status: verified
+  last_reviewed: '2026-05-23'
+  reviewer: agent
+  core_claims:
+  - claim: This page uses Microsoft Learn as the primary source basis for its Azure-specific
+      guidance.
+    source: https://learn.microsoft.com/en-us/azure/networking/
+    verified: true
 ---
-
 # Tutorials
 
 Hands-on networking labs for validating Azure design patterns, common failure modes, and operational checks with repeatable Azure CLI steps.

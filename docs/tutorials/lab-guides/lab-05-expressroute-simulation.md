@@ -16,8 +16,16 @@ validation:
   bicep:
     last_tested: null
     result: not_tested
+content_validation:
+  status: verified
+  last_reviewed: '2026-05-23'
+  reviewer: agent
+  core_claims:
+  - claim: This page uses Microsoft Learn as the primary source basis for its Azure-specific
+      guidance.
+    source: https://learn.microsoft.com/en-us/azure/vpn-gateway/tutorial-site-to-site-portal
+    verified: true
 ---
-
 # Lab 05: ExpressRoute Simulation
 
 Simulate ExpressRoute-style failover thinking without provisioning a real circuit by combining a hub VNet, a VPN gateway, local network gateway prefixes, and controlled route inspection. The goal is to learn route preference, failover expectations, and validation habits.

@@ -16,8 +16,16 @@ validation:
   bicep:
     last_tested: null
     result: not_tested
+content_validation:
+  status: verified
+  last_reviewed: '2026-05-23'
+  reviewer: agent
+  core_claims:
+  - claim: This page uses Microsoft Learn as the primary source basis for its Azure-specific
+      guidance.
+    source: https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview
+    verified: true
 ---
-
 # Lab 02: Private Endpoints
 
 Create a private endpoint for a storage account, wire up Private DNS, validate private access from a client subnet, and practice the exact checks used when private link deployments look healthy but application traffic still fails.

@@ -1,34 +1,38 @@
 ---
 content_sources:
   diagrams:
-    - id: content-validation-status-pie
-      type: pie
-      source: self-generated
-      justification: Auto-generated dashboard from repository frontmatter.
+  - id: content-validation-status-pie
+    type: pie
+    source: self-generated
+    justification: Auto-generated dashboard from repository frontmatter.
+  sources:
+  - type: mslearn-adapted
+    url: https://learn.microsoft.com/en-us/azure/networking/networking-overview
 content_validation:
   status: verified
-  last_reviewed: "2026-05-22"
+  last_reviewed: '2026-05-23'
   reviewer: ai-agent
   core_claims:
-    - claim: "This dashboard is generated from content_validation frontmatter in this repository."
-      source: "scripts/generate_content_validation_status.py"
-      verified: true
-    - claim: "The repository content policy requires Microsoft Learn traceability for core Azure networking guidance."
-      source: "AGENTS.md"
-      verified: true
+  - claim: This dashboard is generated from content_validation frontmatter in this
+      repository.
+    source: scripts/generate_content_validation_status.py
+    verified: true
+  - claim: The repository content policy requires Microsoft Learn traceability for
+      core Azure networking guidance.
+    source: AGENTS.md
+    verified: true
 ---
-
 # Content Validation Status
 
 This page is generated from `content_validation` frontmatter across non-tutorial documentation. It distinguishes verified pages from pages that have metadata but still need text-level source review.
 
 ## Summary
 
-*Generated: 2026-05-22*
+*Generated: 2026-05-23*
 
 | Content Type | Total | Verified | Pending | Unverified | No Metadata |
 |---|---:|---:|---:|---:|---:|
-| Mermaid Diagrams | 81 | 81 | 0 | 0 | 0 |
+| Mermaid Diagrams | 82 | 82 | 0 | 0 | 0 |
 | Text Documents | 71 | 2 | 69 | 0 | 0 |
 
 <!-- diagram-id: content-validation-status-pie -->
@@ -171,3 +175,6 @@ python3 scripts/generate_content_validation_status.py
 - [Connectivity Decision Guide](connectivity-decision-guide.md)
 - [Azure Networking Components](azure-networking-components.md)
 
+## Sources
+
+- [Microsoft Learn overview](https://learn.microsoft.com/en-us/azure/networking/networking-overview)

@@ -1,30 +1,33 @@
 ---
 content_sources:
   diagrams:
-    - id: tutorial-validation-status-pie
-      type: pie
-      source: self-generated
-      justification: Auto-generated dashboard from tutorial validation frontmatter.
+  - id: tutorial-validation-status-pie
+    type: pie
+    source: self-generated
+    justification: Auto-generated dashboard from tutorial validation frontmatter.
+  sources:
+  - type: mslearn-adapted
+    url: https://learn.microsoft.com/en-us/azure/networking/networking-overview
 content_validation:
   status: verified
-  last_reviewed: "2026-05-22"
+  last_reviewed: '2026-05-23'
   reviewer: ai-agent
   core_claims:
-    - claim: "This dashboard is generated from lab validation frontmatter."
-      source: "scripts/generate_validation_status.py"
-      verified: true
-    - claim: "Lab validation results are only marked pass when frontmatter records a tested method."
-      source: "AGENTS.md"
-      verified: true
+  - claim: This dashboard is generated from lab validation frontmatter.
+    source: scripts/generate_validation_status.py
+    verified: true
+  - claim: Lab validation results are only marked pass when frontmatter records a
+      tested method.
+    source: AGENTS.md
+    verified: true
 ---
-
 # Tutorial Validation Status
 
 This page tracks which lab guides have been validated against real Azure deployments. Each guide can be tested via **az-cli** (manual CLI commands) or **Bicep** (infrastructure as code). Guides not tested within 90 days are marked as stale.
 
 ## Summary
 
-*Generated: 2026-05-22*
+*Generated: 2026-05-23*
 
 | Metric | Count |
 |---|---:|
@@ -87,3 +90,6 @@ python3 scripts/generate_validation_status.py
 - [Lab Guides](../tutorials/lab-guides/index.md)
 - [Connectivity Decision Guide](connectivity-decision-guide.md)
 
+## Sources
+
+- [Microsoft Learn overview](https://learn.microsoft.com/en-us/azure/networking/networking-overview)

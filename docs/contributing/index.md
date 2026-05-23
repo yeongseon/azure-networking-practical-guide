@@ -122,6 +122,9 @@ Brief introduction
 ## Topic/Command Groups
 ## Usage Notes
 ## See Also
+
+## See Also
+- [Repository Map](../start-here/index.md)
 ## Sources
 ```
 
@@ -213,6 +216,3 @@ mkdocs serve
 
 ## Code of Conduct
 See [CODE_OF_CONDUCT.md](https://github.com/yeongseon/azure-networking-practical-guide/blob/main/CODE_OF_CONDUCT.md).
-
-## See Also
-- [Repository Map](../start-here/index.md)
