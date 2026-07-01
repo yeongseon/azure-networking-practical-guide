@@ -19,7 +19,7 @@ Kickstart your Azure networking journey with core mental models and pathfinders.
 | Page | Description | Key Focus |
 |------|-------------|-----------|
 | [Overview](overview.md) | The Big Picture | Basic Azure networking topology |
-| [Learning Path](learning-path.md) | Structured Reading | Where to focus based on your role |
+| [Learning Paths](learning-paths.md) | Structured Reading | Where to focus based on your role |
 | [Networking vs Connectivity](networking-vs-connectivity.md) | Diagnostic Mindset | How to frame networking problems |
 | [Common Scenarios](common-scenarios.md) | Patterns and Use Cases | Hub-spoke, hybrid, and SaaS |
 
@@ -29,7 +29,7 @@ Kickstart your Azure networking journey with core mental models and pathfinders.
 ```mermaid
 graph TD
     IN[Start Here Index] --> OV[Overview]
-    OV --> LP[Learning Path]
+    OV --> LP[Learning Paths]
     LP --> NC[Networking vs Connectivity]
     NC --> CS[Common Scenarios]
 ```
@@ -40,7 +40,7 @@ graph TD
 ## See Also
 
 - [Overview](overview.md)
-- [Learning Path](learning-path.md)
+- [Learning Paths](learning-paths.md)
 - [Networking vs Connectivity](networking-vs-connectivity.md)
 - [Common Scenarios](common-scenarios.md)
 

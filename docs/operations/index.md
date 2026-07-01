@@ -42,7 +42,7 @@ graph TD
 
 ## See Also
 
-- [Learning Path](../start-here/learning-path.md)
+- [Learning Paths](../start-here/learning-paths.md)
 - [Create VNet and Subnets](./create-vnet-and-subnets.md)
 - [Troubleshooting Overview](../troubleshooting/index.md)
 
