@@ -320,7 +320,7 @@ flowchart TD
 
 ## See Also
 
-- [Learning Path](../start-here/learning-path.md)
+- [Learning Paths](../start-here/learning-paths.md)
 - [Connectivity Decision Guide](../reference/connectivity-decision-guide.md)
 - [Troubleshooting Home](../troubleshooting/index.md)
 - [Operations Home](../operations/index.md)

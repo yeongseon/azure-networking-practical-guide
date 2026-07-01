@@ -42,7 +42,7 @@ graph TD
 
 - [Connectivity Decision Guide](./connectivity-decision-guide.md)
 - [Glossary](./glossary.md)
-- [Learning Path](../start-here/learning-path.md)
+- [Learning Paths](../start-here/learning-paths.md)
 
 ## Sources
 

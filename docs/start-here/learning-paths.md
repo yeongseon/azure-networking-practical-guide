@@ -10,7 +10,7 @@ content_sources:
         - https://learn.microsoft.com/en-us/training/browse/?products=azure-networking
 ---
 
-# Learning Path
+# Learning Paths
 
 Follow a tailored journey based on your professional role and needs.
 
