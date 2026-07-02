@@ -7,7 +7,7 @@ content_sources:
       justification: "Guide navigation diagram created for this repository and grounded in Microsoft Learn networking overview content."
       based_on:
         - https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-connectivity-overview
-        - https://learn.microsoft.com/en-us/azure/networking/fundamentals/monitoring-management-overview
+        - https://learn.microsoft.com/en-us/azure/networking/monitoring-management/
 ---
 
 # Troubleshooting
@@ -87,4 +87,4 @@ flowchart TD
 ## Sources
 
 - [Troubleshoot connectivity problems using Azure Network Watcher](https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-connectivity-overview)
-- [Azure networking monitoring and management](https://learn.microsoft.com/en-us/azure/networking/fundamentals/monitoring-management-overview)
+- [Azure networking monitoring and management](https://learn.microsoft.com/en-us/azure/networking/monitoring-management/)

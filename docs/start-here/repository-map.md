@@ -8,7 +8,7 @@ content_sources:
       based_on:
         - https://learn.microsoft.com/en-us/azure/virtual-network/
         - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
-        - https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/network-topology-and-connectivity
+        - https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/network-topology-and-connectivity
 ---
 
 # Repository Map
@@ -70,4 +70,4 @@ graph TD
 
 - [Azure Virtual Network Documentation](https://learn.microsoft.com/en-us/azure/virtual-network/)
 - [Azure Virtual Network Concepts](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview)
-- [Cloud Adoption Framework — Network Topology and Connectivity](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/network-topology-and-connectivity)
+- [Cloud Adoption Framework — Network Topology and Connectivity](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/network-topology-and-connectivity)
