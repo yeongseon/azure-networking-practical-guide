@@ -22,7 +22,7 @@ import re
 import argparse
 import time
 from pathlib import Path
-from typing import Dict, List, Tuple, Optional
+from typing import Any, Dict, Iterable, List, Tuple, Optional
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 try:
@@ -39,8 +39,9 @@ except ImportError:
 
 
 # Rate limiting settings
-REQUEST_DELAY = 0.1  # seconds between requests
-MAX_WORKERS = 5  # parallel requests
+REQUEST_DELAY = 0.25  # seconds between completed requests
+MAX_WORKERS = 3  # parallel requests
+MAX_RETRIES = 3
 
 
 def extract_frontmatter(content: str) -> Optional[dict]:
@@ -54,29 +55,132 @@ def extract_frontmatter(content: str) -> Optional[dict]:
         return None
 
 
+def add_mslearn_url(urls: set, url: Any) -> None:
+    """Add a Microsoft Learn URL to the set when the value is URL-like."""
+    if isinstance(url, str) and "learn.microsoft.com" in url:
+        urls.add(url)
+
+
+def add_mslearn_urls(urls: set, values: Any) -> None:
+    """Add one URL or an iterable of URLs."""
+    if isinstance(values, str):
+        add_mslearn_url(urls, values)
+    elif isinstance(values, Iterable):
+        for value in values:
+            add_mslearn_url(urls, value)
+
+
+# Reference-list sub-keys in dict-form content_sources. All semantically equivalent;
+# 'references' is the canonical key (see Phase 2d schema normalization plan).
+# Legacy aliases (sources, text, documents) are accepted during the migration window.
+REFERENCE_SUBKEYS = ("references", "sources", "text", "documents")
+
+
+def iter_reference_items(content_sources: Any) -> Iterable[dict]:
+    """
+    Yield reference-list dict items from content_sources frontmatter.
+
+    Supports both list-form content_sources (legacy) and dict-form with any of
+    the known reference sub-key aliases. Items under unknown sub-keys are
+    skipped.
+
+    >>> list(iter_reference_items({'references': [{'url': 'a'}]}))
+    [{'url': 'a'}]
+    >>> list(iter_reference_items({'sources': [{'url': 'b'}]}))
+    [{'url': 'b'}]
+    >>> list(iter_reference_items({'text': [{'url': 'c'}]}))
+    [{'url': 'c'}]
+    >>> list(iter_reference_items({'documents': [{'url': 'd'}]}))
+    [{'url': 'd'}]
+    >>> list(iter_reference_items([{'url': 'e'}, {'url': 'f'}]))
+    [{'url': 'e'}, {'url': 'f'}]
+    >>> list(iter_reference_items({'unknown_key': [{'url': 'z'}]}))
+    []
+    >>> list(iter_reference_items({}))
+    []
+    >>> list(iter_reference_items(None))
+    []
+    >>> sorted(item['url'] for item in iter_reference_items({'references': [{'url': 'a'}], 'sources': [{'url': 'b'}]}))
+    ['a', 'b']
+    """
+    if isinstance(content_sources, list):
+        for item in content_sources:
+            if isinstance(item, dict):
+                yield item
+    elif isinstance(content_sources, dict):
+        for key in REFERENCE_SUBKEYS:
+            items = content_sources.get(key)
+            if isinstance(items, list):
+                for item in items:
+                    if isinstance(item, dict):
+                        yield item
+
+
+def iter_diagram_items(content_sources: Any) -> Iterable[dict]:
+    """
+    Yield diagram dict items from content_sources frontmatter.
+
+    Diagrams only appear under dict-form content_sources.diagrams.
+
+    >>> list(iter_diagram_items({'diagrams': [{'id': 'foo'}]}))
+    [{'id': 'foo'}]
+    >>> list(iter_diagram_items({'references': [{'url': 'a'}]}))
+    []
+    >>> list(iter_diagram_items([{'url': 'a'}]))
+    []
+    >>> list(iter_diagram_items(None))
+    []
+    >>> list(iter_diagram_items({}))
+    []
+    """
+    if isinstance(content_sources, dict):
+        diagrams = content_sources.get("diagrams")
+        if isinstance(diagrams, list):
+            for item in diagrams:
+                if isinstance(item, dict):
+                    yield item
+
+
 def extract_mslearn_urls(frontmatter: dict) -> List[str]:
-    """Extract all MSLearn URLs from content_sources in frontmatter."""
+    """Extract all MSLearn URLs from content_sources in frontmatter.
+
+    Deduplicates URLs and returns deterministic sorted order.
+    Supports list-form and dict-form content_sources. All four reference
+    sub-key aliases (references, sources, text, documents) are accepted
+    during the Phase 2d schema migration window.
+
+    >>> extract_mslearn_urls({'content_sources': {'references': [{'url': 'https://learn.microsoft.com/a'}]}})
+    ['https://learn.microsoft.com/a']
+    >>> extract_mslearn_urls({'content_sources': {'sources': [{'url': 'https://learn.microsoft.com/b'}]}})
+    ['https://learn.microsoft.com/b']
+    >>> extract_mslearn_urls({'content_sources': {'text': [{'url': 'https://learn.microsoft.com/c'}]}})
+    ['https://learn.microsoft.com/c']
+    >>> extract_mslearn_urls({'content_sources': {'documents': [{'url': 'https://learn.microsoft.com/d'}]}})
+    ['https://learn.microsoft.com/d']
+    >>> extract_mslearn_urls({'content_sources': [{'url': 'https://learn.microsoft.com/e'}]})
+    ['https://learn.microsoft.com/e']
+    >>> extract_mslearn_urls({'content_sources': {'diagrams': [{'based_on': ['https://learn.microsoft.com/f']}]}})
+    ['https://learn.microsoft.com/f']
+    >>> extract_mslearn_urls({'content_sources': {'references': [{'url': 'https://example.com/skip-non-mslearn'}]}})
+    []
+    >>> extract_mslearn_urls({})
+    []
+    >>> extract_mslearn_urls({'content_sources': {'references': [{'url': 'https://learn.microsoft.com/g'}], 'diagrams': [{'based_on': ['https://learn.microsoft.com/g']}]}})
+    ['https://learn.microsoft.com/g']
+    """
     urls = set()
+    content_sources = frontmatter.get("content_sources")
 
-    content_sources = frontmatter.get("content_sources", {})
-    diagrams = content_sources.get("diagrams", [])
+    for item in iter_reference_items(content_sources):
+        add_mslearn_url(urls, item.get("url"))
+        add_mslearn_url(urls, item.get("mslearn_url"))
+        add_mslearn_urls(urls, item.get("based_on", []))
 
-    for diagram in diagrams:
-        if isinstance(diagram, dict):
-            # Direct mslearn_url
-            if "mslearn_url" in diagram:
-                url = diagram["mslearn_url"]
-                if url and "learn.microsoft.com" in url:
-                    urls.add(url)
+    for diagram in iter_diagram_items(content_sources):
+        add_mslearn_url(urls, diagram.get("mslearn_url"))
+        add_mslearn_urls(urls, diagram.get("based_on", []))
 
-            # based_on list
-            based_on = diagram.get("based_on", [])
-            if isinstance(based_on, list):
-                for url in based_on:
-                    if url and "learn.microsoft.com" in url:
-                        urls.add(url)
-
-    return list(urls)
+    return sorted(urls)
 
 
 def extract_source_section_urls(content: str) -> List[str]:
@@ -109,29 +213,54 @@ def check_url(
         - status: 'ok', 'redirect', 'error', 'timeout'
         - redirect_url: Final URL if redirected, None otherwise
     """
-    try:
-        # Use HEAD first, fall back to GET if needed
-        response = session.head(url, allow_redirects=True, timeout=10)
+    last_status = 0
 
-        # Some servers don't support HEAD
-        if response.status_code == 405:
-            response = session.get(url, allow_redirects=True, timeout=10)
+    for attempt in range(MAX_RETRIES + 1):
+        try:
+            # Use HEAD first, fall back to GET if needed.
+            response = session.head(url, allow_redirects=True, timeout=10)
 
-        final_url = response.url
+            # Some servers don't support HEAD.
+            if response.status_code == 405:
+                response = session.get(url, allow_redirects=True, timeout=10)
 
-        if response.status_code == 200:
-            if final_url != url:
-                return (url, response.status_code, "redirect", final_url)
-            return (url, response.status_code, "ok", None)
-        elif response.status_code == 404:
-            return (url, response.status_code, "error", None)
-        else:
-            return (url, response.status_code, "error", None)
+            last_status = response.status_code
 
-    except requests.Timeout:
-        return (url, 0, "timeout", None)
-    except requests.RequestException as e:
-        return (url, 0, "error", str(e))
+            if response.status_code == 429:
+                retry_after = response.headers.get("Retry-After")
+                if attempt < MAX_RETRIES:
+                    delay = (
+                        float(retry_after)
+                        if retry_after and retry_after.isdigit()
+                        else 2**attempt
+                    )
+                    time.sleep(delay)
+                    continue
+                return (url, response.status_code, "rate_limited", None)
+
+            final_url = response.url
+
+            if response.status_code == 200:
+                if final_url != url:
+                    return (url, response.status_code, "redirect", final_url)
+                return (url, response.status_code, "ok", None)
+            elif response.status_code == 404:
+                return (url, response.status_code, "error", None)
+            else:
+                return (url, response.status_code, "error", None)
+
+        except requests.Timeout:
+            if attempt < MAX_RETRIES:
+                time.sleep(2**attempt)
+                continue
+            return (url, last_status, "timeout", None)
+        except requests.RequestException as e:
+            if attempt < MAX_RETRIES:
+                time.sleep(2**attempt)
+                continue
+            return (url, last_status, "error", str(e))
+
+    return (url, last_status, "error", None)
 
 
 def find_docs_files(docs_dir: Path) -> List[Path]:
@@ -161,6 +290,7 @@ def validate_project(
         "ok": [],
         "redirects": [],
         "errors": [],
+        "rate_limited": [],
         "files_checked": 0,
         "files_with_urls": {},
     }
@@ -228,6 +358,13 @@ def validate_project(
                 )
                 print(f"    [REDIRECT] {url}")
                 print(f"             -> {redirect_url}")
+            elif status == "rate_limited":
+                results["rate_limited"].append(
+                    {"url": url, "status_code": status_code, "files": url_to_files[url]}
+                )
+                print(f"    [RATE LIMITED {status_code}] {url}")
+                for f in url_to_files[url]:
+                    print(f"             in: {f}")
             else:
                 results["errors"].append(
                     {"url": url, "status_code": status_code, "files": url_to_files[url]}
@@ -265,6 +402,7 @@ def main():
     all_results = {}
     total_errors = 0
     total_redirects = 0
+    total_rate_limited = 0
 
     for project_path in projects:
         if not project_path.is_dir():
@@ -287,10 +425,12 @@ def main():
         print(f"    Unique URLs: {results['total_urls']}")
         print(f"    OK: {len(results['ok'])}")
         print(f"    Redirects: {len(results['redirects'])}")
+        print(f"    Rate limited: {len(results['rate_limited'])}")
         print(f"    Errors: {len(results['errors'])}")
 
         total_errors += len(results["errors"])
         total_redirects += len(results["redirects"])
+        total_rate_limited += len(results["rate_limited"])
 
     # Final summary
     print(f"\n{'=' * 60}")
@@ -298,6 +438,7 @@ def main():
     print("=" * 60)
     print(f"Projects checked: {len(all_results)}")
     print(f"Total redirects: {total_redirects}")
+    print(f"Total rate limited: {total_rate_limited}")
     print(f"Total errors: {total_errors}")
 
     if total_errors > 0:
@@ -307,6 +448,11 @@ def main():
         print("\nRedirected URLs should be updated to canonical versions.")
         if args.fix:
             print("Run with --fix to auto-update redirected URLs.")
+        sys.exit(0)
+    elif total_rate_limited > 0:
+        print(
+            "\nNo broken URLs were detected; Microsoft Learn returned rate limits for some checks."
+        )
         sys.exit(0)
     else:
         print("\nAll URLs are valid!")
