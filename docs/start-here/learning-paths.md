@@ -51,7 +51,7 @@ Use this page to choose a reading path based on your role and goal. Each path is
 | Role | Goal | Time Budget | Start With |
 |---|---|---|---|
 | **Beginner** | Understand VNets, subnets, and basic connectivity | 1-2 hours | [Overview](overview.md), [Networking vs Connectivity](networking-vs-connectivity.md) |
-| **Operator** | Run day-2 network operations: NSG, DNS, UDR, peering | 3-4 hours | [Common Scenarios](common-scenarios.md), [Operations Hub](../operations/index.md) |
+| **Operator** | Run day-2 network operations: NSG, DNS, UDR, peering | 3-4 hours | [Scenario Router](scenario-router.md), [Operations Hub](../operations/index.md) |
 | **Architect** | Design hub-spoke, private endpoints, and DNS topology | 4-6 hours | [Platform Hub](../platform/index.md), [Best Practices Hub](../best-practices/index.md) |
 | **Troubleshooter** | Diagnose connectivity, DNS, and routing failures | 2-4 hours + on-call reference | [Troubleshooting Hub](../troubleshooting/index.md) |
 
@@ -92,7 +92,7 @@ Read in order:
 1. [Overview](overview.md)
 2. [Networking vs Connectivity](networking-vs-connectivity.md)
 3. [Platform Hub](../platform/index.md) — VNet, subnet, IP addressing, DNS basics
-4. [Common Scenarios](common-scenarios.md)
+4. [Scenario Router](scenario-router.md)
 5. [Reference Hub](../reference/index.md) — glossary and cheatsheets
 
 ### Outcomes
@@ -125,7 +125,7 @@ flowchart TD
 
 Read in order:
 
-1. [Common Scenarios](common-scenarios.md)
+1. [Scenario Router](scenario-router.md)
 2. [Operations Hub](../operations/index.md) — NSG, UDR, DNS, PE, peering, diagnostics
 3. [Best Practices Hub](../best-practices/index.md) — DNS, NSG, PE production patterns
 4. [Platform Hub](../platform/index.md) — network security and private connectivity basics
@@ -232,7 +232,7 @@ Read in order:
 
 - [Overview](overview.md)
 - [Networking vs Connectivity](networking-vs-connectivity.md)
-- [Common Scenarios](common-scenarios.md)
+- [Scenario Router](scenario-router.md)
 - [Repository Map](repository-map.md)
 - [Platform Hub](../platform/index.md)
 - [Operations Hub](../operations/index.md)

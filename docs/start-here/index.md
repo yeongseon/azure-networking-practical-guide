@@ -22,7 +22,7 @@ Kickstart your Azure networking journey with core mental models and pathfinders.
 | [Learning Paths](learning-paths.md) | Structured Reading | Where to focus based on your role |
 | [Repository Map](repository-map.md) | Guide Structure | Map of major sections and when to use them |
 | [Networking vs Connectivity](networking-vs-connectivity.md) | Diagnostic Mindset | How to frame networking problems |
-| [Common Scenarios](common-scenarios.md) | Patterns and Use Cases | Hub-spoke, hybrid, and SaaS |
+| [Scenario Router](scenario-router.md) | Situation-to-Destination Router | Plan, Deploy, Operate, Troubleshoot |
 
 ## Reading Path
 
@@ -33,7 +33,7 @@ graph TD
     OV --> LP[Learning Paths]
     LP --> RM[Repository Map]
     RM --> NC[Networking vs Connectivity]
-    NC --> CS[Common Scenarios]
+    NC --> SR[Scenario Router]
 ```
 
 !!! tip
@@ -45,7 +45,7 @@ graph TD
 - [Learning Paths](learning-paths.md)
 - [Repository Map](repository-map.md)
 - [Networking vs Connectivity](networking-vs-connectivity.md)
-- [Common Scenarios](common-scenarios.md)
+- [Scenario Router](scenario-router.md)
 
 ## Sources
 - [Azure Virtual Network Documentation](https://learn.microsoft.com/en-us/azure/virtual-network/)

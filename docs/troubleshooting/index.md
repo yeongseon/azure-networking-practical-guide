@@ -79,7 +79,7 @@ flowchart TD
 
 ## See Also
 
-- [Common Scenarios](../start-here/common-scenarios.md)
+- [Scenario Router](../start-here/scenario-router.md)
 - [Monitor Network Paths](../operations/monitor-network-paths.md)
 - [Packet Capture and Diagnostics](../operations/packet-capture-and-diagnostics.md)
 - [Connectivity Decision Guide](../reference/connectivity-decision-guide.md)

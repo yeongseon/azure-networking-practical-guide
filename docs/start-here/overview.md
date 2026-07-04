@@ -43,7 +43,7 @@ graph TD
 ## See Also
 
 - [How Azure Networking Works](../platform/how-azure-networking-works.md)
-- [Common Scenarios](common-scenarios.md)
+- [Scenario Router](scenario-router.md)
 - [Azure Networking Components](../reference/azure-networking-components.md)
 
 ## Sources

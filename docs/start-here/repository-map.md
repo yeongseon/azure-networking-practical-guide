@@ -34,7 +34,7 @@ graph TD
     - `learning-paths.md`: Role-based reading paths for network engineers, platform teams, and app owners.
     - `repository-map.md`: This file — a map of major sections and when to use them.
     - `networking-vs-connectivity.md`: How to frame networking problems as connectivity problems.
-    - `common-scenarios.md`: Hub-spoke, hybrid, and SaaS integration patterns.
+    - `scenario-router.md`: Situation-to-destination router across Plan, Deploy, Operate, and Troubleshoot phases.
 - `docs/platform/`
     - Core concepts: VNet, subnets, IP addressing, DNS, routing, network security, load balancing, private and hybrid connectivity.
 - `docs/best-practices/`
@@ -64,7 +64,7 @@ graph TD
 - [Overview](overview.md)
 - [Learning Paths](learning-paths.md)
 - [Networking vs Connectivity](networking-vs-connectivity.md)
-- [Common Scenarios](common-scenarios.md)
+- [Scenario Router](scenario-router.md)
 
 ## Sources
 
