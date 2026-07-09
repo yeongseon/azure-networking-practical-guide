@@ -20,3 +20,9 @@ __pycache__/
 .venv/
 venv/
 env/
+
+# Root-level debug/scratch screenshots (docs/assets/**/*.png stays legitimate)
+/*.png
+
+# Playwright scripts
+.playwright-scripts/
