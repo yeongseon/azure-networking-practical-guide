@@ -237,7 +237,7 @@ Before cleanup, record any private IPs, route table names, or diagnostic screens
 - [Private Endpoint Best Practices](../../best-practices/private-endpoint-best-practices.md)
 - [Dns Best Practices](../../best-practices/dns-best-practices.md)
 - [Connect Private Endpoints](../../operations/connect-private-endpoints.md)
-- [Dns Resolution Issues](../../troubleshooting/playbooks/dns-resolution-issues.md)
+- [DNS Resolution Failures](../../troubleshooting/playbooks/dns/dns-resolution-failures.md)
 
 ## Sources
 

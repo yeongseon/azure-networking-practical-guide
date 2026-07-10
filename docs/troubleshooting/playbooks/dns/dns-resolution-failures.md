@@ -1,87 +1,320 @@
 ---
 content_sources:
   diagrams:
-    - id: summary
+    - id: symptoms
       type: flowchart
       source: self-generated
       justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
       based_on:
         - https://learn.microsoft.com/en-us/azure/dns/dns-troubleshoot
         - https://learn.microsoft.com/en-us/azure/dns/private-dns-overview
+        - https://learn.microsoft.com/en-us/azure/dns/dns-private-resolver-overview
+        - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
 ---
 
 # DNS Resolution Failures
 
-## 1. Summary
-DNS failures in Azure usually originate from the wrong resolver, missing private DNS linkage, broken forwarders, or overlapping zone design.
+!!! note "Playbook consolidation"
+    Merged with the flat-URL variant `troubleshooting/playbooks/dns-resolution-issues.md` on 2026-07-09 (Wave 2 D2). The subpath URL is now the sole home for this playbook; external references to the old flat URL are handled by an `mkdocs-redirects` HTTP-refresh page. This consolidation replaced a thin 93-line stub at this location with the richer 321-line variant (KQL query pack, CLI investigation steps, per-hypothesis validation, root-cause pattern table).
 
-<!-- diagram-id: summary -->
+## 1. Summary
+
+Use this playbook when clients get NXDOMAIN, timeouts, stale answers, or the wrong public-versus-private answer while accessing Azure services, private endpoints, or hybrid resources.
+
+The key is to identify which resolver answered, which zone should have been authoritative, whether conditional forwarding was correct, and whether the answer was cached or live. Most Azure DNS incidents are topology misunderstandings rather than platform outages.
+
+### Symptoms
+
+- Connections time out or are refused.
+- Traffic works from one source but fails from another seemingly similar source.
+- A private endpoint or hybrid path behaves differently after a recent change.
+- Operators have a healthy-looking control plane but an unhealthy application path.
+
+<!-- diagram-id: symptoms -->
 ```mermaid
-graph TD
-    A[Query name] --> B{Which DNS server answers?}
-    B -->|Azure resolver| C[Check zone and VNet link]
-    B -->|Custom resolver| D[Check forwarder chain]
-    C --> E{Expected record returned?}
+flowchart TD
+    A[DNS issue reported] --> B{Which resolver answers first?}
+    B -->|Azure-provided or Private Resolver| C[Check private zone links and rulesets]
+    B -->|Custom DNS| D[Check forwarders and recursion path]
+    C --> E{Correct record returned?}
     D --> E
-    E -->|No| F[DNS root cause]
-    E -->|Yes| G[Move to path validation]
+    E -->|No| F[Fix zone, record, or forwarding]
+    E -->|Yes| G{Cache or TTL problem?}
+    G -->|Yes| H[Validate cutover and cache timing]
+    G -->|No| I[Move to connectivity validation]
 ```
 
 ## 2. Common Misreadings
-- "If DNS works on one host, Azure DNS is fine everywhere."
-- "Private DNS failures always mean the record is missing."
-- "A timeout on port 53 proves the zone is wrong."
+
+| Observation | Often Misread As | Actually Means |
+|---|---|---|
+| One VM resolves correctly | The environment DNS is healthy | Another subnet or on-premises forwarder may still use a different resolver path. |
+| The private endpoint is Approved | Private DNS is configured | Approval state does not prove correct zone groups or VNet links. |
+| Public resolution works | Private access should also work | Split-horizon design may intentionally differ, or the private path may be incomplete. |
+| A retry eventually succeeds | Azure DNS is flaky | The real issue may be cache expiry, conditional forwarding, or an overloaded custom resolver. |
 
 ## 3. Competing Hypotheses
-- H1: The client uses the wrong DNS server.
-- H2: The relevant zone or record is missing or stale.
-- H3: Private DNS zone link is missing.
-- H4: Custom DNS conditional forwarding is incomplete or incorrect.
+
+| Hypothesis | Likelihood | Key Discriminator |
+|---|---|---|
+| The client uses the wrong DNS server | High | Client NIC or OS settings point to an unexpected resolver. |
+| The private zone, zone link, or zone group is missing | High | The record exists somewhere, but not in the resolver path the client actually uses. |
+| Conditional forwarding between Azure and on-premises is incomplete | High | Azure works but on-premises fails, or the reverse. |
+| The answer is stale because of cache or TTL behavior | Medium | Fresh queries show the new answer but long-lived clients keep the old one. |
+| The resolver is healthy but connectivity to the resolved target is broken | Medium | DNS returns the correct record and the issue moves to routing or policy. |
 
 ## 4. What to Check First
 
-| Quick check | Where to inspect | Expected good signal |
-| --- | --- | --- |
-| Client DNS server | NIC or OS resolver settings | Expected DNS server is active |
-| Zone link | Private DNS zone virtual network links | Correct VNet linked |
-| Forwarders | Custom DNS conditional forwarding | Rule forwards to Azure resolver path |
-| Record answer | `nslookup`, `dig`, `Resolve-DnsName` | Expected IP or CNAME chain |
+1. **List private DNS zone links**
+
+```bash
+az network private-dns link vnet list \
+    --resource-group $RG \
+    --zone-name $ZONE_NAME \
+    --output table
+```
+
+2. **Inspect Private Resolver forwarding rulesets**
+
+```bash
+az network dns-resolver forwarding-ruleset list \
+    --resource-group $RG \
+    --output table
+```
+
+3. **Review custom DNS servers on the VNet**
+
+```bash
+az network vnet show \
+    --resource-group $RG \
+    --name $VNET_NAME \
+    --query "dhcpOptions.dnsServers"
+```
+
+4. **Inspect private endpoint DNS configuration**
+
+```bash
+az network private-endpoint show \
+    --resource-group $RG \
+    --name $PE_NAME \
+    --query "{customDnsConfigs:customDnsConfigs}"
+```
+
+5. **Query a name from Azure and on-premises test points**
+
+```bash
+az network watcher test-connectivity \
+    --resource-group $RG \
+    --source-resource $SOURCE_ID \
+    --dest-address $TARGET_FQDN \
+    --dest-port 443
+```
 
 ## 5. Evidence to Collect
-- Active resolver settings from the failing source.
-- Exact query results from the failing source and a known-good source.
-- Zone records and private zone VNet links.
-- Conditional forwarder configuration and test output.
-- Timestamps for inconsistent or intermittent answers.
 
-## 6. Validation
+### 5.1 KQL Queries
 
-| Hypothesis | Signals that support | Signals that weaken |
-| --- | --- | --- |
-| H1 Wrong resolver | unexpected DNS server in use | expected resolver confirmed |
-| H2 Missing/stale record | NXDOMAIN or wrong IP returned | correct record chain returned |
-| H3 Missing link | zone exists but VNet absent from links | correct VNet linked |
-| H4 Forwarder issue | custom DNS fails while Azure resolver succeeds | both resolver paths answer correctly |
+#### DNS-related Azure Activity changes
 
-## 7. Root Cause Patterns
-- VM or workload used unexpected custom DNS servers.
-- Private DNS zone existed but the workload VNet was not linked.
-- Conditional forwarders did not handle Azure private zones.
-- Overlapping or split-horizon zones returned the wrong answer.
+```kusto
+AzureActivity
+| where TimeGenerated > ago(7d)
+| where OperationNameValue has_any (
+    "Microsoft.Network/privateDnsZones/write",
+    "Microsoft.Network/dnsResolvers/write",
+    "Microsoft.Network/privateEndpoints/write"
+)
+| project TimeGenerated, OperationNameValue, ActivityStatusValue, Caller, ResourceGroup, ResourceId
+| order by TimeGenerated desc
+```
+
+| Column | Interpretation |
+|---|---|
+| `OperationNameValue` | Recent writes often explain when the answer changed. |
+| `ResourceId` | Confirms whether the changed object was the zone, resolver, or private endpoint. |
+
+!!! tip "How to Read This"
+    Start with the rows nearest the incident start time. Use them to separate configuration changes from recurring background noise.
+
+#### Private Resolver events
+
+```kusto
+AzureDiagnostics
+| where TimeGenerated > ago(6h)
+| where Category has "DnsResolver"
+| project TimeGenerated, Category, Resource, msg_s, ResponseCode=tostring(ResponseCode_s)
+| order by TimeGenerated desc
+```
+
+| Column | Interpretation |
+|---|---|
+| `ResponseCode` | Use SERVFAIL or NXDOMAIN patterns to separate configuration from connectivity issues. |
+| `msg_s` | Helpful for pinpointing which ruleset or endpoint handled the query. |
+
+!!! tip "How to Read This"
+    Start with the rows nearest the incident start time. Use them to separate configuration changes from recurring background noise.
+
+#### Application-side evidence of wrong destination
+
+```kusto
+AzureDiagnostics
+| where TimeGenerated > ago(6h)
+| where msg_s has_any ("Name or service not known", "No such host", "temporary failure in name resolution")
+| summarize Failures=count() by Resource, msg_s, bin(TimeGenerated, 15m)
+| order by TimeGenerated desc
+```
+
+| Column | Interpretation |
+|---|---|
+| `Failures` | Spikes align the DNS issue with application symptoms. |
+| `Resource` | Shows which consumer workloads felt the impact first. |
+
+!!! tip "How to Read This"
+    Start with the rows nearest the incident start time. Use them to separate configuration changes from recurring background noise.
+
+### 5.2 CLI Investigation
+
+#### Show zone links for the target namespace
+
+```bash
+az network private-dns link vnet list \
+    --resource-group $RG \
+    --zone-name $ZONE_NAME \
+    --output table
+```
+
+Sample output:
+
+```json
+[{"name":"link-hub","virtualNetwork":{"id":"/subscriptions/<subscription-id>/.../vnet-hub"}}]
+```
+
+Interpretation:
+
+- If the consumer VNet is missing here, the resolver path is incomplete.
+- Link presence is necessary but still must be paired with actual client testing.
+
+#### Show Private Resolver rulesets
+
+```bash
+az network dns-resolver forwarding-ruleset list \
+    --resource-group $RG \
+    --output json
+```
+
+Sample output:
+
+```json
+[{"name":"frs-hybrid","dnsResolverOutboundEndpoints":[{"id":"/subscriptions/<subscription-id>/..."}]}]
+```
+
+Interpretation:
+
+- Confirm the intended ruleset exists and is attached where expected.
+- Rulesets that exist but are not linked to a VNet do not help clients there.
+
+#### Inspect private endpoint DNS settings
+
+```bash
+az network private-endpoint show \
+    --resource-group $RG \
+    --name $PE_NAME \
+    --query "{customDnsConfigs:customDnsConfigs,manualPrivateLinkServiceConnections:manualPrivateLinkServiceConnections}"
+```
+
+Sample output:
+
+```json
+{"customDnsConfigs":[{"fqdn":"myserver.database.windows.net","ipAddresses":["10.40.4.10"]}]}
+```
+
+Interpretation:
+
+- The FQDN list tells you which names should resolve privately.
+- If the expected FQDN is missing, fix zone-group or endpoint configuration.
+
+## 6. Validation and Disproof by Hypothesis
+
+### Hypothesis: Wrong resolver path
+
+**Proves if**: Client configuration points to a resolver that does not know the target namespace.
+
+**Disproves if**: The client uses the expected Azure-provided DNS, Private Resolver, or approved custom DNS path.
+
+```bash
+az network vnet show \
+    --resource-group $RG \
+    --name $VNET_NAME \
+    --query "dhcpOptions.dnsServers"
+```
+
+### Hypothesis: Missing private DNS linkage
+
+**Proves if**: Zone links or private endpoint zone groups are absent for the consumer network.
+
+**Disproves if**: The zone link, zone group, and record exist and the client resolves the private answer.
+
+```bash
+az network private-dns link vnet list \
+    --resource-group $RG \
+    --zone-name $ZONE_NAME
+```
+
+### Hypothesis: Hybrid forwarding gap
+
+**Proves if**: Azure resolves but on-premises does not, or the reverse, based on conditional forwarder coverage.
+
+**Disproves if**: Both Azure and on-premises queries follow the documented resolver chain and return the same intended answer.
+
+```bash
+az network dns-resolver forwarding-ruleset list \
+    --resource-group $RG
+```
+
+### Hypothesis: Cache or TTL behavior
+
+**Proves if**: A fresh query after cache flush returns a different answer than a long-lived client still holds.
+
+**Disproves if**: Both cached and fresh queries converge after TTL expiry or controlled flush.
+
+```bash
+az network private-dns record-set a show \
+    --resource-group $RG \
+    --zone-name $ZONE_NAME \
+    --name $RECORD_NAME
+```
+
+## 7. Likely Root Cause Patterns
+
+| Pattern | Evidence | Resolution |
+|---|---|---|
+| Missing VNet link | Private zone exists but consumer VNet is not linked | Add the correct virtual network link and retest from the client subnet. |
+| Incomplete zone group on private endpoint | Endpoint is approved but custom DNS configs are missing or incomplete | Add the required private DNS zone group to the endpoint. |
+| Stale custom forwarder | On-premises queries fail while Azure-hosted queries work | Update the conditional forwarder to use the current resolver endpoint. |
+| Cache-driven cutover delay | Newly started clients work while long-lived clients still fail | Wait for TTL or flush caches as part of the cutover plan. |
+| Correct DNS, broken network path | Queries return the right private IP but the connection still fails | Move immediately to routing or NSG diagnostics instead of changing DNS again. |
 
 ## 8. Immediate Mitigations
-- Point the client at the intended resolver path.
-- Add or fix the private DNS zone link.
-- Correct the record set or stale alias/CNAME chain.
-- Update conditional forwarders for Azure private suffixes.
+
+1. Restore the last known-good forwarder or zone link if a recent DNS change caused the outage.
+2. Flush or restart test clients only after capturing evidence of the stale answer.
+3. Use one canonical resolver path during incident response; avoid parallel ad hoc changes by multiple teams.
+4. Once correct answers are restored, run connectivity validation to confirm the issue is truly resolved.
 
 ## 9. Prevention
-- Keep DNS architecture documented per VNet.
-- Test private and public name resolution after DNS changes.
-- Standardize forwarder rules for Azure private zones.
+
+### Prevention checklist
+
+- [ ] Standardize which team owns private zones, resolver rulesets, and on-premises conditional forwarders.
+- [ ] Include DNS validation in every private endpoint and hybrid onboarding runbook.
+- [ ] Alert on DNS control-plane changes for critical production namespaces.
+- [ ] Keep a registry of private namespaces, authoritative sources, and linked VNets.
+- [ ] Test both cached and fresh query behavior during cutovers.
 
 ## See Also
 
+- [DNS Checklist](../../first-10-minutes/dns.md)
+- [Evidence Map](../../evidence-map.md)
 - [Cannot Reach Private Endpoint](../connectivity/cannot-reach-private-endpoint.md)
 - [DNS Basics](../../../platform/dns-basics.md)
 - [Configure DNS](../../../operations/configure-dns.md)
@@ -91,3 +324,5 @@ graph TD
 
 - [Azure DNS troubleshooting guide](https://learn.microsoft.com/en-us/azure/dns/dns-troubleshoot)
 - [Azure Private DNS overview](https://learn.microsoft.com/en-us/azure/dns/private-dns-overview)
+- [Azure DNS Private Resolver overview](https://learn.microsoft.com/en-us/azure/dns/dns-private-resolver-overview)
+- [Private endpoint DNS integration](https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns)
