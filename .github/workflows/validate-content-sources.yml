@@ -151,7 +151,7 @@ jobs:
       
       - name: Install MkDocs
         run: |
-          pip install mkdocs-material mkdocs-minify-plugin
+          pip install mkdocs-material mkdocs-minify-plugin mkdocs-redirects
       
       - name: Build with strict mode
         run: |

@@ -38,7 +38,7 @@ graph TD
 | Playbook | Symptom |
 | --- | --- |
 | [Connectivity Failures](connectivity-failures.md) | VNet peering, NSG, route, or firewall issues break east-west or hybrid reachability |
-| [DNS Resolution Issues](dns-resolution-issues.md) | Private DNS, Azure DNS, or hybrid forwarding returns wrong answers or timeouts |
+| [DNS Resolution Failures](dns/dns-resolution-failures.md) | Private DNS, Azure DNS, or hybrid forwarding returns wrong answers or timeouts |
 | [VPN Gateway Troubleshooting](vpn-gateway-troubleshooting.md) | S2S, P2S, and failover paths are disconnected or route traffic incorrectly |
 | [Load Balancer Health Probe Failures](load-balancer-health-probe-failures.md) | Load Balancer backends show unhealthy because probes, policy, or return paths are wrong |
 

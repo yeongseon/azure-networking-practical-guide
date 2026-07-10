@@ -51,6 +51,9 @@ plugins:
   - search
   - minify:
       minify_html: true
+  - redirects:
+      redirect_maps:
+        troubleshooting/playbooks/dns-resolution-issues.md: troubleshooting/playbooks/dns/dns-resolution-failures.md
 
 validation:
   nav:
@@ -151,7 +154,6 @@ nav:
       - troubleshooting/playbooks/index.md
       - Core Playbooks:
         - Connectivity Failures: troubleshooting/playbooks/connectivity-failures.md
-        - DNS Resolution Issues: troubleshooting/playbooks/dns-resolution-issues.md
         - VPN Gateway Troubleshooting: troubleshooting/playbooks/vpn-gateway-troubleshooting.md
         - Load Balancer Health Probe Failures: troubleshooting/playbooks/load-balancer-health-probe-failures.md
       - Connectivity:
