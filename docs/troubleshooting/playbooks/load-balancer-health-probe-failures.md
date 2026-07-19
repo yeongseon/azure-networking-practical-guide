@@ -112,14 +112,14 @@ az monitor metrics list \
 4. **Inspect effective NSG rules on a backend NIC**
 
 ```bash
-az network nic show-effective-nsg \
+az network nic list-effective-nsg \
     --resource-group $RG \
     --name $BACKEND_NIC_NAME
 ```
 
 | Command | Purpose |
 | --- | --- |
-| `az network nic show-effective-nsg` | Show the effective NSG rules applied to a network interface. |
+| `az network nic list-effective-nsg` | List the effective NSG rules applied to a network interface. |
 | `--resource-group` | Resource group that contains the network interface. |
 | `--name` | Name of the backend network interface to inspect. |
 
@@ -259,14 +259,14 @@ Interpretation:
 #### Inspect backend NSG behavior
 
 ```bash
-az network nic show-effective-nsg \
+az network nic list-effective-nsg \
     --resource-group $RG \
     --name $BACKEND_NIC_NAME
 ```
 
 | Command | Purpose |
 | --- | --- |
-| `az network nic show-effective-nsg` | Show the effective NSG rules applied to a network interface. |
+| `az network nic list-effective-nsg` | List the effective NSG rules applied to a network interface. |
 | `--resource-group` | Resource group that contains the network interface. |
 | `--name` | Name of the backend network interface to inspect. |
 
@@ -310,14 +310,14 @@ az network lb probe show \
 **Disproves if**: Probe traffic is explicitly allowed and health recovers after policy correction.
 
 ```bash
-az network nic show-effective-nsg \
+az network nic list-effective-nsg \
     --resource-group $RG \
     --name $BACKEND_NIC_NAME
 ```
 
 | Command | Purpose |
 | --- | --- |
-| `az network nic show-effective-nsg` | Show the effective NSG rules applied to a network interface. |
+| `az network nic list-effective-nsg` | List the effective NSG rules applied to a network interface. |
 | `--resource-group` | Resource group that contains the network interface. |
 | `--name` | Name of the backend network interface to inspect. |
 

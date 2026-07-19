@@ -78,14 +78,14 @@ az network nic show-effective-route-table \
 2. **Inspect effective NSG rules on the source NIC**
 
 ```bash
-az network nic show-effective-nsg \
+az network nic list-effective-nsg \
     --resource-group $RG \
     --name $SOURCE_NIC_NAME
 ```
 
 | Command | Purpose |
 | --- | --- |
-| `az network nic show-effective-nsg` | Show the effective NSG rules applied to a network interface. |
+| `az network nic list-effective-nsg` | List the effective NSG rules applied to a network interface. |
 | `--resource-group` | Resource group that contains the network interface. |
 | `--name` | Name of the network interface to inspect. |
 
@@ -228,14 +228,14 @@ Interpretation:
 #### Show effective NSG rules for the same NIC
 
 ```bash
-az network nic show-effective-nsg \
+az network nic list-effective-nsg \
     --resource-group $RG \
     --name $SOURCE_NIC_NAME
 ```
 
 | Command | Purpose |
 | --- | --- |
-| `az network nic show-effective-nsg` | Show the effective NSG rules applied to a network interface. |
+| `az network nic list-effective-nsg` | List the effective NSG rules applied to a network interface. |
 | `--resource-group` | Resource group that contains the network interface. |
 | `--name` | Name of the network interface to inspect. |
 
@@ -288,14 +288,14 @@ Interpretation:
 **Disproves if**: The same effective NSG output shows an explicit allow and no later deny for the tested path.
 
 ```bash
-az network nic show-effective-nsg \
+az network nic list-effective-nsg \
     --resource-group $RG \
     --name $SOURCE_NIC_NAME
 ```
 
 | Command | Purpose |
 | --- | --- |
-| `az network nic show-effective-nsg` | Show the effective NSG rules applied to a network interface. |
+| `az network nic list-effective-nsg` | List the effective NSG rules applied to a network interface. |
 | `--resource-group` | Resource group that contains the network interface. |
 | `--name` | Name of the network interface to inspect. |
 

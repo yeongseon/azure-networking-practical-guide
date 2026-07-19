@@ -153,7 +153,7 @@ az network vnet subnet update \
     --network-security-group $NSG_NAME \
     --route-table $ROUTE_TABLE_NAME
 
-az network nic show-effective-nsg \
+az network nic list-effective-nsg \
     --resource-group $RG \
     --name $NIC_NAME
 ```
@@ -166,7 +166,7 @@ az network nic show-effective-nsg \
 | `--name` | Name of the subnet to update. |
 | `--network-security-group` | Network security group to associate with the subnet. |
 | `--route-table` | Route table to associate with the subnet. |
-| `az network nic show-effective-nsg` | Show the effective NSG rules applied to a network interface. |
+| `az network nic list-effective-nsg` | List the effective NSG rules applied to a network interface. |
 
 **Validation**
 

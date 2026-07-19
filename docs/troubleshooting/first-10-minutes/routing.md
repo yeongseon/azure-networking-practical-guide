@@ -64,7 +64,7 @@ az network watcher show-next-hop --resource-group <resource-group> --vm <vm-name
 | Command | Purpose |
 | --- | --- |
 | `az network nic show-effective-route-table` | Show the effective routes applied to a network interface. |
-| `az network nic list-effective-nsg` | Show the effective NSG rules applied to a network interface. |
+| `az network nic list-effective-nsg` | List the effective NSG rules applied to a network interface. |
 | `--resource-group` | Resource group that contains the resource. |
 | `--name` | Name of the network interface to inspect. |
 | `az network watcher show-next-hop` | Show the next hop Azure selects for a given flow. |
