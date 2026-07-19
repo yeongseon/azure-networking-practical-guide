@@ -66,6 +66,24 @@ az network vnet subnet create \
     --address-prefixes 10.130.2.0/24
 ```
 
+| Command | Purpose |
+|---|---|
+| `az group create` | Create the resource group that holds all lab resources. |
+| `--name` | Name of the resource group. |
+| `--location` | Azure region for the resource group. |
+| `az network vnet create` | Create the lab virtual network with an initial subnet. |
+| `--resource-group` | Resource group that contains the virtual network. |
+| `--name` | Name of the virtual network. |
+| `--location` | Azure region for the virtual network. |
+| `--address-prefixes` | Address space for the virtual network. |
+| `--subnet-name` | Name of the first subnet to create (the Application Gateway subnet). |
+| `--subnet-prefixes` | Address range for the first subnet. |
+| `az network vnet subnet create` | Add the dedicated backend subnet to the virtual network. |
+| `--resource-group` | Resource group that contains the virtual network. |
+| `--vnet-name` | Virtual network the subnet is added to. |
+| `--name` | Name of the backend subnet. |
+| `--address-prefixes` | Address range for the backend subnet. |
+
 Keep Application Gateway isolated in its own subnet. That pattern matters in production and during troubleshooting.
 
 #### Why this step matters
@@ -94,6 +112,24 @@ az network public-ip create \
     --sku Standard \
     --allocation-method Static
 ```
+
+| Command | Purpose |
+|---|---|
+| `az vm create` | Create the backend virtual machine that Application Gateway routes to. |
+| `--resource-group` | Resource group that contains the virtual machine. |
+| `--name` | Name of the virtual machine. |
+| `--image` | Operating system image for the virtual machine. |
+| `--size` | Virtual machine SKU size. |
+| `--vnet-name` | Virtual network the virtual machine joins. |
+| `--subnet` | Subnet the virtual machine joins (the backend subnet). |
+| `--admin-username` | Administrator user name for the virtual machine. |
+| `--generate-ssh-keys` | Generate SSH key pair for authentication if not present. |
+| `--public-ip-address` | Public IP for the virtual machine; empty string disables a public IP. |
+| `az network public-ip create` | Create the static public IP used by the Application Gateway frontend. |
+| `--resource-group` | Resource group that contains the public IP. |
+| `--name` | Name of the public IP resource. |
+| `--sku` | Public IP SKU (Standard is required by Application Gateway v2). |
+| `--allocation-method` | IP allocation method (Static for Application Gateway v2). |
 
 Install a simple web server on the backend or adapt to a prebuilt image with an HTTP listener.
 
@@ -127,6 +163,27 @@ az network application-gateway create \
     --priority 100
 ```
 
+| Command | Purpose |
+|---|---|
+| `az network application-gateway waf-policy create` | Create the Web Application Firewall policy to associate with the gateway. |
+| `--resource-group` | Resource group that contains the WAF policy. |
+| `--name` | Name of the WAF policy. |
+| `--location` | Azure region for the WAF policy. |
+| `az network application-gateway create` | Create the WAF_v2 Application Gateway with frontend, backend, and listener settings. |
+| `--resource-group` | Resource group that contains the Application Gateway. |
+| `--name` | Name of the Application Gateway. |
+| `--location` | Azure region for the Application Gateway. |
+| `--capacity` | Number of gateway instances to provision. |
+| `--sku` | Gateway SKU tier (WAF_v2 enables the firewall). |
+| `--public-ip-address` | Public IP used for the gateway frontend. |
+| `--vnet-name` | Virtual network the gateway joins. |
+| `--subnet` | Dedicated subnet for the Application Gateway. |
+| `--servers` | Backend server address(es) the gateway routes to. |
+| `--frontend-port` | Port the gateway listens on. |
+| `--http-settings-port` | Port used to reach the backend servers. |
+| `--http-settings-protocol` | Protocol used to reach the backend servers. |
+| `--priority` | Routing rule priority. |
+
 If your backend IP differs, replace the server address with the backend NIC private IP.
 
 #### Why this step matters
@@ -154,6 +211,22 @@ az network application-gateway show-backend-health \
     --name agw-lab03
 ```
 
+| Command | Purpose |
+|---|---|
+| `az network application-gateway probe create` | Create a custom health probe for the backend pool. |
+| `--resource-group` | Resource group that contains the Application Gateway. |
+| `--gateway-name` | Application Gateway the probe belongs to. |
+| `--name` | Name of the health probe. |
+| `--protocol` | Protocol used by the probe. |
+| `--host` | Host header sent with the probe request. |
+| `--path` | URL path the probe requests. |
+| `--interval` | Seconds between probe attempts. |
+| `--timeout` | Seconds to wait before a probe attempt times out. |
+| `--threshold` | Consecutive failures before the backend is marked unhealthy. |
+| `az network application-gateway show-backend-health` | Show the current health of the gateway backend pool. |
+| `--resource-group` | Resource group that contains the Application Gateway. |
+| `--name` | Name of the Application Gateway. |
+
 Backend health is the single most useful command during ingress incidents.
 
 #### Why this step matters
@@ -176,6 +249,18 @@ az monitor metrics list \
     --metric HealthyHostCount,UnhealthyHostCount \
     --interval PT5M
 ```
+
+| Command | Purpose |
+|---|---|
+| `az monitor diagnostic-settings create` | Send Application Gateway and WAF logs to a Log Analytics workspace. |
+| `--name` | Name of the diagnostic setting. |
+| `--resource` | Resource ID of the Application Gateway to collect logs from. |
+| `--workspace` | Log Analytics workspace that receives the logs. |
+| `--logs` | JSON array of log categories to enable. |
+| `az monitor metrics list` | List runtime metrics for the Application Gateway. |
+| `--resource` | Resource ID of the Application Gateway to query. |
+| `--metric` | Metric names to retrieve. |
+| `--interval` | Aggregation interval for the metrics. |
 
 This step shows how to connect control-plane configuration with runtime evidence.
 
@@ -205,6 +290,17 @@ az network application-gateway probe update \
     --path /
 ```
 
+| Command | Purpose |
+|---|---|
+| `az network application-gateway probe update` | Update the probe path to simulate and then recover a backend health failure. |
+| `--resource-group` | Resource group that contains the Application Gateway. |
+| `--gateway-name` | Application Gateway the probe belongs to. |
+| `--name` | Name of the health probe. |
+| `--path` | URL path the probe requests (set to a broken path, then restored). |
+| `az network application-gateway show-backend-health` | Show backend health to observe the failure and recovery. |
+| `--resource-group` | Resource group that contains the Application Gateway. |
+| `--name` | Name of the Application Gateway. |
+
 This reproduces one of the most common Application Gateway incidents in a safe way.
 
 #### Why this step matters
@@ -225,6 +321,13 @@ This reproduces one of the most common Application Gateway incidents in a safe w
 ```bash
 az group delete --name $RG --yes --no-wait
 ```
+
+| Command | Purpose |
+|---|---|
+| `az group delete` | Delete the resource group and all lab resources. |
+| `--name` | Name of the resource group to delete. |
+| `--yes` | Skip the interactive confirmation prompt. |
+| `--no-wait` | Return immediately without waiting for deletion to finish. |
 
 Before cleanup, record any private IPs, route table names, or diagnostic screenshots you want to reuse in troubleshooting notes.
 

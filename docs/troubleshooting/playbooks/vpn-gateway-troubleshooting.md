@@ -67,6 +67,12 @@ az network vpn-connection list \
     --output table
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network vpn-connection list` | List VPN gateway connections in a resource group. |
+| `--resource-group` | Resource group that contains the connections. |
+| `--output` | Output format for the result (for example `table`). |
+
 2. **Show BGP peer status**
 
 ```bash
@@ -75,6 +81,12 @@ az network vnet-gateway list-bgp-peer-status \
     --name $VPN_GATEWAY_NAME
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network vnet-gateway list-bgp-peer-status` | Show BGP peer status for a virtual network gateway. |
+| `--resource-group` | Resource group that contains the gateway. |
+| `--name` | Name of the virtual network gateway. |
+
 3. **Show learned routes**
 
 ```bash
@@ -82,6 +94,12 @@ az network vnet-gateway list-learned-routes \
     --resource-group $RG \
     --name $VPN_GATEWAY_NAME
 ```
+
+| Command | Purpose |
+| --- | --- |
+| `az network vnet-gateway list-learned-routes` | List routes the gateway has learned via BGP. |
+| `--resource-group` | Resource group that contains the gateway. |
+| `--name` | Name of the virtual network gateway. |
 
 4. **Show local network gateway prefixes**
 
@@ -92,6 +110,13 @@ az network local-gateway show \
     --query "localNetworkAddressSpace.addressPrefixes"
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network local-gateway show` | Show a local network gateway definition. |
+| `--resource-group` | Resource group that contains the local network gateway. |
+| `--name` | Name of the local network gateway. |
+| `--query` | JMESPath expression selecting the on-premises address prefixes. |
+
 5. **Show P2S configuration**
 
 ```bash
@@ -100,6 +125,13 @@ az network vnet-gateway show \
     --name $VPN_GATEWAY_NAME \
     --query "vpnClientConfiguration"
 ```
+
+| Command | Purpose |
+| --- | --- |
+| `az network vnet-gateway show` | Show a virtual network gateway definition. |
+| `--resource-group` | Resource group that contains the gateway. |
+| `--name` | Name of the virtual network gateway. |
+| `--query` | JMESPath expression selecting the Point-to-Site client configuration. |
 
 ## 5. Evidence to Collect
 
@@ -173,6 +205,12 @@ az network vpn-connection list \
     --output json
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network vpn-connection list` | List VPN gateway connections in a resource group. |
+| `--resource-group` | Resource group that contains the connections. |
+| `--output` | Output format for the result (for example `json`). |
+
 Sample output:
 
 ```json
@@ -192,6 +230,12 @@ az network vnet-gateway list-learned-routes \
     --name $VPN_GATEWAY_NAME
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network vnet-gateway list-learned-routes` | List routes the gateway has learned via BGP. |
+| `--resource-group` | Resource group that contains the gateway. |
+| `--name` | Name of the virtual network gateway. |
+
 Sample output:
 
 ```json
@@ -210,6 +254,12 @@ az network vnet-gateway list-bgp-peer-status \
     --resource-group $RG \
     --name $VPN_GATEWAY_NAME
 ```
+
+| Command | Purpose |
+| --- | --- |
+| `az network vnet-gateway list-bgp-peer-status` | Show BGP peer status for a virtual network gateway. |
+| `--resource-group` | Resource group that contains the gateway. |
+| `--name` | Name of the virtual network gateway. |
 
 Sample output:
 
@@ -236,6 +286,12 @@ az network vpn-connection show \
     --name $VPN_CONNECTION_NAME
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network vpn-connection show` | Show details and state of a VPN connection. |
+| `--resource-group` | Resource group that contains the connection. |
+| `--name` | Name of the VPN connection to inspect. |
+
 ### Hypothesis: Prefix or BGP mismatch
 
 **Proves if**: Learned routes or local gateway prefixes do not include the expected remote network.
@@ -247,6 +303,12 @@ az network vnet-gateway list-learned-routes \
     --resource-group $RG \
     --name $VPN_GATEWAY_NAME
 ```
+
+| Command | Purpose |
+| --- | --- |
+| `az network vnet-gateway list-learned-routes` | List routes the gateway has learned via BGP. |
+| `--resource-group` | Resource group that contains the gateway. |
+| `--name` | Name of the virtual network gateway. |
 
 ### Hypothesis: Failover preference problem
 
@@ -261,6 +323,13 @@ az network vnet-gateway list-advertised-routes \
     --peer 203.0.113.10
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network vnet-gateway list-advertised-routes` | List routes the gateway advertises to a BGP peer. |
+| `--resource-group` | Resource group that contains the gateway. |
+| `--name` | Name of the virtual network gateway. |
+| `--peer` | BGP peer IP address to list advertised routes for. |
+
 ### Hypothesis: P2S client route or DNS issue
 
 **Proves if**: P2S clients connect but cannot resolve or reach remote private networks.
@@ -273,6 +342,13 @@ az network vnet-gateway show \
     --name $VPN_GATEWAY_NAME \
     --query "vpnClientConfiguration"
 ```
+
+| Command | Purpose |
+| --- | --- |
+| `az network vnet-gateway show` | Show a virtual network gateway definition. |
+| `--resource-group` | Resource group that contains the gateway. |
+| `--name` | Name of the virtual network gateway. |
+| `--query` | JMESPath expression selecting the Point-to-Site client configuration. |
 
 ## 7. Likely Root Cause Patterns
 

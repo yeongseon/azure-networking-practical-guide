@@ -66,6 +66,17 @@ az network nic show-effective-route-table --resource-group <resource-group> --na
 az network nic list-effective-nsg --resource-group <resource-group> --name <nic-name>
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network watcher test-connectivity` | Test reachability between a source resource and a destination. |
+| `--source-resource` | Resource ID of the source to test from. |
+| `--dest-address` | Destination FQDN or IP address. |
+| `--dest-port` | Destination TCP port to test. |
+| `az network nic show-effective-route-table` | Show the effective routes applied to a network interface. |
+| `az network nic list-effective-nsg` | List the effective NSG rules applied to a network interface. |
+| `--resource-group` | Resource group that contains the network interface. |
+| `--name` | Name of the network interface to inspect. |
+
 ## See Also
 
 - [DNS Checklist](dns.md)

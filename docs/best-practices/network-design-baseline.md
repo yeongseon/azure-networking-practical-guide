@@ -79,6 +79,21 @@ az network vnet subnet create \
     --address-prefixes 10.20.1.0/24
 ```
 
+| Command | Purpose |
+|---|---|
+| `az network vnet create` | Create the hub virtual network with an initial reserved subnet. |
+| `--resource-group` | Resource group that contains the virtual network. |
+| `--name` | Name of the virtual network. |
+| `--location` | Azure region for the virtual network. |
+| `--address-prefixes` | Address space for the virtual network. |
+| `--subnet-name` | Name of the first reserved subnet. |
+| `--subnet-prefixes` | Address range for the first subnet. |
+| `az network vnet subnet create` | Add the reserved AzureFirewallSubnet to the virtual network. |
+| `--resource-group` | Resource group that contains the virtual network. |
+| `--vnet-name` | Virtual network the subnet is added to. |
+| `--name` | Name of the reserved subnet. |
+| `--address-prefixes` | Address range for the subnet. |
+
 **Validation**
 
 - No address prefix overlaps with peered VNets, on-premises routes, partner networks, or ExpressRoute-connected environments.
@@ -119,6 +134,17 @@ az network vnet peering create \
     --use-remote-gateways true
 ```
 
+| Command | Purpose |
+|---|---|
+| `az network vnet peering create` | Create a VNet peering between the hub and a spoke (run once per direction). |
+| `--resource-group` | Resource group that contains the local virtual network. |
+| `--name` | Name of the peering. |
+| `--vnet-name` | Local virtual network the peering is created on. |
+| `--remote-vnet` | Resource ID of the remote virtual network to peer with. |
+| `--allow-vnet-access` | Allow traffic between the peered virtual networks. |
+| `--allow-forwarded-traffic` | Allow traffic forwarded (not originated) from the remote network. |
+| `--use-remote-gateways` | Use the remote network's gateway for transit from this network. |
+
 **Validation**
 
 - Peering settings match the intended transit model on both sides.
@@ -153,6 +179,18 @@ az network private-dns link vnet create \
     --virtual-network $SPOKE_VNET_ID \
     --registration-enabled false
 ```
+
+| Command | Purpose |
+|---|---|
+| `az network private-dns zone create` | Create a private DNS zone for private endpoint name resolution. |
+| `--resource-group` | Resource group that contains the private DNS zone. |
+| `--name` | Name of the private DNS zone. |
+| `az network private-dns link vnet create` | Link a virtual network to the private DNS zone. |
+| `--resource-group` | Resource group that contains the private DNS zone. |
+| `--zone-name` | Private DNS zone to link the virtual network to. |
+| `--name` | Name of the virtual network link. |
+| `--virtual-network` | Resource ID of the virtual network to link. |
+| `--registration-enabled` | Whether auto-registration of VM records is enabled. |
 
 **Validation**
 
@@ -191,6 +229,20 @@ az network route-table route create \
     --next-hop-ip-address 10.20.1.4
 ```
 
+| Command | Purpose |
+|---|---|
+| `az network route-table create` | Create a route table for consistent egress control. |
+| `--resource-group` | Resource group that contains the route table. |
+| `--name` | Name of the route table. |
+| `--location` | Azure region for the route table. |
+| `az network route-table route create` | Add a default route sending egress to a network virtual appliance. |
+| `--resource-group` | Resource group that contains the route table. |
+| `--route-table-name` | Route table the route is added to. |
+| `--name` | Name of the route. |
+| `--address-prefix` | Destination prefix for the route (0.0.0.0/0 for all traffic). |
+| `--next-hop-type` | Next hop type (VirtualAppliance). |
+| `--next-hop-ip-address` | IP address of the appliance to forward traffic to. |
+
 **Validation**
 
 - Effective routes match the intended egress architecture on representative NICs.
@@ -226,6 +278,18 @@ az monitor diagnostic-settings create \
     --logs "[{"category":"AzureFirewallNetworkRule","enabled":true}]"
 ```
 
+| Command | Purpose |
+|---|---|
+| `az network watcher configure` | Enable Network Watcher in the target region. |
+| `--resource-group` | Resource group for the Network Watcher resource. |
+| `--locations` | Regions to enable Network Watcher in. |
+| `--enabled` | Whether Network Watcher is enabled. |
+| `az monitor diagnostic-settings create` | Send network resource logs to a Log Analytics workspace. |
+| `--name` | Name of the diagnostic setting. |
+| `--resource` | Resource ID to collect logs from. |
+| `--workspace` | Log Analytics workspace that receives the logs. |
+| `--logs` | JSON array of log categories to enable. |
+
 **Validation**
 
 - Diagnostics arrive in Log Analytics before the first production deployment.
@@ -259,6 +323,16 @@ az network route-table show \
     --query "{name:name,tags:tags}"
 ```
 
+| Command | Purpose |
+|---|---|
+| `az tag create` | Attach ownership metadata tags to a networking resource. |
+| `--resource-id` | Resource ID to apply the tags to. |
+| `--tags` | Key=value tag pairs describing owner, environment, and change window. |
+| `az network route-table show` | Show a route table to confirm its ownership tags. |
+| `--resource-group` | Resource group that contains the route table. |
+| `--name` | Name of the route table. |
+| `--query` | JMESPath expression selecting name and tags. |
+
 **Validation**
 
 - Every shared networking resource has an owner tag or documented owner.
@@ -285,6 +359,12 @@ az network vnet list \
     --output table
 ```
 
+| Command | Purpose |
+|---|---|
+| `az network vnet list` | List all virtual networks to audit address space usage. |
+| `--query` | JMESPath expression selecting name and address prefixes. |
+| `--output` | Output format (table for readability). |
+
 ### Anti-Pattern 2: Mixing shared services and workloads in the same subnets
 
 **What happens**: A single NSG or route table change affects unrelated applications and forces risky maintenance windows.
@@ -301,6 +381,14 @@ az network vnet subnet show \
     --query "{nsg:networkSecurityGroup.id,routeTable:routeTable.id,delegations:delegations}"
 ```
 
+| Command | Purpose |
+|---|---|
+| `az network vnet subnet show` | Show a subnet's NSG, route table, and delegations to confirm isolation. |
+| `--resource-group` | Resource group that contains the virtual network. |
+| `--vnet-name` | Virtual network that contains the subnet. |
+| `--name` | Name of the subnet to inspect. |
+| `--query` | JMESPath expression selecting NSG, route table, and delegations. |
+
 ### Anti-Pattern 3: Relying on diagrams without validating effective routes and DNS
 
 **What happens**: The architecture review looks correct, but workloads still resolve public endpoints or follow unexpected next hops.
@@ -314,6 +402,12 @@ az network nic show-effective-route-table \
     --resource-group $RG \
     --name $NIC_NAME
 ```
+
+| Command | Purpose |
+|---|---|
+| `az network nic show-effective-route-table` | Show the effective routes on a NIC to validate real data-plane behavior. |
+| `--resource-group` | Resource group that contains the network interface. |
+| `--name` | Name of the network interface to inspect. |
 
 ### Anti-Pattern 4: Ignoring emergency rollback patterns
 
@@ -329,6 +423,13 @@ az network route-table route list \
     --route-table-name $ROUTE_TABLE_NAME \
     --output table
 ```
+
+| Command | Purpose |
+|---|---|
+| `az network route-table route list` | List all routes in a route table to capture a known-good state before changes. |
+| `--resource-group` | Resource group that contains the route table. |
+| `--route-table-name` | Route table to list routes from. |
+| `--output` | Output format (table for readability). |
 
 ## Performance Optimization Tips
 

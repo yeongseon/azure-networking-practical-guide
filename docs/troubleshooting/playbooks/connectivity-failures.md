@@ -69,13 +69,25 @@ az network nic show-effective-route-table \
     --name $SOURCE_NIC_NAME
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network nic show-effective-route-table` | Show the effective routes applied to a network interface. |
+| `--resource-group` | Resource group that contains the network interface. |
+| `--name` | Name of the network interface to inspect. |
+
 2. **Inspect effective NSG rules on the source NIC**
 
 ```bash
-az network nic show-effective-nsg \
+az network nic list-effective-nsg \
     --resource-group $RG \
     --name $SOURCE_NIC_NAME
 ```
+
+| Command | Purpose |
+| --- | --- |
+| `az network nic list-effective-nsg` | List the effective NSG rules applied to a network interface. |
+| `--resource-group` | Resource group that contains the network interface. |
+| `--name` | Name of the network interface to inspect. |
 
 3. **Inspect peering configuration on both sides**
 
@@ -85,6 +97,13 @@ az network vnet peering list \
     --vnet-name $VNET_NAME \
     --output table
 ```
+
+| Command | Purpose |
+| --- | --- |
+| `az network vnet peering list` | List virtual network peerings on a VNet. |
+| `--resource-group` | Resource group that contains the virtual network. |
+| `--vnet-name` | Name of the virtual network whose peerings are listed. |
+| `--output` | Output format for the result (for example `table`). |
 
 4. **Run a path test from the source resource**
 
@@ -96,12 +115,25 @@ az network watcher test-connectivity \
     --dest-port 443
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network watcher test-connectivity` | Test reachability between a source resource and a destination. |
+| `--resource-group` | Resource group of the source resource. |
+| `--source-resource` | Resource ID of the source to test from. |
+| `--dest-address` | Destination IP address or FQDN. |
+| `--dest-port` | Destination TCP port to test. |
+
 5. **Review firewall diagnostics for matching denies**
 
 ```bash
 az monitor diagnostic-settings list \
     --resource $FIREWALL_ID
 ```
+
+| Command | Purpose |
+| --- | --- |
+| `az monitor diagnostic-settings list` | List diagnostic settings configured on a resource. |
+| `--resource` | Resource ID whose diagnostic settings are listed. |
 
 ## 5. Evidence to Collect
 
@@ -176,6 +208,12 @@ az network nic show-effective-route-table \
     --name $SOURCE_NIC_NAME
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network nic show-effective-route-table` | Show the effective routes applied to a network interface. |
+| `--resource-group` | Resource group that contains the network interface. |
+| `--name` | Name of the network interface to inspect. |
+
 Sample output:
 
 ```json
@@ -190,10 +228,16 @@ Interpretation:
 #### Show effective NSG rules for the same NIC
 
 ```bash
-az network nic show-effective-nsg \
+az network nic list-effective-nsg \
     --resource-group $RG \
     --name $SOURCE_NIC_NAME
 ```
+
+| Command | Purpose |
+| --- | --- |
+| `az network nic list-effective-nsg` | List the effective NSG rules applied to a network interface. |
+| `--resource-group` | Resource group that contains the network interface. |
+| `--name` | Name of the network interface to inspect. |
 
 Sample output:
 
@@ -216,6 +260,14 @@ az network watcher test-connectivity \
     --dest-port 443
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network watcher test-connectivity` | Test reachability between a source resource and a destination. |
+| `--resource-group` | Resource group of the source resource. |
+| `--source-resource` | Resource ID of the source to test from. |
+| `--dest-address` | Destination IP address or FQDN. |
+| `--dest-port` | Destination TCP port to test. |
+
 Sample output:
 
 ```json
@@ -236,10 +288,16 @@ Interpretation:
 **Disproves if**: The same effective NSG output shows an explicit allow and no later deny for the tested path.
 
 ```bash
-az network nic show-effective-nsg \
+az network nic list-effective-nsg \
     --resource-group $RG \
     --name $SOURCE_NIC_NAME
 ```
+
+| Command | Purpose |
+| --- | --- |
+| `az network nic list-effective-nsg` | List the effective NSG rules applied to a network interface. |
+| `--resource-group` | Resource group that contains the network interface. |
+| `--name` | Name of the network interface to inspect. |
 
 ### Hypothesis: UDR or peering path is incorrect
 
@@ -252,6 +310,12 @@ az network nic show-effective-route-table \
     --resource-group $RG \
     --name $SOURCE_NIC_NAME
 ```
+
+| Command | Purpose |
+| --- | --- |
+| `az network nic show-effective-route-table` | Show the effective routes applied to a network interface. |
+| `--resource-group` | Resource group that contains the network interface. |
+| `--name` | Name of the network interface to inspect. |
 
 ### Hypothesis: Firewall or NVA policy denies traffic
 
@@ -266,6 +330,13 @@ az monitor log-analytics query \
     --timespan PT30M
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az monitor log-analytics query` | Run a KQL query against a Log Analytics workspace. |
+| `--workspace` | Workspace ID to query. |
+| `--analytics-query` | KQL query text to execute. |
+| `--timespan` | ISO 8601 time span the query covers. |
+
 ### Hypothesis: Destination service is unhealthy
 
 **Proves if**: The network path is permitted but listener checks, health probes, or application logs show the endpoint is down.
@@ -279,6 +350,14 @@ az network watcher test-connectivity \
     --dest-address $DESTINATION_IP \
     --dest-port 443
 ```
+
+| Command | Purpose |
+| --- | --- |
+| `az network watcher test-connectivity` | Test reachability between a source resource and a destination. |
+| `--resource-group` | Resource group of the source resource. |
+| `--source-resource` | Resource ID of the source to test from. |
+| `--dest-address` | Destination IP address or FQDN. |
+| `--dest-port` | Destination TCP port to test. |
 
 ## 7. Likely Root Cause Patterns
 

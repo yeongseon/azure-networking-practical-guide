@@ -120,6 +120,13 @@ az network vnet create --resource-group $RG --name $VNET_NAME --location $LOCATI
 az network vnet create -g $RG -n $VNET_NAME  # ❌ Don't do this
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network vnet create` | Create a virtual network. |
+| `--resource-group` | Resource group for the virtual network (long form of `-g`). |
+| `--name` | Name of the virtual network (long form of `-n`). |
+| `--location` | Azure region for the virtual network. |
+
 ### Variables
 | Variable | Description | Example |
 |----------|-------------|---------|

@@ -61,6 +61,17 @@ az network nic list-effective-nsg --resource-group <resource-group> --name <nic-
 az network watcher show-next-hop --resource-group <resource-group> --vm <vm-name> --source-ip <source-ip> --dest-ip <dest-ip>
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network nic show-effective-route-table` | Show the effective routes applied to a network interface. |
+| `az network nic list-effective-nsg` | List the effective NSG rules applied to a network interface. |
+| `--resource-group` | Resource group that contains the resource. |
+| `--name` | Name of the network interface to inspect. |
+| `az network watcher show-next-hop` | Show the next hop Azure selects for a given flow. |
+| `--vm` | Virtual machine used as the flow source. |
+| `--source-ip` | Source IP address of the tested flow. |
+| `--dest-ip` | Destination IP address of the tested flow. |
+
 ## See Also
 
 - [Connectivity Checklist](connectivity.md)
