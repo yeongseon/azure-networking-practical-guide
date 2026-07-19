@@ -64,6 +64,12 @@ az resource show \
     --query "{id:id,name:name,type:type,tags:tags}"
 ```
 
+| Command | Purpose |
+|---|---|
+| `az resource show` | Show a resource's identity and ownership tags. |
+| `--ids` | Resource ID to inspect. |
+| `--query` | JMESPath expression selecting id, name, type, and tags. |
+
 **Validation**
 
 - Resources expose clear ownership metadata.
@@ -94,6 +100,14 @@ az network watcher test-connectivity \
     --dest-port 443
 ```
 
+| Command | Purpose |
+|---|---|
+| `az network watcher test-connectivity` | Test connectivity from a source workload to a destination FQDN. |
+| `--resource-group` | Resource group that contains the source resource. |
+| `--source-resource` | Resource ID of the source workload. |
+| `--dest-address` | Destination FQDN to test connectivity to. |
+| `--dest-port` | Destination port to test connectivity to. |
+
 **Validation**
 
 - Tests run from a real source workload.
@@ -123,6 +137,13 @@ az resource list \
     --output table
 ```
 
+| Command | Purpose |
+|---|---|
+| `az resource list` | List resources in a resource group to audit pattern consistency. |
+| `--resource-group` | Resource group to list resources from. |
+| `--query` | JMESPath expression selecting name, type, and location. |
+| `--output` | Output format (table for readability). |
+
 **Validation**
 
 - Common resources follow the same naming pattern.
@@ -151,6 +172,12 @@ az resource show \
     --output json
 ```
 
+| Command | Purpose |
+|---|---|
+| `az resource show` | Capture the full known-good state of a resource before a change. |
+| `--ids` | Resource ID to inspect. |
+| `--output` | Output format (json to preserve the complete state). |
+
 **Validation**
 
 - Known-good state is captured.
@@ -177,6 +204,11 @@ az resource show \
 az monitor diagnostic-settings list \
     --resource $RESOURCE_ID
 ```
+
+| Command | Purpose |
+|---|---|
+| `az monitor diagnostic-settings list` | List diagnostic settings on a resource to confirm logging is enabled. |
+| `--resource` | Resource ID to list diagnostic settings for. |
 
 **Validation**
 
@@ -206,6 +238,12 @@ az consumption usage list \
     --end-date 2026-04-30
 ```
 
+| Command | Purpose |
+|---|---|
+| `az consumption usage list` | List consumption usage to tie architecture choices to cost. |
+| `--start-date` | Start of the usage reporting period. |
+| `--end-date` | End of the usage reporting period. |
+
 **Validation**
 
 - Cost review accompanies architecture review.
@@ -231,6 +269,11 @@ az resource show \
     --ids $RESOURCE_ID
 ```
 
+| Command | Purpose |
+|---|---|
+| `az resource show` | Show a resource to document its intent and configuration. |
+| `--ids` | Resource ID to inspect. |
+
 ### Anti-Pattern 2: Treating temporary exceptions as permanent
 
 **What happens**: The estate contains old rules or routes that nobody wants to touch.
@@ -244,6 +287,12 @@ az resource list \
     --tag Environment=prod \
     --output table
 ```
+
+| Command | Purpose |
+|---|---|
+| `az resource list` | List resources by tag to find lingering exceptions. |
+| `--tag` | Tag filter (key=value) to match resources. |
+| `--output` | Output format (table for readability). |
 
 ### Anti-Pattern 3: Skipping post-change verification
 
@@ -261,6 +310,14 @@ az network watcher test-connectivity \
     --dest-port 443
 ```
 
+| Command | Purpose |
+|---|---|
+| `az network watcher test-connectivity` | Validate a change from a representative client path. |
+| `--resource-group` | Resource group that contains the source resource. |
+| `--source-resource` | Resource ID of the source workload. |
+| `--dest-address` | Destination IP to test connectivity to. |
+| `--dest-port` | Destination port to test connectivity to. |
+
 ### Anti-Pattern 4: Over-centralizing without service levels
 
 **What happens**: Shared networking services become bottlenecks or single points of operational delay.
@@ -274,6 +331,12 @@ az resource show \
     --ids $RESOURCE_ID \
     --query tags
 ```
+
+| Command | Purpose |
+|---|---|
+| `az resource show` | Show a shared service's tags to confirm support and ownership metadata. |
+| `--ids` | Resource ID to inspect. |
+| `--query` | JMESPath expression selecting tags. |
 
 ## Performance Optimization Tips
 

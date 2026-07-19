@@ -61,6 +61,14 @@ dig <fqdn>
 az network private-dns link vnet list --resource-group <resource-group> --zone-name <private-zone-name>
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `nslookup` | Resolve a name using the client's configured resolver. |
+| `dig` | Resolve a name with detailed record and resolver output. |
+| `az network private-dns link vnet list` | List virtual network links on a private DNS zone. |
+| `--resource-group` | Resource group that contains the private DNS zone. |
+| `--zone-name` | Name of the private DNS zone. |
+
 ## See Also
 
 - [Connectivity Checklist](connectivity.md)

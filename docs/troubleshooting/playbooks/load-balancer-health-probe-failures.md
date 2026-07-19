@@ -70,6 +70,13 @@ az network lb probe show \
     --name $PROBE_NAME
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network lb probe show` | Show a health probe defined on a load balancer. |
+| `--resource-group` | Resource group that contains the load balancer. |
+| `--lb-name` | Name of the load balancer. |
+| `--name` | Name of the health probe to inspect. |
+
 2. **Show backend pool configuration**
 
 ```bash
@@ -78,6 +85,13 @@ az network lb address-pool show \
     --lb-name $LB_NAME \
     --name $BACKEND_POOL_NAME
 ```
+
+| Command | Purpose |
+| --- | --- |
+| `az network lb address-pool show` | Show a backend address pool on a load balancer. |
+| `--resource-group` | Resource group that contains the load balancer. |
+| `--lb-name` | Name of the load balancer. |
+| `--name` | Name of the backend address pool to inspect. |
 
 3. **Review load balancer metrics**
 
@@ -88,6 +102,13 @@ az monitor metrics list \
     --interval PT5M
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az monitor metrics list` | List metric values for a resource. |
+| `--resource` | Resource ID of the load balancer. |
+| `--metric` | Comma-separated metric names to retrieve. |
+| `--interval` | Aggregation interval (for example `PT5M`). |
+
 4. **Inspect effective NSG rules on a backend NIC**
 
 ```bash
@@ -96,6 +117,12 @@ az network nic show-effective-nsg \
     --name $BACKEND_NIC_NAME
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network nic show-effective-nsg` | Show the effective NSG rules applied to a network interface. |
+| `--resource-group` | Resource group that contains the network interface. |
+| `--name` | Name of the backend network interface to inspect. |
+
 5. **Inspect effective routes on the backend NIC**
 
 ```bash
@@ -103,6 +130,12 @@ az network nic show-effective-route-table \
     --resource-group $RG \
     --name $BACKEND_NIC_NAME
 ```
+
+| Command | Purpose |
+| --- | --- |
+| `az network nic show-effective-route-table` | Show the effective routes applied to a network interface. |
+| `--resource-group` | Resource group that contains the network interface. |
+| `--name` | Name of the backend network interface to inspect. |
 
 ## 5. Evidence to Collect
 
@@ -178,6 +211,13 @@ az network lb probe show \
     --name $PROBE_NAME
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network lb probe show` | Show a health probe defined on a load balancer. |
+| `--resource-group` | Resource group that contains the load balancer. |
+| `--lb-name` | Name of the load balancer. |
+| `--name` | Name of the health probe to inspect. |
+
 Sample output:
 
 ```json
@@ -198,6 +238,13 @@ az network lb address-pool show \
     --name $BACKEND_POOL_NAME
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network lb address-pool show` | Show a backend address pool on a load balancer. |
+| `--resource-group` | Resource group that contains the load balancer. |
+| `--lb-name` | Name of the load balancer. |
+| `--name` | Name of the backend address pool to inspect. |
+
 Sample output:
 
 ```json
@@ -216,6 +263,12 @@ az network nic show-effective-nsg \
     --resource-group $RG \
     --name $BACKEND_NIC_NAME
 ```
+
+| Command | Purpose |
+| --- | --- |
+| `az network nic show-effective-nsg` | Show the effective NSG rules applied to a network interface. |
+| `--resource-group` | Resource group that contains the network interface. |
+| `--name` | Name of the backend network interface to inspect. |
 
 Sample output:
 
@@ -243,6 +296,13 @@ az network lb probe show \
     --name $PROBE_NAME
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network lb probe show` | Show a health probe defined on a load balancer. |
+| `--resource-group` | Resource group that contains the load balancer. |
+| `--lb-name` | Name of the load balancer. |
+| `--name` | Name of the health probe to inspect. |
+
 ### Hypothesis: NSG or guest firewall block
 
 **Proves if**: Azure or guest-side firewall rules deny probe traffic.
@@ -254,6 +314,12 @@ az network nic show-effective-nsg \
     --resource-group $RG \
     --name $BACKEND_NIC_NAME
 ```
+
+| Command | Purpose |
+| --- | --- |
+| `az network nic show-effective-nsg` | Show the effective NSG rules applied to a network interface. |
+| `--resource-group` | Resource group that contains the network interface. |
+| `--name` | Name of the backend network interface to inspect. |
 
 ### Hypothesis: Asymmetric route issue
 
@@ -267,6 +333,12 @@ az network nic show-effective-route-table \
     --name $BACKEND_NIC_NAME
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network nic show-effective-route-table` | Show the effective routes applied to a network interface. |
+| `--resource-group` | Resource group that contains the network interface. |
+| `--name` | Name of the backend network interface to inspect. |
+
 ### Hypothesis: Wrong backend membership
 
 **Proves if**: The expected backend NIC or IP configuration is absent from the pool.
@@ -279,6 +351,13 @@ az network lb address-pool show \
     --lb-name $LB_NAME \
     --name $BACKEND_POOL_NAME
 ```
+
+| Command | Purpose |
+| --- | --- |
+| `az network lb address-pool show` | Show a backend address pool on a load balancer. |
+| `--resource-group` | Resource group that contains the load balancer. |
+| `--lb-name` | Name of the load balancer. |
+| `--name` | Name of the backend address pool to inspect. |
 
 ## 7. Likely Root Cause Patterns
 

@@ -75,6 +75,26 @@ az storage account create \
     --allow-blob-public-access false
 ```
 
+| Command | Purpose |
+|---------|---------|
+| `az group create` | Creates the resource group that holds all lab resources. |
+| `--name $RG` | Names the resource group. |
+| `--location $LOCATION` | Sets the Azure region. |
+| `az network vnet create` | Creates a virtual network with an initial subnet. |
+| `--name $VNET_NAME` | Names the virtual network. |
+| `--address-prefixes 10.120.0.0/16` | Sets the VNet address space. |
+| `--subnet-name client` | Creates an initial subnet named `client`. |
+| `--subnet-prefixes 10.120.1.0/24` | Sets the initial subnet's address range. |
+| `az network vnet subnet create` | Adds a subnet for private endpoints. |
+| `--vnet-name $VNET_NAME` | Names the parent virtual network. |
+| `--name private-endpoints` | Names the new subnet. |
+| `--address-prefixes 10.120.2.0/24` | Sets the subnet's address range. |
+| `az storage account create` | Creates the storage account used as the private-link target. |
+| `--name $STORAGE_NAME` | Names the storage account. |
+| `--sku Standard_LRS` | Selects locally redundant storage. |
+| `--kind StorageV2` | Uses the general-purpose v2 account kind. |
+| `--allow-blob-public-access false` | Disables anonymous public blob access. |
+
 This keeps the storage account simple while emphasizing the networking workflow.
 
 #### Why this step matters
@@ -97,6 +117,19 @@ az vm create \
     --generate-ssh-keys \
     --public-ip-address ""
 ```
+
+| Command | Purpose |
+|---------|---------|
+| `az vm create` | Creates the client VM used to test private resolution. |
+| `--resource-group $RG` | Places the VM in the lab resource group. |
+| `--name vm-client02` | Names the virtual machine. |
+| `--image Ubuntu2204` | Sets the OS image. |
+| `--size Standard_B1s` | Selects a small burstable VM size. |
+| `--vnet-name $VNET_NAME` | Attaches the VM to this virtual network. |
+| `--subnet client` | Places the VM's NIC in the client subnet. |
+| `--admin-username azureuser` | Sets the administrator account name. |
+| `--generate-ssh-keys` | Generates SSH key pair for authentication. |
+| `--public-ip-address ""` | Creates the VM without a public IP (private only). |
 
 Use a private-only client if you already have Bastion or another jump method. Otherwise adapt for safe temporary access.
 
@@ -138,6 +171,31 @@ az network private-endpoint dns-zone-group create \
     --zone-name privatelink.blob.core.windows.net
 ```
 
+| Command | Purpose |
+|---------|---------|
+| `az storage account show` | Retrieves the storage account's properties. |
+| `--query id` | Extracts only the resource ID. |
+| `--output tsv` | Emits the value as plain text for shell capture. |
+| `az network private-endpoint create` | Creates a private endpoint targeting the storage account. |
+| `--name pe-storage02` | Names the private endpoint. |
+| `--vnet-name $VNET_NAME` | Sets the VNet hosting the endpoint. |
+| `--subnet private-endpoints` | Places the endpoint NIC in this subnet. |
+| `--private-connection-resource-id $STORAGE_ID` | References the target resource by ID. |
+| `--group-id blob` | Selects the `blob` sub-resource to connect to. |
+| `--connection-name peconn-storage02` | Names the private-link connection. |
+| `az network private-dns zone create` | Creates the private DNS zone for blob private link. |
+| `--name privatelink.blob.core.windows.net` | Sets the private DNS zone name. |
+| `az network private-dns link vnet create` | Links a VNet to the private DNS zone. |
+| `--zone-name privatelink.blob.core.windows.net` | Identifies the target private DNS zone. |
+| `--name link-vnet-lab02` | Names the VNet link. |
+| `--virtual-network $VNET_NAME` | References the VNet to link. |
+| `--registration-enabled false` | Disables auto-registration of VM records. |
+| `az network private-endpoint dns-zone-group create` | Binds the endpoint to the private DNS zone. |
+| `--endpoint-name pe-storage02` | Identifies the private endpoint. |
+| `--name zonegroup-default` | Names the DNS zone group. |
+| `--private-dns-zone privatelink.blob.core.windows.net` | References the private DNS zone resource. |
+| `--zone-name privatelink.blob.core.windows.net` | Sets the zone name within the group. |
+
 Bundling endpoint, zone, and zone group together avoids the most common private link mistake.
 
 #### Why this step matters
@@ -159,6 +217,16 @@ az network private-dns record-set a list \
     --zone-name privatelink.blob.core.windows.net \
     --output table
 ```
+
+| Command | Purpose |
+|---------|---------|
+| `az network private-endpoint show` | Retrieves a private endpoint's configuration. |
+| `--resource-group $RG` | Scopes the query to the lab resource group. |
+| `--name pe-storage02` | Identifies the private endpoint to read. |
+| `--query "{customDnsConfigs:customDnsConfigs,networkInterfaces:networkInterfaces}"` | Projects only DNS config and NIC references. |
+| `az network private-dns record-set a list` | Lists the A records in the private DNS zone. |
+| `--zone-name privatelink.blob.core.windows.net` | Identifies the private DNS zone. |
+| `--output table` | Formats the output as a readable table. |
 
 These commands tell you which FQDNs should resolve privately and which records were actually created.
 
@@ -183,6 +251,17 @@ az vm run-command invoke \
     --command-id RunShellScript \
     --scripts "nslookup $STORAGE_NAME.blob.core.windows.net"
 ```
+
+| Command | Purpose |
+|---------|---------|
+| `az network watcher test-connectivity` | Tests reachability from the client VM to the storage FQDN. |
+| `--source-resource ...` | Sets the source resource (the client VM) for the test. |
+| `--dest-address $STORAGE_NAME.blob.core.windows.net` | Sets the destination storage FQDN. |
+| `--dest-port 443` | Sets the destination TCP port (HTTPS). |
+| `az vm run-command invoke` | Runs a command inside the VM to check DNS resolution. |
+| `--name vm-client02` | Identifies the VM to run the command on. |
+| `--command-id RunShellScript` | Uses the shell-script run-command. |
+| `--scripts "nslookup ..."` | Supplies the shell script to execute. |
 
 A successful private resolution plus connectivity test proves the end-to-end path much better than portal status alone.
 
@@ -209,6 +288,16 @@ az network private-dns link vnet create \
     --registration-enabled false
 ```
 
+| Command | Purpose |
+|---------|---------|
+| `az network private-dns link vnet delete` | Removes the VNet link to reproduce a missing-link failure. |
+| `--zone-name privatelink.blob.core.windows.net` | Identifies the private DNS zone. |
+| `--name link-vnet-lab02` | Identifies the VNet link to delete. |
+| `--yes` | Skips the interactive confirmation prompt. |
+| `az network private-dns link vnet create` | Recreates the VNet link to recover resolution. |
+| `--virtual-network $VNET_NAME` | References the VNet to link. |
+| `--registration-enabled false` | Disables auto-registration of VM records. |
+
 This gives you a safe way to reproduce a missing-zone-link scenario and then fix it cleanly.
 
 #### Why this step matters
@@ -229,6 +318,13 @@ This gives you a safe way to reproduce a missing-zone-link scenario and then fix
 ```bash
 az group delete --name $RG --yes --no-wait
 ```
+
+| Command | Purpose |
+|---------|---------|
+| `az group delete` | Deletes the resource group and all lab resources. |
+| `--name $RG` | Identifies the resource group to delete. |
+| `--yes` | Skips the interactive confirmation prompt. |
+| `--no-wait` | Returns immediately without waiting for completion. |
 
 Before cleanup, record any private IPs, route table names, or diagnostic screenshots you want to reuse in troubleshooting notes.
 

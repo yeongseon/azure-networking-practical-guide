@@ -74,6 +74,13 @@ az network private-dns link vnet list \
     --output table
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network private-dns link vnet list` | List virtual network links on a private DNS zone. |
+| `--resource-group` | Resource group that contains the private DNS zone. |
+| `--zone-name` | Name of the private DNS zone. |
+| `--output` | Output format for the result (for example `table`). |
+
 2. **Inspect Private Resolver forwarding rulesets**
 
 ```bash
@@ -81,6 +88,12 @@ az network dns-resolver forwarding-ruleset list \
     --resource-group $RG \
     --output table
 ```
+
+| Command | Purpose |
+| --- | --- |
+| `az network dns-resolver forwarding-ruleset list` | List DNS Private Resolver forwarding rulesets. |
+| `--resource-group` | Resource group that contains the rulesets. |
+| `--output` | Output format for the result (for example `table`). |
 
 3. **Review custom DNS servers on the VNet**
 
@@ -91,6 +104,13 @@ az network vnet show \
     --query "dhcpOptions.dnsServers"
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network vnet show` | Show details of a virtual network. |
+| `--resource-group` | Resource group that contains the virtual network. |
+| `--name` | Name of the virtual network to inspect. |
+| `--query` | JMESPath expression selecting the configured DNS servers. |
+
 4. **Inspect private endpoint DNS configuration**
 
 ```bash
@@ -99,6 +119,13 @@ az network private-endpoint show \
     --name $PE_NAME \
     --query "{customDnsConfigs:customDnsConfigs}"
 ```
+
+| Command | Purpose |
+| --- | --- |
+| `az network private-endpoint show` | Show details of a private endpoint. |
+| `--resource-group` | Resource group that contains the private endpoint. |
+| `--name` | Name of the private endpoint to inspect. |
+| `--query` | JMESPath expression selecting the custom DNS configuration. |
 
 5. **Query a name from Azure and on-premises test points**
 
@@ -109,6 +136,14 @@ az network watcher test-connectivity \
     --dest-address $TARGET_FQDN \
     --dest-port 443
 ```
+
+| Command | Purpose |
+| --- | --- |
+| `az network watcher test-connectivity` | Test reachability between a source resource and a destination. |
+| `--resource-group` | Resource group of the source resource. |
+| `--source-resource` | Resource ID of the source to test from. |
+| `--dest-address` | Destination FQDN or IP address to resolve and reach. |
+| `--dest-port` | Destination TCP port to test. |
 
 ## 5. Evidence to Collect
 
@@ -183,6 +218,13 @@ az network private-dns link vnet list \
     --output table
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network private-dns link vnet list` | List virtual network links on a private DNS zone. |
+| `--resource-group` | Resource group that contains the private DNS zone. |
+| `--zone-name` | Name of the private DNS zone. |
+| `--output` | Output format for the result (for example `table`). |
+
 Sample output:
 
 ```json
@@ -201,6 +243,12 @@ az network dns-resolver forwarding-ruleset list \
     --resource-group $RG \
     --output json
 ```
+
+| Command | Purpose |
+| --- | --- |
+| `az network dns-resolver forwarding-ruleset list` | List DNS Private Resolver forwarding rulesets. |
+| `--resource-group` | Resource group that contains the rulesets. |
+| `--output` | Output format for the result (for example `json`). |
 
 Sample output:
 
@@ -221,6 +269,13 @@ az network private-endpoint show \
     --name $PE_NAME \
     --query "{customDnsConfigs:customDnsConfigs,manualPrivateLinkServiceConnections:manualPrivateLinkServiceConnections}"
 ```
+
+| Command | Purpose |
+| --- | --- |
+| `az network private-endpoint show` | Show details of a private endpoint. |
+| `--resource-group` | Resource group that contains the private endpoint. |
+| `--name` | Name of the private endpoint to inspect. |
+| `--query` | JMESPath expression selecting DNS config and connection state. |
 
 Sample output:
 
@@ -248,6 +303,13 @@ az network vnet show \
     --query "dhcpOptions.dnsServers"
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network vnet show` | Show details of a virtual network. |
+| `--resource-group` | Resource group that contains the virtual network. |
+| `--name` | Name of the virtual network to inspect. |
+| `--query` | JMESPath expression selecting the configured DNS servers. |
+
 ### Hypothesis: Missing private DNS linkage
 
 **Proves if**: Zone links or private endpoint zone groups are absent for the consumer network.
@@ -260,6 +322,12 @@ az network private-dns link vnet list \
     --zone-name $ZONE_NAME
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network private-dns link vnet list` | List virtual network links on a private DNS zone. |
+| `--resource-group` | Resource group that contains the private DNS zone. |
+| `--zone-name` | Name of the private DNS zone. |
+
 ### Hypothesis: Hybrid forwarding gap
 
 **Proves if**: Azure resolves but on-premises does not, or the reverse, based on conditional forwarder coverage.
@@ -270,6 +338,11 @@ az network private-dns link vnet list \
 az network dns-resolver forwarding-ruleset list \
     --resource-group $RG
 ```
+
+| Command | Purpose |
+| --- | --- |
+| `az network dns-resolver forwarding-ruleset list` | List DNS Private Resolver forwarding rulesets. |
+| `--resource-group` | Resource group that contains the rulesets. |
 
 ### Hypothesis: Cache or TTL behavior
 
@@ -283,6 +356,13 @@ az network private-dns record-set a show \
     --zone-name $ZONE_NAME \
     --name $RECORD_NAME
 ```
+
+| Command | Purpose |
+| --- | --- |
+| `az network private-dns record-set a show` | Show an A record set in a private DNS zone. |
+| `--resource-group` | Resource group that contains the private DNS zone. |
+| `--zone-name` | Name of the private DNS zone. |
+| `--name` | Name of the A record set to inspect. |
 
 ## 7. Likely Root Cause Patterns
 

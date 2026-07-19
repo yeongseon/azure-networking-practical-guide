@@ -66,6 +66,16 @@ az network private-dns link vnet list \
     --output table
 ```
 
+| Command | Purpose |
+|---|---|
+| `az network private-dns zone list` | List private DNS zones in the resource group. |
+| `--resource-group` | Resource group that contains the private DNS zones. |
+| `--output` | Output format (table for readability). |
+| `az network private-dns link vnet list` | List the virtual network links on a private DNS zone. |
+| `--resource-group` | Resource group that contains the private DNS zone. |
+| `--zone-name` | Private DNS zone to list links for. |
+| `--output` | Output format (table for readability). |
+
 **Validation**
 
 - The expected VNet links exist.
@@ -100,6 +110,17 @@ az network dns-resolver forwarding-ruleset list \
     --output table
 ```
 
+| Command | Purpose |
+|---|---|
+| `az network dns-resolver create` | Create an Azure DNS Private Resolver in the hub VNet. |
+| `--resource-group` | Resource group that contains the resolver. |
+| `--name` | Name of the DNS resolver. |
+| `--location` | Azure region for the resolver. |
+| `--virtual-network` | Resource ID of the hub virtual network to attach the resolver to. |
+| `az network dns-resolver forwarding-ruleset list` | List DNS forwarding rulesets. |
+| `--resource-group` | Resource group that contains the rulesets. |
+| `--output` | Output format (table for readability). |
+
 **Validation**
 
 - Forwarding rulesets are attached to the intended VNets.
@@ -127,6 +148,12 @@ az network private-endpoint dns-zone-group list \
     --resource-group $RG \
     --endpoint-name $PE_NAME
 ```
+
+| Command | Purpose |
+|---|---|
+| `az network private-endpoint dns-zone-group list` | List the DNS zone groups attached to a private endpoint. |
+| `--resource-group` | Resource group that contains the private endpoint. |
+| `--endpoint-name` | Private endpoint to list zone groups for. |
 
 **Validation**
 
@@ -156,6 +183,13 @@ az network private-dns record-set a show \
     --zone-name privatelink.database.windows.net \
     --name myserver
 ```
+
+| Command | Purpose |
+|---|---|
+| `az network private-dns record-set a show` | Show an A record set to verify its data and TTL. |
+| `--resource-group` | Resource group that contains the private DNS zone. |
+| `--zone-name` | Private DNS zone that contains the record. |
+| `--name` | Name of the A record set. |
 
 **Validation**
 
@@ -187,6 +221,14 @@ az monitor diagnostic-settings create \
     --logs "[{"category":"DnsResolverDnsSecurityEvents","enabled":true}]"
 ```
 
+| Command | Purpose |
+|---|---|
+| `az monitor diagnostic-settings create` | Send DNS resolver logs to a Log Analytics workspace for auditing. |
+| `--name` | Name of the diagnostic setting. |
+| `--resource` | Resource ID of the DNS resolver to collect logs from. |
+| `--workspace` | Log Analytics workspace that receives the logs. |
+| `--logs` | JSON array of log categories to enable. |
+
 **Validation**
 
 - DNS changes are visible in activity logs.
@@ -216,6 +258,13 @@ az network private-endpoint show \
     --query "{customDnsConfigs:customDnsConfigs}"
 ```
 
+| Command | Purpose |
+|---|---|
+| `az network private-endpoint show` | Show a private endpoint's advertised FQDNs and DNS configuration. |
+| `--resource-group` | Resource group that contains the private endpoint. |
+| `--name` | Name of the private endpoint. |
+| `--query` | JMESPath expression selecting the custom DNS configs. |
+
 **Validation**
 
 - The endpoint advertises the expected FQDNs.
@@ -242,6 +291,12 @@ az network dns-resolver inbound-endpoint list \
     --dns-resolver-name $DNS_RESOLVER_NAME
 ```
 
+| Command | Purpose |
+|---|---|
+| `az network dns-resolver inbound-endpoint list` | List inbound endpoints to confirm explicit hybrid forwarding exists. |
+| `--resource-group` | Resource group that contains the DNS resolver. |
+| `--dns-resolver-name` | DNS resolver to list inbound endpoints for. |
+
 ### Anti-Pattern 2: Creating duplicate private zones for the same namespace
 
 **What happens**: Different networks receive different answers for the same service name.
@@ -255,6 +310,12 @@ az network private-dns zone list \
     --query "[].{name:name,resourceGroup:resourceGroup}" \
     --output table
 ```
+
+| Command | Purpose |
+|---|---|
+| `az network private-dns zone list` | List all private DNS zones to detect duplicate namespaces. |
+| `--query` | JMESPath expression selecting name and resource group. |
+| `--output` | Output format (table for readability). |
 
 ### Anti-Pattern 3: Treating DNS as an application-team afterthought
 
@@ -270,6 +331,12 @@ az network private-dns link vnet list \
     --zone-name $ZONE_NAME
 ```
 
+| Command | Purpose |
+|---|---|
+| `az network private-dns link vnet list` | List VNet links to make DNS validation a release gate. |
+| `--resource-group` | Resource group that contains the private DNS zone. |
+| `--zone-name` | Private DNS zone to list links for. |
+
 ### Anti-Pattern 4: Ignoring caches during cutover
 
 **What happens**: Some clients work and others fail for hours after an apparently successful change.
@@ -284,6 +351,13 @@ az network private-dns record-set a list \
     --zone-name $ZONE_NAME \
     --output table
 ```
+
+| Command | Purpose |
+|---|---|
+| `az network private-dns record-set a list` | List A record sets to review TTL and cache implications during cutover. |
+| `--resource-group` | Resource group that contains the private DNS zone. |
+| `--zone-name` | Private DNS zone to list records for. |
+| `--output` | Output format (table for readability). |
 
 ## Performance Optimization Tips
 

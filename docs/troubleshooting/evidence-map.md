@@ -85,6 +85,26 @@ az network nic show-effective-route-table --resource-group <resource-group> --na
 az network nic list-effective-nsg --resource-group <resource-group> --name <nic-name>
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network watcher test-connectivity` | Test reachability between a source resource and a destination. |
+| `--source-resource` | Resource ID of the source to test from. |
+| `--dest-address` | Destination FQDN or IP address. |
+| `--dest-port` | Destination TCP port to test. |
+| `az network watcher show-next-hop` | Show the next hop Azure selects for a given flow. |
+| `az network watcher test-ip-flow` | Verify whether a packet is allowed or denied by NSG rules. |
+| `--vm` | Virtual machine used as the flow source. |
+| `--source-ip` | Source IP address of the tested flow. |
+| `--dest-ip` | Destination IP address of the tested flow. |
+| `--direction` | Traffic direction, `Inbound` or `Outbound`. |
+| `--protocol` | Protocol of the tested flow, for example `TCP`. |
+| `--local` | Local address and port of the flow. |
+| `--remote` | Remote address and port of the flow. |
+| `az network nic show-effective-route-table` | Show the effective routes applied to a network interface. |
+| `az network nic list-effective-nsg` | Show the effective NSG rules applied to a network interface. |
+| `--resource-group` | Resource group that contains the resource. |
+| `--name` | Name of the network interface to inspect. |
+
 !!! tip "Prefer proof over assumptions"
     In Azure networking, control-plane configuration and data-plane behavior can diverge temporarily. Always pair configuration evidence with an actual reachability or resolution test.
 

@@ -80,6 +80,19 @@ az network vnet create \
     --subnet-prefixes 10.112.1.0/24
 ```
 
+| Command | Purpose |
+|---------|---------|
+| `az group create` | Creates the resource group that holds all lab resources. |
+| `--name $RG` | Names the resource group. |
+| `--location $LOCATION` | Sets the Azure region for the group. |
+| `az network vnet create` | Creates a virtual network with an initial subnet. |
+| `--resource-group $RG` | Places the VNet in the lab resource group. |
+| `--name vnet-hub-lab01` | Names the virtual network. |
+| `--location $LOCATION` | Sets the Azure region for the VNet. |
+| `--address-prefixes 10.110.0.0/16` | Sets the VNet address space. |
+| `--subnet-name GatewaySubnet` | Creates an initial subnet with this name. |
+| `--subnet-prefixes 10.110.0.0/24` | Sets the initial subnet's address range. |
+
 Use non-overlapping prefixes and reserve space in the hub for future DNS, firewall, and gateway services.
 
 #### Why this step matters
@@ -103,6 +116,14 @@ az network vnet subnet create \
     --name ingress \
     --address-prefixes 10.110.20.0/24
 ```
+
+| Command | Purpose |
+|---------|---------|
+| `az network vnet subnet create` | Adds a subnet to an existing virtual network. |
+| `--resource-group $RG` | Scopes the operation to the lab resource group. |
+| `--vnet-name vnet-hub-lab01` | Names the parent virtual network. |
+| `--name shared-services` | Names the new subnet. |
+| `--address-prefixes 10.110.10.0/24` | Sets the subnet's address range. |
 
 These subnets are placeholders for later labs and make the topology closer to a real landing zone.
 
@@ -151,6 +172,21 @@ az network vnet peering create \
     --allow-vnet-access true
 ```
 
+| Command | Purpose |
+|---------|---------|
+| `az network vnet show` | Retrieves a virtual network's properties. |
+| `--resource-group $RG` | Scopes the query to the lab resource group. |
+| `--name vnet-hub-lab01` | Identifies the virtual network to read. |
+| `--query id` | Extracts only the resource ID from the response. |
+| `--output tsv` | Emits the value as plain text for shell capture. |
+| `az network vnet peering create` | Creates a peering link between two virtual networks. |
+| `--name hub-to-app` | Names the peering link. |
+| `--vnet-name vnet-hub-lab01` | Sets the local VNet that owns the peering. |
+| `--remote-vnet $APP_ID` | References the remote VNet by resource ID. |
+| `--allow-vnet-access true` | Allows traffic between the peered VNets. |
+| `--allow-forwarded-traffic true` | Allows traffic forwarded from outside the remote VNet. |
+| `--use-remote-gateways false` | Does not route through the remote VNet's gateway. |
+
 Keep notes about which side would use remote gateways in a real design. This lab uses simple peering first.
 
 #### Why this step matters
@@ -185,6 +221,19 @@ az vm create \
     --public-ip-address ""
 ```
 
+| Command | Purpose |
+|---------|---------|
+| `az vm create` | Creates a virtual machine in the specified subnet. |
+| `--resource-group $RG` | Places the VM in the lab resource group. |
+| `--name vm-app01` | Names the virtual machine. |
+| `--image Ubuntu2204` | Sets the OS image. |
+| `--size Standard_B1s` | Selects a small burstable VM size. |
+| `--vnet-name vnet-spoke-app-lab01` | Attaches the VM to this virtual network. |
+| `--subnet app` | Places the VM's NIC in this subnet. |
+| `--admin-username azureuser` | Sets the administrator account name. |
+| `--generate-ssh-keys` | Generates SSH key pair for authentication. |
+| `--public-ip-address ""` | Creates the VM without a public IP (private only). |
+
 Private-only VMs make validation closer to a production pattern.
 
 #### Why this step matters
@@ -207,6 +256,21 @@ az network watcher test-connectivity \
     --dest-address 10.112.1.4 \
     --dest-port 22
 ```
+
+| Command | Purpose |
+|---------|---------|
+| `az vm show` | Retrieves a virtual machine's properties. |
+| `--resource-group $RG` | Scopes the query to the lab resource group. |
+| `--name vm-app01` | Identifies the VM to read. |
+| `--query "networkProfile.networkInterfaces[0].id"` | Extracts the primary NIC resource ID. |
+| `--query id` | Extracts only the VM resource ID. |
+| `--output tsv` | Emits the value as plain text for shell capture. |
+| `az network nic show-effective-route-table` | Shows the effective routes applied to a NIC. |
+| `--name $APP_NIC` | Identifies the network interface to inspect. |
+| `az network watcher test-connectivity` | Tests reachability between a source and destination. |
+| `--source-resource ...` | Sets the source resource (the app VM) for the test. |
+| `--dest-address 10.112.1.4` | Sets the destination IP address. |
+| `--dest-port 22` | Sets the destination TCP port to probe. |
 
 The goal is to prove that peering plus correct routes equals a reachable path. If not, this becomes a troubleshooting baseline for later labs.
 
@@ -238,6 +302,22 @@ az network vnet subnet update \
     --route-table rt-app-lab01
 ```
 
+| Command | Purpose |
+|---------|---------|
+| `az network route-table create` | Creates a user-defined route table. |
+| `--resource-group $RG` | Places the route table in the lab resource group. |
+| `--name rt-app-lab01` | Names the route table. |
+| `--location $LOCATION` | Sets the Azure region. |
+| `az network route-table route create` | Adds a route to an existing route table. |
+| `--route-table-name rt-app-lab01` | Identifies the parent route table. |
+| `--name route-to-data` | Names the route. |
+| `--address-prefix 10.112.0.0/16` | Sets the destination prefix the route matches. |
+| `--next-hop-type VnetLocal` | Routes matching traffic within the virtual network. |
+| `az network vnet subnet update` | Modifies an existing subnet. |
+| `--vnet-name vnet-spoke-app-lab01` | Names the parent virtual network. |
+| `--name app` | Identifies the subnet to update. |
+| `--route-table rt-app-lab01` | Associates the route table with the subnet. |
+
 Although the route is not strictly needed here, the exercise teaches how to validate effective routes and prepares you for a forced-tunneling variant.
 
 #### Why this step matters
@@ -258,6 +338,13 @@ Although the route is not strictly needed here, the exercise teaches how to vali
 ```bash
 az group delete --name $RG --yes --no-wait
 ```
+
+| Command | Purpose |
+|---------|---------|
+| `az group delete` | Deletes the resource group and all lab resources. |
+| `--name $RG` | Identifies the resource group to delete. |
+| `--yes` | Skips the interactive confirmation prompt. |
+| `--no-wait` | Returns immediately without waiting for completion. |
 
 Before cleanup, record any private IPs, route table names, or diagnostic screenshots you want to reuse in troubleshooting notes.
 

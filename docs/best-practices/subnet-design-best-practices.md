@@ -70,6 +70,14 @@ az network vnet subnet create \
     --address-prefixes 10.30.40.0/24
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network vnet subnet create` | Create a subnet inside an existing virtual network. |
+| `--resource-group` | Resource group that contains the virtual network. |
+| `--vnet-name` | Name of the parent virtual network. |
+| `--name` | Name of the subnet to create. |
+| `--address-prefixes` | CIDR range assigned to the subnet. |
+
 **Validation**
 
 - Each subnet has a single, clearly documented purpose.
@@ -105,6 +113,16 @@ az network vnet show \
     --query "addressSpace.addressPrefixes"
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network vnet subnet list` | List all subnets in a virtual network. |
+| `--resource-group` | Resource group that contains the virtual network. |
+| `--vnet-name` | Name of the parent virtual network. |
+| `--query` | JMESPath expression selecting subnet name, prefix, and delegations. |
+| `--output` | Output format for the result (for example `table`). |
+| `az network vnet show` | Show details of a virtual network. |
+| `--name` | Name of the virtual network to inspect. |
+
 **Validation**
 
 - Subnets hosting managed platforms have documented minimum and target sizes.
@@ -139,6 +157,16 @@ az network nic show-effective-nsg \
     --resource-group $RG \
     --name $NIC_NAME
 ```
+
+| Command | Purpose |
+| --- | --- |
+| `az network vnet subnet update` | Modify configuration of an existing subnet. |
+| `--resource-group` | Resource group that contains the virtual network. |
+| `--vnet-name` | Name of the parent virtual network. |
+| `--name` | Name of the subnet to update. |
+| `--network-security-group` | Network security group to associate with the subnet. |
+| `--route-table` | Route table to associate with the subnet. |
+| `az network nic show-effective-nsg` | Show the effective NSG rules applied to a network interface. |
 
 **Validation**
 
@@ -177,6 +205,19 @@ az network private-endpoint list \
     --output table
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network private-endpoint create` | Create a private endpoint for a target resource. |
+| `--resource-group` | Resource group for the private endpoint. |
+| `--name` | Name of the private endpoint. |
+| `--vnet-name` | Virtual network that hosts the private endpoint subnet. |
+| `--subnet` | Subnet in which the private endpoint IP is allocated. |
+| `--private-connection-resource-id` | Resource ID of the service the endpoint connects to. |
+| `--group-id` | Sub-resource (group) of the target service, for example `blob`. |
+| `--connection-name` | Name of the private link connection. |
+| `az network private-endpoint list` | List private endpoints in a resource group. |
+| `--output` | Output format for the result (for example `table`). |
+
 **Validation**
 
 - Private endpoint IP consumption is visible separately from workload scaling.
@@ -212,6 +253,16 @@ az network vnet subnet update \
     --name delegated-subnet \
     --delegations Microsoft.Web/serverFarms
 ```
+
+| Command | Purpose |
+| --- | --- |
+| `az network vnet subnet show` | Show details of a specific subnet. |
+| `--resource-group` | Resource group that contains the virtual network. |
+| `--vnet-name` | Name of the parent virtual network. |
+| `--name` | Name of the subnet to inspect or update. |
+| `--query` | JMESPath expression selecting subnet name and delegations. |
+| `az network vnet subnet update` | Modify configuration of an existing subnet. |
+| `--delegations` | Service the subnet is delegated to, for example `Microsoft.Web/serverFarms`. |
 
 **Validation**
 
@@ -249,6 +300,16 @@ az network vnet subnet show \
     --query "{name:name,tags:tags}"
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network vnet subnet update` | Modify configuration of an existing subnet. |
+| `--resource-group` | Resource group that contains the virtual network. |
+| `--vnet-name` | Name of the parent virtual network. |
+| `--name` | Name of the subnet to update or inspect. |
+| `--set` | Directly set properties such as subnet tags. |
+| `az network vnet subnet show` | Show details of a specific subnet. |
+| `--query` | JMESPath expression selecting subnet name and tags. |
+
 **Validation**
 
 - Every production subnet has owner and purpose metadata.
@@ -276,6 +337,13 @@ az network vnet subnet list \
     --output table
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network vnet subnet list` | List all subnets in a virtual network. |
+| `--resource-group` | Resource group that contains the virtual network. |
+| `--vnet-name` | Name of the parent virtual network. |
+| `--output` | Output format for the result (for example `table`). |
+
 ### Anti-Pattern 2: Sizing only for steady state
 
 **What happens**: Scaling or maintenance operations fail because available IPs drop below what the platform needs.
@@ -291,6 +359,13 @@ az network vnet subnet show \
     --name $SUBNET_NAME
 ```
 
+| Command | Purpose |
+| --- | --- |
+| `az network vnet subnet show` | Show details of a specific subnet. |
+| `--resource-group` | Resource group that contains the virtual network. |
+| `--vnet-name` | Name of the parent virtual network. |
+| `--name` | Name of the subnet to inspect. |
+
 ### Anti-Pattern 3: Forgetting that subnet policy is part of application behavior
 
 **What happens**: Teams treat NSG or UDR changes as infrastructure-only changes, then are surprised when application calls break.
@@ -304,6 +379,12 @@ az network nic show-effective-route-table \
     --resource-group $RG \
     --name $NIC_NAME
 ```
+
+| Command | Purpose |
+| --- | --- |
+| `az network nic show-effective-route-table` | Show the effective routes applied to a network interface. |
+| `--resource-group` | Resource group that contains the network interface. |
+| `--name` | Name of the network interface to inspect. |
 
 ### Anti-Pattern 4: Reusing reserved subnets for temporary workloads
 
@@ -319,6 +400,13 @@ az network vnet subnet show \
     --vnet-name $VNET_NAME \
     --name GatewaySubnet
 ```
+
+| Command | Purpose |
+| --- | --- |
+| `az network vnet subnet show` | Show details of a specific subnet. |
+| `--resource-group` | Resource group that contains the virtual network. |
+| `--vnet-name` | Name of the parent virtual network. |
+| `--name` | Name of the reserved subnet to inspect, for example `GatewaySubnet`. |
 
 ## Performance Optimization Tips
 

@@ -67,6 +67,24 @@ az network vnet subnet create \
     --address-prefixes 10.150.10.0/24
 ```
 
+| Command | Purpose |
+|---|---|
+| `az group create` | Create the resource group that holds all lab resources. |
+| `--name` | Name of the resource group. |
+| `--location` | Azure region for the resource group. |
+| `az network vnet create` | Create the hub virtual network with the GatewaySubnet. |
+| `--resource-group` | Resource group that contains the virtual network. |
+| `--name` | Name of the virtual network. |
+| `--location` | Azure region for the virtual network. |
+| `--address-prefixes` | Address space for the virtual network. |
+| `--subnet-name` | Name of the first subnet (must be GatewaySubnet for the gateway). |
+| `--subnet-prefixes` | Address range for the gateway subnet. |
+| `az network vnet subnet create` | Add the shared subnet used for test workloads. |
+| `--resource-group` | Resource group that contains the virtual network. |
+| `--vnet-name` | Virtual network the subnet is added to. |
+| `--name` | Name of the shared subnet. |
+| `--address-prefixes` | Address range for the shared subnet. |
+
 Keep a separate shared subnet available for a test VM or route validation endpoint.
 
 #### Why this step matters
@@ -95,6 +113,23 @@ az network vnet-gateway create \
     --asn 65515
 ```
 
+| Command | Purpose |
+|---|---|
+| `az network public-ip create` | Create the static public IP used by the VPN gateway. |
+| `--resource-group` | Resource group that contains the public IP. |
+| `--name` | Name of the public IP resource. |
+| `--sku` | Public IP SKU (Standard). |
+| `--allocation-method` | IP allocation method (Static). |
+| `az network vnet-gateway create` | Create the route-based VPN gateway in the hub VNet. |
+| `--resource-group` | Resource group that contains the gateway. |
+| `--name` | Name of the VPN gateway. |
+| `--public-ip-addresses` | Public IP used by the gateway. |
+| `--vnet` | Virtual network that contains the GatewaySubnet. |
+| `--gateway-type` | Gateway type (Vpn). |
+| `--vpn-type` | VPN type (RouteBased for BGP-capable connections). |
+| `--sku` | Gateway SKU that determines throughput and features. |
+| `--asn` | Autonomous system number used for BGP. |
+
 This takes time. Use the wait period to review the expected route-learning workflow.
 
 #### Why this step matters
@@ -112,6 +147,14 @@ az network local-gateway create \
     --gateway-ip-address 203.0.113.10 \
     --local-address-prefixes 192.0.2.0/24 198.51.100.0/24
 ```
+
+| Command | Purpose |
+|---|---|
+| `az network local-gateway create` | Create the local network gateway representing the simulated on-premises network. |
+| `--resource-group` | Resource group that contains the local network gateway. |
+| `--name` | Name of the local network gateway. |
+| `--gateway-ip-address` | Public IP of the simulated on-premises VPN device. |
+| `--local-address-prefixes` | Address prefixes reachable through the on-premises network. |
 
 The local network gateway represents the remote network definition you would expect from a provider or on-premises router.
 
@@ -131,6 +174,15 @@ az network vpn-connection create \
     --local-gateway2 lng-sim05 \
     --shared-key ContosoDemoKey123!
 ```
+
+| Command | Purpose |
+|---|---|
+| `az network vpn-connection create` | Create the site-to-site connection between the VPN gateway and local network gateway. |
+| `--resource-group` | Resource group that contains the connection. |
+| `--name` | Name of the VPN connection. |
+| `--vnet-gateway1` | Azure-side VPN gateway for the connection. |
+| `--local-gateway2` | Local network gateway representing the remote side. |
+| `--shared-key` | Pre-shared key used to authenticate the tunnel. |
 
 This creates the Azure-side object even though a real remote device is not connected in the simulation.
 
@@ -152,6 +204,16 @@ az network vnet-gateway list-advertised-routes \
     --name vpngw-lab05 \
     --peer 203.0.113.10
 ```
+
+| Command | Purpose |
+|---|---|
+| `az network vnet-gateway list-learned-routes` | List routes the gateway has learned via BGP. |
+| `--resource-group` | Resource group that contains the gateway. |
+| `--name` | Name of the VPN gateway to inspect. |
+| `az network vnet-gateway list-advertised-routes` | List routes the gateway advertises to a specific peer. |
+| `--resource-group` | Resource group that contains the gateway. |
+| `--name` | Name of the VPN gateway to inspect. |
+| `--peer` | BGP peer IP address to show advertised routes for. |
 
 The returned data may be empty without a live peer, but the point is to learn the exact inspection path and compare it later with a real environment.
 
@@ -183,6 +245,24 @@ az network vnet subnet update \
     --route-table rt-shared05
 ```
 
+| Command | Purpose |
+|---|---|
+| `az network route-table create` | Create the route table used for the failover exercise. |
+| `--resource-group` | Resource group that contains the route table. |
+| `--name` | Name of the route table. |
+| `--location` | Azure region for the route table. |
+| `az network route-table route create` | Add a route directing on-premises prefixes to the virtual network gateway. |
+| `--resource-group` | Resource group that contains the route table. |
+| `--route-table-name` | Route table the route is added to. |
+| `--name` | Name of the route. |
+| `--address-prefix` | Destination prefix for the route. |
+| `--next-hop-type` | Next hop type (VirtualNetworkGateway). |
+| `az network vnet subnet update` | Associate the route table with the shared subnet. |
+| `--resource-group` | Resource group that contains the virtual network. |
+| `--vnet-name` | Virtual network that contains the subnet. |
+| `--name` | Name of the shared subnet. |
+| `--route-table` | Route table to associate with the subnet. |
+
 This step teaches how workload subnets can be directed toward gateway-managed prefixes in a hybrid design.
 
 #### Why this step matters
@@ -205,6 +285,17 @@ az network vpn-connection show \
     --query "{connectionStatus:connectionStatus,ingressBytesTransferred:ingressBytesTransferred,egressBytesTransferred:egressBytesTransferred}"
 ```
 
+| Command | Purpose |
+|---|---|
+| `az network local-gateway show` | Show the on-premises address prefixes defined on the local network gateway. |
+| `--resource-group` | Resource group that contains the local network gateway. |
+| `--name` | Name of the local network gateway. |
+| `--query` | JMESPath expression selecting the address prefixes. |
+| `az network vpn-connection show` | Show the connection status and byte counters for the VPN connection. |
+| `--resource-group` | Resource group that contains the connection. |
+| `--name` | Name of the VPN connection. |
+| `--query` | JMESPath expression selecting status and transfer metrics. |
+
 Use this as a worksheet step: what routes should be preferred, how would VPN backup compare with ExpressRoute primary, and which tests would prove failover works?
 
 #### Why this step matters
@@ -225,6 +316,13 @@ Use this as a worksheet step: what routes should be preferred, how would VPN bac
 ```bash
 az group delete --name $RG --yes --no-wait
 ```
+
+| Command | Purpose |
+|---|---|
+| `az group delete` | Delete the resource group and all lab resources. |
+| `--name` | Name of the resource group to delete. |
+| `--yes` | Skip the interactive confirmation prompt. |
+| `--no-wait` | Return immediately without waiting for deletion to finish. |
 
 Before cleanup, record any private IPs, route table names, or diagnostic screenshots you want to reuse in troubleshooting notes.
 

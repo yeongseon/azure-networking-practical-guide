@@ -112,6 +112,30 @@ jobs:
           
           echo "All changed files with mermaid diagrams have content_sources metadata."
 
+  validate-cli-explanations:
+    name: Validate Azure CLI Explanation Tables
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run doctests for scripts/validate_cli_explanations.py
+        run: |
+          python -m doctest scripts/validate_cli_explanations.py -v
+
+      - name: Enforce explanation tables after Azure CLI code fences
+        run: |
+          if ! python scripts/validate_cli_explanations.py; then
+            echo "::error::Azure CLI explanation table validation failed. Add a '| Command | Purpose |' table immediately after each bash az code fence."
+            exit 1
+          fi
+
   validate-mslearn-urls:
     name: Validate MSLearn URLs
     runs-on: ubuntu-latest
