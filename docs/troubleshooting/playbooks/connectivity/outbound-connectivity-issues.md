@@ -9,16 +9,16 @@ content_sources:
         - https://learn.microsoft.com/en-us/azure/load-balancer/troubleshoot-outbound-connection
         - https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-outbound-connections
 content_validation:
-  status: verified
+  status: pending_review
   last_reviewed: '2026-07-25'
   reviewer: agent
   core_claims:
     - claim: Azure documents troubleshooting guidance for outbound connection failures from Load Balancer-backed workloads.
       source: https://learn.microsoft.com/en-us/azure/load-balancer/troubleshoot-outbound-connection
-      verified: true
+      verified: false
     - claim: Azure Load Balancer outbound connectivity behavior depends on the configured outbound method and rules.
       source: https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-outbound-connections
-      verified: true
+      verified: false
 ---
 # Outbound Connectivity Issues
 

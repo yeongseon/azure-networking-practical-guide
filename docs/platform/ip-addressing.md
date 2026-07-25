@@ -8,16 +8,16 @@ content_sources:
       based_on:
         - https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/private-ip-addresses
 content_validation:
-  status: verified
+  status: pending_review
   last_reviewed: '2026-07-25'
   reviewer: agent
   core_claims:
     - claim: Azure public IP addresses can be assigned to Azure resources to enable inbound and outbound Internet connectivity.
       source: https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/public-ip-addresses
-      verified: true
+      verified: false
     - claim: Private IP addresses in Azure virtual networks are used for communication between resources inside the virtual network or connected networks.
       source: https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/private-ip-addresses
-      verified: true
+      verified: false
 ---
 # IP Addressing
 

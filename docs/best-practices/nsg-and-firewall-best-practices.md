@@ -9,16 +9,16 @@ content_sources:
         - https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
         - https://learn.microsoft.com/en-us/azure/firewall-manager/policy-overview
 content_validation:
-  status: verified
+  status: pending_review
   last_reviewed: '2026-07-25'
   reviewer: agent
   core_claims:
     - claim: Azure Firewall is a managed, cloud-native network security service for controlling traffic across Azure and hybrid networks.
       source: https://learn.microsoft.com/en-us/azure/firewall/overview
-      verified: true
+      verified: false
     - claim: Network security groups filter inbound and outbound traffic by using security rules applied at subnet or NIC scope.
       source: https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
-      verified: true
+      verified: false
 ---
 # NSG and Firewall Best Practices
 

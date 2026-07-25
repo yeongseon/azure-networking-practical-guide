@@ -8,16 +8,16 @@ content_sources:
       based_on:
         - https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/network-topology-and-connectivity
 content_validation:
-  status: verified
+  status: pending_review
   last_reviewed: '2026-07-25'
   reviewer: agent
   core_claims:
     - claim: Azure networking design guidance emphasizes segmentation, traffic control, and defense in depth as core network best practices.
       source: https://learn.microsoft.com/en-us/azure/security/fundamentals/network-best-practices
-      verified: true
+      verified: false
     - claim: Azure landing zone guidance treats network topology and connectivity as a foundational design area for cloud environments.
       source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/network-topology-and-connectivity
-      verified: true
+      verified: false
 ---
 # How Azure Networking Works
 

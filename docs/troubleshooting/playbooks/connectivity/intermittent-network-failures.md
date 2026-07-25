@@ -9,16 +9,16 @@ content_sources:
         - https://learn.microsoft.com/en-us/azure/network-watcher/network-insights-overview
         - https://learn.microsoft.com/en-us/troubleshoot/azure/vpn-gateway/vpn-gateway-troubleshoot
 content_validation:
-  status: verified
+  status: pending_review
   last_reviewed: '2026-07-25'
   reviewer: agent
   core_claims:
     - claim: Azure Network Insights helps surface network telemetry that can reveal intermittent failures.
       source: https://learn.microsoft.com/en-us/azure/network-watcher/network-insights-overview
-      verified: true
+      verified: false
     - claim: Microsoft provides troubleshooting guidance for VPN gateway problems that can present intermittently.
       source: https://learn.microsoft.com/en-us/troubleshoot/azure/vpn-gateway/vpn-gateway-troubleshoot
-      verified: true
+      verified: false
 ---
 # Intermittent Network Failures
 

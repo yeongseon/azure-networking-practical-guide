@@ -10,16 +10,16 @@ content_sources:
         - https://learn.microsoft.com/en-us/azure/vpn-gateway/bgp-howto
         - https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction
 content_validation:
-  status: verified
+  status: pending_review
   last_reviewed: '2026-07-25'
   reviewer: agent
   core_claims:
     - claim: Azure VPN Gateway settings such as gateway type, SKU, and generation affect VPN behavior and capabilities.
       source: https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-about-vpn-gateway-settings
-      verified: true
+      verified: false
     - claim: Azure VPN Gateway supports BGP for dynamic route exchange in supported scenarios.
       source: https://learn.microsoft.com/en-us/azure/vpn-gateway/bgp-howto
-      verified: true
+      verified: false
 ---
 # VPN Gateway Troubleshooting
 

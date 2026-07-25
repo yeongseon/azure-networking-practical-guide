@@ -9,16 +9,16 @@ content_sources:
         - https://learn.microsoft.com/en-us/azure/virtual-network/diagnose-network-routing-problem
         - https://learn.microsoft.com/en-us/azure/well-architected/service-guides/virtual-network
 content_validation:
-  status: verified
+  status: pending_review
   last_reviewed: '2026-07-25'
   reviewer: agent
   core_claims:
     - claim: User-defined routes can override Azure default routing behavior for subnet traffic.
       source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
-      verified: true
+      verified: false
     - claim: Azure Network Watcher includes tools to diagnose effective routes and routing problems for virtual machines.
       source: https://learn.microsoft.com/en-us/azure/virtual-network/diagnose-network-routing-problem
-      verified: true
+      verified: false
 ---
 # Routing Best Practices
 

@@ -8,16 +8,16 @@ content_sources:
       based_on:
         - https://learn.microsoft.com/en-us/azure/virtual-network/quick-create-portal
 content_validation:
-  status: verified
+  status: pending_review
   last_reviewed: '2026-07-25'
   reviewer: agent
   core_claims:
     - claim: Azure Virtual Network provides isolated networking and subnet segmentation for Azure resources.
       source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
-      verified: true
+      verified: false
     - claim: Azure documents a standard workflow for creating a virtual network and subnet resources.
       source: https://learn.microsoft.com/en-us/azure/virtual-network/quick-create-portal
-      verified: true
+      verified: false
 ---
 # Create VNet and Subnets
 

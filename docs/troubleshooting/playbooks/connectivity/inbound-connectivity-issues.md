@@ -9,16 +9,16 @@ content_sources:
         - https://learn.microsoft.com/en-us/troubleshoot/azure/application-gateway/welcome-app-gateway
         - https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-troubleshoot-health-probe-status
 content_validation:
-  status: verified
+  status: pending_review
   last_reviewed: '2026-07-25'
   reviewer: agent
   core_claims:
     - claim: Application Gateway troubleshooting guidance covers inbound application delivery issues for Azure workloads.
       source: https://learn.microsoft.com/en-us/troubleshoot/azure/application-gateway/welcome-app-gateway
-      verified: true
+      verified: false
     - claim: Azure Load Balancer health probe status directly affects whether inbound traffic is sent to backend instances.
       source: https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-troubleshoot-health-probe-status
-      verified: true
+      verified: false
 ---
 # Inbound Connectivity Issues
 

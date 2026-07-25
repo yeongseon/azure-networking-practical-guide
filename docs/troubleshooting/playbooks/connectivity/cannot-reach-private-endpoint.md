@@ -9,16 +9,16 @@ content_sources:
         - https://learn.microsoft.com/en-us/troubleshoot/azure/private-link/troubleshoot-private-endpoint-connectivity-problems
         - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns#validation
 content_validation:
-  status: verified
+  status: pending_review
   last_reviewed: '2026-07-25'
   reviewer: agent
   core_claims:
     - claim: Microsoft documents a dedicated troubleshooting flow for Azure private endpoint connectivity problems.
       source: https://learn.microsoft.com/en-us/troubleshoot/azure/private-link/troubleshoot-private-endpoint-connectivity-problems
-      verified: true
+      verified: false
     - claim: Private endpoint validation includes confirming DNS resolves to the private endpoint address.
       source: https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns#validation
-      verified: true
+      verified: false
 ---
 # Cannot Reach Private Endpoint
 

@@ -29,16 +29,16 @@ content_sources:
         - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
         - https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-monitoring-overview
 content_validation:
-  status: verified
+  status: pending_review
   last_reviewed: '2026-07-25'
   reviewer: agent
   core_claims:
     - claim: Azure route tables, NSGs, private endpoint DNS, and Network Watcher all affect end-to-end connectivity outcomes.
       source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
-      verified: true
+      verified: false
     - claim: Azure Network Watcher monitoring helps operators observe traffic paths and network health signals during troubleshooting.
       source: https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-monitoring-overview
-      verified: true
+      verified: false
 ---
 # Troubleshooting Architecture Overview
 

@@ -8,16 +8,16 @@ content_sources:
       based_on:
         - https://learn.microsoft.com/en-us/azure/virtual-network/manage-network-security-group#create-a-security-rule
 content_validation:
-  status: verified
+  status: pending_review
   last_reviewed: '2026-07-25'
   reviewer: agent
   core_claims:
     - claim: Network security groups control inbound and outbound traffic by applying ordered security rules.
       source: https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
-      verified: true
+      verified: false
     - claim: Azure lets operators create and manage individual NSG security rules.
       source: https://learn.microsoft.com/en-us/azure/virtual-network/manage-network-security-group#create-a-security-rule
-      verified: true
+      verified: false
 ---
 # Configure NSG
 

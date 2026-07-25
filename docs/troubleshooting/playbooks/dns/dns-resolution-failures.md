@@ -11,16 +11,16 @@ content_sources:
         - https://learn.microsoft.com/en-us/azure/dns/dns-private-resolver-overview
         - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
 content_validation:
-  status: verified
+  status: pending_review
   last_reviewed: '2026-07-25'
   reviewer: agent
   core_claims:
     - claim: Azure DNS troubleshooting guidance includes steps for isolating common name-resolution failures.
       source: https://learn.microsoft.com/en-us/azure/dns/dns-troubleshoot
-      verified: true
+      verified: false
     - claim: Azure DNS Private Resolver supports hybrid and cross-network private DNS resolution scenarios.
       source: https://learn.microsoft.com/en-us/azure/dns/dns-private-resolver-overview
-      verified: true
+      verified: false
 ---
 # DNS Resolution Failures
 

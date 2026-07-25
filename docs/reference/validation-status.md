@@ -14,6 +14,7 @@ This page tracks which lab guides have been validated against real Azure deploym
 | ❌ Failed | 0 |
 | ➖ Not tested | 5 |
 
+<!-- diagram-id: tutorial-validation-status-pie -->
 ```mermaid
 pie title Tutorial Validation Status
     "Not Tested" : 5

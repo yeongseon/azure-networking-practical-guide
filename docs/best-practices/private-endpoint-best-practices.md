@@ -9,16 +9,16 @@ content_sources:
         - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
         - https://learn.microsoft.com/en-us/azure/storage/common/storage-private-endpoints
 content_validation:
-  status: verified
+  status: pending_review
   last_reviewed: '2026-07-25'
   reviewer: agent
   core_claims:
     - claim: A private endpoint assigns a private IP address from your virtual network to a specific Azure resource instance.
       source: https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview
-      verified: true
+      verified: false
     - claim: Private endpoint deployments depend on DNS so clients resolve the service name to the private endpoint address.
       source: https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
-      verified: true
+      verified: false
 ---
 # Private Endpoint Best Practices
 

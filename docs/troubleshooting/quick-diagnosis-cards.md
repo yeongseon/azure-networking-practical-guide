@@ -9,16 +9,16 @@ content_sources:
         - https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-connectivity-overview
         - https://learn.microsoft.com/en-us/troubleshoot/azure/private-link/troubleshoot-private-endpoint-connectivity-problems
 content_validation:
-  status: verified
+  status: pending_review
   last_reviewed: '2026-07-25'
   reviewer: agent
   core_claims:
     - claim: Azure Network Watcher provides connectivity diagnostics that help narrow the source of connection failures.
       source: https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-connectivity-overview
-      verified: true
+      verified: false
     - claim: Microsoft documents troubleshooting guidance for private endpoint connectivity failures.
       source: https://learn.microsoft.com/en-us/troubleshoot/azure/private-link/troubleshoot-private-endpoint-connectivity-problems
-      verified: true
+      verified: false
 ---
 # Quick Diagnosis Cards
 

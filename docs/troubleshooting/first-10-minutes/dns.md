@@ -9,16 +9,16 @@ content_sources:
         - https://learn.microsoft.com/en-us/azure/dns/dns-troubleshoot
         - https://learn.microsoft.com/en-us/azure/dns/private-dns-overview
 content_validation:
-  status: verified
+  status: pending_review
   last_reviewed: '2026-07-25'
   reviewer: agent
   core_claims:
     - claim: Azure DNS troubleshooting guidance covers common DNS resolution issues and diagnostic steps.
       source: https://learn.microsoft.com/en-us/azure/dns/dns-troubleshoot
-      verified: true
+      verified: false
     - claim: Azure Private DNS provides private zone-based name resolution for resources in virtual networks.
       source: https://learn.microsoft.com/en-us/azure/dns/private-dns-overview
-      verified: true
+      verified: false
 ---
 # First 10 Minutes: DNS
 

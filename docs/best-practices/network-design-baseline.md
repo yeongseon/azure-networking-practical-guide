@@ -9,16 +9,16 @@ content_sources:
         - https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/network-topology-and-connectivity
         - https://learn.microsoft.com/en-us/azure/well-architected/service-guides/virtual-network
 content_validation:
-  status: verified
+  status: pending_review
   last_reviewed: '2026-07-25'
   reviewer: agent
   core_claims:
     - claim: Azure virtual network design guidance recommends planning address space, subnet layout, and growth before deployment.
       source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-vnet-plan-design-arm
-      verified: true
+      verified: false
     - claim: Azure landing zone guidance treats network topology and connectivity as a core design area for enterprise environments.
       source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/network-topology-and-connectivity
-      verified: true
+      verified: false
 ---
 # Network Design Baseline
 

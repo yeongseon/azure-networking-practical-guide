@@ -10,16 +10,16 @@ content_sources:
         - https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-connectivity-overview
         - https://learn.microsoft.com/en-us/azure/network-watcher/ip-flow-verify-overview
 content_validation:
-  status: verified
+  status: pending_review
   last_reviewed: '2026-07-25'
   reviewer: agent
   core_claims:
     - claim: Azure Network Watcher monitoring surfaces data that can be used as troubleshooting evidence for network issues.
       source: https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-monitoring-overview
-      verified: true
+      verified: false
     - claim: IP flow verify can validate whether traffic is allowed or denied by NSG rules for a given flow.
       source: https://learn.microsoft.com/en-us/azure/network-watcher/ip-flow-verify-overview
-      verified: true
+      verified: false
 ---
 # Evidence Map
 

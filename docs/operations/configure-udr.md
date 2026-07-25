@@ -8,16 +8,16 @@ content_sources:
       based_on:
         - https://learn.microsoft.com/en-us/azure/virtual-network/manage-route-table
 content_validation:
-  status: verified
+  status: pending_review
   last_reviewed: '2026-07-25'
   reviewer: agent
   core_claims:
     - claim: User-defined routes in Azure route tables can direct subnet traffic to specific next hops.
       source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
-      verified: true
+      verified: false
     - claim: Azure supports creating and associating route tables to manage routing behavior.
       source: https://learn.microsoft.com/en-us/azure/virtual-network/manage-route-table
-      verified: true
+      verified: false
 ---
 # Configure UDR
 

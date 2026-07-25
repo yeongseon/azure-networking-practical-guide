@@ -8,16 +8,16 @@ content_sources:
       based_on:
         - https://learn.microsoft.com/en-us/azure/virtual-network/tutorial-create-route-table-portal
 content_validation:
-  status: verified
+  status: pending_review
   last_reviewed: '2026-07-25'
   reviewer: agent
   core_claims:
     - claim: Azure route tables let you define user-defined routes that override Azure default system routes for subnet traffic.
       source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
-      verified: true
+      verified: false
     - claim: Azure supports associating a route table with a subnet to influence where packets are forwarded.
       source: https://learn.microsoft.com/en-us/azure/virtual-network/tutorial-create-route-table-portal
-      verified: true
+      verified: false
 ---
 # Routing Basics
 

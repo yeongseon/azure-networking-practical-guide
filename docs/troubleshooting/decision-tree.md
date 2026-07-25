@@ -23,16 +23,16 @@ content_sources:
         - https://learn.microsoft.com/en-us/azure/network-watcher/connection-troubleshoot-overview
         - https://learn.microsoft.com/en-us/azure/network-watcher/diagnose-vm-network-routing-problem
 content_validation:
-  status: verified
+  status: pending_review
   last_reviewed: '2026-07-25'
   reviewer: agent
   core_claims:
     - claim: Connection Troubleshoot helps diagnose connectivity between Azure resources and destination endpoints.
       source: https://learn.microsoft.com/en-us/azure/network-watcher/connection-troubleshoot-overview
-      verified: true
+      verified: false
     - claim: Azure provides routing diagnostics that expose effective routes for a virtual machine when troubleshooting path selection.
       source: https://learn.microsoft.com/en-us/azure/network-watcher/diagnose-vm-network-routing-problem
-      verified: true
+      verified: false
 ---
 # Troubleshooting Decision Tree
 

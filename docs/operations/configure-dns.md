@@ -8,16 +8,16 @@ content_sources:
       based_on:
         - https://learn.microsoft.com/en-us/azure/dns/private-dns-overview
 content_validation:
-  status: verified
+  status: pending_review
   last_reviewed: '2026-07-25'
   reviewer: agent
   core_claims:
     - claim: Azure virtual networks can use either Azure-provided DNS or custom DNS servers for name resolution.
       source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-name-resolution-for-vms-and-role-instances
-      verified: true
+      verified: false
     - claim: Azure Private DNS provides private DNS zones for name resolution within and across Azure virtual networks.
       source: https://learn.microsoft.com/en-us/azure/dns/private-dns-overview
-      verified: true
+      verified: false
 ---
 # Configure DNS
 

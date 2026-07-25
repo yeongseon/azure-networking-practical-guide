@@ -8,16 +8,16 @@ content_sources:
       based_on:
         - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-vnet-plan-design-arm
 content_validation:
-  status: verified
+  status: pending_review
   last_reviewed: '2026-07-25'
   reviewer: agent
   core_claims:
     - claim: Azure Virtual Network provides isolated private networking for Azure resources.
       source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
-      verified: true
+      verified: false
     - claim: Azure virtual network design guidance recommends planning non-overlapping address spaces and subnets before deployment.
       source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-vnet-plan-design-arm
-      verified: true
+      verified: false
 ---
 # VNet and Subnet Basics
 

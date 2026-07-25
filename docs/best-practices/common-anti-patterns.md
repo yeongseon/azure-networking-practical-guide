@@ -8,16 +8,16 @@ content_sources:
       based_on:
         - https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/network-topology-and-connectivity
 content_validation:
-  status: verified
+  status: pending_review
   last_reviewed: '2026-07-25'
   reviewer: agent
   core_claims:
     - claim: Well-Architected Azure networking guidance recommends intentional virtual network design instead of ad hoc connectivity patterns.
       source: https://learn.microsoft.com/en-us/azure/well-architected/service-guides/virtual-network
-      verified: true
+      verified: false
     - claim: Azure landing zone guidance recommends designing network topology and connectivity as part of the baseline platform architecture.
       source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/network-topology-and-connectivity
-      verified: true
+      verified: false
 ---
 # Common Anti-Patterns
 

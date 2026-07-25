@@ -16,15 +16,13 @@ This page tracks `content_validation` metadata for **in-scope factual-claim docu
 | Content Type | Total | Verified | Pending | Unverified | No Metadata |
 |---|---:|---:|---:|---:|---:|
 | Mermaid Diagrams | 85 | 85 | 0 | 0 | 0 |
-| In-Scope Factual-Claim Documents | 48 | 48 | 0 | 0 | 0 |
+| In-Scope Factual-Claim Documents | 48 | 0 | 48 | 0 | 0 |
 
-!!! success "All In-Scope Documents Verified"
-    Every in-scope factual-claim document has verified Microsoft Learn sources for its core claims.
 
 <!-- diagram-id: content-validation-status-pie -->
 ```mermaid
 pie title In-Scope Document Validation Status
-    "Verified" : 48
+    "Pending Review" : 48
 ```
 
 ## By Section
@@ -33,69 +31,69 @@ pie title In-Scope Document Validation Status
 
 | Document | Has Sources | Status | Claims | Last Reviewed |
 |---|---|---|---|---|
-| [Dns Basics](../platform/dns-basics.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [How Azure Networking Works](../platform/how-azure-networking-works.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Hybrid Connectivity Basics](../platform/hybrid-connectivity-basics.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Ip Addressing](../platform/ip-addressing.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Load Balancing Options](../platform/load-balancing-options.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Network Security Basics](../platform/network-security-basics.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Private Connectivity Options](../platform/private-connectivity-options.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Routing Basics](../platform/routing-basics.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Vnet And Subnet Basics](../platform/vnet-and-subnet-basics.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
+| [Dns Basics](../platform/dns-basics.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [How Azure Networking Works](../platform/how-azure-networking-works.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Hybrid Connectivity Basics](../platform/hybrid-connectivity-basics.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Ip Addressing](../platform/ip-addressing.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Load Balancing Options](../platform/load-balancing-options.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Network Security Basics](../platform/network-security-basics.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Private Connectivity Options](../platform/private-connectivity-options.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Routing Basics](../platform/routing-basics.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Vnet And Subnet Basics](../platform/vnet-and-subnet-basics.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
 
 ### Best Practices
 
 | Document | Has Sources | Status | Claims | Last Reviewed |
 |---|---|---|---|---|
-| [Common Anti Patterns](../best-practices/common-anti-patterns.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Cost Awareness Best Practices](../best-practices/cost-awareness-best-practices.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Dns Best Practices](../best-practices/dns-best-practices.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Hybrid Connectivity Best Practices](../best-practices/hybrid-connectivity-best-practices.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Network Design Baseline](../best-practices/network-design-baseline.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Nsg And Firewall Best Practices](../best-practices/nsg-and-firewall-best-practices.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Observability Best Practices](../best-practices/observability-best-practices.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Private Endpoint Best Practices](../best-practices/private-endpoint-best-practices.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Routing Best Practices](../best-practices/routing-best-practices.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Subnet Design Best Practices](../best-practices/subnet-design-best-practices.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
+| [Common Anti Patterns](../best-practices/common-anti-patterns.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Cost Awareness Best Practices](../best-practices/cost-awareness-best-practices.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Dns Best Practices](../best-practices/dns-best-practices.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Hybrid Connectivity Best Practices](../best-practices/hybrid-connectivity-best-practices.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Network Design Baseline](../best-practices/network-design-baseline.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Nsg And Firewall Best Practices](../best-practices/nsg-and-firewall-best-practices.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Observability Best Practices](../best-practices/observability-best-practices.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Private Endpoint Best Practices](../best-practices/private-endpoint-best-practices.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Routing Best Practices](../best-practices/routing-best-practices.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Subnet Design Best Practices](../best-practices/subnet-design-best-practices.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
 
 ### Operations
 
 | Document | Has Sources | Status | Claims | Last Reviewed |
 |---|---|---|---|---|
-| [Configure Dns](../operations/configure-dns.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Configure Nsg](../operations/configure-nsg.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Configure Udr](../operations/configure-udr.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Connect Private Endpoints](../operations/connect-private-endpoints.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Create Vnet And Subnets](../operations/create-vnet-and-subnets.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Monitor Network Paths](../operations/monitor-network-paths.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Packet Capture And Diagnostics](../operations/packet-capture-and-diagnostics.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Peering Basics](../operations/peering-basics.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Vpn And Expressroute Basics](../operations/vpn-and-expressroute-basics.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
+| [Configure Dns](../operations/configure-dns.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Configure Nsg](../operations/configure-nsg.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Configure Udr](../operations/configure-udr.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Connect Private Endpoints](../operations/connect-private-endpoints.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Create Vnet And Subnets](../operations/create-vnet-and-subnets.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Monitor Network Paths](../operations/monitor-network-paths.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Packet Capture And Diagnostics](../operations/packet-capture-and-diagnostics.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Peering Basics](../operations/peering-basics.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Vpn And Expressroute Basics](../operations/vpn-and-expressroute-basics.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
 
 ### Troubleshooting
 
 | Document | Has Sources | Status | Claims | Last Reviewed |
 |---|---|---|---|---|
-| [Architecture Overview](../troubleshooting/architecture-overview.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Cannot Reach Private Endpoint](../troubleshooting/playbooks/connectivity/cannot-reach-private-endpoint.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Connectivity](../troubleshooting/first-10-minutes/connectivity.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Connectivity Failures](../troubleshooting/playbooks/connectivity-failures.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Decision Tree](../troubleshooting/decision-tree.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Dns](../troubleshooting/first-10-minutes/dns.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Dns Resolution Failures](../troubleshooting/playbooks/dns/dns-resolution-failures.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Evidence Map](../troubleshooting/evidence-map.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Hybrid Connectivity Issues](../troubleshooting/playbooks/routing/hybrid-connectivity-issues.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Inbound Connectivity Issues](../troubleshooting/playbooks/connectivity/inbound-connectivity-issues.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Intermittent Network Failures](../troubleshooting/playbooks/connectivity/intermittent-network-failures.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Latency And Packet Loss](../troubleshooting/playbooks/connectivity/latency-and-packet-loss.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Load Balancer Health Probe Failures](../troubleshooting/playbooks/load-balancer-health-probe-failures.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Mental Model](../troubleshooting/mental-model.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Nsg Vs Udr Vs Firewall](../troubleshooting/playbooks/routing/nsg-vs-udr-vs-firewall.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Outbound Connectivity Issues](../troubleshooting/playbooks/connectivity/outbound-connectivity-issues.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Peering And Routing Issues](../troubleshooting/playbooks/routing/peering-and-routing-issues.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Quick Diagnosis Cards](../troubleshooting/quick-diagnosis-cards.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Routing](../troubleshooting/first-10-minutes/routing.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
-| [Vpn Gateway Troubleshooting](../troubleshooting/playbooks/vpn-gateway-troubleshooting.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
+| [Architecture Overview](../troubleshooting/architecture-overview.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Cannot Reach Private Endpoint](../troubleshooting/playbooks/connectivity/cannot-reach-private-endpoint.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Connectivity](../troubleshooting/first-10-minutes/connectivity.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Connectivity Failures](../troubleshooting/playbooks/connectivity-failures.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Decision Tree](../troubleshooting/decision-tree.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Dns](../troubleshooting/first-10-minutes/dns.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Dns Resolution Failures](../troubleshooting/playbooks/dns/dns-resolution-failures.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Evidence Map](../troubleshooting/evidence-map.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Hybrid Connectivity Issues](../troubleshooting/playbooks/routing/hybrid-connectivity-issues.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Inbound Connectivity Issues](../troubleshooting/playbooks/connectivity/inbound-connectivity-issues.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Intermittent Network Failures](../troubleshooting/playbooks/connectivity/intermittent-network-failures.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Latency And Packet Loss](../troubleshooting/playbooks/connectivity/latency-and-packet-loss.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Load Balancer Health Probe Failures](../troubleshooting/playbooks/load-balancer-health-probe-failures.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Mental Model](../troubleshooting/mental-model.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Nsg Vs Udr Vs Firewall](../troubleshooting/playbooks/routing/nsg-vs-udr-vs-firewall.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Outbound Connectivity Issues](../troubleshooting/playbooks/connectivity/outbound-connectivity-issues.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Peering And Routing Issues](../troubleshooting/playbooks/routing/peering-and-routing-issues.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Quick Diagnosis Cards](../troubleshooting/quick-diagnosis-cards.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Routing](../troubleshooting/first-10-minutes/routing.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Vpn Gateway Troubleshooting](../troubleshooting/playbooks/vpn-gateway-troubleshooting.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
 
 ## Validation Status
 

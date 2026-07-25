@@ -8,16 +8,16 @@ content_sources:
       based_on:
         - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-service-endpoints-overview
 content_validation:
-  status: verified
+  status: pending_review
   last_reviewed: '2026-07-25'
   reviewer: agent
   core_claims:
     - claim: Azure Private Link provides private connectivity from a virtual network to supported Azure services and partner services.
       source: https://learn.microsoft.com/en-us/azure/private-link/private-link-overview
-      verified: true
+      verified: false
     - claim: Virtual network service endpoints extend virtual network identity to supported Azure services over the Azure backbone.
       source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-service-endpoints-overview
-      verified: true
+      verified: false
 ---
 # Private Connectivity Options
 

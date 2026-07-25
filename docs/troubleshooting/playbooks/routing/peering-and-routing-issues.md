@@ -9,16 +9,16 @@ content_sources:
         - https://learn.microsoft.com/en-us/troubleshoot/azure/virtual-network/virtual-network-troubleshoot-peering-issues
         - https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-peering-gateway-transit
 content_validation:
-  status: verified
+  status: pending_review
   last_reviewed: '2026-07-25'
   reviewer: agent
   core_claims:
     - claim: Microsoft documents troubleshooting steps for Azure virtual network peering issues that affect connectivity.
       source: https://learn.microsoft.com/en-us/troubleshoot/azure/virtual-network/virtual-network-troubleshoot-peering-issues
-      verified: true
+      verified: false
     - claim: Azure VPN Gateway supports gateway transit scenarios for peered virtual networks.
       source: https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-peering-gateway-transit
-      verified: true
+      verified: false
 ---
 # Peering and Routing Issues
 

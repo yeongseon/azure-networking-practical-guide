@@ -9,16 +9,16 @@ content_sources:
         - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-vnet-plan-design-arm
         - https://learn.microsoft.com/en-us/azure/well-architected/service-guides/virtual-network
 content_validation:
-  status: verified
+  status: pending_review
   last_reviewed: '2026-07-25'
   reviewer: agent
   core_claims:
     - claim: Azure subnets can be created and managed inside a virtual network to segment workloads and apply per-subnet controls.
       source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-manage-subnet
-      verified: true
+      verified: false
     - claim: Azure virtual network planning guidance recommends reserving address space to accommodate platform services and future growth.
       source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-vnet-plan-design-arm
-      verified: true
+      verified: false
 ---
 # Subnet Design Best Practices
 
