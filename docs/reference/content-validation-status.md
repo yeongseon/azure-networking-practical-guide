@@ -16,13 +16,14 @@ This page tracks `content_validation` metadata for **in-scope factual-claim docu
 | Content Type | Total | Verified | Pending | Unverified | No Metadata |
 |---|---:|---:|---:|---:|---:|
 | Mermaid Diagrams | 85 | 85 | 0 | 0 | 0 |
-| In-Scope Factual-Claim Documents | 48 | 0 | 48 | 0 | 0 |
+| In-Scope Factual-Claim Documents | 48 | 16 | 32 | 0 | 0 |
 
 
 <!-- diagram-id: content-validation-status-pie -->
 ```mermaid
 pie title In-Scope Document Validation Status
-    "Pending Review" : 48
+    "Verified" : 16
+    "Pending Review" : 32
 ```
 
 ## By Section
@@ -46,29 +47,29 @@ pie title In-Scope Document Validation Status
 | Document | Has Sources | Status | Claims | Last Reviewed |
 |---|---|---|---|---|
 | [Common Anti Patterns](../best-practices/common-anti-patterns.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
-| [Cost Awareness Best Practices](../best-practices/cost-awareness-best-practices.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
-| [Dns Best Practices](../best-practices/dns-best-practices.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
-| [Hybrid Connectivity Best Practices](../best-practices/hybrid-connectivity-best-practices.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Cost Awareness Best Practices](../best-practices/cost-awareness-best-practices.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
+| [Dns Best Practices](../best-practices/dns-best-practices.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
+| [Hybrid Connectivity Best Practices](../best-practices/hybrid-connectivity-best-practices.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
 | [Network Design Baseline](../best-practices/network-design-baseline.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
-| [Nsg And Firewall Best Practices](../best-practices/nsg-and-firewall-best-practices.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
-| [Observability Best Practices](../best-practices/observability-best-practices.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
-| [Private Endpoint Best Practices](../best-practices/private-endpoint-best-practices.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
-| [Routing Best Practices](../best-practices/routing-best-practices.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Nsg And Firewall Best Practices](../best-practices/nsg-and-firewall-best-practices.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
+| [Observability Best Practices](../best-practices/observability-best-practices.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
+| [Private Endpoint Best Practices](../best-practices/private-endpoint-best-practices.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
+| [Routing Best Practices](../best-practices/routing-best-practices.md) | ✅ | ✅ Verified | 2/2 | 2026-07-25 |
 | [Subnet Design Best Practices](../best-practices/subnet-design-best-practices.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
 
 ### Operations
 
 | Document | Has Sources | Status | Claims | Last Reviewed |
 |---|---|---|---|---|
-| [Configure Dns](../operations/configure-dns.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
-| [Configure Nsg](../operations/configure-nsg.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
-| [Configure Udr](../operations/configure-udr.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
-| [Connect Private Endpoints](../operations/connect-private-endpoints.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
-| [Create Vnet And Subnets](../operations/create-vnet-and-subnets.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
-| [Monitor Network Paths](../operations/monitor-network-paths.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
-| [Packet Capture And Diagnostics](../operations/packet-capture-and-diagnostics.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
-| [Peering Basics](../operations/peering-basics.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
-| [Vpn And Expressroute Basics](../operations/vpn-and-expressroute-basics.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Configure Dns](../operations/configure-dns.md) | ✅ | ✅ Verified | 3/3 | 2026-07-25 |
+| [Configure Nsg](../operations/configure-nsg.md) | ✅ | ✅ Verified | 3/3 | 2026-07-25 |
+| [Configure Udr](../operations/configure-udr.md) | ✅ | ✅ Verified | 3/3 | 2026-07-25 |
+| [Connect Private Endpoints](../operations/connect-private-endpoints.md) | ✅ | ✅ Verified | 3/3 | 2026-07-25 |
+| [Create Vnet And Subnets](../operations/create-vnet-and-subnets.md) | ✅ | ✅ Verified | 3/3 | 2026-07-25 |
+| [Monitor Network Paths](../operations/monitor-network-paths.md) | ✅ | ✅ Verified | 3/3 | 2026-07-25 |
+| [Packet Capture And Diagnostics](../operations/packet-capture-and-diagnostics.md) | ✅ | ✅ Verified | 3/3 | 2026-07-25 |
+| [Peering Basics](../operations/peering-basics.md) | ✅ | ✅ Verified | 3/3 | 2026-07-25 |
+| [Vpn And Expressroute Basics](../operations/vpn-and-expressroute-basics.md) | ✅ | ✅ Verified | 3/3 | 2026-07-25 |
 
 ### Troubleshooting
 
