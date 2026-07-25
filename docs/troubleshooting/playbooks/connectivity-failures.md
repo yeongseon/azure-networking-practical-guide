@@ -4,13 +4,23 @@ content_sources:
     - id: symptoms
       type: flowchart
       source: self-generated
-      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      justification: Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation.
       based_on:
         - https://learn.microsoft.com/en-us/azure/network-watcher/connection-monitor-overview
         - https://learn.microsoft.com/en-us/azure/virtual-network/diagnose-network-routing-problem
         - https://learn.microsoft.com/en-us/azure/virtual-network/network-security-group-how-it-works
+content_validation:
+  status: pending_review
+  last_reviewed: '2026-07-25'
+  reviewer: agent
+  core_claims:
+    - claim: Connection Monitor can be used to observe and validate connectivity between Azure and hybrid endpoints.
+      source: https://learn.microsoft.com/en-us/azure/network-watcher/connection-monitor-overview
+      verified: false
+    - claim: NSG evaluation affects whether traffic is permitted or denied for a flow.
+      source: https://learn.microsoft.com/en-us/azure/virtual-network/network-security-group-how-it-works
+      verified: false
 ---
-
 # Connectivity Failures
 
 ## 1. Summary

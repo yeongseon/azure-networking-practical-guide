@@ -4,14 +4,24 @@ content_sources:
     - id: symptoms
       type: flowchart
       source: self-generated
-      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      justification: Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation.
       based_on:
         - https://learn.microsoft.com/en-us/azure/dns/dns-troubleshoot
         - https://learn.microsoft.com/en-us/azure/dns/private-dns-overview
         - https://learn.microsoft.com/en-us/azure/dns/dns-private-resolver-overview
         - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
+content_validation:
+  status: pending_review
+  last_reviewed: '2026-07-25'
+  reviewer: agent
+  core_claims:
+    - claim: Azure DNS troubleshooting guidance includes steps for isolating common name-resolution failures.
+      source: https://learn.microsoft.com/en-us/azure/dns/dns-troubleshoot
+      verified: false
+    - claim: Azure DNS Private Resolver supports hybrid and cross-network private DNS resolution scenarios.
+      source: https://learn.microsoft.com/en-us/azure/dns/dns-private-resolver-overview
+      verified: false
 ---
-
 # DNS Resolution Failures
 
 !!! note "Playbook consolidation"

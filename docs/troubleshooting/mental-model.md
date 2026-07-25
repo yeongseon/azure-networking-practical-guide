@@ -4,19 +4,29 @@ content_sources:
     - id: core-model
       type: flowchart
       source: self-generated
-      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      justification: Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation.
       based_on:
         - https://learn.microsoft.com/en-us/azure/virtual-network/
         - https://learn.microsoft.com/en-us/azure/network-watcher/
     - id: practical-classification-flow
       type: flowchart
       source: self-generated
-      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      justification: Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation.
       based_on:
         - https://learn.microsoft.com/en-us/azure/virtual-network/
         - https://learn.microsoft.com/en-us/azure/network-watcher/
+content_validation:
+  status: pending_review
+  last_reviewed: '2026-07-25'
+  reviewer: agent
+  core_claims:
+    - claim: Azure Virtual Network is the foundational network isolation construct for Azure resources.
+      source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
+      verified: false
+    - claim: Azure Network Watcher provides monitoring and diagnostics to investigate Azure network behavior.
+      source: https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-overview
+      verified: false
 ---
-
 # Troubleshooting Mental Model
 
 The goal is not to guess the fix first. The goal is to identify the first broken layer and then prove or disprove competing hypotheses quickly.

@@ -4,12 +4,22 @@ content_sources:
     - id: summary
       type: flowchart
       source: self-generated
-      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      justification: Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation.
       based_on:
         - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-test-latency
         - https://learn.microsoft.com/en-us/azure/expressroute/monitor-expressroute
+content_validation:
+  status: pending_review
+  last_reviewed: '2026-07-25'
+  reviewer: agent
+  core_claims:
+    - claim: Azure documents methods for testing network latency inside virtual networks.
+      source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-test-latency
+      verified: false
+    - claim: ExpressRoute monitoring guidance includes visibility into network performance characteristics.
+      source: https://learn.microsoft.com/en-us/azure/expressroute/monitor-expressroute
+      verified: false
 ---
-
 # Latency and Packet Loss
 
 ## 1. Summary

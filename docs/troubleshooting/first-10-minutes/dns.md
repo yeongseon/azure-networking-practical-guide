@@ -4,12 +4,22 @@ content_sources:
     - id: quick-context
       type: flowchart
       source: self-generated
-      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      justification: Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation.
       based_on:
         - https://learn.microsoft.com/en-us/azure/dns/dns-troubleshoot
         - https://learn.microsoft.com/en-us/azure/dns/private-dns-overview
+content_validation:
+  status: pending_review
+  last_reviewed: '2026-07-25'
+  reviewer: agent
+  core_claims:
+    - claim: Azure DNS troubleshooting guidance covers common DNS resolution issues and diagnostic steps.
+      source: https://learn.microsoft.com/en-us/azure/dns/dns-troubleshoot
+      verified: false
+    - claim: Azure Private DNS provides private zone-based name resolution for resources in virtual networks.
+      source: https://learn.microsoft.com/en-us/azure/dns/private-dns-overview
+      verified: false
 ---
-
 # First 10 Minutes: DNS
 
 ## Quick Context

@@ -7,8 +7,18 @@ content_sources:
       mslearn_url: https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-about-vpngateways
       based_on:
         - https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction
+content_validation:
+  status: pending_review
+  last_reviewed: '2026-07-25'
+  reviewer: agent
+  core_claims:
+    - claim: Azure VPN Gateway provides cross-premises connectivity options for virtual networks.
+      source: https://learn.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-about-vpngateways
+      verified: false
+    - claim: Azure ExpressRoute provides private connectivity that does not traverse the public Internet.
+      source: https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction
+      verified: false
 ---
-
 # VPN and ExpressRoute Basics
 
 Hybrid connectivity extends on-premises networks to Azure.

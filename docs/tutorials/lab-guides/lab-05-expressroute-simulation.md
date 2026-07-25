@@ -8,8 +8,14 @@ content_sources:
       based_on:
         - https://learn.microsoft.com/en-us/azure/vpn-gateway/bgp-howto
         - https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction
+validation:
+  az_cli:
+    last_tested:
+    result: not_tested
+  bicep:
+    last_tested:
+    result: not_tested
 ---
-
 # Lab 05: ExpressRoute Simulation
 
 Simulate ExpressRoute-style failover thinking without provisioning a real circuit by combining a hub VNet, a VPN gateway, local network gateway prefixes, and controlled route inspection. The goal is to learn route preference, failover expectations, and validation habits.

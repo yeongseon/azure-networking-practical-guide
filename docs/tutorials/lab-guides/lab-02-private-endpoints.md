@@ -8,8 +8,14 @@ content_sources:
       based_on:
         - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
         - https://learn.microsoft.com/en-us/azure/storage/common/storage-private-endpoints
+validation:
+  az_cli:
+    last_tested:
+    result: not_tested
+  bicep:
+    last_tested:
+    result: not_tested
 ---
-
 # Lab 02: Private Endpoints
 
 Create a private endpoint for a storage account, wire up Private DNS, validate private access from a client subnet, and practice the exact checks used when private link deployments look healthy but application traffic still fails.

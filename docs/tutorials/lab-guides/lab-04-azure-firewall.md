@@ -8,8 +8,14 @@ content_sources:
       based_on:
         - https://learn.microsoft.com/en-us/azure/firewall/deploy-cli
         - https://learn.microsoft.com/en-us/azure/firewall/firewall-diagnostics
+validation:
+  az_cli:
+    last_tested:
+    result: not_tested
+  bicep:
+    last_tested:
+    result: not_tested
 ---
-
 # Lab 04: Azure Firewall
 
 Deploy Azure Firewall with a simple spoke subnet, force egress through the firewall using a route table, and validate both allowed and denied traffic so teams can learn how routing and firewall policy interact in practice.

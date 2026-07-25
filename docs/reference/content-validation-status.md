@@ -1,133 +1,135 @@
 ---
-description: Diagram source metadata policy for the Azure Networking practical guide, and the CI tooling that keeps that metadata honest today.
 content_sources:
-  diagrams:
-    - id: summary
-      type: pie
-      source: self-generated
-      justification: "Manually authored summary of repository diagram-source declarations. Not regenerated from live repo state."
-      based_on:
-        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
-        - https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
-        - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview
-        - https://learn.microsoft.com/en-us/azure/dns/dns-overview
-        - https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction
+  references:
+    - type: self-generated
+      justification: Auto-generated dashboard tracking content validation status
 ---
 
-# Content Source Validation Status
+# Content Validation Status
 
-This page describes how diagram and content sources are declared in this repository, and what tooling is available today to validate those declarations.
+This page tracks `content_validation` metadata for **in-scope factual-claim documents** under `docs/best-practices/`, `docs/operations/`, `docs/platform/`, `docs/troubleshooting/`. Pages outside this scope — navigation indexes (`docs/best-practices/index.md`, `docs/operations/index.md`, `docs/platform/index.md`, `docs/troubleshooting/first-10-minutes/index.md`, `docs/troubleshooting/index.md`, `docs/troubleshooting/playbooks/index.md`), tutorials, reference pages, and excluded troubleshooting subpaths (`docs/troubleshooting/kql/`, `docs/troubleshooting/lab-guides/`) — are not counted here. See `scripts/lib/content_scope.py` for the executable scope definition.
 
-!!! note "Current state"
-    Diagram-level source metadata (`content_sources.diagrams`) is used across the repository, and the tooling below runs in CI to keep that metadata honest. **Document-level `content_validation` metadata is not yet adopted in this repository** — the schema is documented in [AGENTS.md](https://github.com/yeongseon/azure-networking-practical-guide/blob/main/AGENTS.md) as an aspirational policy and is tracked as future work. Do not read the absence of `content_validation` blocks as a validation failure; read it as "not yet implemented."
+## Summary
 
-## Diagram Inventory Snapshot
+*Generated: 2026-07-25*
 
-*Snapshot date: 2026-04-10. Manually authored — this table does not update automatically when diagrams are added or reclassified.*
+| Content Type | Total | Verified | Pending | Unverified | No Metadata |
+|---|---:|---:|---:|---:|---:|
+| Mermaid Diagrams | 85 | 85 | 0 | 0 | 0 |
+| In-Scope Factual-Claim Documents | 48 | 0 | 48 | 0 | 0 |
 
-| Content Type | Total | MSLearn Adapted | Self-Generated | No Source |
-|---|---:|---:|---:|---:|
-| Mermaid Diagrams | 81 | 34 | 47 | 0 |
 
-<!-- diagram-id: summary -->
+<!-- diagram-id: content-validation-status-pie -->
 ```mermaid
-pie title Content Source Status
-    "MSLearn Adapted" : 34
-    "Self-Generated" : 47
+pie title In-Scope Document Validation Status
+    "Pending Review" : 48
 ```
 
-A text-sections row was previously shown on this page with placeholder dashes. It has been removed because no text-level `content_validation` metadata is currently enforced or inventoried.
+## By Section
 
-## Source Type Policy
+### Platform
 
-The `content_sources.diagrams[].source` field must be one of the three values below. These are the exact set accepted by `scripts/validate_content_sources.py` today; any other value causes CI to fail.
+| Document | Has Sources | Status | Claims | Last Reviewed |
+|---|---|---|---|---|
+| [Dns Basics](../platform/dns-basics.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [How Azure Networking Works](../platform/how-azure-networking-works.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Hybrid Connectivity Basics](../platform/hybrid-connectivity-basics.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Ip Addressing](../platform/ip-addressing.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Load Balancing Options](../platform/load-balancing-options.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Network Security Basics](../platform/network-security-basics.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Private Connectivity Options](../platform/private-connectivity-options.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Routing Basics](../platform/routing-basics.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Vnet And Subnet Basics](../platform/vnet-and-subnet-basics.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
 
-| Type | Description | Additional requirement |
-|---|---|---|
-| `mslearn` | Content directly from Microsoft Learn | `mslearn_url` OR a non-empty `based_on` list |
-| `mslearn-adapted` | Content adapted or synthesized from Microsoft Learn | `mslearn_url` OR a non-empty `based_on` list |
-| `self-generated` | Original content created for this guide | `justification` field |
+### Best Practices
 
-!!! note "Broader source vocabulary in AGENTS.md"
-    [AGENTS.md](https://github.com/yeongseon/azure-networking-practical-guide/blob/main/AGENTS.md) also references `community` and `unknown` source categories as part of the aspirational content-validation policy. Those values are **not** currently accepted by the validator on any Mermaid page in this repository; they belong to the same "not yet implemented" bucket as document-level `content_validation` metadata.
+| Document | Has Sources | Status | Claims | Last Reviewed |
+|---|---|---|---|---|
+| [Common Anti Patterns](../best-practices/common-anti-patterns.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Cost Awareness Best Practices](../best-practices/cost-awareness-best-practices.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Dns Best Practices](../best-practices/dns-best-practices.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Hybrid Connectivity Best Practices](../best-practices/hybrid-connectivity-best-practices.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Network Design Baseline](../best-practices/network-design-baseline.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Nsg And Firewall Best Practices](../best-practices/nsg-and-firewall-best-practices.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Observability Best Practices](../best-practices/observability-best-practices.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Private Endpoint Best Practices](../best-practices/private-endpoint-best-practices.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Routing Best Practices](../best-practices/routing-best-practices.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Subnet Design Best Practices](../best-practices/subnet-design-best-practices.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
 
-## How Diagram Sources Are Declared
+### Operations
 
-### Step 1: Add `content_sources` to the document frontmatter
+| Document | Has Sources | Status | Claims | Last Reviewed |
+|---|---|---|---|---|
+| [Configure Dns](../operations/configure-dns.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Configure Nsg](../operations/configure-nsg.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Configure Udr](../operations/configure-udr.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Connect Private Endpoints](../operations/connect-private-endpoints.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Create Vnet And Subnets](../operations/create-vnet-and-subnets.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Monitor Network Paths](../operations/monitor-network-paths.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Packet Capture And Diagnostics](../operations/packet-capture-and-diagnostics.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Peering Basics](../operations/peering-basics.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Vpn And Expressroute Basics](../operations/vpn-and-expressroute-basics.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+
+### Troubleshooting
+
+| Document | Has Sources | Status | Claims | Last Reviewed |
+|---|---|---|---|---|
+| [Architecture Overview](../troubleshooting/architecture-overview.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Cannot Reach Private Endpoint](../troubleshooting/playbooks/connectivity/cannot-reach-private-endpoint.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Connectivity](../troubleshooting/first-10-minutes/connectivity.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Connectivity Failures](../troubleshooting/playbooks/connectivity-failures.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Decision Tree](../troubleshooting/decision-tree.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Dns](../troubleshooting/first-10-minutes/dns.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Dns Resolution Failures](../troubleshooting/playbooks/dns/dns-resolution-failures.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Evidence Map](../troubleshooting/evidence-map.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Hybrid Connectivity Issues](../troubleshooting/playbooks/routing/hybrid-connectivity-issues.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Inbound Connectivity Issues](../troubleshooting/playbooks/connectivity/inbound-connectivity-issues.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Intermittent Network Failures](../troubleshooting/playbooks/connectivity/intermittent-network-failures.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Latency And Packet Loss](../troubleshooting/playbooks/connectivity/latency-and-packet-loss.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Load Balancer Health Probe Failures](../troubleshooting/playbooks/load-balancer-health-probe-failures.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Mental Model](../troubleshooting/mental-model.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Nsg Vs Udr Vs Firewall](../troubleshooting/playbooks/routing/nsg-vs-udr-vs-firewall.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Outbound Connectivity Issues](../troubleshooting/playbooks/connectivity/outbound-connectivity-issues.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Peering And Routing Issues](../troubleshooting/playbooks/routing/peering-and-routing-issues.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Quick Diagnosis Cards](../troubleshooting/quick-diagnosis-cards.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Routing](../troubleshooting/first-10-minutes/routing.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+| [Vpn Gateway Troubleshooting](../troubleshooting/playbooks/vpn-gateway-troubleshooting.md) | ✅ | ⚠️ Pending Review | 0/2 | 2026-07-25 |
+
+## Validation Status
+
+| Status | Description |
+|---|---|
+| `verified` | All core claims traced to Microsoft Learn sources |
+| `pending_review` | Document exists but claims need source verification |
+| `unverified` | New document, no validation performed |
+
+## How to Add Validation
+
+For an in-scope page, add a `content_validation` block to its frontmatter:
 
 ```yaml
 ---
-content_sources:
-  diagrams:
-    - id: architecture
-      type: flowchart
-      source: mslearn-adapted
-      based_on:
-        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
+content_validation:
+  status: verified
+  last_reviewed: 2026-07-25
+  reviewer: agent
+  core_claims:
+    - claim: "Azure Virtual Network supports isolated private IP address spaces for Azure resources."
+      source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
+      verified: true
 ---
 ```
 
-### Step 2: Mark each Mermaid block with its `diagram-id`
+Each `core_claim` must be a verifiable factual assertion about Azure networking behavior. Claims containing `primary source basis` are rejected as tautological placeholders.
 
-```markdown
-<!-- diagram-id: architecture -->
-​```mermaid
-flowchart TD
-    A --> B
-​```
-```
-
-### Step 3: Run the diagram source validator
+Then regenerate this page:
 
 ```bash
-python3 scripts/validate_content_sources.py
+python3 scripts/generate_content_validation_status.py
 ```
-
-This is the same validator that runs in the `Validate Content Sources` CI workflow.
-
-## Tooling Available in This Repository
-
-The following scripts run against the repository today. There is no dashboard-generator script in this repository, so this page is maintained manually rather than being regenerated.
-
-| Script | Purpose | Where it runs |
-|---|---|---|
-| `scripts/validate_content_sources.py` | Enforces that every Mermaid block has a `diagram-id` HTML comment and a matching `content_sources.diagrams[]` entry with a valid `source` value. | **Blocking** PR check (`Validate Content Sources`) |
-| `scripts/validate_mermaid_format.py` | Enforces Mermaid orientation rules and formatting conventions. | **Blocking** PR check (same workflow) |
-| `scripts/validate_mermaid_syntax.py` | Parses each Mermaid block to catch syntax errors before build. | **Blocking** PR check (same workflow) |
-| `scripts/validate_mslearn_urls.py` | Checks that Microsoft Learn URLs cited in `content_sources` are reachable. | **Reporting only:** runs on push to `main` with `continue-on-error`, not a blocking PR gate |
-| `scripts/generate_validation_status.py` | Regenerates `docs/reference/validation-status.md` — the **tutorial** validation dashboard, not this page. | Manual invocation by contributors |
-
-There is intentionally no `scripts/generate_content_validation_status.py` in this repository. Earlier revisions of this page referenced one, which was misleading; this page is authored by hand.
-
-## Validation Rules Enforced Today
-
-!!! danger "Enforced in CI"
-    1. Every Mermaid block must have a `diagram-id` HTML comment.
-    2. Every declared `diagram-id` must have a matching `content_sources.diagrams[]` entry.
-    3. `mslearn-adapted` and `mslearn` diagrams must have either an `mslearn_url` field or a **non-empty** `based_on` list. The validator does **not** currently verify that every `based_on` URL points to `learn.microsoft.com`; that is a repository convention, not an enforced rule.
-    4. `self-generated` diagrams must include a `justification` field.
-    5. Mermaid syntax must parse successfully.
-
-## Official Microsoft Learn References
-
-Use these official sources when declaring diagram provenance:
-
-| Topic | Microsoft Learn URL |
-|---|---|
-| Virtual network overview | <https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview> |
-| Subnets | <https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-manage-subnet> |
-| IP addressing | <https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/virtual-network-ip-addresses-overview> |
-| DNS | <https://learn.microsoft.com/en-us/azure/dns/dns-overview> |
-| Routing | <https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview> |
-| Network security groups | <https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview> |
-| Private endpoints | <https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview> |
-| Hybrid networking | <https://learn.microsoft.com/en-us/azure/networking/fundamentals/networking-overview> |
 
 ## See Also
 
 - [Tutorial Validation Status](validation-status.md)
-- [Reference Index](index.md)
+- [Connectivity Decision Guide](connectivity-decision-guide.md)
 
-## Sources
-
-- <https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview>

@@ -4,13 +4,23 @@ content_sources:
     - id: symptoms
       type: flowchart
       source: self-generated
-      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      justification: Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation.
       based_on:
         - https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-custom-probe-overview
         - https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-troubleshoot-health-probe-status
         - https://learn.microsoft.com/en-us/azure/load-balancer/quickstart-load-balancer-standard-public-portal
+content_validation:
+  status: pending_review
+  last_reviewed: '2026-07-25'
+  reviewer: agent
+  core_claims:
+    - claim: Azure Load Balancer uses health probes to determine backend instance availability.
+      source: https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-custom-probe-overview
+      verified: false
+    - claim: Microsoft documents specific troubleshooting steps for unhealthy Azure Load Balancer probe states.
+      source: https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-troubleshoot-health-probe-status
+      verified: false
 ---
-
 # Load Balancer Health Probe Failures
 
 ## 1. Summary

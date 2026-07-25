@@ -8,8 +8,18 @@ content_sources:
       based_on:
         - https://learn.microsoft.com/en-us/azure/firewall/firewall-faq
         - https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-monitoring-overview
+content_validation:
+  status: pending_review
+  last_reviewed: '2026-07-25'
+  reviewer: agent
+  core_claims:
+    - claim: Azure Cost Management supports cost analysis views for investigating Azure spending patterns.
+      source: https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/cost-analysis-common-uses
+      verified: false
+    - claim: Azure Firewall pricing and operational characteristics can materially affect networking cost decisions.
+      source: https://learn.microsoft.com/en-us/azure/firewall/firewall-faq
+      verified: false
 ---
-
 # Cost Awareness Best Practices
 
 Azure networking costs come from architecture choices as much as from raw traffic volume, especially around gateways, firewalls, peering, and logs.

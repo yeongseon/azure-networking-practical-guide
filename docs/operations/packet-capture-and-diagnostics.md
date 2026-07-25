@@ -7,8 +7,18 @@ content_sources:
       mslearn_url: https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-connectivity-portal
       based_on:
         - https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-packet-capture-overview
+content_validation:
+  status: pending_review
+  last_reviewed: '2026-07-25'
+  reviewer: agent
+  core_claims:
+    - claim: Azure Network Watcher includes connectivity diagnostic tooling for investigating network issues.
+      source: https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-connectivity-portal
+      verified: false
+    - claim: Azure Network Watcher packet capture collects network traces from virtual machine instances for troubleshooting.
+      source: https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-packet-capture-overview
+      verified: false
 ---
-
 # Packet Capture and Diagnostics
 
 Advanced tools for deep network investigation.

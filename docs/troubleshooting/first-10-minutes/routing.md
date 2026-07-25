@@ -4,12 +4,22 @@ content_sources:
     - id: quick-context
       type: flowchart
       source: self-generated
-      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      justification: Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation.
       based_on:
         - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
         - https://learn.microsoft.com/en-us/troubleshoot/azure/virtual-network/virtual-network-troubleshoot-peering-issues
+content_validation:
+  status: pending_review
+  last_reviewed: '2026-07-25'
+  reviewer: agent
+  core_claims:
+    - claim: Azure user-defined routes can change default path selection for subnet traffic.
+      source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
+      verified: false
+    - claim: Microsoft documents troubleshooting steps for Azure virtual network peering issues that affect routing and reachability.
+      source: https://learn.microsoft.com/en-us/troubleshoot/azure/virtual-network/virtual-network-troubleshoot-peering-issues
+      verified: false
 ---
-
 # First 10 Minutes: Routing
 
 ## Quick Context

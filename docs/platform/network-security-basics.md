@@ -7,8 +7,18 @@ content_sources:
       mslearn_url: https://learn.microsoft.com/en-us/azure/networking/fundamentals/networking-overview#network-security
       based_on:
         - https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
+content_validation:
+  status: pending_review
+  last_reviewed: '2026-07-25'
+  reviewer: agent
+  core_claims:
+    - claim: Azure networking includes network security controls such as NSGs, Azure Firewall, and DDoS protection.
+      source: https://learn.microsoft.com/en-us/azure/networking/fundamentals/networking-overview#network-security
+      verified: false
+    - claim: Network security groups evaluate inbound and outbound traffic by using ordered security rules.
+      source: https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
+      verified: false
 ---
-
 # Network Security Basics
 
 Azure network security is based on a zero-trust model, implementing multiple layers of defense to protect resources from unauthorized access.

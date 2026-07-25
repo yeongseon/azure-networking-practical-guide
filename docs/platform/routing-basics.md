@@ -7,8 +7,18 @@ content_sources:
       mslearn_url: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
       based_on:
         - https://learn.microsoft.com/en-us/azure/virtual-network/tutorial-create-route-table-portal
+content_validation:
+  status: pending_review
+  last_reviewed: '2026-07-25'
+  reviewer: agent
+  core_claims:
+    - claim: Azure route tables let you define user-defined routes that override Azure default system routes for subnet traffic.
+      source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
+      verified: false
+    - claim: Azure supports associating a route table with a subnet to influence where packets are forwarded.
+      source: https://learn.microsoft.com/en-us/azure/virtual-network/tutorial-create-route-table-portal
+      verified: false
 ---
-
 # Routing Basics
 
 Azure automatically creates system routes for each subnet in a VNet. User-Defined Routes (UDR) allow you to override these default system routes to steer traffic through virtual appliances or gateways.

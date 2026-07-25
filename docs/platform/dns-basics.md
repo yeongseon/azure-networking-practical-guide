@@ -7,8 +7,18 @@ content_sources:
       mslearn_url: https://learn.microsoft.com/en-us/azure/dns/dns-overview
       based_on:
         - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
+content_validation:
+  status: pending_review
+  last_reviewed: '2026-07-25'
+  reviewer: agent
+  core_claims:
+    - claim: Azure DNS hosts DNS domains and provides name resolution by using Azure infrastructure.
+      source: https://learn.microsoft.com/en-us/azure/dns/dns-overview
+      verified: false
+    - claim: Private endpoint deployments require DNS configuration so the private FQDN resolves to the endpoint private IP address.
+      source: https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
+      verified: false
 ---
-
 # DNS Basics
 
 DNS provides name resolution for Azure services, both within a VNet and across hybrid environments. Proper configuration is critical for service connectivity, especially when using Private Endpoints.

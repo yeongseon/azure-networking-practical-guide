@@ -147,8 +147,9 @@ def generate_dashboard(tutorials: list[dict[str, Any]], today: date) -> str:
     lines.append(f"| ❌ Failed | {failed} |")
     lines.append(f"| ➖ Not tested | {not_tested} |")
     lines.append("")
+    lines.append("<!-- diagram-id: tutorial-validation-status-pie -->")
     lines.append("```mermaid")
-    lines.append('pie title Tutorial Validation Status')
+    lines.append("pie title Tutorial Validation Status")
     if validated > 0:
         lines.append(f'    "Validated" : {validated}')
     if stale > 0:
@@ -219,7 +220,7 @@ def generate_dashboard(tutorials: list[dict[str, Any]], today: date) -> str:
     lines.append("python3 scripts/generate_validation_status.py")
     lines.append("```")
     lines.append("")
-    lines.append("!!! info \"Validation fields\"")
+    lines.append('!!! info "Validation fields"')
     lines.append("    - `result`: `pass`, `fail`, or `not_tested`")
     lines.append("    - `last_tested`: ISO date (YYYY-MM-DD) or `null`")
     lines.append("    - `cli_version`: Azure CLI version used")

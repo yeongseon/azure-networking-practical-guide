@@ -7,8 +7,18 @@ content_sources:
       mslearn_url: https://learn.microsoft.com/en-us/azure/architecture/guide/technology-choices/load-balancing-overview
       based_on:
         - https://learn.microsoft.com/en-us/azure/architecture/guide/technology-choices/load-balancing-overview#choose-a-load-balancing-solution-for-your-scenario
+content_validation:
+  status: pending_review
+  last_reviewed: '2026-07-25'
+  reviewer: agent
+  core_claims:
+    - claim: Azure provides multiple load-balancing services, and the recommended choice depends on the traffic type and architecture scenario.
+      source: https://learn.microsoft.com/en-us/azure/architecture/guide/technology-choices/load-balancing-overview
+      verified: false
+    - claim: Microsoft documents a decision framework for choosing an Azure load-balancing solution for a given scenario.
+      source: https://learn.microsoft.com/en-us/azure/architecture/guide/technology-choices/load-balancing-overview#choose-a-load-balancing-solution-for-your-scenario
+      verified: false
 ---
-
 # Load Balancing Options
 
 Azure offers several services to distribute traffic across your applications. Choosing the right one depends on the layer of the OSI model you need to operate at and the scope of your application.
