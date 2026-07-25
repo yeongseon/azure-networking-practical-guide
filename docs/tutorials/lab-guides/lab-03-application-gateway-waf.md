@@ -94,9 +94,9 @@ Keep Application Gateway isolated in its own subnet. That pattern matters in pro
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Verify that the Application Gateway subnet is dedicated and that no backend workload is placed into it.
+- Record the exact subnet prefixes because later backend-health or scaling issues are often rooted in bad subnet layout.
+- Save the VNet output now so you can prove the gateway started from a supported topology.
 
 ### Step 2: Deploy the backend and public IP
 
@@ -141,9 +141,9 @@ Install a simple web server on the backend or adapt to a prebuilt image with an 
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Confirm that the backend VM lands in the backend subnet and that the gateway public IP is Standard and Static.
+- Capture the backend private IP because the gateway creation step depends on the right target address.
+- If the backend host is wrong here, later probe failures may look like WAF or listener problems when they are not.
 
 ### Step 3: Create a WAF policy and Application Gateway
 
@@ -194,9 +194,9 @@ If your backend IP differs, replace the server address with the backend NIC priv
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Wait for the gateway deployment to finish and record the frontend configuration and backend target you used.
+- Save the gateway creation output because it becomes the control-plane baseline for every later health and WAF check.
+- If you had to substitute a different backend IP, note that now so probe evidence remains interpretable.
 
 ### Step 4: Attach a custom health probe and inspect backend health
 
@@ -237,9 +237,9 @@ Backend health is the single most useful command during ingress incidents.
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Confirm that backend health turns Healthy with the intended probe configuration before you enable any failure drill.
+- Save the backend-health output because it shows the exact transition from configuration to runtime evidence.
+- If the pool is unhealthy here, fix the backend listener or probe path before continuing to diagnostics.
 
 ### Step 5: Enable diagnostics and review WAF/Application Gateway state
 
@@ -272,9 +272,9 @@ This step shows how to connect control-plane configuration with runtime evidence
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Verify that diagnostics start flowing to the workspace and that gateway health metrics return values.
+- Capture one metric snapshot so you can compare healthy and unhealthy states after the probe failure drill.
+- This is the evidence bridge between control-plane settings and what operators actually monitor during ingress incidents.
 
 ### Step 6: Practice a probe failure and recovery
 
@@ -311,9 +311,9 @@ This reproduces one of the most common Application Gateway incidents in a safe w
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Save the backend-health output before and after changing the probe path so the failure transition is explicit.
+- Compare the unhealthy state with the earlier healthy metric snapshot to distinguish backend issues from listener or WAF issues.
+- Restoring the probe path should give you a clear pre-fix and post-fix evidence pair for future troubleshooting notes.
 
 ## Validation Steps
 
