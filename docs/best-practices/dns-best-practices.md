@@ -4,66 +4,50 @@ content_sources:
     - id: why-this-matters
       type: flowchart
       source: mslearn-adapted
-      mslearn_url: https://learn.microsoft.com/en-us/azure/dns/dns-overview
       based_on:
-        - https://learn.microsoft.com/en-us/azure/well-architected/service-guides/virtual-network
+        - https://learn.microsoft.com/en-us/azure/dns/dns-overview
+        - https://learn.microsoft.com/en-us/azure/dns/dns-private-resolver-overview
+        - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
 content_validation:
-  status: pending_review
-  last_reviewed: '2026-07-25'
+  status: verified
+  last_reviewed: 2026-07-25
   reviewer: agent
   core_claims:
-    - claim: Azure DNS provides hosting and resolution capabilities for public DNS zones.
+    - claim: Azure DNS hosts public DNS domains and provides name resolution by using Azure infrastructure.
       source: https://learn.microsoft.com/en-us/azure/dns/dns-overview
-      verified: false
-    - claim: Well-Architected Azure networking guidance treats reliable name resolution as part of sound virtual network design.
-      source: https://learn.microsoft.com/en-us/azure/well-architected/service-guides/virtual-network
-      verified: false
+      verified: true
+    - claim: Azure DNS Private Resolver enables name resolution between Azure private DNS zones and on-premises DNS environments without deploying VM-based DNS forwarders.
+      source: https://learn.microsoft.com/en-us/azure/dns/dns-private-resolver-overview
+      verified: true
 ---
 # DNS Best Practices
 
-Azure DNS design needs to make private, public, and hybrid name resolution predictable for operators and transparent for workloads.
+DNS guidance for Azure networking should explain who is authoritative for each namespace, how split-horizon answers are intended to behave, and how operators verify resolver paths across Azure and hybrid boundaries.
 
 ## Why This Matters
 
-Resolve from the right place, with the right zone, through the right forwarder chain.
+DNS failures look random until the forwarder chain is mapped. One subnet resolves a private IP, another resolves the public endpoint, and on-premises clients may use an entirely different chain again.
 
-In Azure, networking changes often look correct in the control plane while failing in the data plane. That is why good practices must combine architecture, CLI validation, and operational ownership.
-
-Real-world incidents usually mix more than one factor: DNS, routes, NSGs, firewall policy, health probes, or hybrid dependencies. A strong practice guide makes those dependencies visible before the outage.
+Because private endpoints, hybrid connectivity, and service discovery all depend on predictable name resolution, DNS best practices must focus on authoritative ownership, resolver path design, and cache-aware validation.
 
 <!-- diagram-id: why-this-matters -->
 ```mermaid
 flowchart TD
-                Source[Client or Workload] --> Control[DNS Control Point]
-                Control --> Shared[Shared Services
-DNS, Monitoring, Governance]
-                Shared --> Azure[Azure Network Fabric]
-                Azure --> Target[Private Service or Workload]
-                Shared --> Logs[Logs, Metrics, Activity]
-                Logs --> Ops[Operations Team]
+    Client[Client workload] --> Resolver[Azure or custom resolver]
+    Resolver --> Ruleset[Forwarding rules or zone links]
+    Ruleset --> PrivateZone[Private DNS zone]
+    Ruleset --> PublicZone[Public DNS zone]
+    Ruleset --> OnPrem[On-premises DNS]
+    PrivateZone --> PrivateEndpoint[Private endpoint targets]
 ```
-
-## Prerequisites
-
-- Azure CLI 2.60 or later installed locally or in Azure Cloud Shell.
-- Reader access to the current subscription and Contributor access in a lab subscription for hands-on changes.
-- A shared naming convention for VNets, subnets, DNS zones, route tables, gateways, and firewall policies.
-- A documented IP plan that includes Azure regions, on-premises ranges, partner networks, and future expansion.
-- Diagnostic settings enabled for key networking resources so validation is based on evidence instead of assumptions.
 
 ## Recommended Practices
 
-### Practice 1: Centralize private DNS ownership
+### Assign clear authority for every namespace
 
-**Why**: Private endpoints and hybrid services fail quickly when multiple teams create zones and forwarders without coordination.
-
-**Real-world scenario**: A hub team creates zones, but a project team later deploys a duplicate zone in another subscription. Different VNets resolve different answers and the outage is incorrectly blamed on peering.
-
-**How**
-
-- Use Azure Private DNS Zones for Azure-private namespaces and link only the VNets that require them.
-- If custom DNS is mandatory, define forwarder rules explicitly for Azure private suffixes.
-- Validate from every connectivity domain, including on-premises, hub, spokes, and build agents.
+- Define who owns public zones, private zones, and hybrid forwarding rules before shared services go live.
+- Avoid duplicate private-zone ownership for the same namespace across subscriptions or landing zones.
+- Keep zone ownership and resolver ownership aligned with the teams that can approve service cutovers.
 
 ```bash
 az network private-dns zone list \
@@ -72,48 +56,36 @@ az network private-dns zone list \
 
 az network private-dns link vnet list \
     --resource-group $RG \
-    --zone-name privatelink.blob.core.windows.net \
+    --zone-name $PRIVATE_DNS_ZONE_NAME \
     --output table
 ```
 
 | Command | Purpose |
-|---|---|
-| `az network private-dns zone list` | List private DNS zones in the resource group. |
+| --- | --- |
+| `az network private-dns zone list` | List the private DNS zones owned in the resource group. |
 | `--resource-group` | Resource group that contains the private DNS zones. |
-| `--output` | Output format (table for readability). |
-| `az network private-dns link vnet list` | List the virtual network links on a private DNS zone. |
+| `--output` | Output format for quick review. |
+| `az network private-dns link vnet list` | List VNet links for a private DNS zone. |
 | `--resource-group` | Resource group that contains the private DNS zone. |
-| `--zone-name` | Private DNS zone to list links for. |
-| `--output` | Output format (table for readability). |
+| `--zone-name` | Private DNS zone to inspect. |
+| `--output` | Output format for reviewing the links. |
 
-**Validation**
+### Design split-horizon DNS intentionally
 
-- The expected VNet links exist.
-- No duplicate private zone ownership exists for the same namespace.
-- Clients resolve the expected private address.
+- Document which clients should resolve public answers and which should resolve private answers.
+- Keep private endpoint DNS onboarding in the same change plan as the service rollout.
+- Do not rely on host-file or one-off resolver workarounds to compensate for missing authoritative design.
 
-**Operator cue**: If a name works only from one subnet or one VM, the issue is usually resolver path or zone linkage, not random Azure behavior.
+### Use Azure DNS Private Resolver when hybrid forwarding needs a managed handoff
 
-**Trade-off**: Centralization improves consistency but demands disciplined change review.
-
-### Practice 2: Use Private Resolver for hybrid DNS mediation
-
-**Why**: Hybrid DNS is operationally safer when Azure and on-premises forwarders use a well-defined handoff point.
-
-**Real-world scenario**: An on-premises DNS team forwards Azure private zones to an old VM forwarder while Azure workloads use the platform resolver. Different answers create intermittent failures during failover.
-
-**How**
-
-- Deploy inbound and outbound endpoints in dedicated subnets.
-- Use DNS forwarding rulesets for on-premises namespaces instead of hard-coding VM forwarders in every spoke.
-- Document which side is authoritative for every private namespace.
+- Prefer managed forwarding rules and inbound or outbound endpoints over VM forwarders when the goal is stable hybrid resolution.
+- Keep the authoritative side of each namespace explicit so Azure-to-on-premises and on-premises-to-Azure forwarding are predictable.
+- Reserve dedicated subnets for resolver endpoints and monitor them like shared infrastructure.
 
 ```bash
-az network dns-resolver create \
+az network dns-resolver show \
     --resource-group $RG \
-    --name $DNS_RESOLVER_NAME \
-    --location $LOCATION \
-    --virtual-network $HUB_VNET_ID
+    --name $DNS_RESOLVER_NAME
 
 az network dns-resolver forwarding-ruleset list \
     --resource-group $RG \
@@ -121,299 +93,51 @@ az network dns-resolver forwarding-ruleset list \
 ```
 
 | Command | Purpose |
-|---|---|
-| `az network dns-resolver create` | Create an Azure DNS Private Resolver in the hub VNet. |
+| --- | --- |
+| `az network dns-resolver show` | Show the Azure DNS Private Resolver instance that mediates hybrid name resolution. |
 | `--resource-group` | Resource group that contains the resolver. |
-| `--name` | Name of the DNS resolver. |
-| `--location` | Azure region for the resolver. |
-| `--virtual-network` | Resource ID of the hub virtual network to attach the resolver to. |
-| `az network dns-resolver forwarding-ruleset list` | List DNS forwarding rulesets. |
-| `--resource-group` | Resource group that contains the rulesets. |
-| `--output` | Output format (table for readability). |
+| `--name` | Resolver to inspect. |
+| `az network dns-resolver forwarding-ruleset list` | List forwarding rulesets used by the resolver. |
+| `--resource-group` | Resource group that contains the forwarding rulesets. |
+| `--output` | Output format for reviewing the rulesets. |
 
-**Validation**
+### Validate cache and failover behavior separately from authoritative answers
 
-- Forwarding rulesets are attached to the intended VNets.
-- Inbound and outbound endpoints use dedicated subnets.
-- Hybrid test queries succeed in both directions.
+- Check both fresh lookups and cached client behavior during DNS cutovers.
+- Keep TTL expectations and application retry expectations in the same runbook.
+- Sequence DNS changes with application validation instead of assuming a record update proves service recovery.
 
-**Operator cue**: When teams debate whether Azure or on-premises DNS is wrong, start by tracing the exact forwarder path.
+### Audit DNS changes like traffic-control changes
 
-**Trade-off**: Resolver centralization reduces drift but adds a shared dependency that must be monitored.
-
-### Practice 3: Keep public and private records intentionally aligned
-
-**Why**: Split-horizon DNS is safe only when teams understand which clients should see public vs private answers.
-
-**Real-world scenario**: A storage account has a private endpoint for production, but build agents in another network still need the public endpoint. Without explicit design, one environment breaks while the other works.
-
-**How**
-
-- Document which client groups use public answers and which require private answers.
-- Use private endpoint DNS zones only for clients that should consume the private path.
-- Avoid manual host-file or custom-record workarounds that bypass central review.
-
-```bash
-az network private-endpoint dns-zone-group list \
-    --resource-group $RG \
-    --endpoint-name $PE_NAME
-```
-
-| Command | Purpose |
-|---|---|
-| `az network private-endpoint dns-zone-group list` | List the DNS zone groups attached to a private endpoint. |
-| `--resource-group` | Resource group that contains the private endpoint. |
-| `--endpoint-name` | Private endpoint to list zone groups for. |
-
-**Validation**
-
-- Private endpoint zone groups exist and reference the correct zones.
-- Clients resolve according to design intent.
-- No unmanaged host overrides remain in production.
-
-**Operator cue**: If one workaround depends on a local hosts file, there are probably more hidden ones.
-
-**Trade-off**: Precise split-horizon design takes more upfront thought but avoids prolonged incidents.
-
-### Practice 4: Test TTL, cache, and failover behavior
-
-**Why**: DNS can look healthy in a single query while cached answers keep failures hidden or prolong recovery.
-
-**Real-world scenario**: A cutover succeeds for new pods but not for long-running VMs because local and downstream caches hold the old answer.
-
-**How**
-
-- Review TTL values for private records and related application retry patterns.
-- Flush caches on test clients during validation so you see authoritative behavior and cached behavior separately.
-- Sequence DNS cutovers with application health checks, not with DNS change alone.
-
-```bash
-az network private-dns record-set a show \
-    --resource-group $RG \
-    --zone-name privatelink.database.windows.net \
-    --name myserver
-```
-
-| Command | Purpose |
-|---|---|
-| `az network private-dns record-set a show` | Show an A record set to verify its data and TTL. |
-| `--resource-group` | Resource group that contains the private DNS zone. |
-| `--zone-name` | Private DNS zone that contains the record. |
-| `--name` | Name of the A record set. |
-
-**Validation**
-
-- Record data and TTL match the change plan.
-- Validation covers both cached and fresh queries.
-- Runbooks include cache-flush guidance where required.
-
-**Operator cue**: A successful lookup after manual cache flush proves the change, but not full client recovery timing.
-
-**Trade-off**: Lower TTLs can speed cutovers but may slightly increase resolver load.
-
-### Practice 5: Audit DNS changes like security changes
-
-**Why**: DNS changes can redirect traffic and expose data just as effectively as firewall changes.
-
-**Real-world scenario**: A well-meaning engineer updates a record during incident response, but the undocumented change creates a second outage later.
-
-**How**
-
-- Send DNS control-plane logs to your monitoring workspace.
-- Require change records for zone, record, and ruleset changes.
-- Tag zones and resolver resources with owners and environment metadata.
-
-```bash
-az monitor diagnostic-settings create \
-    --name send-dns-logs \
-    --resource $DNS_RESOLVER_ID \
-    --workspace $WORKSPACE_ID \
-    --logs "[{"category":"DnsResolverDnsSecurityEvents","enabled":true}]"
-```
-
-| Command | Purpose |
-|---|---|
-| `az monitor diagnostic-settings create` | Send DNS resolver logs to a Log Analytics workspace for auditing. |
-| `--name` | Name of the diagnostic setting. |
-| `--resource` | Resource ID of the DNS resolver to collect logs from. |
-| `--workspace` | Log Analytics workspace that receives the logs. |
-| `--logs` | JSON array of log categories to enable. |
-
-**Validation**
-
-- DNS changes are visible in activity logs.
-- Every shared DNS zone has an owner.
-- Incident responders can correlate name changes with outage windows.
-
-**Operator cue**: If DNS changes are hard to audit, outages will be hard to explain.
-
-**Trade-off**: More diagnostics cost money, but blind DNS operations cost credibility.
-
-### Practice 6: Plan DNS onboarding as part of every private endpoint rollout
-
-**Why**: Private endpoint deployment is incomplete until every required client can resolve the new name correctly.
-
-**Real-world scenario**: A project team creates the endpoint and approves the connection, but the consuming VNet was never linked to the private zone. Deployment appears successful while runtime traffic fails.
-
-**How**
-
-- Bundle endpoint creation, zone-group configuration, VNet links, and validation in one change plan.
-- Test from the application subnet and from operator tooling such as jump boxes or build runners.
-- Remove stale records after decommissioning old endpoints to avoid accidental reuse.
-
-```bash
-az network private-endpoint show \
-    --resource-group $RG \
-    --name $PE_NAME \
-    --query "{customDnsConfigs:customDnsConfigs}"
-```
-
-| Command | Purpose |
-|---|---|
-| `az network private-endpoint show` | Show a private endpoint's advertised FQDNs and DNS configuration. |
-| `--resource-group` | Resource group that contains the private endpoint. |
-| `--name` | Name of the private endpoint. |
-| `--query` | JMESPath expression selecting the custom DNS configs. |
-
-**Validation**
-
-- The endpoint advertises the expected FQDNs.
-- All intended clients resolve the endpoint privately.
-- Retired endpoints do not leave misleading records behind.
-
-**Operator cue**: A green endpoint connection state does not prove DNS readiness.
-
-**Trade-off**: Bundling DNS with private endpoint rollout reduces surprises but requires cross-team coordination.
+- Send resolver and shared DNS diagnostics to a workspace where incident responders can correlate them with service outages.
+- Require change records for zone, link, and forwarding-rule edits.
+- Review old records and stale links so consumers do not follow abandoned paths.
 
 ## Common Mistakes / Anti-Patterns
 
-### Anti-Pattern 1: Assuming Azure-provided DNS solves hybrid resolution automatically
-
-**What happens**: On-premises clients still fail to resolve private names.
-
-**Why it is wrong**: Azure-provided DNS is VNet-scoped and does not magically extend to on-premises networks.
-
-**Correct approach**: Add explicit forwarding via Azure DNS Private Resolver or an approved custom DNS path.
-
-```bash
-az network dns-resolver inbound-endpoint list \
-    --resource-group $RG \
-    --dns-resolver-name $DNS_RESOLVER_NAME
-```
-
-| Command | Purpose |
-|---|---|
-| `az network dns-resolver inbound-endpoint list` | List inbound endpoints to confirm explicit hybrid forwarding exists. |
-| `--resource-group` | Resource group that contains the DNS resolver. |
-| `--dns-resolver-name` | DNS resolver to list inbound endpoints for. |
-
-### Anti-Pattern 2: Creating duplicate private zones for the same namespace
-
-**What happens**: Different networks receive different answers for the same service name.
-
-**Why it is wrong**: Duplicate authoritative zones create unpredictable answers and ownership confusion.
-
-**Correct approach**: Consolidate ownership and link the right VNets to the canonical zone.
-
-```bash
-az network private-dns zone list \
-    --query "[].{name:name,resourceGroup:resourceGroup}" \
-    --output table
-```
-
-| Command | Purpose |
-|---|---|
-| `az network private-dns zone list` | List all private DNS zones to detect duplicate namespaces. |
-| `--query` | JMESPath expression selecting name and resource group. |
-| `--output` | Output format (table for readability). |
-
-### Anti-Pattern 3: Treating DNS as an application-team afterthought
-
-**What happens**: Private endpoint projects go live with correct network objects but failed name resolution.
-
-**Why it is wrong**: DNS is part of connectivity, not a post-deployment polish step.
-
-**Correct approach**: Make DNS validation a release gate.
-
-```bash
-az network private-dns link vnet list \
-    --resource-group $RG \
-    --zone-name $ZONE_NAME
-```
-
-| Command | Purpose |
-|---|---|
-| `az network private-dns link vnet list` | List VNet links to make DNS validation a release gate. |
-| `--resource-group` | Resource group that contains the private DNS zone. |
-| `--zone-name` | Private DNS zone to list links for. |
-
-### Anti-Pattern 4: Ignoring caches during cutover
-
-**What happens**: Some clients work and others fail for hours after an apparently successful change.
-
-**Why it is wrong**: Client and resolver caches preserve old answers beyond the moment of change.
-
-**Correct approach**: Account for TTL and flush strategies during migration plans.
-
-```bash
-az network private-dns record-set a list \
-    --resource-group $RG \
-    --zone-name $ZONE_NAME \
-    --output table
-```
-
-| Command | Purpose |
-|---|---|
-| `az network private-dns record-set a list` | List A record sets to review TTL and cache implications during cutover. |
-| `--resource-group` | Resource group that contains the private DNS zone. |
-| `--zone-name` | Private DNS zone to list records for. |
-| `--output` | Output format (table for readability). |
-
-## Performance Optimization Tips
-
-- Measure baseline latency before and after every architectural change so optimization is data driven.
-- Keep packet paths simple for critical applications and reduce unnecessary middleboxes where policy allows.
-- Use regional affinity and dedicated subnets or policies for high-throughput paths.
-- Test scaling behavior, not only steady-state connectivity.
-- Review DNS lookup time, TLS handshake time, and transport latency separately to avoid false diagnoses.
-
-## Security Considerations
-
-- Use RBAC and change control to protect shared networking resources.
-- Prefer private access patterns and least-privilege policy over broad temporary openings.
-- Alert on route, DNS, NSG, firewall, and gateway changes that affect production.
-- Separate management access from application access where practical.
-- Document exception owners and expiry dates.
-
-## Cost Optimization Strategies
-
-- Understand which architecture components charge for deployment hours, data processed, and diagnostic retention.
-- Centralize shared services where that reduces duplication without creating a dangerous bottleneck.
-- Tune diagnostic collection to preserve useful evidence without storing redundant data forever.
-- Retire stale policies, zones, and connections after decommissioning projects.
-- Review traffic patterns to avoid paying for unnecessary transit or inspection hops.
+- Creating duplicate private zones for the same namespace in different landing zones.
+- Treating private endpoint DNS onboarding as optional follow-up work.
+- Using VM forwarders as permanent hybrid infrastructure without clear ownership.
+- Validating only one client subnet and assuming the full resolver chain is correct everywhere.
+- Ignoring cache behavior during cutovers and then blaming Azure for delayed recovery.
 
 ## Validation Checklist
 
-- [ ] The design has a documented owner.
-- [ ] CLI validation exists for the most critical control points.
-- [ ] The data plane behavior is tested from a representative workload.
-- [ ] DNS, routing, and security assumptions are explicitly documented.
-- [ ] Observability is enabled before production cutover.
-- [ ] Rollback steps exist for major changes.
-- [ ] Cost impact is reviewed during design approval.
-- [ ] Security exceptions have owners and expiry dates.
-- [ ] Runbooks link to the relevant troubleshooting playbooks.
-- [ ] The current architecture diagram reflects the deployed environment.
+- [ ] Every namespace has a named authoritative owner.
+- [ ] Private and public resolution behavior is documented for each consumer group.
+- [ ] Hybrid forwarding rules are explicit and use the intended managed or custom resolver path.
+- [ ] DNS cutovers include both authoritative and cached-behavior checks.
+- [ ] Shared DNS changes are auditable and have clear rollback notes.
 
 ## See Also
 
-- [Index](../troubleshooting/index.md)
-- [Index](../operations/index.md)
-- [Index](../reference/index.md)
-- [Index](../platform/index.md)
+- [Private Endpoint Best Practices](private-endpoint-best-practices.md)
+- [Hybrid Connectivity Best Practices](hybrid-connectivity-best-practices.md)
+- [Configure DNS](../operations/configure-dns.md)
+- [DNS Resolution Failures](../troubleshooting/playbooks/dns/dns-resolution-failures.md)
 
 ## Sources
 
-- [https://learn.microsoft.com/en-us/azure/networking/](https://learn.microsoft.com/en-us/azure/networking/)
-- [virtual-network](https://learn.microsoft.com/en-us/azure/well-architected/service-guides/virtual-network)
+- [Azure DNS overview](https://learn.microsoft.com/en-us/azure/dns/dns-overview)
+- [Azure DNS Private Resolver overview](https://learn.microsoft.com/en-us/azure/dns/dns-private-resolver-overview)
+- [Azure Private Endpoint DNS configuration](https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns)
