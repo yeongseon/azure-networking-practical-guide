@@ -8,8 +8,18 @@ content_sources:
       based_on:
         - https://learn.microsoft.com/en-us/azure/network-watcher/connection-monitor-overview
         - https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/diagnostic-settings
+content_validation:
+  status: verified
+  last_reviewed: '2026-07-25'
+  reviewer: agent
+  core_claims:
+    - claim: Azure Network Insights provides monitoring and topology views for Azure network resources.
+      source: https://learn.microsoft.com/en-us/azure/network-watcher/network-insights-overview
+      verified: true
+    - claim: Connection Monitor can monitor end-to-end connectivity between Azure and hybrid endpoints.
+      source: https://learn.microsoft.com/en-us/azure/network-watcher/connection-monitor-overview
+      verified: true
 ---
-
 # Observability Best Practices
 
 Network observability shortens incidents by giving teams the same facts about DNS, routes, probes, flows, and policy changes.

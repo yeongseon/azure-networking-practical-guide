@@ -7,8 +7,18 @@ content_sources:
       mslearn_url: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
       based_on:
         - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-vnet-plan-design-arm
+content_validation:
+  status: verified
+  last_reviewed: '2026-07-25'
+  reviewer: agent
+  core_claims:
+    - claim: Azure Virtual Network provides isolated private networking for Azure resources.
+      source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview
+      verified: true
+    - claim: Azure virtual network design guidance recommends planning non-overlapping address spaces and subnets before deployment.
+      source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-vnet-plan-design-arm
+      verified: true
 ---
-
 # VNet and Subnet Basics
 
 Virtual Networks (VNets) are the fundamental building block for your private network in Azure. They provide isolation, segmentation, and communication for your cloud resources.

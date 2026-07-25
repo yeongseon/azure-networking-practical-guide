@@ -47,8 +47,12 @@ jobs:
       
       - name: Install dependencies
         run: |
-          pip install pyyaml
-      
+          pip install pyyaml ruamel.yaml
+
+      - name: Run doctests for scripts/lib/content_scope.py
+        run: |
+          python -m doctest scripts/lib/content_scope.py -v
+
       - name: Validate mermaid format
         run: |
           python scripts/validate_mermaid_format.py
@@ -60,6 +64,14 @@ jobs:
       - name: Validate content sources
         run: |
           python scripts/validate_content_sources.py
+
+      - name: Normalize YAML frontmatter check
+        run: |
+          python scripts/normalize_yaml_frontmatter.py --check
+
+      - name: Generate content validation status dashboard
+        run: |
+          python scripts/generate_content_validation_status.py
       
       - name: Check for missing diagram IDs
         run: |

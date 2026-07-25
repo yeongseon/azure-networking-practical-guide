@@ -7,8 +7,18 @@ content_sources:
       mslearn_url: https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-overview
       based_on:
         - https://learn.microsoft.com/en-us/azure/network-watcher/connection-monitor-overview
+content_validation:
+  status: verified
+  last_reviewed: '2026-07-25'
+  reviewer: agent
+  core_claims:
+    - claim: Azure Network Watcher provides monitoring and diagnostic capabilities for Azure network resources.
+      source: https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-overview
+      verified: true
+    - claim: Connection Monitor can continuously check connectivity across Azure and hybrid network paths.
+      source: https://learn.microsoft.com/en-us/azure/network-watcher/connection-monitor-overview
+      verified: true
 ---
-
 # Monitor Network Paths
 
 Visibility into traffic flow and path performance.

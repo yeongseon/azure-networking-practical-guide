@@ -7,8 +7,18 @@ content_sources:
       mslearn_url: https://learn.microsoft.com/en-us/azure/security/fundamentals/network-best-practices
       based_on:
         - https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/network-topology-and-connectivity
+content_validation:
+  status: verified
+  last_reviewed: '2026-07-25'
+  reviewer: agent
+  core_claims:
+    - claim: Azure networking design guidance emphasizes segmentation, traffic control, and defense in depth as core network best practices.
+      source: https://learn.microsoft.com/en-us/azure/security/fundamentals/network-best-practices
+      verified: true
+    - claim: Azure landing zone guidance treats network topology and connectivity as a foundational design area for cloud environments.
+      source: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/network-topology-and-connectivity
+      verified: true
 ---
-
 # How Azure Networking Works
 
 Azure Networking provides the infrastructure to connect cloud services and on-premises environments. It's built on a global fiber-optic network that uses Software Defined Networking (SDN) to manage traffic flows.

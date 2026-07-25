@@ -7,8 +7,18 @@ content_sources:
       mslearn_url: https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview
       based_on:
         - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
+content_validation:
+  status: verified
+  last_reviewed: '2026-07-25'
+  reviewer: agent
+  core_claims:
+    - claim: Private endpoints provide a private IP address in a virtual network for supported Azure services.
+      source: https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview
+      verified: true
+    - claim: Private endpoint DNS configuration is required so clients resolve service names to private addresses.
+      source: https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
+      verified: true
 ---
-
 # Connect Private Endpoints
 
 Private Endpoints allow secure access to Azure Services over a private IP.

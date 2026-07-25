@@ -8,8 +8,18 @@ content_sources:
       based_on:
         - https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
         - https://learn.microsoft.com/en-us/azure/firewall-manager/policy-overview
+content_validation:
+  status: verified
+  last_reviewed: '2026-07-25'
+  reviewer: agent
+  core_claims:
+    - claim: Azure Firewall is a managed, cloud-native network security service for controlling traffic across Azure and hybrid networks.
+      source: https://learn.microsoft.com/en-us/azure/firewall/overview
+      verified: true
+    - claim: Network security groups filter inbound and outbound traffic by using security rules applied at subnet or NIC scope.
+      source: https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
+      verified: true
 ---
-
 # NSG and Firewall Best Practices
 
 Layered filtering in Azure works best when NSGs provide local segmentation and Azure Firewall or an approved appliance provides centralized inspection where needed.

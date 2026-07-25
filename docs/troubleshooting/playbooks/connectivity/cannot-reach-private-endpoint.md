@@ -4,12 +4,22 @@ content_sources:
     - id: summary
       type: flowchart
       source: self-generated
-      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      justification: Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation.
       based_on:
-        - https://learn.microsoft.com/en-us/azure/private-link/troubleshoot-private-endpoint-connectivity
+        - https://learn.microsoft.com/en-us/troubleshoot/azure/private-link/troubleshoot-private-endpoint-connectivity-problems
         - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns#validation
+content_validation:
+  status: verified
+  last_reviewed: '2026-07-25'
+  reviewer: agent
+  core_claims:
+    - claim: Microsoft documents a dedicated troubleshooting flow for Azure private endpoint connectivity problems.
+      source: https://learn.microsoft.com/en-us/troubleshoot/azure/private-link/troubleshoot-private-endpoint-connectivity-problems
+      verified: true
+    - claim: Private endpoint validation includes confirming DNS resolves to the private endpoint address.
+      source: https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns#validation
+      verified: true
 ---
-
 # Cannot Reach Private Endpoint
 
 ## 1. Summary
@@ -88,5 +98,5 @@ graph TD
 
 ## Sources
 
-- [Troubleshoot Azure Private Endpoint connectivity](https://learn.microsoft.com/en-us/azure/private-link/troubleshoot-private-endpoint-connectivity)
+- [Troubleshoot Azure Private Endpoint connectivity](https://learn.microsoft.com/en-us/troubleshoot/azure/private-link/troubleshoot-private-endpoint-connectivity-problems)
 - [Azure Private Endpoint DNS configuration](https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns#validation)

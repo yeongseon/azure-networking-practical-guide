@@ -4,13 +4,23 @@ content_sources:
     - id: evidence-map
       type: flowchart
       source: self-generated
-      justification: "Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation."
+      justification: Synthesized troubleshooting flow for this guide from Microsoft Learn diagnostic and service documentation.
       based_on:
         - https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-monitoring-overview
         - https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-connectivity-overview
         - https://learn.microsoft.com/en-us/azure/network-watcher/ip-flow-verify-overview
+content_validation:
+  status: verified
+  last_reviewed: '2026-07-25'
+  reviewer: agent
+  core_claims:
+    - claim: Azure Network Watcher monitoring surfaces data that can be used as troubleshooting evidence for network issues.
+      source: https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-monitoring-overview
+      verified: true
+    - claim: IP flow verify can validate whether traffic is allowed or denied by NSG rules for a given flow.
+      source: https://learn.microsoft.com/en-us/azure/network-watcher/ip-flow-verify-overview
+      verified: true
 ---
-
 # Evidence Map
 
 This page maps common Azure Networking troubleshooting questions to the evidence source that answers them fastest.

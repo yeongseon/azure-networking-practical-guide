@@ -7,8 +7,18 @@ content_sources:
       mslearn_url: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-peering-overview
       based_on:
         - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-manage-peering
+content_validation:
+  status: verified
+  last_reviewed: '2026-07-25'
+  reviewer: agent
+  core_claims:
+    - claim: Virtual network peering connects Azure virtual networks over the Microsoft backbone network.
+      source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-peering-overview
+      verified: true
+    - claim: Azure supports creating and updating peering relationships between virtual networks.
+      source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-manage-peering
+      verified: true
 ---
-
 # Peering Basics
 
 VNet Peering connects two virtual networks with low latency.

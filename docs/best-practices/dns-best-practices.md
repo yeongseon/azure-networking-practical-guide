@@ -7,8 +7,18 @@ content_sources:
       mslearn_url: https://learn.microsoft.com/en-us/azure/dns/dns-overview
       based_on:
         - https://learn.microsoft.com/en-us/azure/well-architected/service-guides/virtual-network
+content_validation:
+  status: verified
+  last_reviewed: '2026-07-25'
+  reviewer: agent
+  core_claims:
+    - claim: Azure DNS provides hosting and resolution capabilities for public DNS zones.
+      source: https://learn.microsoft.com/en-us/azure/dns/dns-overview
+      verified: true
+    - claim: Well-Architected Azure networking guidance treats reliable name resolution as part of sound virtual network design.
+      source: https://learn.microsoft.com/en-us/azure/well-architected/service-guides/virtual-network
+      verified: true
 ---
-
 # DNS Best Practices
 
 Azure DNS design needs to make private, public, and hybrid name resolution predictable for operators and transparent for workloads.

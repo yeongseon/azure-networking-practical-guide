@@ -8,8 +8,18 @@ content_sources:
       based_on:
         - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
         - https://learn.microsoft.com/en-us/azure/storage/common/storage-private-endpoints
+content_validation:
+  status: verified
+  last_reviewed: '2026-07-25'
+  reviewer: agent
+  core_claims:
+    - claim: A private endpoint assigns a private IP address from your virtual network to a specific Azure resource instance.
+      source: https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview
+      verified: true
+    - claim: Private endpoint deployments depend on DNS so clients resolve the service name to the private endpoint address.
+      source: https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
+      verified: true
 ---
-
 # Private Endpoint Best Practices
 
 Private Endpoint design succeeds when DNS, subnet placement, approval workflows, and egress expectations are handled together.

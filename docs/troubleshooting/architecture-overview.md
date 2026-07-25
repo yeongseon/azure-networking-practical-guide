@@ -4,7 +4,7 @@ content_sources:
     - id: network-failure-plane-overview
       type: flowchart
       source: self-generated
-      justification: "Synthesized quick-reference diagram for this guide from Microsoft Learn networking documentation."
+      justification: Synthesized quick-reference diagram for this guide from Microsoft Learn networking documentation.
       based_on:
         - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
         - https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
@@ -13,7 +13,7 @@ content_sources:
     - id: path-selection-plane
       type: flowchart
       source: self-generated
-      justification: "Synthesized quick-reference diagram for this guide from Microsoft Learn networking documentation."
+      justification: Synthesized quick-reference diagram for this guide from Microsoft Learn networking documentation.
       based_on:
         - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
         - https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
@@ -22,14 +22,24 @@ content_sources:
     - id: target-and-performance-plane
       type: flowchart
       source: self-generated
-      justification: "Synthesized quick-reference diagram for this guide from Microsoft Learn networking documentation."
+      justification: Synthesized quick-reference diagram for this guide from Microsoft Learn networking documentation.
       based_on:
         - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
         - https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
         - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
         - https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-monitoring-overview
+content_validation:
+  status: verified
+  last_reviewed: '2026-07-25'
+  reviewer: agent
+  core_claims:
+    - claim: Azure route tables, NSGs, private endpoint DNS, and Network Watcher all affect end-to-end connectivity outcomes.
+      source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
+      verified: true
+    - claim: Azure Network Watcher monitoring helps operators observe traffic paths and network health signals during troubleshooting.
+      source: https://learn.microsoft.com/en-us/azure/network-watcher/network-watcher-monitoring-overview
+      verified: true
 ---
-
 # Troubleshooting Architecture Overview
 
 Use this page to answer one question quickly: **where in the Azure networking path can this break?**

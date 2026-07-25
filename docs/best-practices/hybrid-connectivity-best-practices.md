@@ -8,8 +8,18 @@ content_sources:
       based_on:
         - https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction
         - https://learn.microsoft.com/en-us/azure/architecture/reference-architectures/hybrid-networking/
+content_validation:
+  status: verified
+  last_reviewed: '2026-07-25'
+  reviewer: agent
+  core_claims:
+    - claim: Site-to-site VPN connects an on-premises network to Azure by using VPN gateway tunnels.
+      source: https://learn.microsoft.com/en-us/azure/vpn-gateway/tutorial-site-to-site-portal
+      verified: true
+    - claim: ExpressRoute provides private, dedicated connectivity to Microsoft cloud services.
+      source: https://learn.microsoft.com/en-us/azure/expressroute/expressroute-introduction
+      verified: true
 ---
-
 # Hybrid Connectivity Best Practices
 
 Hybrid networking requires consistent route exchange, resilient tunnels or circuits, and DNS behavior that works across trust boundaries.

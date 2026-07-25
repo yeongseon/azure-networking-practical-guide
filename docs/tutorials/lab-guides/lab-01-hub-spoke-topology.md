@@ -7,8 +7,14 @@ content_sources:
       mslearn_url: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-peering-overview
       based_on:
         - https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/landing-zone/design-area/network-topology-and-connectivity
+validation:
+  az_cli:
+    last_tested:
+    result: not_tested
+  bicep:
+    last_tested:
+    result: not_tested
 ---
-
 # Lab 01: Hub-Spoke Topology
 
 Build a small hub-spoke landing zone with shared services, peering, route validation, and basic connectivity testing so teams can understand how central transit works before adding private endpoints or hybrid links.
