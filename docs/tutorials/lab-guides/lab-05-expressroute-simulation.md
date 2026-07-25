@@ -178,7 +178,7 @@ az network vpn-connection create \
     --name conn-sim05 \
     --vnet-gateway1 vpngw-lab05 \
     --local-gateway2 lng-sim05 \
-    --shared-key ContosoDemoKey123!
+    --shared-key <generate-strong-shared-key>
 ```
 
 | Command | Purpose |
@@ -190,12 +190,12 @@ az network vpn-connection create \
 | `--local-gateway2` | Local network gateway representing the remote side. |
 | `--shared-key` | Pre-shared key used to authenticate the tunnel. |
 
-This creates the Azure-side object even though a real remote device is not connected in the simulation.
+This creates the Azure-side object even though a real remote device is not connected in the simulation. Generate a unique pre-shared key for your test environment instead of reusing a literal string.
 
 #### Why this step matters
 
 - Record the VPN connection object even though the remote side is simulated, because this is the Azure control-plane shell operators inspect first.
-- Save the shared key and connection name in lab notes only if your handling process allows it; otherwise note only the connection identity and state.
+- Save only the connection identity and connection state in your lab notes; never record the pre-shared key in documentation or screenshots.
 - This step separates Azure-side object readiness from real provider-backed circuit behavior.
 
 ### Step 5: Inspect learned and advertised route commands

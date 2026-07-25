@@ -16,8 +16,8 @@ content_validation:
     - claim: Network security groups contain security rules that allow or deny inbound and outbound traffic to resources in Azure virtual networks.
       source: https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
       verified: true
-    - claim: Azure Firewall is a cloud-native and intelligent network firewall security service, and Firewall Policy is the recommended way to manage rules at scale.
-      source: https://learn.microsoft.com/en-us/azure/firewall/overview
+    - claim: Azure Firewall is a cloud-native and intelligent network firewall security service, and Firewall Policy is the recommended method to configure Azure Firewall.
+      source: https://learn.microsoft.com/en-us/azure/firewall-manager/policy-overview
       verified: true
 ---
 # NSG and Firewall Best Practices
