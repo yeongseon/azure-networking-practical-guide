@@ -4,414 +4,137 @@ content_sources:
     - id: why-this-matters
       type: flowchart
       source: mslearn-adapted
-      mslearn_url: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
       based_on:
+        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
         - https://learn.microsoft.com/en-us/azure/virtual-network/diagnose-network-routing-problem
-        - https://learn.microsoft.com/en-us/azure/well-architected/service-guides/virtual-network
+        - https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-peering-overview
 content_validation:
-  status: pending_review
-  last_reviewed: '2026-07-25'
+  status: verified
+  last_reviewed: 2026-07-25
   reviewer: agent
   core_claims:
-    - claim: User-defined routes can override Azure default routing behavior for subnet traffic.
+    - claim: Azure creates default system routes for each subnet, and user-defined routes can override Azure's default routing behavior for matching traffic.
       source: https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview
-      verified: false
-    - claim: Azure Network Watcher includes tools to diagnose effective routes and routing problems for virtual machines.
+      verified: true
+    - claim: Network Watcher can diagnose routing problems and expose the effective routes applied to a virtual machine NIC.
       source: https://learn.microsoft.com/en-us/azure/virtual-network/diagnose-network-routing-problem
-      verified: false
+      verified: true
 ---
 # Routing Best Practices
 
-Routing is where intent becomes packet movement. Clear route ownership prevents black holes, asymmetric paths, and hidden transit assumptions.
+Routing guidance in Azure should explain exactly why a packet takes one path, what can change that path, and how operators prove the result after each change.
 
 ## Why This Matters
 
-Design routes as products with owners, evidence, and rollback plans.
+Routing mistakes rarely fail loudly. They usually show up as partial reachability, asymmetric return traffic, appliance bypass, or a spoke that works until a peering or gateway change lands elsewhere.
 
-In Azure, networking changes often look correct in the control plane while failing in the data plane. That is why good practices must combine architecture, CLI validation, and operational ownership.
-
-Real-world incidents usually mix more than one factor: DNS, routes, NSGs, firewall policy, health probes, or hybrid dependencies. A strong practice guide makes those dependencies visible before the outage.
-
-Document route precedence between system routes, BGP, and UDRs. Validate effective routes on real NICs after peering, gateway, or UDR changes. Use route tables to express intent clearly and avoid undocumented transit assumptions.
+Hub-and-spoke designs make this sharper. A route table, gateway propagation change, or peering setting in one network can change how another subnet reaches on-premises, a firewall, or a private service. Teams need routing guidance that is explicit about precedence, transit intent, and verification.
 
 <!-- diagram-id: why-this-matters -->
 ```mermaid
 flowchart TD
-                Source[Client or Workload] --> Control[Routing Control Point]
-                Control --> Shared[Shared Services
-DNS, Monitoring, Governance]
-                Shared --> Azure[Azure Network Fabric]
-                Azure --> Target[Private Service or Workload]
-                Shared --> Logs[Logs, Metrics, Activity]
-                Logs --> Ops[Operations Team]
+    Workload[Spoke workload subnet] --> UDR[UDR on workload subnet]
+    UDR --> Firewall[Azure Firewall or NVA next hop]
+    Firewall --> Hub[Hub transit VNet]
+    Hub --> Gateway[VPN or ExpressRoute gateway]
+    Hub --> PrivateService[Private service in Azure]
+    Gateway --> OnPrem[On-premises prefixes]
 ```
-
-## Prerequisites
-
-- Azure CLI 2.60 or later installed locally or in Azure Cloud Shell.
-- Reader access to the current subscription and Contributor access in a lab subscription for hands-on changes.
-- A shared naming convention for VNets, subnets, DNS zones, route tables, gateways, and firewall policies.
-- A documented IP plan that includes Azure regions, on-premises ranges, partner networks, and future expansion.
-- Diagnostic settings enabled for key networking resources so validation is based on evidence instead of assumptions.
 
 ## Recommended Practices
 
-### Practice 1: Baseline routing ownership and intent
+### Make route intent explicit at subnet boundaries
 
-**Why**: Routing changes are safer when the team can explain who owns them, what good looks like, and how to validate results.
-
-**Real-world scenario**: A production change affects routing but no one knows whether the platform, security, or application team approves it. The delay becomes an outage multiplier.
-
-**How**
-
-- Tag shared resources with owner and environment.
-- Write pre-change validation and rollback steps before touching production.
-- Review design assumptions with application teams that depend on the path.
+- Treat every route table as a contract for a specific subnet purpose, not as a generic shared object.
+- Document whether the subnet should use internet egress, hub transit, forced tunneling, or direct private reachability.
+- Keep one owner for each route table so emergency changes do not create competing next-hop logic.
 
 ```bash
-az resource show \
-    --ids $RESOURCE_ID \
-    --query "{id:id,name:name,type:type,tags:tags}"
+az network route-table show \
+    --resource-group $RG \
+    --name $ROUTE_TABLE_NAME \
+    --query "{name:name,disableBgpRoutePropagation:disableBgpRoutePropagation,routes:routes[].{name:name,addressPrefix:addressPrefix,nextHopType:nextHopType,nextHopIpAddress:nextHopIpAddress}}"
 ```
 
 | Command | Purpose |
-|---|---|
-| `az resource show` | Show a resource's identity and ownership tags. |
-| `--ids` | Resource ID to inspect. |
-| `--query` | JMESPath expression selecting id, name, type, and tags. |
+| --- | --- |
+| `az network route-table show` | Show a route table and the routes it enforces. |
+| `--resource-group` | Resource group that contains the route table. |
+| `--name` | Route table to inspect. |
+| `--query` | JMESPath projection for BGP propagation state and route details. |
 
-**Validation**
+### Design for asymmetric-path prevention, not just happy-path forwarding
 
-- Resources expose clear ownership metadata.
-- Runbooks identify the validation command set.
-- Change reviewers agree on rollback criteria.
+- Send both forward and return traffic through the same inspection point when a firewall or NVA is part of the path.
+- Re-check route intent after peering, gateway, or VPN changes because return traffic often changes first.
+- Avoid mixing direct spoke-to-spoke reachability with appliance-enforced reachability unless the exception is deliberate and documented.
 
-**Operator cue**: If ownership discovery takes longer than the change itself, governance is too implicit.
+### Validate peering transit assumptions on real NICs
 
-**Trade-off**: Ownership overhead is a small price for predictable operations.
-
-### Practice 2: Validate from the data plane, not only from the portal
-
-**Why**: Azure networking issues are often obvious only when tested from a real client path.
-
-**Real-world scenario**: The portal shows healthy routing configuration, but workloads still fail because the packet path or resolver path differs from assumptions.
-
-**How**
-
-- Test from representative subnets, not from an operator workstation only.
-- Capture CLI evidence such as effective routes, NSGs, or connection state.
-- Store validation artifacts with the change record.
+- Do not assume peering alone creates transitive routing through a hub. Azure VNet peering is non-transitive unless you deliberately add gateways or virtual appliances.
+- Review `--allow-forwarded-traffic`, gateway transit, and remote gateway settings as part of every hub-and-spoke change.
+- Test from a workload NIC in each trust zone instead of from an operator shell only.
 
 ```bash
+az network nic show-effective-route-table \
+    --resource-group $RG \
+    --name $NIC_NAME
+
 az network watcher test-connectivity \
     --resource-group $RG \
-    --source-resource $SOURCE_ID \
-    --dest-address $DESTINATION_FQDN \
-    --dest-port 443
-```
-
-| Command | Purpose |
-|---|---|
-| `az network watcher test-connectivity` | Test connectivity from a source workload to a destination FQDN. |
-| `--resource-group` | Resource group that contains the source resource. |
-| `--source-resource` | Resource ID of the source workload. |
-| `--dest-address` | Destination FQDN to test connectivity to. |
-| `--dest-port` | Destination port to test connectivity to. |
-
-**Validation**
-
-- Tests run from a real source workload.
-- Evidence is retained with timestamps.
-- Operators can repeat the validation later.
-
-**Operator cue**: A healthy portal state does not guarantee data-plane success.
-
-**Trade-off**: More validation steps increase release discipline but reduce outage ambiguity.
-
-### Practice 3: Standardize patterns before scale multiplies drift
-
-**Why**: Routing drift is manageable in one environment and painful in twenty.
-
-**Real-world scenario**: A project invents its own pattern for routing, then another team copies it with minor changes. Over time no one can tell which variant is authoritative.
-
-**How**
-
-- Create reusable templates and naming rules.
-- Prefer shared policy objects where multiple environments need the same baseline.
-- Review exceptions quarterly and retire temporary patterns that became permanent.
-
-```bash
-az resource list \
-    --resource-group $RG \
-    --query "[].{name:name,type:type,location:location}" \
-    --output table
-```
-
-| Command | Purpose |
-|---|---|
-| `az resource list` | List resources in a resource group to audit pattern consistency. |
-| `--resource-group` | Resource group to list resources from. |
-| `--query` | JMESPath expression selecting name, type, and location. |
-| `--output` | Output format (table for readability). |
-
-**Validation**
-
-- Common resources follow the same naming pattern.
-- Exceptions are documented and time-bounded.
-- New teams can self-serve without inventing a new pattern.
-
-**Operator cue**: The number of exception documents is a good signal of architectural drift.
-
-**Trade-off**: Standardization reduces local autonomy but speeds safe delivery.
-
-### Practice 4: Design for failure and rollback
-
-**Why**: Healthy production networking assumes something will fail and makes recovery explicit.
-
-**Real-world scenario**: A maintenance change to routing appears simple, but restoring the previous state during a failed cutover becomes slow because no rollback steps were prepared.
-
-**How**
-
-- Record current state before change.
-- Keep rollback commands as first-class documentation.
-- Test failure scenarios in lower environments using the same operational pattern.
-
-```bash
-az resource show \
-    --ids $RESOURCE_ID \
-    --output json
-```
-
-| Command | Purpose |
-|---|---|
-| `az resource show` | Capture the full known-good state of a resource before a change. |
-| `--ids` | Resource ID to inspect. |
-| `--output` | Output format (json to preserve the complete state). |
-
-**Validation**
-
-- Known-good state is captured.
-- Rollback commands are copy-paste ready.
-- Teams know the criteria for reversal.
-
-**Operator cue**: If rollback requires improvisation, incident time will expand quickly.
-
-**Trade-off**: Rollback planning adds prep time but reduces blast radius.
-
-### Practice 5: Monitor the control points that matter
-
-**Why**: Routing needs logs, metrics, and change history so incidents are evidence-based.
-
-**Real-world scenario**: Operators know something broke but lack metrics or logs near the routing control point, so they blame the nearest visible service instead.
-
-**How**
-
-- Enable diagnostic settings on the resources that enforce or influence behavior.
-- Correlate activity log writes with workload symptoms.
-- Build lightweight dashboards or query packs for the top incident types.
-
-```bash
-az monitor diagnostic-settings list \
-    --resource $RESOURCE_ID
-```
-
-| Command | Purpose |
-|---|---|
-| `az monitor diagnostic-settings list` | List diagnostic settings on a resource to confirm logging is enabled. |
-| `--resource` | Resource ID to list diagnostic settings for. |
-
-**Validation**
-
-- Diagnostics exist before incident time.
-- Activity logs are searchable by resource and time window.
-- Query packs cover common failures.
-
-**Operator cue**: If every incident begins with enabling logs, observability arrived too late.
-
-**Trade-off**: Diagnostics cost money, but reactive blind spots cost more.
-
-### Practice 6: Tie architecture choices to cost decisions
-
-**Why**: Routing designs often grow quietly expensive when every workload gets its own dedicated shared service equivalent.
-
-**Real-world scenario**: A single team duplicates hubs, firewalls, or policy objects per environment because it feels safer. Later, the cost profile is far higher than the risk justified.
-
-**How**
-
-- Estimate deployment, processing, and cross-network traffic costs for the selected pattern.
-- Use dedicated components only when compliance, isolation, or scale truly requires them.
-- Review whether simpler direct patterns meet the same requirement.
-
-```bash
-az consumption usage list \
-    --start-date 2026-04-01 \
-    --end-date 2026-04-30
-```
-
-| Command | Purpose |
-|---|---|
-| `az consumption usage list` | List consumption usage to tie architecture choices to cost. |
-| `--start-date` | Start of the usage reporting period. |
-| `--end-date` | End of the usage reporting period. |
-
-**Validation**
-
-- Cost review accompanies architecture review.
-- Shared services are intentionally centralized or intentionally isolated.
-- Teams can explain major networking spend drivers.
-
-**Operator cue**: If cost shows up only after go-live, architecture review missed an essential dimension.
-
-**Trade-off**: FinOps discipline may constrain design freedom but prevents expensive sprawl.
-
-## Common Mistakes / Anti-Patterns
-
-### Anti-Pattern 1: Leaving behavior implicit
-
-**What happens**: Teams cannot explain how routing is supposed to work during an incident.
-
-**Why it is wrong**: Implicit design depends on tribal knowledge and fails under pressure.
-
-**Correct approach**: Document intent, ownership, and validation steps.
-
-```bash
-az resource show \
-    --ids $RESOURCE_ID
-```
-
-| Command | Purpose |
-|---|---|
-| `az resource show` | Show a resource to document its intent and configuration. |
-| `--ids` | Resource ID to inspect. |
-
-### Anti-Pattern 2: Treating temporary exceptions as permanent
-
-**What happens**: The estate contains old rules or routes that nobody wants to touch.
-
-**Why it is wrong**: Temporary emergency fixes become long-term risk and cost drivers.
-
-**Correct approach**: Add expiry dates and remove exceptions after stabilization.
-
-```bash
-az resource list \
-    --tag Environment=prod \
-    --output table
-```
-
-| Command | Purpose |
-|---|---|
-| `az resource list` | List resources by tag to find lingering exceptions. |
-| `--tag` | Tag filter (key=value) to match resources. |
-| `--output` | Output format (table for readability). |
-
-### Anti-Pattern 3: Skipping post-change verification
-
-**What happens**: Control-plane changes to routing complete successfully but break application behavior.
-
-**Why it is wrong**: Provisioning success is not runtime success.
-
-**Correct approach**: Always validate from a representative client path.
-
-```bash
-az network watcher test-connectivity \
-    --resource-group $RG \
-    --source-resource $SOURCE_ID \
+    --source-resource $SOURCE_RESOURCE_ID \
     --dest-address $DESTINATION_IP \
     --dest-port 443
 ```
 
 | Command | Purpose |
-|---|---|
-| `az network watcher test-connectivity` | Validate a change from a representative client path. |
+| --- | --- |
+| `az network nic show-effective-route-table` | Show the effective routes applied to a workload NIC. |
+| `--resource-group` | Resource group that contains the NIC. |
+| `--name` | NIC to inspect. |
+| `az network watcher test-connectivity` | Test whether the route and downstream policy produce end-to-end connectivity. |
 | `--resource-group` | Resource group that contains the source resource. |
-| `--source-resource` | Resource ID of the source workload. |
-| `--dest-address` | Destination IP to test connectivity to. |
-| `--dest-port` | Destination port to test connectivity to. |
+| `--source-resource` | Resource ID of the workload that originates the test. |
+| `--dest-address` | Destination IP address or FQDN to test. |
+| `--dest-port` | Destination port to test. |
 
-### Anti-Pattern 4: Over-centralizing without service levels
+### Separate appliance paths from direct platform paths
 
-**What happens**: Shared networking services become bottlenecks or single points of operational delay.
+- Use different route tables when some subnets must traverse Azure Firewall or an NVA while others can stay on platform routing.
+- Keep next-hop IP ownership, health checks, and failover behavior documented with the route table, not in a separate incident note.
+- Prefer a small number of predictable inspection paths over many slightly different exceptions.
 
-**Why it is wrong**: Centralization without staffing, observability, and runbooks creates governance friction.
+### Review BGP propagation deliberately
 
-**Correct approach**: Define support models and failure ownership for shared services.
+- Disable BGP route propagation only when you can explain the exact prefixes that must be suppressed and the operational impact.
+- Reconcile BGP-learned prefixes against UDR intent during hybrid change reviews.
+- Treat "it still worked last month" as a warning sign that the path is not actually understood.
 
-```bash
-az resource show \
-    --ids $RESOURCE_ID \
-    --query tags
-```
+## Common Mistakes / Anti-Patterns
 
-| Command | Purpose |
-|---|---|
-| `az resource show` | Show a shared service's tags to confirm support and ownership metadata. |
-| `--ids` | Resource ID to inspect. |
-| `--query` | JMESPath expression selecting tags. |
-
-## Performance Optimization Tips
-
-- Measure baseline latency before and after every architectural change so optimization is data driven.
-- Keep packet paths simple for critical applications and reduce unnecessary middleboxes where policy allows.
-- Use regional affinity and dedicated subnets or policies for high-throughput paths.
-- Test scaling behavior, not only steady-state connectivity.
-- Review DNS lookup time, TLS handshake time, and transport latency separately to avoid false diagnoses.
-
-## Security Considerations
-
-- Use RBAC and change control to protect shared networking resources.
-- Prefer private access patterns and least-privilege policy over broad temporary openings.
-- Alert on route, DNS, NSG, firewall, and gateway changes that affect production.
-- Separate management access from application access where practical.
-- Document exception owners and expiry dates.
-
-## Cost Optimization Strategies
-
-- Understand which architecture components charge for deployment hours, data processed, and diagnostic retention.
-- Centralize shared services where that reduces duplication without creating a dangerous bottleneck.
-- Tune diagnostic collection to preserve useful evidence without storing redundant data forever.
-- Retire stale policies, zones, and connections after decommissioning projects.
-- Review traffic patterns to avoid paying for unnecessary transit or inspection hops.
+- Applying one catch-all route table to unrelated subnets with different egress or inspection requirements.
+- Assuming hub peering provides automatic spoke-to-spoke or spoke-to-on-premises transit without explicit design.
+- Testing only from the portal or only from a jump box instead of from representative source NICs.
+- Changing gateway or peering settings without re-checking effective routes and return-path symmetry.
+- Using undocumented NVA next hops that have no health, ownership, or rollback notes.
 
 ## Validation Checklist
 
-- [ ] The design has a documented owner.
-- [ ] CLI validation exists for the most critical control points.
-- [ ] The data plane behavior is tested from a representative workload.
-- [ ] DNS, routing, and security assumptions are explicitly documented.
-- [ ] Observability is enabled before production cutover.
-- [ ] Rollback steps exist for major changes.
-- [ ] Cost impact is reviewed during design approval.
-- [ ] Security exceptions have owners and expiry dates.
-- [ ] Runbooks link to the relevant troubleshooting playbooks.
-- [ ] The current architecture diagram reflects the deployed environment.
-
-## Design Review Questions
-
-- What will break first if this design has to scale by 3x within one quarter?
-- Which team owns the first-response investigation when this control fails?
-- Which dependency still relies on public resolution or public ingress?
-- How is the current state validated from a representative workload?
-- What telemetry proves the healthy baseline today?
-- What rollback step is fastest if the next change window goes badly?
-- Which security exception is still waiting for retirement?
-- What is the cost driver if this pattern is copied to ten more environments?
-- Which dependency crosses a trust boundary and therefore needs explicit monitoring?
-- Where could DNS and routing assumptions drift apart?
-- Which runbook would a new operator follow during a 2 a.m. outage?
-- Does the diagram still match deployed resources and names?
-- Which validations are automated and which still depend on manual checks?
-- What would an application team misunderstand about this design?
-- Which hidden dependency would appear only during failover or maintenance?
+- [ ] Every workload subnet has a documented routing intent and named route-table owner.
+- [ ] Effective routes on representative NICs match the intended egress, transit, and inspection path.
+- [ ] Peering and gateway settings are reviewed together when hub transit is in scope.
+- [ ] Appliance paths are symmetric and have explicit rollback steps.
+- [ ] Connectivity tests are captured before and after route changes.
 
 ## See Also
 
-- [Routing Basics](../platform/routing-basics.md)
-- [Configure Udr](../operations/configure-udr.md)
-- [Peering Basics](../operations/peering-basics.md)
-- [Peering And Routing Issues](../troubleshooting/playbooks/routing/peering-and-routing-issues.md)
+- [Network Design Baseline](network-design-baseline.md)
+- [Hybrid Connectivity Best Practices](hybrid-connectivity-best-practices.md)
+- [Configure UDR](../operations/configure-udr.md)
+- [Connectivity Failures](../troubleshooting/playbooks/connectivity-failures.md)
 
 ## Sources
 
-- [virtual-networks-udr-overview](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview)
-- [diagnose-network-routing-problem](https://learn.microsoft.com/en-us/azure/virtual-network/diagnose-network-routing-problem)
-- [virtual-network](https://learn.microsoft.com/en-us/azure/well-architected/service-guides/virtual-network)
+- [Azure virtual network traffic routing](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview)
+- [Diagnose a virtual machine routing problem](https://learn.microsoft.com/en-us/azure/virtual-network/diagnose-network-routing-problem)
+- [Virtual network peering](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-peering-overview)
