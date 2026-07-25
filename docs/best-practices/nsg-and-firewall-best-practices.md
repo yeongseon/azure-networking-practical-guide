@@ -4,414 +4,148 @@ content_sources:
     - id: why-this-matters
       type: flowchart
       source: mslearn-adapted
-      mslearn_url: https://learn.microsoft.com/en-us/azure/firewall/overview
       based_on:
         - https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
+        - https://learn.microsoft.com/en-us/azure/firewall/overview
         - https://learn.microsoft.com/en-us/azure/firewall-manager/policy-overview
 content_validation:
-  status: pending_review
-  last_reviewed: '2026-07-25'
+  status: verified
+  last_reviewed: 2026-07-25
   reviewer: agent
   core_claims:
-    - claim: Azure Firewall is a managed, cloud-native network security service for controlling traffic across Azure and hybrid networks.
-      source: https://learn.microsoft.com/en-us/azure/firewall/overview
-      verified: false
-    - claim: Network security groups filter inbound and outbound traffic by using security rules applied at subnet or NIC scope.
+    - claim: Network security groups contain security rules that allow or deny inbound and outbound traffic to resources in Azure virtual networks.
       source: https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview
-      verified: false
+      verified: true
+    - claim: Azure Firewall is a cloud-native and intelligent network firewall security service, and Firewall Policy is the recommended method to configure Azure Firewall.
+      source: https://learn.microsoft.com/en-us/azure/firewall-manager/policy-overview
+      verified: true
 ---
 # NSG and Firewall Best Practices
 
-Layered filtering in Azure works best when NSGs provide local segmentation and Azure Firewall or an approved appliance provides centralized inspection where needed.
+NSGs and Azure Firewall should answer different questions: NSGs define local subnet or NIC segmentation, while Azure Firewall or a comparable central control point governs shared inspection, egress policy, and cross-network enforcement.
 
 ## Why This Matters
 
-Security controls should explain traffic outcomes, not obscure them.
+Most production networking incidents are not caused by a missing rule. They are caused by unclear rule intent, overlapping enforcement layers, or a team that cannot explain which control denied the packet.
 
-In Azure, networking changes often look correct in the control plane while failing in the data plane. That is why good practices must combine architecture, CLI validation, and operational ownership.
-
-Real-world incidents usually mix more than one factor: DNS, routes, NSGs, firewall policy, health probes, or hybrid dependencies. A strong practice guide makes those dependencies visible before the outage.
-
-Use NSGs for local segmentation and Azure Firewall for centralized L3-L7 inspection where justified. Avoid rule duplication by using firewall policy hierarchy and readable rule collections. Validate probe traffic, platform dependencies, and DNS explicitly before tightening rules.
+Azure makes this easy to get wrong because NSGs, firewall policy, route tables, probes, and service dependencies all interact. Good practice is not "add more rules." It is to make each layer legible, stateful behavior understood, and validation repeatable.
 
 <!-- diagram-id: why-this-matters -->
 ```mermaid
 flowchart TD
-                Source[Client or Workload] --> Control[NSG Control Point]
-                Control --> Shared[Shared Services
-DNS, Monitoring, Governance]
-                Shared --> Azure[Azure Network Fabric]
-                Azure --> Target[Private Service or Workload]
-                Shared --> Logs[Logs, Metrics, Activity]
-                Logs --> Ops[Operations Team]
+    Client[Client or workload] --> NSG[Subnet or NIC NSG]
+    NSG --> Route[UDR toward inspection path]
+    Route --> Firewall[Azure Firewall policy]
+    Firewall --> Destination[Private or internet destination]
+    Firewall --> Logs[Firewall logs and metrics]
+    NSG --> FlowState[Effective rules and flow outcome]
 ```
-
-## Prerequisites
-
-- Azure CLI 2.60 or later installed locally or in Azure Cloud Shell.
-- Reader access to the current subscription and Contributor access in a lab subscription for hands-on changes.
-- A shared naming convention for VNets, subnets, DNS zones, route tables, gateways, and firewall policies.
-- A documented IP plan that includes Azure regions, on-premises ranges, partner networks, and future expansion.
-- Diagnostic settings enabled for key networking resources so validation is based on evidence instead of assumptions.
 
 ## Recommended Practices
 
-### Practice 1: Baseline nsg and firewall ownership and intent
+### Use NSGs for local intent and Firewall Policy for shared intent
 
-**Why**: NSG and Firewall changes are safer when the team can explain who owns them, what good looks like, and how to validate results.
-
-**Real-world scenario**: A production change affects nsg and firewall but no one knows whether the platform, security, or application team approves it. The delay becomes an outage multiplier.
-
-**How**
-
-- Tag shared resources with owner and environment.
-- Write pre-change validation and rollback steps before touching production.
-- Review design assumptions with application teams that depend on the path.
+- Keep subnet-level NSGs focused on trust-boundary segmentation, health probes, and local east-west controls.
+- Keep shared egress, shared ingress filtering, and organization-wide deny logic in Firewall Policy.
+- Do not duplicate the same allowlist in both layers unless the duplicate is deliberate and documented.
 
 ```bash
-az resource show \
-    --ids $RESOURCE_ID \
-    --query "{id:id,name:name,type:type,tags:tags}"
-```
-
-| Command | Purpose |
-|---|---|
-| `az resource show` | Show a resource's identity and ownership tags. |
-| `--ids` | Resource ID to inspect. |
-| `--query` | JMESPath expression selecting id, name, type, and tags. |
-
-**Validation**
-
-- Resources expose clear ownership metadata.
-- Runbooks identify the validation command set.
-- Change reviewers agree on rollback criteria.
-
-**Operator cue**: If ownership discovery takes longer than the change itself, governance is too implicit.
-
-**Trade-off**: Ownership overhead is a small price for predictable operations.
-
-### Practice 2: Validate from the data plane, not only from the portal
-
-**Why**: Azure networking issues are often obvious only when tested from a real client path.
-
-**Real-world scenario**: The portal shows healthy nsg and firewall configuration, but workloads still fail because the packet path or resolver path differs from assumptions.
-
-**How**
-
-- Test from representative subnets, not from an operator workstation only.
-- Capture CLI evidence such as effective routes, NSGs, or connection state.
-- Store validation artifacts with the change record.
-
-```bash
-az network watcher test-connectivity \
+az network nsg show \
     --resource-group $RG \
-    --source-resource $SOURCE_ID \
-    --dest-address $DESTINATION_FQDN \
-    --dest-port 443
-```
+    --name $NSG_NAME \
+    --query "{name:name,securityRules:securityRules[].{name:name,priority:priority,access:access,direction:direction,destinationPortRange:destinationPortRange}}"
 
-| Command | Purpose |
-|---|---|
-| `az network watcher test-connectivity` | Test connectivity from a source workload to a destination FQDN. |
-| `--resource-group` | Resource group that contains the source resource. |
-| `--source-resource` | Resource ID of the source workload. |
-| `--dest-address` | Destination FQDN to test connectivity to. |
-| `--dest-port` | Destination port to test connectivity to. |
-
-**Validation**
-
-- Tests run from a real source workload.
-- Evidence is retained with timestamps.
-- Operators can repeat the validation later.
-
-**Operator cue**: A healthy portal state does not guarantee data-plane success.
-
-**Trade-off**: More validation steps increase release discipline but reduce outage ambiguity.
-
-### Practice 3: Standardize patterns before scale multiplies drift
-
-**Why**: NSG and Firewall drift is manageable in one environment and painful in twenty.
-
-**Real-world scenario**: A project invents its own pattern for nsg and firewall, then another team copies it with minor changes. Over time no one can tell which variant is authoritative.
-
-**How**
-
-- Create reusable templates and naming rules.
-- Prefer shared policy objects where multiple environments need the same baseline.
-- Review exceptions quarterly and retire temporary patterns that became permanent.
-
-```bash
-az resource list \
+az network firewall policy show \
     --resource-group $RG \
-    --query "[].{name:name,type:type,location:location}" \
-    --output table
+    --name $FIREWALL_POLICY_NAME
 ```
 
 | Command | Purpose |
-|---|---|
-| `az resource list` | List resources in a resource group to audit pattern consistency. |
-| `--resource-group` | Resource group to list resources from. |
-| `--query` | JMESPath expression selecting name, type, and location. |
-| `--output` | Output format (table for readability). |
+| --- | --- |
+| `az network nsg show` | Show NSG rules and their priorities. |
+| `--resource-group` | Resource group that contains the NSG. |
+| `--name` | NSG to inspect. |
+| `--query` | JMESPath projection for the rules that explain traffic intent. |
+| `az network firewall policy show` | Show the firewall policy that governs shared inspection. |
+| `--resource-group` | Resource group that contains the firewall policy. |
+| `--name` | Firewall policy to inspect. |
 
-**Validation**
+### Write rule names for operator intent, not ticket history
 
-- Common resources follow the same naming pattern.
-- Exceptions are documented and time-bounded.
-- New teams can self-serve without inventing a new pattern.
+- Name rules so incident responders can understand them without opening a change record.
+- Keep priorities spaced enough that emergency inserts do not require complete re-numbering.
+- Record which platform dependencies must stay allowed, including health probes, DNS, identity, and management traffic.
 
-**Operator cue**: The number of exception documents is a good signal of architectural drift.
+### Validate stateful behavior and flow outcome after every change window
 
-**Trade-off**: Standardization reduces local autonomy but speeds safe delivery.
-
-### Practice 4: Design for failure and rollback
-
-**Why**: Healthy production networking assumes something will fail and makes recovery explicit.
-
-**Real-world scenario**: A maintenance change to nsg and firewall appears simple, but restoring the previous state during a failed cutover becomes slow because no rollback steps were prepared.
-
-**How**
-
-- Record current state before change.
-- Keep rollback commands as first-class documentation.
-- Test failure scenarios in lower environments using the same operational pattern.
+- Remember that NSGs and Azure Firewall are stateful. Existing flows may survive while new flows fail, which can hide bad changes.
+- Validate new sessions after rule changes instead of assuming established connections prove success.
+- Use effective-rule and flow-testing tools from the workload's perspective.
 
 ```bash
-az resource show \
-    --ids $RESOURCE_ID \
-    --output json
+az network nic list-effective-nsg \
+    --resource-group $RG \
+    --name $NIC_NAME
+
+az network watcher test-ip-flow \
+    --resource-group $RG \
+    --vm $VM_NAME \
+    --direction Outbound \
+    --protocol TCP \
+    --local 10.0.0.4:40000 \
+    --remote 198.51.100.10:443
 ```
 
 | Command | Purpose |
-|---|---|
-| `az resource show` | Capture the full known-good state of a resource before a change. |
-| `--ids` | Resource ID to inspect. |
-| `--output` | Output format (json to preserve the complete state). |
+| --- | --- |
+| `az network nic list-effective-nsg` | Show the effective NSG rules applied to a workload NIC. |
+| `--resource-group` | Resource group that contains the NIC. |
+| `--name` | NIC to inspect. |
+| `az network watcher test-ip-flow` | Evaluate whether Azure allows or denies a test flow and which rule applies. |
+| `--resource-group` | Resource group that contains the VM. |
+| `--vm` | Virtual machine used for the test flow. |
+| `--direction` | Traffic direction to evaluate. |
+| `--protocol` | Transport protocol to evaluate. |
+| `--local` | Local source IP and port for the simulated flow. |
+| `--remote` | Remote destination IP and port for the simulated flow. |
 
-**Validation**
+### Keep routing and filtering reviews together
 
-- Known-good state is captured.
-- Rollback commands are copy-paste ready.
-- Teams know the criteria for reversal.
+- Review route tables and firewall policy together whenever the subnet is expected to traverse a central inspection point.
+- Treat a missing UDR as just as serious as a missing deny rule because either can bypass policy.
+- Capture one evidence bundle that includes route intent, effective NSGs, and firewall outcome.
 
-**Operator cue**: If rollback requires improvisation, incident time will expand quickly.
+### Design layered controls around clear exceptions
 
-**Trade-off**: Rollback planning adds prep time but reduces blast radius.
-
-### Practice 5: Monitor the control points that matter
-
-**Why**: NSG and Firewall needs logs, metrics, and change history so incidents are evidence-based.
-
-**Real-world scenario**: Operators know something broke but lack metrics or logs near the nsg and firewall control point, so they blame the nearest visible service instead.
-
-**How**
-
-- Enable diagnostic settings on the resources that enforce or influence behavior.
-- Correlate activity log writes with workload symptoms.
-- Build lightweight dashboards or query packs for the top incident types.
-
-```bash
-az monitor diagnostic-settings list \
-    --resource $RESOURCE_ID
-```
-
-| Command | Purpose |
-|---|---|
-| `az monitor diagnostic-settings list` | List diagnostic settings on a resource to confirm logging is enabled. |
-| `--resource` | Resource ID to list diagnostic settings for. |
-
-**Validation**
-
-- Diagnostics exist before incident time.
-- Activity logs are searchable by resource and time window.
-- Query packs cover common failures.
-
-**Operator cue**: If every incident begins with enabling logs, observability arrived too late.
-
-**Trade-off**: Diagnostics cost money, but reactive blind spots cost more.
-
-### Practice 6: Tie architecture choices to cost decisions
-
-**Why**: NSG and Firewall designs often grow quietly expensive when every workload gets its own dedicated shared service equivalent.
-
-**Real-world scenario**: A single team duplicates hubs, firewalls, or policy objects per environment because it feels safer. Later, the cost profile is far higher than the risk justified.
-
-**How**
-
-- Estimate deployment, processing, and cross-network traffic costs for the selected pattern.
-- Use dedicated components only when compliance, isolation, or scale truly requires them.
-- Review whether simpler direct patterns meet the same requirement.
-
-```bash
-az consumption usage list \
-    --start-date 2026-04-01 \
-    --end-date 2026-04-30
-```
-
-| Command | Purpose |
-|---|---|
-| `az consumption usage list` | List consumption usage to tie architecture choices to cost. |
-| `--start-date` | Start of the usage reporting period. |
-| `--end-date` | End of the usage reporting period. |
-
-**Validation**
-
-- Cost review accompanies architecture review.
-- Shared services are intentionally centralized or intentionally isolated.
-- Teams can explain major networking spend drivers.
-
-**Operator cue**: If cost shows up only after go-live, architecture review missed an essential dimension.
-
-**Trade-off**: FinOps discipline may constrain design freedom but prevents expensive sprawl.
+- Allow health probes, DNS resolution, identity endpoints, and management dependencies explicitly when a service requires them.
+- Prefer a short list of approved exception patterns over ad hoc one-off rules.
+- Re-test after platform SKU or subnet changes because dependency paths often shift with topology changes.
 
 ## Common Mistakes / Anti-Patterns
 
-### Anti-Pattern 1: Leaving behavior implicit
-
-**What happens**: Teams cannot explain how nsg and firewall is supposed to work during an incident.
-
-**Why it is wrong**: Implicit design depends on tribal knowledge and fails under pressure.
-
-**Correct approach**: Document intent, ownership, and validation steps.
-
-```bash
-az resource show \
-    --ids $RESOURCE_ID
-```
-
-| Command | Purpose |
-|---|---|
-| `az resource show` | Show a resource to document its intent and configuration. |
-| `--ids` | Resource ID to inspect. |
-
-### Anti-Pattern 2: Treating temporary exceptions as permanent
-
-**What happens**: The estate contains old rules or routes that nobody wants to touch.
-
-**Why it is wrong**: Temporary emergency fixes become long-term risk and cost drivers.
-
-**Correct approach**: Add expiry dates and remove exceptions after stabilization.
-
-```bash
-az resource list \
-    --tag Environment=prod \
-    --output table
-```
-
-| Command | Purpose |
-|---|---|
-| `az resource list` | List resources by tag to find lingering exceptions. |
-| `--tag` | Tag filter (key=value) to match resources. |
-| `--output` | Output format (table for readability). |
-
-### Anti-Pattern 3: Skipping post-change verification
-
-**What happens**: Control-plane changes to nsg and firewall complete successfully but break application behavior.
-
-**Why it is wrong**: Provisioning success is not runtime success.
-
-**Correct approach**: Always validate from a representative client path.
-
-```bash
-az network watcher test-connectivity \
-    --resource-group $RG \
-    --source-resource $SOURCE_ID \
-    --dest-address $DESTINATION_IP \
-    --dest-port 443
-```
-
-| Command | Purpose |
-|---|---|
-| `az network watcher test-connectivity` | Validate a change from a representative client path. |
-| `--resource-group` | Resource group that contains the source resource. |
-| `--source-resource` | Resource ID of the source workload. |
-| `--dest-address` | Destination IP to test connectivity to. |
-| `--dest-port` | Destination port to test connectivity to. |
-
-### Anti-Pattern 4: Over-centralizing without service levels
-
-**What happens**: Shared networking services become bottlenecks or single points of operational delay.
-
-**Why it is wrong**: Centralization without staffing, observability, and runbooks creates governance friction.
-
-**Correct approach**: Define support models and failure ownership for shared services.
-
-```bash
-az resource show \
-    --ids $RESOURCE_ID \
-    --query tags
-```
-
-| Command | Purpose |
-|---|---|
-| `az resource show` | Show a shared service's tags to confirm support and ownership metadata. |
-| `--ids` | Resource ID to inspect. |
-| `--query` | JMESPath expression selecting tags. |
-
-## Performance Optimization Tips
-
-- Measure baseline latency before and after every architectural change so optimization is data driven.
-- Keep packet paths simple for critical applications and reduce unnecessary middleboxes where policy allows.
-- Use regional affinity and dedicated subnets or policies for high-throughput paths.
-- Test scaling behavior, not only steady-state connectivity.
-- Review DNS lookup time, TLS handshake time, and transport latency separately to avoid false diagnoses.
-
-## Security Considerations
-
-- Use RBAC and change control to protect shared networking resources.
-- Prefer private access patterns and least-privilege policy over broad temporary openings.
-- Alert on route, DNS, NSG, firewall, and gateway changes that affect production.
-- Separate management access from application access where practical.
-- Document exception owners and expiry dates.
-
-## Cost Optimization Strategies
-
-- Understand which architecture components charge for deployment hours, data processed, and diagnostic retention.
-- Centralize shared services where that reduces duplication without creating a dangerous bottleneck.
-- Tune diagnostic collection to preserve useful evidence without storing redundant data forever.
-- Retire stale policies, zones, and connections after decommissioning projects.
-- Review traffic patterns to avoid paying for unnecessary transit or inspection hops.
+- Copying the same allow rules into every NSG and every firewall collection until no one knows which layer matters.
+- Naming rules after tickets or initials instead of traffic purpose.
+- Assuming one successful session proves a new policy works for fresh connections.
+- Blocking probe or DNS traffic because it was mistaken for unused background traffic.
+- Sending traffic around the firewall with a route-table exception that was never reviewed by the security owner.
 
 ## Validation Checklist
 
-- [ ] The design has a documented owner.
-- [ ] CLI validation exists for the most critical control points.
-- [ ] The data plane behavior is tested from a representative workload.
-- [ ] DNS, routing, and security assumptions are explicitly documented.
-- [ ] Observability is enabled before production cutover.
-- [ ] Rollback steps exist for major changes.
-- [ ] Cost impact is reviewed during design approval.
-- [ ] Security exceptions have owners and expiry dates.
-- [ ] Runbooks link to the relevant troubleshooting playbooks.
-- [ ] The current architecture diagram reflects the deployed environment.
-
-## Design Review Questions
-
-- What will break first if this design has to scale by 3x within one quarter?
-- Which team owns the first-response investigation when this control fails?
-- Which dependency still relies on public resolution or public ingress?
-- How is the current state validated from a representative workload?
-- What telemetry proves the healthy baseline today?
-- What rollback step is fastest if the next change window goes badly?
-- Which security exception is still waiting for retirement?
-- What is the cost driver if this pattern is copied to ten more environments?
-- Which dependency crosses a trust boundary and therefore needs explicit monitoring?
-- Where could DNS and routing assumptions drift apart?
-- Which runbook would a new operator follow during a 2 a.m. outage?
-- Does the diagram still match deployed resources and names?
-- Which validations are automated and which still depend on manual checks?
-- What would an application team misunderstand about this design?
-- Which hidden dependency would appear only during failover or maintenance?
+- [ ] NSGs and Firewall Policy have distinct, non-duplicative responsibilities.
+- [ ] Rule names explain business or platform intent.
+- [ ] Effective NSG and flow-test evidence exists for representative workloads.
+- [ ] Route tables still send inspected traffic through the intended firewall path.
+- [ ] Required platform dependencies are explicitly allowed and documented.
 
 ## See Also
 
-- [Network Security Basics](../platform/network-security-basics.md)
-- [Configure Nsg](../operations/configure-nsg.md)
-- [Nsg Vs Udr Vs Firewall](../troubleshooting/playbooks/routing/nsg-vs-udr-vs-firewall.md)
-- [Load Balancing Options](../platform/load-balancing-options.md)
+- [Routing Best Practices](routing-best-practices.md)
+- [Observability Best Practices](observability-best-practices.md)
+- [Configure NSG](../operations/configure-nsg.md)
+- [Connectivity Failures](../troubleshooting/playbooks/connectivity-failures.md)
 
 ## Sources
 
-- [overview](https://learn.microsoft.com/en-us/azure/firewall/overview)
-- [network-security-groups-overview](https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview)
-- [policy-overview](https://learn.microsoft.com/en-us/azure/firewall-manager/policy-overview)
+- [Network security groups](https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview)
+- [Azure Firewall overview](https://learn.microsoft.com/en-us/azure/firewall/overview)
+- [Firewall Policy overview](https://learn.microsoft.com/en-us/azure/firewall-manager/policy-overview)

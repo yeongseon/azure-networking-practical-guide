@@ -105,9 +105,9 @@ This keeps the storage account simple while emphasizing the networking workflow.
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Verify that the client and private-endpoint subnets exist before you create any private link resources.
+- Capture the storage account name and VNet details because they are referenced in every later DNS and connectivity check.
+- If the initial network layout is wrong here, private DNS validation later will be noisy and misleading.
 
 ### Step 2: Create the client VM
 
@@ -141,9 +141,9 @@ Use a private-only client if you already have Bastion or another jump method. Ot
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Confirm that `vm-client02` is deployed into the client subnet and does not receive a public IP.
+- Save the VM resource ID because later connectivity tests should be run from the actual consumer workload, not from an operator shell.
+- If you need temporary access, document that deviation so private-only validation remains understandable.
 
 ### Step 3: Create the private endpoint and zone group
 
@@ -206,9 +206,9 @@ Bundling endpoint, zone, and zone group together avoids the most common private 
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Check that the private endpoint, the private DNS zone, and the zone group all finish provisioning before you test resolution.
+- Capture the private endpoint connection name and zone-link name because those are the first objects to inspect during failure drills.
+- Bundling these outputs now gives you the control-plane baseline for the DNS checks in the next step.
 
 ### Step 4: Inspect endpoint DNS configuration
 
@@ -238,9 +238,9 @@ These commands tell you which FQDNs should resolve privately and which records w
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Verify that the endpoint exposes the expected blob FQDN mapping and that the A record exists in the private zone.
+- Save the record data and NIC reference so you can prove whether later failures are DNS-related or path-related.
+- If the zone is empty here, stop and fix DNS wiring before running client connectivity tests.
 
 ### Step 5: Validate from the client network
 
@@ -273,9 +273,9 @@ A successful private resolution plus connectivity test proves the end-to-end pat
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Confirm that the client VM resolves the storage FQDN to the private IP and can reach port 443.
+- Save both the `test-connectivity` result and the in-guest `nslookup` output because together they prove end-to-end private consumption.
+- If one succeeds and the other fails, you already know whether to investigate DNS or routing and filtering first.
 
 ### Step 6: Practice a controlled failure and recovery
 
@@ -308,9 +308,9 @@ This gives you a safe way to reproduce a missing-zone-link scenario and then fix
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Use the deleted VNet link to reproduce the exact "endpoint looks healthy but resolution fails" scenario that operators see in production.
+- Capture the failed and restored lookup results so you can compare pre-fix and post-fix evidence in one incident note.
+- This step teaches rollback discipline: the DNS link is the change, and the client lookup is the proof.
 
 ## Validation Steps
 

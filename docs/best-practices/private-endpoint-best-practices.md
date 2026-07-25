@@ -4,414 +4,146 @@ content_sources:
     - id: why-this-matters
       type: flowchart
       source: mslearn-adapted
-      mslearn_url: https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview
       based_on:
+        - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview
         - https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
         - https://learn.microsoft.com/en-us/azure/storage/common/storage-private-endpoints
 content_validation:
-  status: pending_review
-  last_reviewed: '2026-07-25'
+  status: verified
+  last_reviewed: 2026-07-25
   reviewer: agent
   core_claims:
     - claim: A private endpoint assigns a private IP address from your virtual network to a specific Azure resource instance.
       source: https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview
-      verified: false
-    - claim: Private endpoint deployments depend on DNS so clients resolve the service name to the private endpoint address.
+      verified: true
+    - claim: Private endpoint deployments depend on DNS so that clients resolve the service name to the private endpoint address.
       source: https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns
-      verified: false
+      verified: true
 ---
 # Private Endpoint Best Practices
 
-Private Endpoint design succeeds when DNS, subnet placement, approval workflows, and egress expectations are handled together.
+Private Endpoint guidance must cover the whole consumer path: endpoint approval, subnet placement, private DNS, public-access interaction, and service-specific subresource expectations.
 
 ## Why This Matters
 
-Private connectivity is an end-to-end pattern, not just a resource deployment.
+Private Endpoint incidents often look deceptive. The private endpoint resource shows `Approved`, yet workloads still fail because the wrong clients resolve the private name, the public endpoint is still being used, or the service-specific subresource was never added.
 
-In Azure, networking changes often look correct in the control plane while failing in the data plane. That is why good practices must combine architecture, CLI validation, and operational ownership.
-
-Real-world incidents usually mix more than one factor: DNS, routes, NSGs, firewall policy, health probes, or hybrid dependencies. A strong practice guide makes those dependencies visible before the outage.
-
-Create private endpoints with matching DNS zone groups and approval workflows. Separate endpoint lifecycle from application runtime changes. Validate from every required client network, not only from the endpoint subnet.
+That means good practice is not just "deploy a private endpoint." It is to make split-horizon DNS, consumer-network validation, and service-specific caveats part of the design from the start.
 
 <!-- diagram-id: why-this-matters -->
 ```mermaid
 flowchart TD
-                Source[Client or Workload] --> Control[Private Control Point]
-                Control --> Shared[Shared Services
-DNS, Monitoring, Governance]
-                Shared --> Azure[Azure Network Fabric]
-                Azure --> Target[Private Service or Workload]
-                Shared --> Logs[Logs, Metrics, Activity]
-                Logs --> Ops[Operations Team]
+    Client[Client subnet] --> Resolver[DNS resolver path]
+    Resolver --> PrivateZone[Private DNS zone]
+    PrivateZone --> PrivateEndpoint[Private endpoint NIC]
+    PrivateEndpoint --> Resource[Azure PaaS resource instance]
+    Client --> PublicPath[Public endpoint path]
+    PublicPath --> Decision[Allowed or intentionally blocked]
 ```
-
-## Prerequisites
-
-- Azure CLI 2.60 or later installed locally or in Azure Cloud Shell.
-- Reader access to the current subscription and Contributor access in a lab subscription for hands-on changes.
-- A shared naming convention for VNets, subnets, DNS zones, route tables, gateways, and firewall policies.
-- A documented IP plan that includes Azure regions, on-premises ranges, partner networks, and future expansion.
-- Diagnostic settings enabled for key networking resources so validation is based on evidence instead of assumptions.
 
 ## Recommended Practices
 
-### Practice 1: Baseline private endpoint ownership and intent
+### Treat private DNS as part of the deployment, not as follow-up work
 
-**Why**: Private Endpoint changes are safer when the team can explain who owns them, what good looks like, and how to validate results.
-
-**Real-world scenario**: A production change affects private endpoint but no one knows whether the platform, security, or application team approves it. The delay becomes an outage multiplier.
-
-**How**
-
-- Tag shared resources with owner and environment.
-- Write pre-change validation and rollback steps before touching production.
-- Review design assumptions with application teams that depend on the path.
+- Create or reuse the correct private DNS zone and zone group in the same change window as the endpoint.
+- Validate which VNets, on-premises resolvers, and build agents must consume the private answer.
+- Keep a single owner for each private namespace so duplicate zones do not drift across subscriptions.
 
 ```bash
-az resource show \
-    --ids $RESOURCE_ID \
-    --query "{id:id,name:name,type:type,tags:tags}"
+az network private-endpoint show \
+    --resource-group $RG \
+    --name $PRIVATE_ENDPOINT_NAME \
+    --query "{customDnsConfigs:customDnsConfigs,networkInterfaces:networkInterfaces}"
+
+az network private-endpoint dns-zone-group list \
+    --resource-group $RG \
+    --endpoint-name $PRIVATE_ENDPOINT_NAME
 ```
 
 | Command | Purpose |
-|---|---|
-| `az resource show` | Show a resource's identity and ownership tags. |
-| `--ids` | Resource ID to inspect. |
-| `--query` | JMESPath expression selecting id, name, type, and tags. |
+| --- | --- |
+| `az network private-endpoint show` | Show the endpoint NIC and DNS metadata created with the private endpoint. |
+| `--resource-group` | Resource group that contains the private endpoint. |
+| `--name` | Private endpoint to inspect. |
+| `--query` | JMESPath projection for DNS config and NIC references. |
+| `az network private-endpoint dns-zone-group list` | List the DNS zone groups attached to the private endpoint. |
+| `--resource-group` | Resource group that contains the private endpoint. |
+| `--endpoint-name` | Private endpoint whose zone groups are inspected. |
 
-**Validation**
+### Design split-horizon behavior explicitly
 
-- Resources expose clear ownership metadata.
-- Runbooks identify the validation command set.
-- Change reviewers agree on rollback criteria.
+- Decide which networks must resolve the public name and which must resolve the private address.
+- Keep public access decisions aligned with client design; do not leave the public endpoint unintentionally reachable from unmanaged networks.
+- Document whether fallback to the public path is allowed, blocked, or used only during migration.
 
-**Operator cue**: If ownership discovery takes longer than the change itself, governance is too implicit.
+### Validate from every required consumer network
 
-**Trade-off**: Ownership overhead is a small price for predictable operations.
-
-### Practice 2: Validate from the data plane, not only from the portal
-
-**Why**: Azure networking issues are often obvious only when tested from a real client path.
-
-**Real-world scenario**: The portal shows healthy private endpoint configuration, but workloads still fail because the packet path or resolver path differs from assumptions.
-
-**How**
-
-- Test from representative subnets, not from an operator workstation only.
-- Capture CLI evidence such as effective routes, NSGs, or connection state.
-- Store validation artifacts with the change record.
+- Test from each VNet, on-premises segment, and automation environment that consumes the service.
+- Do not accept portal success as proof of runtime success; runtime success comes from DNS plus packet path together.
+- Keep one validation note per consumer group so outages can be scoped quickly later.
 
 ```bash
+az network private-dns link vnet list \
+    --resource-group $RG \
+    --zone-name $PRIVATE_DNS_ZONE_NAME \
+    --output table
+
 az network watcher test-connectivity \
     --resource-group $RG \
-    --source-resource $SOURCE_ID \
+    --source-resource $SOURCE_RESOURCE_ID \
     --dest-address $DESTINATION_FQDN \
     --dest-port 443
 ```
 
 | Command | Purpose |
-|---|---|
-| `az network watcher test-connectivity` | Test connectivity from a source workload to a destination FQDN. |
+| --- | --- |
+| `az network private-dns link vnet list` | List the VNet links for the private DNS zone. |
+| `--resource-group` | Resource group that contains the private DNS zone. |
+| `--zone-name` | Private DNS zone to inspect. |
+| `--output` | Output format for reviewing the links. |
+| `az network watcher test-connectivity` | Test end-to-end private reachability from a consuming workload. |
 | `--resource-group` | Resource group that contains the source resource. |
-| `--source-resource` | Resource ID of the source workload. |
-| `--dest-address` | Destination FQDN to test connectivity to. |
-| `--dest-port` | Destination port to test connectivity to. |
+| `--source-resource` | Resource ID of the consuming workload. |
+| `--dest-address` | Service FQDN that should resolve privately. |
+| `--dest-port` | Destination port to test. |
 
-**Validation**
+### Capture service-specific caveats before rollout
 
-- Tests run from a real source workload.
-- Evidence is retained with timestamps.
-- Operators can repeat the validation later.
+- Storage, SQL, Key Vault, and other Private Link-enabled services use different private DNS zones and subresources; verify the right one for each connection.
+- Separate endpoint lifecycle from application deployment lifecycle so endpoint approval and DNS stabilization do not surprise an application cutover.
+- Reserve subnet capacity for additional endpoints instead of treating endpoint IP growth as an afterthought.
 
-**Operator cue**: A healthy portal state does not guarantee data-plane success.
+### Keep deletion and rollback as first-class workflows
 
-**Trade-off**: More validation steps increase release discipline but reduce outage ambiguity.
-
-### Practice 3: Standardize patterns before scale multiplies drift
-
-**Why**: Private Endpoint drift is manageable in one environment and painful in twenty.
-
-**Real-world scenario**: A project invents its own pattern for private endpoint, then another team copies it with minor changes. Over time no one can tell which variant is authoritative.
-
-**How**
-
-- Create reusable templates and naming rules.
-- Prefer shared policy objects where multiple environments need the same baseline.
-- Review exceptions quarterly and retire temporary patterns that became permanent.
-
-```bash
-az resource list \
-    --resource-group $RG \
-    --query "[].{name:name,type:type,location:location}" \
-    --output table
-```
-
-| Command | Purpose |
-|---|---|
-| `az resource list` | List resources in a resource group to audit pattern consistency. |
-| `--resource-group` | Resource group to list resources from. |
-| `--query` | JMESPath expression selecting name, type, and location. |
-| `--output` | Output format (table for readability). |
-
-**Validation**
-
-- Common resources follow the same naming pattern.
-- Exceptions are documented and time-bounded.
-- New teams can self-serve without inventing a new pattern.
-
-**Operator cue**: The number of exception documents is a good signal of architectural drift.
-
-**Trade-off**: Standardization reduces local autonomy but speeds safe delivery.
-
-### Practice 4: Design for failure and rollback
-
-**Why**: Healthy production networking assumes something will fail and makes recovery explicit.
-
-**Real-world scenario**: A maintenance change to private endpoint appears simple, but restoring the previous state during a failed cutover becomes slow because no rollback steps were prepared.
-
-**How**
-
-- Record current state before change.
-- Keep rollback commands as first-class documentation.
-- Test failure scenarios in lower environments using the same operational pattern.
-
-```bash
-az resource show \
-    --ids $RESOURCE_ID \
-    --output json
-```
-
-| Command | Purpose |
-|---|---|
-| `az resource show` | Capture the full known-good state of a resource before a change. |
-| `--ids` | Resource ID to inspect. |
-| `--output` | Output format (json to preserve the complete state). |
-
-**Validation**
-
-- Known-good state is captured.
-- Rollback commands are copy-paste ready.
-- Teams know the criteria for reversal.
-
-**Operator cue**: If rollback requires improvisation, incident time will expand quickly.
-
-**Trade-off**: Rollback planning adds prep time but reduces blast radius.
-
-### Practice 5: Monitor the control points that matter
-
-**Why**: Private Endpoint needs logs, metrics, and change history so incidents are evidence-based.
-
-**Real-world scenario**: Operators know something broke but lack metrics or logs near the private endpoint control point, so they blame the nearest visible service instead.
-
-**How**
-
-- Enable diagnostic settings on the resources that enforce or influence behavior.
-- Correlate activity log writes with workload symptoms.
-- Build lightweight dashboards or query packs for the top incident types.
-
-```bash
-az monitor diagnostic-settings list \
-    --resource $RESOURCE_ID
-```
-
-| Command | Purpose |
-|---|---|
-| `az monitor diagnostic-settings list` | List diagnostic settings on a resource to confirm logging is enabled. |
-| `--resource` | Resource ID to list diagnostic settings for. |
-
-**Validation**
-
-- Diagnostics exist before incident time.
-- Activity logs are searchable by resource and time window.
-- Query packs cover common failures.
-
-**Operator cue**: If every incident begins with enabling logs, observability arrived too late.
-
-**Trade-off**: Diagnostics cost money, but reactive blind spots cost more.
-
-### Practice 6: Tie architecture choices to cost decisions
-
-**Why**: Private Endpoint designs often grow quietly expensive when every workload gets its own dedicated shared service equivalent.
-
-**Real-world scenario**: A single team duplicates hubs, firewalls, or policy objects per environment because it feels safer. Later, the cost profile is far higher than the risk justified.
-
-**How**
-
-- Estimate deployment, processing, and cross-network traffic costs for the selected pattern.
-- Use dedicated components only when compliance, isolation, or scale truly requires them.
-- Review whether simpler direct patterns meet the same requirement.
-
-```bash
-az consumption usage list \
-    --start-date 2026-04-01 \
-    --end-date 2026-04-30
-```
-
-| Command | Purpose |
-|---|---|
-| `az consumption usage list` | List consumption usage to tie architecture choices to cost. |
-| `--start-date` | Start of the usage reporting period. |
-| `--end-date` | End of the usage reporting period. |
-
-**Validation**
-
-- Cost review accompanies architecture review.
-- Shared services are intentionally centralized or intentionally isolated.
-- Teams can explain major networking spend drivers.
-
-**Operator cue**: If cost shows up only after go-live, architecture review missed an essential dimension.
-
-**Trade-off**: FinOps discipline may constrain design freedom but prevents expensive sprawl.
+- Record how to remove stale private endpoints, zone links, and approvals cleanly.
+- Make sure rollback notes say whether clients should return to the public endpoint or wait for private DNS repair.
+- Review old endpoints regularly so consumers do not resolve to abandoned private IPs.
 
 ## Common Mistakes / Anti-Patterns
 
-### Anti-Pattern 1: Leaving behavior implicit
-
-**What happens**: Teams cannot explain how private endpoint is supposed to work during an incident.
-
-**Why it is wrong**: Implicit design depends on tribal knowledge and fails under pressure.
-
-**Correct approach**: Document intent, ownership, and validation steps.
-
-```bash
-az resource show \
-    --ids $RESOURCE_ID
-```
-
-| Command | Purpose |
-|---|---|
-| `az resource show` | Show a resource to document its intent and configuration. |
-| `--ids` | Resource ID to inspect. |
-
-### Anti-Pattern 2: Treating temporary exceptions as permanent
-
-**What happens**: The estate contains old rules or routes that nobody wants to touch.
-
-**Why it is wrong**: Temporary emergency fixes become long-term risk and cost drivers.
-
-**Correct approach**: Add expiry dates and remove exceptions after stabilization.
-
-```bash
-az resource list \
-    --tag Environment=prod \
-    --output table
-```
-
-| Command | Purpose |
-|---|---|
-| `az resource list` | List resources by tag to find lingering exceptions. |
-| `--tag` | Tag filter (key=value) to match resources. |
-| `--output` | Output format (table for readability). |
-
-### Anti-Pattern 3: Skipping post-change verification
-
-**What happens**: Control-plane changes to private endpoint complete successfully but break application behavior.
-
-**Why it is wrong**: Provisioning success is not runtime success.
-
-**Correct approach**: Always validate from a representative client path.
-
-```bash
-az network watcher test-connectivity \
-    --resource-group $RG \
-    --source-resource $SOURCE_ID \
-    --dest-address $DESTINATION_IP \
-    --dest-port 443
-```
-
-| Command | Purpose |
-|---|---|
-| `az network watcher test-connectivity` | Validate a change from a representative client path. |
-| `--resource-group` | Resource group that contains the source resource. |
-| `--source-resource` | Resource ID of the source workload. |
-| `--dest-address` | Destination IP to test connectivity to. |
-| `--dest-port` | Destination port to test connectivity to. |
-
-### Anti-Pattern 4: Over-centralizing without service levels
-
-**What happens**: Shared networking services become bottlenecks or single points of operational delay.
-
-**Why it is wrong**: Centralization without staffing, observability, and runbooks creates governance friction.
-
-**Correct approach**: Define support models and failure ownership for shared services.
-
-```bash
-az resource show \
-    --ids $RESOURCE_ID \
-    --query tags
-```
-
-| Command | Purpose |
-|---|---|
-| `az resource show` | Show a shared service's tags to confirm support and ownership metadata. |
-| `--ids` | Resource ID to inspect. |
-| `--query` | JMESPath expression selecting tags. |
-
-## Performance Optimization Tips
-
-- Measure baseline latency before and after every architectural change so optimization is data driven.
-- Keep packet paths simple for critical applications and reduce unnecessary middleboxes where policy allows.
-- Use regional affinity and dedicated subnets or policies for high-throughput paths.
-- Test scaling behavior, not only steady-state connectivity.
-- Review DNS lookup time, TLS handshake time, and transport latency separately to avoid false diagnoses.
-
-## Security Considerations
-
-- Use RBAC and change control to protect shared networking resources.
-- Prefer private access patterns and least-privilege policy over broad temporary openings.
-- Alert on route, DNS, NSG, firewall, and gateway changes that affect production.
-- Separate management access from application access where practical.
-- Document exception owners and expiry dates.
-
-## Cost Optimization Strategies
-
-- Understand which architecture components charge for deployment hours, data processed, and diagnostic retention.
-- Centralize shared services where that reduces duplication without creating a dangerous bottleneck.
-- Tune diagnostic collection to preserve useful evidence without storing redundant data forever.
-- Retire stale policies, zones, and connections after decommissioning projects.
-- Review traffic patterns to avoid paying for unnecessary transit or inspection hops.
+- Creating the private endpoint first and leaving DNS to a later ticket.
+- Assuming one consumer VNet proving success means all consumer networks are wired correctly.
+- Leaving the public endpoint path undocumented during a private cutover.
+- Reusing the wrong subresource or private DNS zone for the target service.
+- Mixing private endpoint cleanup with unrelated application teardown so stale DNS and approvals remain.
 
 ## Validation Checklist
 
-- [ ] The design has a documented owner.
-- [ ] CLI validation exists for the most critical control points.
-- [ ] The data plane behavior is tested from a representative workload.
-- [ ] DNS, routing, and security assumptions are explicitly documented.
-- [ ] Observability is enabled before production cutover.
-- [ ] Rollback steps exist for major changes.
-- [ ] Cost impact is reviewed during design approval.
-- [ ] Security exceptions have owners and expiry dates.
-- [ ] Runbooks link to the relevant troubleshooting playbooks.
-- [ ] The current architecture diagram reflects the deployed environment.
-
-## Design Review Questions
-
-- What will break first if this design has to scale by 3x within one quarter?
-- Which team owns the first-response investigation when this control fails?
-- Which dependency still relies on public resolution or public ingress?
-- How is the current state validated from a representative workload?
-- What telemetry proves the healthy baseline today?
-- What rollback step is fastest if the next change window goes badly?
-- Which security exception is still waiting for retirement?
-- What is the cost driver if this pattern is copied to ten more environments?
-- Which dependency crosses a trust boundary and therefore needs explicit monitoring?
-- Where could DNS and routing assumptions drift apart?
-- Which runbook would a new operator follow during a 2 a.m. outage?
-- Does the diagram still match deployed resources and names?
-- Which validations are automated and which still depend on manual checks?
-- What would an application team misunderstand about this design?
-- Which hidden dependency would appear only during failover or maintenance?
+- [ ] Private endpoint, zone group, and required private DNS links are deployed together.
+- [ ] Public-path behavior is documented for every consumer group.
+- [ ] Validation covers all required consumer networks, not just the endpoint subnet.
+- [ ] Service-specific DNS zones and subresources are correct.
+- [ ] Rollback notes explain how clients recover if private resolution fails.
 
 ## See Also
 
-- [Private Connectivity Options](../platform/private-connectivity-options.md)
+- [Dns Best Practices](dns-best-practices.md)
+- [Subnet Design Best Practices](subnet-design-best-practices.md)
 - [Connect Private Endpoints](../operations/connect-private-endpoints.md)
-- [Cannot Reach Private Endpoint](../troubleshooting/playbooks/connectivity/cannot-reach-private-endpoint.md)
-- [Private Connectivity Options](../reference/private-connectivity-options.md)
+- [DNS Resolution Failures](../troubleshooting/playbooks/dns/dns-resolution-failures.md)
 
 ## Sources
 
-- [private-endpoint-overview](https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview)
-- [private-endpoint-dns](https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns)
-- [storage-private-endpoints](https://learn.microsoft.com/en-us/azure/storage/common/storage-private-endpoints)
+- [What is a private endpoint?](https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview)
+- [Azure Private Endpoint DNS configuration](https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-dns)
+- [Use private endpoints for Azure Storage](https://learn.microsoft.com/en-us/azure/storage/common/storage-private-endpoints)

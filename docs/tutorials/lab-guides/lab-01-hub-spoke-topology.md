@@ -43,7 +43,7 @@ flowchart TD
                 Admin[Operator VM] --> Hub[Hub VNet]
                 Hub --> Bastion[Bastion or Jump Subnet]
                 Hub --> Shared[Shared Services
-DNS and Firewall Placeholder]
+Azure DNS Private Resolver and Azure Firewall]
                 Hub --> SpokeA[Spoke A
 App subnet]
                 Hub --> SpokeB[Spoke B
@@ -103,9 +103,9 @@ Use non-overlapping prefixes and reserve space in the hub for future DNS, firewa
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Confirm that all three VNets exist with the planned, non-overlapping CIDR ranges before you add peering.
+- Record the hub address space now so later route checks can distinguish hub transit from spoke-local routing.
+- Save the `az network vnet create` output because it becomes the baseline for any later subnet or peering mismatch.
 
 ### Step 2: Add optional shared-services subnets in the hub
 
@@ -135,9 +135,9 @@ These subnets are placeholders for later labs and make the topology closer to a 
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Verify that the new hub subnets appear under `vnet-hub-lab01` and do not overlap `GatewaySubnet`.
+- Capture the subnet prefixes in your notes because later hub-service labs assume this reserved address space already exists.
+- If a subnet create command fails here, fix the hub plan now instead of debugging peering and route symptoms later.
 
 ### Step 3: Create bidirectional peerings
 
@@ -197,9 +197,9 @@ Keep notes about which side would use remote gateways in a real design. This lab
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Check that each peering reaches `Connected` state before you deploy test workloads.
+- Note which peerings allow forwarded traffic because that setting becomes important once a hub firewall or gateway is introduced.
+- Save the peering object names and settings so you can compare them against future hub-transit troubleshooting cases.
 
 ### Step 4: Deploy small test VMs or use existing test endpoints
 
@@ -244,9 +244,9 @@ Private-only VMs make validation closer to a production pattern.
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Verify that both VMs land in their intended spoke subnets with no public IPs.
+- Capture the private IP addresses now because the route and connectivity tests in the next steps depend on them.
+- If VM placement is wrong, fix the subnet assignment before blaming peering or route policy.
 
 ### Step 5: Inspect effective routes and verify cross-spoke reachability
 
@@ -282,9 +282,9 @@ The goal is to prove that peering plus correct routes equals a reachable path. I
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Confirm that the app NIC sees the data-spoke prefix in its effective route table.
+- Save both the route-table output and the connectivity test result so you have a known-good cross-spoke baseline.
+- If the path fails here, troubleshoot peering before adding any experimental route-table changes.
 
 ### Step 6: Introduce a route-table experiment
 
@@ -328,9 +328,9 @@ Although the route is not strictly needed here, the exercise teaches how to vali
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Re-run the effective-route check after associating `rt-app-lab01` so you can see exactly what changed.
+- Compare the experimental route with the pre-change baseline to understand when a UDR is redundant versus harmful.
+- Keep timestamps for the route-table association because later hub-and-firewall labs depend on the same evidence pattern.
 
 ## Validation Steps
 

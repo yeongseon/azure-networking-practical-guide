@@ -105,9 +105,9 @@ This layout mirrors the minimum production pattern of firewall plus workload sub
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Confirm that `AzureFirewallSubnet` exists with the expected prefix and that the workload subnet is separate.
+- Record the firewall public IP resource now because later diagnostics and provisioning checks depend on it.
+- Saving the initial VNet state gives you a clean baseline before forced tunneling is introduced.
 
 ### Step 2: Create the firewall and firewall policy
 
@@ -153,9 +153,9 @@ Wait for provisioning to finish before moving on. Firewall deployment can take s
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Wait for firewall provisioning to finish and record the policy and IP configuration objects that were created.
+- Capture deployment timestamps because Azure Firewall provisioning time can otherwise be mistaken for a policy failure.
+- If the firewall IP configuration is incomplete here, do not move on to UDR work yet.
 
 ### Step 3: Deploy a test VM and forced-tunnel route table
 
@@ -230,9 +230,9 @@ This is the critical forced-tunneling pattern to validate in later steps.
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Save the firewall private IP and the route-table association result because both are required to prove forced tunneling.
+- Re-check the workload subnet attachment before running any firewall-policy tests.
+- If the route-table association is wrong here, every later allow or deny result is untrustworthy.
 
 ### Step 4: Create allow and deny rule collections
 
@@ -294,9 +294,9 @@ Adjust the destination to a test target you control, or use an application-rule 
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Record which rule collection group, collection, and rule names you created so log entries are easy to interpret later.
+- Confirm that the destination and source ranges match your test plan before assuming the firewall should allow traffic.
+- These objects are the policy baseline for the allow and deny evidence you capture in the final steps.
 
 ### Step 5: Enable diagnostics and inspect evidence
 
@@ -327,9 +327,9 @@ The route check proves the workload really sends internet traffic to the firewal
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Verify that diagnostics are enabled and that the workload NIC now shows a VirtualAppliance route for internet-bound traffic.
+- Save the effective-route output because it proves whether traffic is actually traversing the firewall.
+- Without this evidence, a later connectivity failure could be misread as a firewall-rule issue instead of a routing issue.
 
 ### Step 6: Test an allow and a deny case
 
@@ -362,9 +362,9 @@ The goal is to see both routing evidence and firewall decision evidence in one w
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Capture the connectivity test result and the corresponding firewall log query in the same time window.
+- Compare the routing evidence from the previous step with the allow or deny decision here so you can pinpoint the failure layer.
+- A good lab outcome is not just "traffic worked" or "traffic failed" but a clear explanation of why the firewall made that decision.
 
 ## Validation Steps
 

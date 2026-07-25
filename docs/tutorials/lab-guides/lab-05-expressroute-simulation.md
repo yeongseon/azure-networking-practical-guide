@@ -95,9 +95,9 @@ Keep a separate shared subnet available for a test VM or route validation endpoi
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Verify that `GatewaySubnet` and the shared subnet exist before the long-running gateway deployment begins.
+- Record the hub address space because later route-learning outputs need to be interpreted against this baseline.
+- A clean hub layout now keeps later hybrid route analysis focused on routing, not on subnet mistakes.
 
 ### Step 2: Create public IP and VPN gateway
 
@@ -140,9 +140,9 @@ This takes time. Use the wait period to review the expected route-learning workf
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Save the gateway creation timestamps and public IP details because provisioning delay is normal and should not be confused with BGP problems.
+- Record the ASN and SKU you selected so later route-learning discussions stay grounded in the actual test design.
+- Use this waiting period to prepare the learned-route commands you will run as soon as the gateway is ready.
 
 ### Step 3: Create the simulated on-premises object
 
@@ -166,9 +166,9 @@ The local network gateway represents the remote network definition you would exp
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Capture the simulated on-premises prefixes because they define the expected hybrid route intent for the rest of the lab.
+- Keep the local network gateway output in your notes so you can compare configured prefixes with any learned-route evidence later.
+- If the prefixes are wrong here, every later route preference discussion becomes misleading.
 
 ### Step 4: Create the VPN connection shell
 
@@ -178,7 +178,7 @@ az network vpn-connection create \
     --name conn-sim05 \
     --vnet-gateway1 vpngw-lab05 \
     --local-gateway2 lng-sim05 \
-    --shared-key ContosoDemoKey123!
+    --shared-key <generate-strong-shared-key>
 ```
 
 | Command | Purpose |
@@ -190,13 +190,13 @@ az network vpn-connection create \
 | `--local-gateway2` | Local network gateway representing the remote side. |
 | `--shared-key` | Pre-shared key used to authenticate the tunnel. |
 
-This creates the Azure-side object even though a real remote device is not connected in the simulation.
+This creates the Azure-side object even though a real remote device is not connected in the simulation. Generate a unique pre-shared key for your test environment instead of reusing a literal string.
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Record the VPN connection object even though the remote side is simulated, because this is the Azure control-plane shell operators inspect first.
+- Save only the connection identity and connection state in your lab notes; never record the pre-shared key in documentation or screenshots.
+- This step separates Azure-side object readiness from real provider-backed circuit behavior.
 
 ### Step 5: Inspect learned and advertised route commands
 
@@ -225,9 +225,9 @@ The returned data may be empty without a live peer, but the point is to learn th
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Capture the learned-route and advertised-route command output even if the result set is empty.
+- Empty output is still useful evidence because it tells you the inspection path is correct and the missing piece is the live peer.
+- These commands become the exact hybrid-routing checklist you will reuse against a real circuit or VPN peer.
 
 ### Step 6: Add a route-table exercise for failover thinking
 
@@ -273,9 +273,9 @@ This step teaches how workload subnets can be directed toward gateway-managed pr
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Re-check the shared subnet after associating the route table so you can prove the virtual network gateway is now the intended next hop.
+- Capture the route-table output as evidence for how Azure workloads would target on-premises prefixes.
+- This is the closest lab approximation to the route-preference thinking used in ExpressRoute failover reviews.
 
 ### Step 7: Document backup-path questions you would ask in a real ExpressRoute design
 
@@ -306,9 +306,9 @@ Use this as a worksheet step: what routes should be preferred, how would VPN bac
 
 #### Why this step matters
 
-- It establishes an observable checkpoint for the lab before you continue.
-- It mirrors a real production activity that often appears in troubleshooting tickets.
-- Save command output and timestamps so you can compare expected versus actual behavior later.
+- Use the local-network-gateway and VPN-connection output as your evidence set for backup-path planning.
+- Write down which details are still missing without a real provider-backed circuit, such as actual BGP exchange and failover timing.
+- The value of this step is a precise gap analysis between simulation evidence and the proof required in production.
 
 ## Validation Steps
 
