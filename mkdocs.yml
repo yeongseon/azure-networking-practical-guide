@@ -177,6 +177,9 @@ nav:
         - NSG vs UDR vs Firewall: troubleshooting/playbooks/routing/nsg-vs-udr-vs-firewall.md
         - Peering and Routing Issues: troubleshooting/playbooks/routing/peering-and-routing-issues.md
         - Hybrid Connectivity Issues: troubleshooting/playbooks/routing/hybrid-connectivity-issues.md
+    - Labs:
+      - troubleshooting/lab-guides/index.md
+      - Private Endpoint DNS Link Failure: troubleshooting/lab-guides/private-endpoint-dns-link-failure.md
   - Reference:
     - reference/index.md
     - Validation Status: reference/validation-status.md
