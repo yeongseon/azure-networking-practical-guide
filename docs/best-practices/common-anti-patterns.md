@@ -59,7 +59,7 @@ DNS, Monitoring, Governance]
 
 **Why**: Common Anti-Patterns changes are safer when the team can explain who owns them, what good looks like, and how to validate results.
 
-**Real-world scenario**: A production change affects common anti-patterns but no one knows whether the platform, security, or application team approves it. The delay becomes an outage multiplier.
+**Real-world scenario**: A team widens an NSG rule to `0.0.0.0/0` on port 22 to unblock a stuck deployment, but no one records who owns the subnet or how to validate the change. When a security review later flags the open rule, no one can say whether the platform, security, or application team approved it, and the rollback stalls while ownership is reconstructed.
 
 **How**
 

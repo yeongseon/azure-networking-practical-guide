@@ -118,3 +118,9 @@ Some situations straddle two phases — the design choice you make while plannin
 - [Networking vs Connectivity](networking-vs-connectivity.md) — scope framing for the guide
 - [Decision Tree](../troubleshooting/decision-tree.md) — symptom-first troubleshooting router
 - [Evidence Map](../troubleshooting/evidence-map.md) — evidence-collection index
+
+## Sources
+
+- [Azure networking documentation](https://learn.microsoft.com/en-us/azure/networking/)
+- [Azure Virtual Network overview](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview)
+- [Troubleshoot Azure Virtual Network](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-troubleshoot-connectivity-problem-between-vms)

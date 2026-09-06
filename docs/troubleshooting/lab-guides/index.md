@@ -27,3 +27,8 @@ This repository is establishing the lab-guides surface now so future labs can fo
 - [First 10 Minutes](../first-10-minutes/index.md)
 - [DNS Resolution Failures](../playbooks/dns/dns-resolution-failures.md)
 - [Cannot Reach Private Endpoint](../playbooks/connectivity/cannot-reach-private-endpoint.md)
+
+## Sources
+
+- [Azure Virtual Network overview](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview)
+- [Troubleshoot Azure Virtual Network connectivity](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-troubleshoot-connectivity-problem-between-vms)
