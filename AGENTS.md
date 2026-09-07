@@ -281,7 +281,7 @@ https://learn.microsoft.com/<missing-locale>/azure/{service}/...
 
 The `<missing-locale>` placeholder marks the position where `/en-us/` must appear. A real locale-less URL would omit that segment entirely; the placeholder is used here only to keep this anti-pattern example unambiguous.
 
-This is a **convention, not an enforced gate**. No CI job rewrites or blocks locale-less `learn.microsoft.com` URLs. The only Learn-URL automation is `scripts/validate_mslearn_urls.py` (the `Validate MSLearn URLs` job), which checks URL *liveness* (HTTP 200 / redirect / 404) for URLs in `docs/**` frontmatter and `## Sources` sections; it does not inspect the locale segment, does not scan this file, and runs `continue-on-error: true` (advisory only). Keep the `en-us` prefix by hand.
+This is a **convention, not an enforced gate**. No CI job rewrites or blocks locale-less `learn.microsoft.com` URLs. The only Learn-URL *liveness* automation is `scripts/validate_mslearn_urls.py` (the `Validate MSLearn URLs` job), which checks URL reachability (HTTP 200 / redirect / 404) for URLs in `docs/**` frontmatter and `## Sources` sections; it does not inspect the locale segment, does not scan this file, and runs `continue-on-error: true` (advisory only). (`scripts/validate_content_sources.py` validates source *metadata* such as `mslearn_url` fields, but likewise does not enforce the locale segment.) Keep the `en-us` prefix by hand.
 
 Reason:
 
