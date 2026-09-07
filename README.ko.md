@@ -15,10 +15,10 @@ MS Learn 문서를 기반으로 Azure 네트워킹 연결 설계, 운영 및 트
 | 섹션 | 설명 | 상태 |
 |---------|-------------|--------|
 | [시작하기](https://yeongseon.github.io/azure-networking-practical-guide/start-here/) | 네트워킹 개요, 연결 프레이밍 및 일반적인 아키텍처 시나리오 | 종합적 |
-| [플랫폼](https://yeongseon.github.io/azure-networking-practical-guide/platform/) | 핵심 서비스: VNet, DNS, 라우팅, 부하 분산 및 프라이빗 연결 | 종합적 |
+| [플랫폼](https://yeongseon.github.io/azure-networking-practical-guide/platform/) | 핵심 서비스: VNet, DNS, 라우팅, 부하 분산 및 프라이빗 연결 | 게시됨 |
 | [베스트 프랙티스](https://yeongseon.github.io/azure-networking-practical-guide/best-practices/) | 서브네팅, NSG/Firewall 및 하이브리드 연결을 위한 프로덕션 준비 설계 | 종합적 |
 | [운영](https://yeongseon.github.io/azure-networking-practical-guide/operations/) | UDR, 프라이빗 엔드포인트, 피어링 및 패킷 캡처 구성을 위한 Day-2 가이드 | 종합적 |
-| [튜토리얼](https://yeongseon.github.io/azure-networking-practical-guide/tutorials/) | 허브-앤-스포크 토폴로지, 프라이빗 엔드포인트 및 WAF 구성을 위한 실습 | 종합적 |
+| [튜토리얼](https://yeongseon.github.io/azure-networking-practical-guide/tutorials/) | 허브-앤-스포크 토폴로지, 프라이빗 엔드포인트 및 WAF 구성을 위한 실습 | 게시됨 |
 | [트러블슈팅](https://yeongseon.github.io/azure-networking-practical-guide/troubleshooting/) | DNS 확인, VPN 게이트웨이 및 상태 프로브 실패를 위한 진단 플레이북 | 게시됨 |
 | [참조](https://yeongseon.github.io/azure-networking-practical-guide/reference/) | 연결 및 라우팅 치트 시트를 위한 빠른 조회 의사 결정 가이드 | 종합적 |
 

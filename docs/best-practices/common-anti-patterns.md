@@ -93,7 +93,7 @@ az resource show \
 
 **Why**: Azure networking issues are often obvious only when tested from a real client path.
 
-**Real-world scenario**: The portal shows healthy common anti-patterns configuration, but workloads still fail because the packet path or resolver path differs from assumptions.
+**Real-world scenario**: The portal shows a healthy NSG, route table, and endpoint configuration, but workloads still fail because the packet path or resolver path differs from assumptions.
 
 **How**
 

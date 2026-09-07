@@ -21,7 +21,7 @@ A concise resource for Azure networking fundamentals, design, and operations.
 | Section | Description | Key Focus |
 |---------|-------------|-----------|
 | [Start Here](start-here/index.md) | Fundamentals and mental models | Core concepts and navigation |
-| [Platform](platform/index.md) | Azure infrastructure components | VNets, subnets, and VNPs |
+| [Platform](platform/index.md) | Azure infrastructure components | VNets, subnets, and NSGs |
 | [Best Practices](best-practices/index.md) | Design and security standards | Governance and performance |
 | [Operations](operations/index.md) | Day-to-day management | Monitoring and configuration |
 | [Troubleshooting](troubleshooting/index.md) | Connectivity diagnostics | DNS, routing, and NSG issues |
