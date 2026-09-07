@@ -269,6 +269,21 @@ def generate_dashboard(
     return "\n".join(lines) + "\n"
 
 
+def normalize_generated_line(text: str) -> str:
+    """Blank out the volatile ``*Generated: <date>*`` line for drift comparison.
+
+    The dashboard stamps the current date, so a byte-for-byte freshness check
+    would fail every day even when the substantive content is unchanged. This
+    normalizes that single line so ``--check`` only fails on real content drift.
+
+    >>> normalize_generated_line("a\\n*Generated: 2026-04-12*\\nb")
+    'a\\n*Generated: <DATE>*\\nb'
+    >>> normalize_generated_line("no date here")
+    'no date here'
+    """
+    return re.sub(r"\*Generated: \d{4}-\d{2}-\d{2}\*", "*Generated: <DATE>*", text)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Generate content validation status dashboard"
@@ -278,6 +293,15 @@ def main() -> None:
         "--output",
         type=Path,
         default=Path("docs/reference/content-validation-status.md"),
+    )
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help=(
+            "Verify the committed dashboard is up to date instead of writing it. "
+            "Exits non-zero if regenerating would change the content "
+            "(ignoring the volatile Generated date line)."
+        ),
     )
     args = parser.parse_args()
 
@@ -300,10 +324,28 @@ def main() -> None:
         raise SystemExit(1)
 
     today = date.today()
+    new_content = generate_dashboard(documents, docs_dir, today)
+    if args.check:
+        if not output_path.exists():
+            print(
+                f"ERROR: dashboard {output_path} does not exist; run "
+                f"'python3 scripts/generate_content_validation_status.py'.",
+                file=sys.stderr,
+            )
+            raise SystemExit(1)
+        committed = output_path.read_text(encoding="utf-8")
+        if normalize_generated_line(committed) != normalize_generated_line(new_content):
+            print(
+                f"ERROR: {output_path} is stale. Regenerate with "
+                f"'python3 scripts/generate_content_validation_status.py' and commit the result.",
+                file=sys.stderr,
+            )
+            raise SystemExit(1)
+        print(f"{output_path} is up to date.")
+        return
+
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    output_path.write_text(
-        generate_dashboard(documents, docs_dir, today), encoding="utf-8"
-    )
+    output_path.write_text(new_content, encoding="utf-8")
     verified = sum(1 for d in documents if d["validation_status"] == "verified")
     print(
         f"Scanned {len(documents)} in-scope documents, {verified} verified, generated {output_path}"

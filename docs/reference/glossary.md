@@ -28,14 +28,14 @@ Definitions of core Azure networking terms for quick lookup.
 | NAT Gateway | Scalable outbound internet connectivity. |
 | Azure Firewall | Managed cloud-native network security. |
 | Load Balancer | Distributes TCP/UDP traffic at Layer 4. |
-| App Gateway | HTTP load balancer with WAF at Layer 7. |
+| Application Gateway | HTTP load balancer with WAF at Layer 7. |
 | Front Door | Global entry point for web applications. |
 | VPN Gateway | Encrypted cross-premises connectivity. |
 | ExpressRoute | Dedicated private connection to Azure. |
 | Private DNS | Resolution for domains within VNets. |
 | Network Watcher | Tools for diagnostic monitoring. |
 | Peering | Low-latency connection between VNets. |
-| Hub-Spoke | Central hub VNet connected to spokes. |
+| Hub-and-Spoke | Central hub VNet connected to spokes. |
 | SNAT | Source Network Address Translation. |
 | BGP | Protocol for dynamic route exchange. |
 | Route Table | Collection of routes applied to subnets. |
