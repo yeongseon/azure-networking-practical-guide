@@ -15,14 +15,14 @@
 | 章节 | 说明 | 状态 |
 |---------|-------------|--------|
 | [从这里开始](https://yeongseon.github.io/azure-networking-practical-guide/start-here/) | 网络概述、连接框架和常见的架构场景 | 全面 |
-| [平台](https://yeongseon.github.io/azure-networking-practical-guide/platform/) | 核心服务：VNet、DNS、路由、负载均衡和专用连接 | 全面 |
+| [平台](https://yeongseon.github.io/azure-networking-practical-guide/platform/) | 核心服务：VNet、DNS、路由、负载均衡和专用连接 | 已发布 |
 | [最佳实践](https://yeongseon.github.io/azure-networking-practical-guide/best-practices/) | 子网、NSG/防火墙和混合连接的面向量产的设计 | 全面 |
 | [运营](https://yeongseon.github.io/azure-networking-practical-guide/operations/) | 用于配置 UDR、专用终结点、对等互连和数据包捕获的 Day-2 指南 | 全面 |
-| [教程](https://yeongseon.github.io/azure-networking-practical-guide/tutorials/) | 用于中心辐射型拓扑、专用终结点和 WAF 配置的手操实验室 | 全面 |
+| [教程](https://yeongseon.github.io/azure-networking-practical-guide/tutorials/) | 用于中心辐射型拓扑、专用终结点和 WAF 配置的手操实验室 | 已发布 |
 | [故障排除](https://yeongseon.github.io/azure-networking-practical-guide/troubleshooting/) | 用于 DNS 解析、VPN 网关和运行状况探测失败的诊断手册 | 已发布 |
 | [参考](https://yeongseon.github.io/azure-networking-practical-guide/reference/) | 用于连接和路由速查表的快速查询决策指南 | 全面 |
 
-**状态说明**: **实验室验证** = 全面的内容 + 可重复的实验室验证了指南 · **全面** = 完整章节，经过 MSLearn 验证，面向量产 · **已发布** = 核心内容已就绪，仍在中扩展 · **进行中** = 部分内容，正在积极开发 · **计划中** = 占位符，内容尚未开始
+**状态说明**: **实验室验证** = 全面的内容 + 可重复的实验室验证了指南 · **全面** = 完整章节，经过 MSLearn 验证，面向量产 · **已发布** = 核心内容已就绪，仍在扩展 · **进行中** = 部分内容，正在积极开发 · **计划中** = 占位符，内容尚未开始
 
 ## 重点领域
 

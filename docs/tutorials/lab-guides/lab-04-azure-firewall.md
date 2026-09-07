@@ -305,7 +305,7 @@ az monitor diagnostic-settings create \
     --name send-fw-logs \
     --resource $(az network firewall show --resource-group $RG --name fw-lab04 --query id --output tsv) \
     --workspace $WORKSPACE_ID \
-    --logs "[{"category":"AzureFirewallNetworkRule","enabled":true},{"category":"AzureFirewallApplicationRule","enabled":true}]"
+    --logs '[{"category":"AzureFirewallNetworkRule","enabled":true},{"category":"AzureFirewallApplicationRule","enabled":true}]'
 
 az network nic show-effective-route-table \
     --resource-group $RG \
@@ -342,7 +342,7 @@ az network watcher test-connectivity \
 
 az monitor log-analytics query \
     --workspace $WORKSPACE_ID \
-    --analytics-query "AzureDiagnostics | where TimeGenerated > ago(30m) | where Category has "AzureFirewall" | project TimeGenerated, action_s, msg_s | order by TimeGenerated desc" \
+    --analytics-query 'AzureDiagnostics | where TimeGenerated > ago(30m) | where Category has "AzureFirewall" | project TimeGenerated, action_s, msg_s | order by TimeGenerated desc' \
     --timespan PT30M
 ```
 

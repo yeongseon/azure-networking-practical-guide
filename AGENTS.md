@@ -219,7 +219,7 @@ Every referenced image MUST have:
 Recommended explanation pattern:
 
 ```markdown
-![Container App overview showing a healthy revision](../assets/example.png)
+![Network Watcher connection troubleshoot showing a reachable target](../assets/example.png)
 
 Purpose: Confirm why this image exists.
 Look for: Tell the reader what values or states to confirm.
@@ -279,7 +279,9 @@ Avoid locale-less URLs (URLs missing the `/en-us/` segment immediately after the
 https://learn.microsoft.com/<missing-locale>/azure/{service}/...
 ```
 
-The `<missing-locale>` placeholder marks the position where `/en-us/` must appear. A real locale-less URL would omit that segment entirely; the placeholder is used here only so this anti-pattern example does not trip the `scripts/normalize_mslearn_locale.py` CI gate.
+The `<missing-locale>` placeholder marks the position where `/en-us/` must appear. A real locale-less URL would omit that segment entirely; the placeholder is used here only to keep this anti-pattern example unambiguous.
+
+This is a **convention, not an enforced gate**. No CI job rewrites or blocks locale-less `learn.microsoft.com` URLs. The only Learn-URL automation is `scripts/validate_mslearn_urls.py` (the `Validate MSLearn URLs` job), which checks URL *liveness* (HTTP 200 / redirect / 404) for URLs in `docs/**` frontmatter and `## Sources` sections; it does not inspect the locale segment, does not scan this file, and runs `continue-on-error: true` (advisory only). Keep the `en-us` prefix by hand.
 
 Reason:
 
@@ -420,7 +422,7 @@ az network vnet create -g $RG -n $VNET_NAME  # ❌ Don't do this
 
 ### CLI Explanation Table Rule (Quality Gate)
 
-Every `bash` code fence that contains an `az ...` command MUST be immediately followed by a `| Command | Purpose |` explanation table listing the base command plus every long flag used, one row each. This is enforced by `scripts/validate_cli_explanations.py` (wired into the `Validate CLI Explanation Tables` CI job).
+Every `bash` code fence that contains an `az ...` command MUST be immediately followed by a `| Command | Purpose |` explanation table listing the base command plus every long flag used, one row each. This is enforced by `scripts/validate_cli_explanations.py` (wired into the `Validate Azure CLI Explanation Tables` CI job in `.github/workflows/validate-content-sources.yml`).
 
 **MANDATORY: the explanation table MUST be terminated by a blank line** (or end-of-file). A table that directly abuts the following line — `Example output:`, a `` ``` `` code fence, or any prose — is a **rendering defect**, not a cosmetic one.
 

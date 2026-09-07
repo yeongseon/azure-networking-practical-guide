@@ -15,10 +15,10 @@ MS Learn ドキュメントに基づいた、Azure ネットワーク接続の�
 | セクション | 説明 | 状態 |
 |---------|-------------|--------|
 | [ここから開始](https://yeongseon.github.io/azure-networking-practical-guide/start-here/) | ネットワーク概要、接続フレーミング、および一般的なアーキテクチャシナリオ | 総合的 |
-| [プラットフォーム](https://yeongseon.github.io/azure-networking-practical-guide/platform/) | コアサービス: VNet、DNS、ルーティング、負荷分散、およびプライベート接続 | 総合的 |
-| [ベストプラクティス](https://yeongseon.github.io/azure-networking-practical-guide/best-practices/) | サブネット、NSG/Firewall、およびハイブリッド接続のための本番環境に対応した設計 | 総合적 |
+| [プラットフォーム](https://yeongseon.github.io/azure-networking-practical-guide/platform/) | コアサービス: VNet、DNS、ルーティング、負荷分散、およびプライベート接続 | 公開済み |
+| [ベストプラクティス](https://yeongseon.github.io/azure-networking-practical-guide/best-practices/) | サブネット、NSG/Firewall、およびハイブリッド接続のための本番環境に対応した設計 | 総合的 |
 | [運用](https://yeongseon.github.io/azure-networking-practical-guide/operations/) | UDR、プライベートエンドポイント、ピアリング、およびパケットキャプチャ構成のための Day-2 ガイド | 総合的 |
-| [チュートリアル](https://yeongseon.github.io/azure-networking-practical-guide/tutorials/) | ハブ・アンド-スポークトポロジ、プライベートエンドポイント、および WAF 構成のためのハンズオンラボ | 総合的 |
+| [チュートリアル](https://yeongseon.github.io/azure-networking-practical-guide/tutorials/) | ハブアンドスポークトポロジ、プライベートエンドポイント、および WAF 構成のためのハンズオンラボ | 公開済み |
 | [トラブルシューティング](https://yeongseon.github.io/azure-networking-practical-guide/troubleshooting/) | DNS 解決、VPN ゲートウェイ、および正常性プローブ失敗のための診断プレイブック | 公開済み |
 | [リファレンス](https://yeongseon.github.io/azure-networking-practical-guide/reference/) | 接続およびルーティングのチートシートのためのクイックルックアップ決定ガイド | 総合的 |
 

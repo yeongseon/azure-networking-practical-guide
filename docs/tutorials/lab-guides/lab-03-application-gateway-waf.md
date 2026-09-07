@@ -248,7 +248,7 @@ az monitor diagnostic-settings create \
     --name send-agw-logs \
     --resource $(az network application-gateway show --resource-group $RG --name agw-lab03 --query id --output tsv) \
     --workspace $WORKSPACE_ID \
-    --logs "[{"category":"ApplicationGatewayAccessLog","enabled":true},{"category":"ApplicationGatewayFirewallLog","enabled":true},{"category":"ApplicationGatewayPerformanceLog","enabled":true}]"
+    --logs '[{"category":"ApplicationGatewayAccessLog","enabled":true},{"category":"ApplicationGatewayFirewallLog","enabled":true},{"category":"ApplicationGatewayPerformanceLog","enabled":true}]'
 
 az monitor metrics list \
     --resource $(az network application-gateway show --resource-group $RG --name agw-lab03 --query id --output tsv) \
