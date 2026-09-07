@@ -55,9 +55,9 @@ DNS, Monitoring, Governance]
 
 ## Recommended Practices
 
-### Practice 1: Baseline common anti-patterns ownership and intent
+### Practice 1: Make subnet and rule ownership explicit before changing them
 
-**Why**: Common Anti-Patterns changes are safer when the team can explain who owns them, what good looks like, and how to validate results.
+**Why**: NSG, route table, and subnet changes are safer when the team can explain who owns each resource, what a correct configuration looks like, and how to validate the result.
 
 **Real-world scenario**: A team widens an NSG rule to `0.0.0.0/0` on port 22 to unblock a stuck deployment, but no one records who owns the subnet or how to validate the change. When a security review later flags the open rule, no one can say whether the platform, security, or application team approved it, and the rollback stalls while ownership is reconstructed.
 
@@ -129,9 +129,9 @@ az network watcher test-connectivity \
 
 ### Practice 3: Standardize patterns before scale multiplies drift
 
-**Why**: Common Anti-Patterns drift is manageable in one environment and painful in twenty.
+**Why**: VNet, subnet, NSG, and routing configuration drift is manageable in one environment and painful in twenty.
 
-**Real-world scenario**: A project invents its own pattern for common anti-patterns, then another team copies it with minor changes. Over time no one can tell which variant is authoritative.
+**Real-world scenario**: A project invents its own VNet naming, subnet sizing, and NSG rule scheme, then another team copies it with minor changes. Over time no one can tell which segmentation variant is authoritative.
 
 **How**
 
@@ -167,7 +167,7 @@ az resource list \
 
 **Why**: Healthy production networking assumes something will fail and makes recovery explicit.
 
-**Real-world scenario**: A maintenance change to common anti-patterns appears simple, but restoring the previous state during a failed cutover becomes slow because no rollback steps were prepared.
+**Real-world scenario**: A maintenance change to a route table or firewall rule appears simple, but restoring the previous state during a failed cutover becomes slow because no rollback steps were prepared.
 
 **How**
 
@@ -199,9 +199,9 @@ az resource show \
 
 ### Practice 5: Monitor the control points that matter
 
-**Why**: Common Anti-Patterns needs logs, metrics, and change history so incidents are evidence-based.
+**Why**: Networking control points such as NSGs, route tables, firewalls, and private DNS zones need logs, metrics, and change history so incidents are evidence-based.
 
-**Real-world scenario**: Operators know something broke but lack metrics or logs near the common anti-patterns control point, so they blame the nearest visible service instead.
+**Real-world scenario**: Operators know something broke but lack metrics or logs near the NSG, route table, or firewall control point, so they blame the nearest visible service instead.
 
 **How**
 
@@ -231,7 +231,7 @@ az monitor diagnostic-settings list \
 
 ### Practice 6: Tie architecture choices to cost decisions
 
-**Why**: Common Anti-Patterns designs often grow quietly expensive when every workload gets its own dedicated shared service equivalent.
+**Why**: Hub-and-spoke and shared-service networking designs often grow quietly expensive when every workload gets its own dedicated firewall, gateway, or DNS resolver.
 
 **Real-world scenario**: A single team duplicates hubs, firewalls, or policy objects per environment because it feels safer. Later, the cost profile is far higher than the risk justified.
 
@@ -267,7 +267,7 @@ az consumption usage list \
 
 ### Anti-Pattern 1: Leaving behavior implicit
 
-**What happens**: Teams cannot explain how common anti-patterns is supposed to work during an incident.
+**What happens**: Teams cannot explain how the subnet, NSG, and routing design is supposed to work during an incident.
 
 **Why it is wrong**: Implicit design depends on tribal knowledge and fails under pressure.
 
@@ -305,7 +305,7 @@ az resource list \
 
 ### Anti-Pattern 3: Skipping post-change verification
 
-**What happens**: Control-plane changes to common anti-patterns complete successfully but break application behavior.
+**What happens**: Control-plane changes to NSGs, routes, or firewall policy complete successfully but break application behavior.
 
 **Why it is wrong**: Provisioning success is not runtime success.
 

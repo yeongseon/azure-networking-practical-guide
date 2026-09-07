@@ -44,7 +44,7 @@ graph TD
 
 ## See Also
 
-- [Private Connectivity Options](../platform/private-connectivity-options.md)
+- [Private Connectivity Options](../platform/private-connectivity-options.md) — full conceptual explainer; use this reference page for the at-a-glance comparison
 - [Private Endpoint Best Practices](../best-practices/private-endpoint-best-practices.md)
 - [Connect Private Endpoints](../operations/connect-private-endpoints.md)
 

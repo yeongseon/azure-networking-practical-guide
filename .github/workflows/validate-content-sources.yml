@@ -69,9 +69,24 @@ jobs:
         run: |
           python scripts/normalize_yaml_frontmatter.py --check
 
-      - name: Generate content validation status dashboard
+      - name: Run doctests for dashboard generators
         run: |
-          python scripts/generate_content_validation_status.py
+          python -m doctest scripts/generate_content_validation_status.py -v
+          python -m doctest scripts/generate_validation_status.py -v
+
+      - name: Check content validation status dashboard is fresh
+        run: |
+          if ! python scripts/generate_content_validation_status.py --check; then
+            echo "::error::content-validation-status.md is stale. Run 'python scripts/generate_content_validation_status.py' and commit the result."
+            exit 1
+          fi
+
+      - name: Check tutorial validation status dashboard is fresh
+        run: |
+          if ! python scripts/generate_validation_status.py --check --docs-dir docs --output docs/reference/validation-status.md; then
+            echo "::error::validation-status.md is stale. Run 'python scripts/generate_validation_status.py' and commit the result."
+            exit 1
+          fi
       
       - name: Check for missing diagram IDs
         run: |

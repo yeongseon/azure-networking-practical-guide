@@ -48,9 +48,9 @@ flowchart LR
 | I'm deciding whether this guide covers my connectivity problem | [Networking vs Connectivity](networking-vs-connectivity.md) — scope framing |
 | I'm designing VNet address space and subnet layout | [VNet and Subnet Basics](../platform/vnet-and-subnet-basics.md) — CIDR, sizing, and reservation |
 | I'm planning IP addressing across VNets and regions | [IP Addressing](../platform/ip-addressing.md) — public, private, and BYOIP options |
-| I'm choosing between load balancer, App Gateway, and Front Door | [Load Balancing Options](../platform/load-balancing-options.md) — L4 vs L7, regional vs global |
+| I'm choosing between load balancer, Application Gateway, and Front Door | [Load Balancing Options](../platform/load-balancing-options.md) — L4 vs L7, regional vs global |
 | I'm evaluating Private Link, Private Endpoint, and Service Endpoints | [Private Connectivity Options](../platform/private-connectivity-options.md) — private-plane connectivity choices |
-| I'm designing the network baseline for a new landing zone | [Network Design Baseline](../best-practices/network-design-baseline.md) — hub-spoke, segmentation, and identity |
+| I'm designing the network baseline for a new landing zone | [Network Design Baseline](../best-practices/network-design-baseline.md) — hub-and-spoke, segmentation, and identity |
 | I want to plan network cost before I deploy | [Cost Awareness](../best-practices/cost-awareness-best-practices.md) — egress, gateways, and PE ingestion cost |
 
 ## I'm Deploying

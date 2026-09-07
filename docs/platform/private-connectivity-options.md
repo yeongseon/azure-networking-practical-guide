@@ -55,7 +55,7 @@ graph TD
 
 - [Private Endpoint Best Practices](../best-practices/private-endpoint-best-practices.md)
 - [Connect Private Endpoints](../operations/connect-private-endpoints.md)
-- [Private Connectivity Options Reference](../reference/private-connectivity-options.md)
+- [Private Connectivity Options Reference](../reference/private-connectivity-options.md) — condensed decision table for quick lookup; this page is the conceptual deep dive
 
 ## Sources
 

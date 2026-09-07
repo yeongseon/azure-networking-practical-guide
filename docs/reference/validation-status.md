@@ -4,7 +4,7 @@ This page tracks which lab guides have been validated against real Azure deploym
 
 ## Summary
 
-*Generated: 2026-07-25*
+*Generated: 2026-09-07*
 
 | Metric | Count |
 |---|---:|
