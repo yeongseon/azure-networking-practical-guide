@@ -106,38 +106,49 @@ nav:
     - Networking vs Connectivity: start-here/networking-vs-connectivity.md
   - Platform:
     - platform/index.md
-    - How Azure Networking Works: platform/how-azure-networking-works.md
-    - VNet and Subnet Basics: platform/vnet-and-subnet-basics.md
-    - IP Addressing: platform/ip-addressing.md
-    - DNS Basics: platform/dns-basics.md
-    - Routing Basics: platform/routing-basics.md
+    - Fundamentals:
+      - How Azure Networking Works: platform/how-azure-networking-works.md
+      - VNet and Subnet Basics: platform/vnet-and-subnet-basics.md
+      - IP Addressing: platform/ip-addressing.md
+    - Traffic Control:
+      - DNS Basics: platform/dns-basics.md
+      - Routing Basics: platform/routing-basics.md
     - Network Security Basics: platform/network-security-basics.md
-    - Load Balancing Options: platform/load-balancing-options.md
-    - Private Connectivity Options: platform/private-connectivity-options.md
-    - Hybrid Connectivity Basics: platform/hybrid-connectivity-basics.md
+    - Connectivity:
+      - Load Balancing Options: platform/load-balancing-options.md
+      - Private Connectivity Options: platform/private-connectivity-options.md
+      - Hybrid Connectivity Basics: platform/hybrid-connectivity-basics.md
   - Best Practices:
     - best-practices/index.md
-    - Network Design Baseline: best-practices/network-design-baseline.md
-    - Subnet Design: best-practices/subnet-design-best-practices.md
-    - DNS: best-practices/dns-best-practices.md
-    - Routing: best-practices/routing-best-practices.md
-    - NSG and Firewall: best-practices/nsg-and-firewall-best-practices.md
-    - Private Endpoint: best-practices/private-endpoint-best-practices.md
+    - Design:
+      - Network Design Baseline: best-practices/network-design-baseline.md
+      - Subnet Design: best-practices/subnet-design-best-practices.md
+    - Traffic:
+      - DNS: best-practices/dns-best-practices.md
+      - Routing: best-practices/routing-best-practices.md
+    - Security:
+      - NSG and Firewall: best-practices/nsg-and-firewall-best-practices.md
+      - Private Endpoint: best-practices/private-endpoint-best-practices.md
     - Hybrid Connectivity: best-practices/hybrid-connectivity-best-practices.md
-    - Observability: best-practices/observability-best-practices.md
-    - Cost Awareness: best-practices/cost-awareness-best-practices.md
+    - Operational Qualities:
+      - Observability: best-practices/observability-best-practices.md
+      - Cost Awareness: best-practices/cost-awareness-best-practices.md
     - Common Anti-Patterns: best-practices/common-anti-patterns.md
   - Operations:
     - operations/index.md
-    - Create VNet and Subnets: operations/create-vnet-and-subnets.md
-    - Configure NSG: operations/configure-nsg.md
-    - Configure DNS: operations/configure-dns.md
-    - Configure UDR: operations/configure-udr.md
-    - Connect Private Endpoints: operations/connect-private-endpoints.md
-    - Peering Basics: operations/peering-basics.md
-    - VPN and ExpressRoute Basics: operations/vpn-and-expressroute-basics.md
-    - Monitor Network Paths: operations/monitor-network-paths.md
-    - Packet Capture and Diagnostics: operations/packet-capture-and-diagnostics.md
+    - Provision:
+      - Create VNet and Subnets: operations/create-vnet-and-subnets.md
+      - Peering Basics: operations/peering-basics.md
+    - Traffic Configuration:
+      - Configure NSG: operations/configure-nsg.md
+      - Configure DNS: operations/configure-dns.md
+      - Configure UDR: operations/configure-udr.md
+    - Connect:
+      - Connect Private Endpoints: operations/connect-private-endpoints.md
+      - VPN and ExpressRoute Basics: operations/vpn-and-expressroute-basics.md
+    - Diagnose:
+      - Monitor Network Paths: operations/monitor-network-paths.md
+      - Packet Capture and Diagnostics: operations/packet-capture-and-diagnostics.md
   - Tutorials:
     - tutorials/index.md
     - Lab Guides:
@@ -149,11 +160,13 @@ nav:
       - "Lab 05: ExpressRoute Simulation": tutorials/lab-guides/lab-05-expressroute-simulation.md
   - Troubleshooting:
     - troubleshooting/index.md
-    - Architecture Overview: troubleshooting/architecture-overview.md
-    - Decision Tree: troubleshooting/decision-tree.md
-    - Evidence Map: troubleshooting/evidence-map.md
-    - Mental Model: troubleshooting/mental-model.md
-    - Quick Diagnosis Cards: troubleshooting/quick-diagnosis-cards.md
+    - Orientation:
+      - Architecture Overview: troubleshooting/architecture-overview.md
+      - Mental Model: troubleshooting/mental-model.md
+    - Diagnosis:
+      - Quick Diagnosis Cards: troubleshooting/quick-diagnosis-cards.md
+      - Decision Tree: troubleshooting/decision-tree.md
+      - Evidence Map: troubleshooting/evidence-map.md
     - First 10 Minutes:
       - troubleshooting/first-10-minutes/index.md
       - Connectivity: troubleshooting/first-10-minutes/connectivity.md
@@ -182,17 +195,19 @@ nav:
       - Private Endpoint DNS Link Failure: troubleshooting/lab-guides/private-endpoint-dns-link-failure.md
   - Reference:
     - reference/index.md
-    - Validation Status: reference/validation-status.md
-    - Content Validation: reference/content-validation-status.md
-    - Connectivity Decision Guide: reference/connectivity-decision-guide.md
-    - Azure Networking Components: reference/azure-networking-components.md
-    - DNS Resolution Cheatsheet: reference/dns-resolution-cheatsheet.md
-    - Routing Cheatsheet: reference/routing-cheatsheet.md
-    - Private Connectivity Options: reference/private-connectivity-options.md
+    - Validation Dashboards:
+      - Content Validation: reference/content-validation-status.md
+      - Validation Status: reference/validation-status.md
+    - Decision Guides:
+      - Connectivity Decision Guide: reference/connectivity-decision-guide.md
+      - Private Connectivity Options: reference/private-connectivity-options.md
+    - Components and Cheatsheets:
+      - Azure Networking Components: reference/azure-networking-components.md
+      - DNS Resolution Cheatsheet: reference/dns-resolution-cheatsheet.md
+      - Routing Cheatsheet: reference/routing-cheatsheet.md
     - Glossary: reference/glossary.md
   - Contributing:
     - contributing/index.md
-
 extra:
   social:
     - icon: fontawesome/brands/github
