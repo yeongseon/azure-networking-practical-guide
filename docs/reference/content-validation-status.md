@@ -11,7 +11,7 @@ This page tracks `content_validation` metadata for **in-scope factual-claim docu
 
 ## Summary
 
-*Generated: 2026-09-07*
+*Generated: 2026-09-10*
 
 | Content Type | Total | Verified | Pending | Unverified | No Metadata |
 |---|---:|---:|---:|---:|---:|
@@ -112,7 +112,7 @@ For an in-scope page, add a `content_validation` block to its frontmatter:
 ---
 content_validation:
   status: verified
-  last_reviewed: 2026-09-07
+  last_reviewed: 2026-09-10
   reviewer: agent
   core_claims:
     - claim: "Azure Virtual Network supports isolated private IP address spaces for Azure resources."
